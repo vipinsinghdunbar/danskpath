@@ -1,0 +1,2826 @@
+
+===== TOPIC v2 — Ordstilling: V2 og inversion [ORD] =====
+RULE: In English you already say Never have I seen anything like it: put something in front, and the verb jumps ahead of the subject. English keeps that for a few emphatic openers. Danish does it every single time. Whatever comes first — a time, a place, derfor, a whole clause — the finite verb is element number two and the subject slides to third.
+
+1. [C] Hvilken sætning er rigtig?
+     options: I morgen jeg skal på arbejde. | I morgen skal jeg på arbejde.
+     CORRECT: I morgen skal jeg på arbejde.
+     why: I morgen is the first element, so the verb skal must come second and jeg moves to third. The other order is the English habit.
+2. [W] Byg sætningen: på arbejde / jeg / skal / i morgen (start med “I morgen”)
+     CORRECT: I morgen skal jeg på arbejde
+     why: I morgen skal jeg på arbejde. I morgen first, then the verb, then the subject.
+3. [C] Hvilken sætning er rigtig?
+     options: Om sommeren tager vi til Norge. | Om sommeren vi tager til Norge.
+     CORRECT: Om sommeren tager vi til Norge.
+     why: Om sommeren is the first element, so the verb tager must come second and vi moves to third. The other order is the English habit.
+4. [W] Byg sætningen: til Norge / vi / tager / om sommeren (start med “Om sommeren”)
+     CORRECT: Om sommeren tager vi til Norge
+     why: Om sommeren tager vi til Norge. Om sommeren first, then the verb, then the subject.
+5. [C] Hvilken sætning er rigtig?
+     options: Hver dag hun cykler til skole. | Hver dag cykler hun til skole.
+     CORRECT: Hver dag cykler hun til skole.
+     why: Hver dag is the first element, so the verb cykler must come second and hun moves to third. The other order is the English habit.
+6. [W] Byg sætningen: hver dag / cykler / til skole / hun (start med “Hver dag”)
+     CORRECT: Hver dag cykler hun til skole
+     why: Hver dag cykler hun til skole. Hver dag first, then the verb, then the subject.
+7. [C] Hvilken sætning er rigtig?
+     options: Klokken otte toget kører fra Aarhus. | Klokken otte kører toget fra Aarhus.
+     CORRECT: Klokken otte kører toget fra Aarhus.
+     why: Klokken otte is the first element, so the verb kører must come second and toget moves to third. The other order is the English habit.
+8. [W] Byg sætningen: toget / klokken otte / kører / fra Aarhus (start med “Klokken otte”)
+     CORRECT: Klokken otte kører toget fra Aarhus
+     why: Klokken otte kører toget fra Aarhus. Klokken otte first, then the verb, then the subject.
+9. [C] Hvilken sætning er rigtig?
+     options: I går han var hjemme. | I går var han hjemme.
+     CORRECT: I går var han hjemme.
+     why: I går is the first element, so the verb var must come second and han moves to third. The other order is the English habit.
+10. [W] Byg sætningen: i går / han / var / hjemme (start med “I går”)
+     CORRECT: I går var han hjemme
+     why: I går var han hjemme. I går first, then the verb, then the subject.
+11. [C] Hvilken sætning er rigtig?
+     options: Om vinteren det bliver mørkt klokken fire. | Om vinteren bliver det mørkt klokken fire.
+     CORRECT: Om vinteren bliver det mørkt klokken fire.
+     why: Om vinteren is the first element, so the verb bliver must come second and det moves to third. The other order is the English habit.
+12. [W] Byg sætningen: bliver / det / mørkt klokken fire / om vinteren (start med “Om vinteren”)
+     CORRECT: Om vinteren bliver det mørkt klokken fire
+     why: Om vinteren bliver det mørkt klokken fire. Om vinteren first, then the verb, then the subject.
+13. [C] Hvilken sætning er rigtig?
+     options: Næste uge starter min kollega i et nyt job. | Næste uge min kollega starter i et nyt job.
+     CORRECT: Næste uge starter min kollega i et nyt job.
+     why: Næste uge is the first element, so the verb starter must come second and min kollega moves to third. The other order is the English habit.
+14. [W] Byg sætningen: i et nyt job / min kollega / næste uge / starter (start med “Næste uge”)
+     CORRECT: Næste uge starter min kollega i et nyt job
+     why: Næste uge starter min kollega i et nyt job. Næste uge first, then the verb, then the subject.
+15. [C] Hvilken sætning er rigtig?
+     options: Derfor jeg ringer til lægen. | Derfor ringer jeg til lægen.
+     CORRECT: Derfor ringer jeg til lægen.
+     why: Derfor is the first element, so the verb ringer must come second and jeg moves to third. The other order is the English habit.
+16. [W] Byg sætningen: til lægen / derfor / jeg / ringer (start med “Derfor”)
+     CORRECT: Derfor ringer jeg til lægen
+     why: Derfor ringer jeg til lægen. Derfor first, then the verb, then the subject.
+17. [C] Hvilken sætning er rigtig?
+     options: Heldigvis bussen kom til tiden. | Heldigvis kom bussen til tiden.
+     CORRECT: Heldigvis kom bussen til tiden.
+     why: Heldigvis is the first element, so the verb kom must come second and bussen moves to third. The other order is the English habit.
+18. [W] Byg sætningen: bussen / til tiden / kom / heldigvis (start med “Heldigvis”)
+     CORRECT: Heldigvis kom bussen til tiden
+     why: Heldigvis kom bussen til tiden. Heldigvis first, then the verb, then the subject.
+19. [C] Hvilken sætning er rigtig?
+     options: Bagefter vi drikker kaffe. | Bagefter drikker vi kaffe.
+     CORRECT: Bagefter drikker vi kaffe.
+     why: Bagefter is the first element, so the verb drikker must come second and vi moves to third. The other order is the English habit.
+20. [W] Byg sætningen: bagefter / drikker / kaffe / vi (start med “Bagefter”)
+     CORRECT: Bagefter drikker vi kaffe
+     why: Bagefter drikker vi kaffe. Bagefter first, then the verb, then the subject.
+21. [C] Hvilken sætning er rigtig?
+     options: I weekenden børnene spiller fodbold. | I weekenden spiller børnene fodbold.
+     CORRECT: I weekenden spiller børnene fodbold.
+     why: I weekenden is the first element, so the verb spiller must come second and børnene moves to third. The other order is the English habit.
+22. [W] Byg sætningen: spiller / fodbold / i weekenden / børnene (start med “I weekenden”)
+     CORRECT: I weekenden spiller børnene fodbold
+     why: I weekenden spiller børnene fodbold. I weekenden first, then the verb, then the subject.
+23. [C] Hvilken sætning er rigtig?
+     options: Om aftenen min nabo lytter til radio. | Om aftenen lytter min nabo til radio.
+     CORRECT: Om aftenen lytter min nabo til radio.
+     why: Om aftenen is the first element, so the verb lytter must come second and min nabo moves to third. The other order is the English habit.
+24. [W] Byg sætningen: min nabo / lytter / til radio / om aftenen (start med “Om aftenen”)
+     CORRECT: Om aftenen lytter min nabo til radio
+     why: Om aftenen lytter min nabo til radio. Om aftenen first, then the verb, then the subject.
+25. [C] Hvilken sætning er rigtig?
+     options: Nu forstår jeg spørgsmålet. | Nu jeg forstår spørgsmålet.
+     CORRECT: Nu forstår jeg spørgsmålet.
+     why: Nu is the first element, so the verb forstår must come second and jeg moves to third. The other order is the English habit.
+26. [W] Byg sætningen: forstår / nu / jeg / spørgsmålet (start med “Nu”)
+     CORRECT: Nu forstår jeg spørgsmålet
+     why: Nu forstår jeg spørgsmålet. Nu first, then the verb, then the subject.
+27. [C] Hvilken sætning er rigtig?
+     options: Til sommer familien flytter til Odense. | Til sommer flytter familien til Odense.
+     CORRECT: Til sommer flytter familien til Odense.
+     why: Til sommer is the first element, so the verb flytter must come second and familien moves to third. The other order is the English habit.
+28. [W] Byg sætningen: flytter / til Odense / til sommer / familien (start med “Til sommer”)
+     CORRECT: Til sommer flytter familien til Odense
+     why: Til sommer flytter familien til Odense. Til sommer first, then the verb, then the subject.
+29. [C] Hvilken sætning er rigtig?
+     options: Om ti minutter mødet begynder. | Om ti minutter begynder mødet.
+     CORRECT: Om ti minutter begynder mødet.
+     why: Om ti minutter is the first element, so the verb begynder must come second and mødet moves to third. The other order is the English habit.
+30. [W] Byg sætningen: begynder / om ti minutter / mødet (start med “Om ti minutter”)
+     CORRECT: Om ti minutter begynder mødet
+     why: Om ti minutter begynder mødet. Om ti minutter first, then the verb, then the subject.
+31. [C] Hvilken sætning er rigtig?
+     options: Hvert år hun besøger sin familie. | Hvert år besøger hun sin familie.
+     CORRECT: Hvert år besøger hun sin familie.
+     why: Hvert år is the first element, so the verb besøger must come second and hun moves to third. The other order is the English habit.
+32. [W] Byg sætningen: hvert år / hun / sin familie / besøger (start med “Hvert år”)
+     CORRECT: Hvert år besøger hun sin familie
+     why: Hvert år besøger hun sin familie. Hvert år first, then the verb, then the subject.
+
+===== TOPIC ledsaetning — Ledsætninger [ORD] =====
+RULE: A ledsætning is a clause that cannot stand alone — it hangs off at, fordi, hvis, når, som, selvom. Inside it, Danish puts the subject before the adverbial and the verb after it: … at han ikke kommer, never … at han kommer ikke. Your skill calls this the single biggest Modul 3 hurdle, and it is the error a Dane notices most.
+
+1. [C] Jeg ved, at …
+     options: han ikke kommer i dag. | han kommer ikke i dag.
+     CORRECT: han ikke kommer i dag.
+     why: In a ledsætning the adverbial ikke goes before the verb: han ikke kommer. The other order is main-clause order, which is why it feels right.
+2. [W] Færdiggør: Jeg ved, at ___ (han · ikke · kommer · i dag)
+     CORRECT: han ikke kommer i dag
+     why: han ikke kommer i dag. Subject, then ikke, then the verb.
+3. [C] Hun siger, at …
+     options: hun altid cykler på arbejde. | hun cykler altid på arbejde.
+     CORRECT: hun altid cykler på arbejde.
+     why: In a ledsætning the adverbial altid goes before the verb: hun altid cykler. The other order is main-clause order, which is why it feels right.
+4. [W] Færdiggør: Hun siger, at ___ (hun · altid · cykler · på arbejde)
+     CORRECT: hun altid cykler på arbejde
+     why: hun altid cykler på arbejde. Subject, then altid, then the verb.
+5. [C] Vi håber, at …
+     options: det regner ikke i morgen. | det ikke regner i morgen.
+     CORRECT: det ikke regner i morgen.
+     why: In a ledsætning the adverbial ikke goes before the verb: det ikke regner. The other order is main-clause order, which is why it feels right.
+6. [W] Færdiggør: Vi håber, at ___ (det · ikke · regner · i morgen)
+     CORRECT: det ikke regner i morgen
+     why: det ikke regner i morgen. Subject, then ikke, then the verb.
+7. [C] Han fortæller, at …
+     options: børnene aldrig spiser grøntsager. | børnene spiser aldrig grøntsager.
+     CORRECT: børnene aldrig spiser grøntsager.
+     why: In a ledsætning the adverbial aldrig goes before the verb: børnene aldrig spiser. The other order is main-clause order, which is why it feels right.
+8. [W] Færdiggør: Han fortæller, at ___ (børnene · aldrig · spiser · grøntsager)
+     CORRECT: børnene aldrig spiser grøntsager
+     why: børnene aldrig spiser grøntsager. Subject, then aldrig, then the verb.
+9. [C] Jeg tror, at …
+     options: bussen ofte kører for sent. | bussen kører ofte for sent.
+     CORRECT: bussen ofte kører for sent.
+     why: In a ledsætning the adverbial ofte goes before the verb: bussen ofte kører. The other order is main-clause order, which is why it feels right.
+10. [W] Færdiggør: Jeg tror, at ___ (bussen · ofte · kører · for sent)
+     CORRECT: bussen ofte kører for sent
+     why: bussen ofte kører for sent. Subject, then ofte, then the verb.
+11. [C] Det er ærgerligt, at …
+     options: vi mødes ikke oftere. | vi ikke mødes oftere.
+     CORRECT: vi ikke mødes oftere.
+     why: In a ledsætning the adverbial ikke goes before the verb: vi ikke mødes. The other order is main-clause order, which is why it feels right.
+12. [W] Færdiggør: Det er ærgerligt, at ___ (vi · ikke · mødes · oftere)
+     CORRECT: vi ikke mødes oftere
+     why: vi ikke mødes oftere. Subject, then ikke, then the verb.
+13. [C] Hun mener, at …
+     options: kurset måske starter i august. | kurset starter måske i august.
+     CORRECT: kurset måske starter i august.
+     why: In a ledsætning the adverbial måske goes before the verb: kurset måske starter. The other order is main-clause order, which is why it feels right.
+14. [W] Færdiggør: Hun mener, at ___ (kurset · måske · starter · i august)
+     CORRECT: kurset måske starter i august
+     why: kurset måske starter i august. Subject, then måske, then the verb.
+15. [C] Jeg er glad for, at …
+     options: du ringede endelig. | du endelig ringede.
+     CORRECT: du endelig ringede.
+     why: In a ledsætning the adverbial endelig goes before the verb: du endelig ringede. The other order is main-clause order, which is why it feels right.
+16. [W] Færdiggør: Jeg er glad for, at ___ (du · endelig · ringede)
+     CORRECT: du endelig ringede
+     why: du endelig ringede. Subject, then endelig, then the verb.
+17. [C] Han skriver, at …
+     options: han sjældent arbejder hjemme. | han arbejder sjældent hjemme.
+     CORRECT: han sjældent arbejder hjemme.
+     why: In a ledsætning the adverbial sjældent goes before the verb: han sjældent arbejder. The other order is main-clause order, which is why it feels right.
+18. [W] Færdiggør: Han skriver, at ___ (han · sjældent · arbejder · hjemme)
+     CORRECT: han sjældent arbejder hjemme
+     why: han sjældent arbejder hjemme. Subject, then sjældent, then the verb.
+19. [C] Vi ved godt, at …
+     options: prisen ikke er lav. | prisen er ikke lav.
+     CORRECT: prisen ikke er lav.
+     why: In a ledsætning the adverbial ikke goes before the verb: prisen ikke er. The other order is main-clause order, which is why it feels right.
+20. [W] Færdiggør: Vi ved godt, at ___ (prisen · ikke · er · lav)
+     CORRECT: prisen ikke er lav
+     why: prisen ikke er lav. Subject, then ikke, then the verb.
+21. [C] Jeg synes, at …
+     options: filmen var virkelig god. | filmen virkelig var god.
+     CORRECT: filmen virkelig var god.
+     why: In a ledsætning the adverbial virkelig goes before the verb: filmen virkelig var. The other order is main-clause order, which is why it feels right.
+22. [W] Færdiggør: Jeg synes, at ___ (filmen · virkelig · var · god)
+     CORRECT: filmen virkelig var god
+     why: filmen virkelig var god. Subject, then virkelig, then the verb.
+23. [C] Hun fortalte, at …
+     options: hendes bror bor ikke i Danmark. | hendes bror ikke bor i Danmark.
+     CORRECT: hendes bror ikke bor i Danmark.
+     why: In a ledsætning the adverbial ikke goes before the verb: hendes bror ikke bor. The other order is main-clause order, which is why it feels right.
+24. [W] Færdiggør: Hun fortalte, at ___ (hendes bror · ikke · bor · i Danmark)
+     CORRECT: hendes bror ikke bor i Danmark
+     why: hendes bror ikke bor i Danmark. Subject, then ikke, then the verb.
+25. [C] Det betyder, at …
+     options: vi skal altid møde klokken ni. | vi altid skal møde klokken ni.
+     CORRECT: vi altid skal møde klokken ni.
+     why: In a ledsætning the adverbial altid goes before the verb: vi altid skal. The other order is main-clause order, which is why it feels right.
+26. [W] Færdiggør: Det betyder, at ___ (vi · altid · skal · møde klokken ni)
+     CORRECT: vi altid skal møde klokken ni
+     why: vi altid skal møde klokken ni. Subject, then altid, then the verb.
+27. [C] Jeg håber, at …
+     options: du ikke har glemt aftalen. | du har ikke glemt aftalen.
+     CORRECT: du ikke har glemt aftalen.
+     why: In a ledsætning the adverbial ikke goes before the verb: du ikke har. The other order is main-clause order, which is why it feels right.
+28. [W] Færdiggør: Jeg håber, at ___ (du · ikke · har · glemt aftalen)
+     CORRECT: du ikke har glemt aftalen
+     why: du ikke har glemt aftalen. Subject, then ikke, then the verb.
+
+===== TOPIC ikke — Placering af ikke og adverbialer [ORD] =====
+RULE: In a main clause the central adverbials — ikke, aldrig, altid, ofte, tit, sjældent, også, kun — come straight after the finite verb: Jeg drikker ikke kaffe. When there are two verbs they slot between them: Jeg har ikke set filmen. In a ledsætning they move in front of the verb instead.
+
+1. [W] Skriv sætningen med ikke på rette plads: Jeg drikker kaffe om morgenen.
+     CORRECT: Jeg drikker ikke kaffe om morgenen.
+     why: ikke goes straight after the finite verb in a main clause.
+2. [C] Hvor skal ikke stå?
+     options: Jeg drikker ikke kaffe om morgenen. | Jeg drikker kaffe ikke om morgenen.
+     CORRECT: Jeg drikker ikke kaffe om morgenen.
+     why: ikke goes straight after the finite verb in a main clause.
+3. [W] Skriv sætningen med ikke på rette plads: Han kommer til mødet.
+     CORRECT: Han kommer ikke til mødet.
+     why: ikke goes straight after the finite verb in a main clause.
+4. [C] Hvor skal ikke stå?
+     options: Han kommer ikke til mødet. | Han kommer til ikke mødet.
+     CORRECT: Han kommer ikke til mødet.
+     why: ikke goes straight after the finite verb in a main clause.
+5. [W] Skriv sætningen med ikke på rette plads: Vi har set filmen.
+     CORRECT: Vi har ikke set filmen.
+     why: ikke goes straight after the finite verb in a main clause.
+6. [C] Hvor skal ikke stå?
+     options: Vi har set ikke filmen. | Vi har ikke set filmen.
+     CORRECT: Vi har ikke set filmen.
+     why: ikke goes straight after the finite verb in a main clause.
+7. [W] Skriv sætningen med aldrig på rette plads: Hun cykler til arbejde.
+     CORRECT: Hun cykler aldrig til arbejde.
+     why: aldrig goes straight after the finite verb in a main clause.
+8. [C] Hvor skal aldrig stå?
+     options: Hun cykler til aldrig arbejde. | Hun cykler aldrig til arbejde.
+     CORRECT: Hun cykler aldrig til arbejde.
+     why: aldrig goes straight after the finite verb in a main clause.
+9. [W] Skriv sætningen med altid på rette plads: De spiser ude om fredagen.
+     CORRECT: De spiser altid ude om fredagen.
+     why: altid goes straight after the finite verb in a main clause.
+10. [C] Hvor skal altid stå?
+     options: De spiser altid ude om fredagen. | De spiser ude altid om fredagen.
+     CORRECT: De spiser altid ude om fredagen.
+     why: altid goes straight after the finite verb in a main clause.
+11. [W] Skriv sætningen med ikke på rette plads: Jeg kan lide fisk.
+     CORRECT: Jeg kan ikke lide fisk.
+     why: ikke goes straight after the finite verb in a main clause.
+12. [C] Hvor skal ikke stå?
+     options: Jeg kan ikke lide fisk. | Jeg kan lide ikke fisk.
+     CORRECT: Jeg kan ikke lide fisk.
+     why: ikke goes straight after the finite verb in a main clause.
+13. [W] Skriv sætningen med ikke på rette plads: Toget kører om søndagen.
+     CORRECT: Toget kører ikke om søndagen.
+     why: ikke goes straight after the finite verb in a main clause.
+14. [C] Hvor skal ikke stå?
+     options: Toget kører ikke om søndagen. | Toget kører om ikke søndagen.
+     CORRECT: Toget kører ikke om søndagen.
+     why: ikke goes straight after the finite verb in a main clause.
+15. [W] Skriv sætningen med sjældent på rette plads: Min nabo er hjemme om dagen.
+     CORRECT: Min nabo er sjældent hjemme om dagen.
+     why: sjældent goes straight after the finite verb in a main clause.
+16. [C] Hvor skal sjældent stå?
+     options: Min nabo er hjemme sjældent om dagen. | Min nabo er sjældent hjemme om dagen.
+     CORRECT: Min nabo er sjældent hjemme om dagen.
+     why: sjældent goes straight after the finite verb in a main clause.
+17. [C] Jeg ved, at …
+     options: han ikke kommer i dag. | han kommer ikke i dag.
+     CORRECT: han ikke kommer i dag.
+     why: Ledsætning: ikke moves in front of the verb. This is the mirror image of the main-clause rule above, which is exactly why it is easy to get wrong.
+18. [C] Hun siger, at …
+     options: hun cykler altid på arbejde. | hun altid cykler på arbejde.
+     CORRECT: hun altid cykler på arbejde.
+     why: Ledsætning: altid moves in front of the verb. This is the mirror image of the main-clause rule above, which is exactly why it is easy to get wrong.
+19. [C] Vi håber, at …
+     options: det ikke regner i morgen. | det regner ikke i morgen.
+     CORRECT: det ikke regner i morgen.
+     why: Ledsætning: ikke moves in front of the verb. This is the mirror image of the main-clause rule above, which is exactly why it is easy to get wrong.
+20. [C] Han fortæller, at …
+     options: børnene spiser aldrig grøntsager. | børnene aldrig spiser grøntsager.
+     CORRECT: børnene aldrig spiser grøntsager.
+     why: Ledsætning: aldrig moves in front of the verb. This is the mirror image of the main-clause rule above, which is exactly why it is easy to get wrong.
+21. [C] Jeg tror, at …
+     options: bussen kører ofte for sent. | bussen ofte kører for sent.
+     CORRECT: bussen ofte kører for sent.
+     why: Ledsætning: ofte moves in front of the verb. This is the mirror image of the main-clause rule above, which is exactly why it is easy to get wrong.
+22. [C] Det er ærgerligt, at …
+     options: vi ikke mødes oftere. | vi mødes ikke oftere.
+     CORRECT: vi ikke mødes oftere.
+     why: Ledsætning: ikke moves in front of the verb. This is the mirror image of the main-clause rule above, which is exactly why it is easy to get wrong.
+23. [C] Hun mener, at …
+     options: kurset starter måske i august. | kurset måske starter i august.
+     CORRECT: kurset måske starter i august.
+     why: Ledsætning: måske moves in front of the verb. This is the mirror image of the main-clause rule above, which is exactly why it is easy to get wrong.
+24. [C] Jeg er glad for, at …
+     options: du ringede endelig. | du endelig ringede.
+     CORRECT: du endelig ringede.
+     why: Ledsætning: endelig moves in front of the verb. This is the mirror image of the main-clause rule above, which is exactly why it is easy to get wrong.
+
+===== TOPIC spoergsmaal — Spørgsmål [ORD] =====
+RULE: A hv-question puts the question word first and the verb second — same V2 rule: Hvor bor du? A ja/nej question starts with the verb itself: Bor du i Aarhus? Danish never adds a helper the way English adds do.
+
+1. [C] ___ bor du?
+     options: Hvad | Hvornår | Hvem | Hvor
+     CORRECT: Hvor
+     why: Hvor asks about place.
+2. [C] ___ hedder du?
+     options: Hvad | Hvorfor | Hvem | Hvor
+     CORRECT: Hvad
+     why: Danish asks hvad hedder du, literally 'what are you called'.
+3. [C] ___ kommer du fra?
+     options: Hvad | Hvilken | Hvem | Hvor
+     CORRECT: Hvor
+     why: Hvor … fra — the preposition stays at the end.
+4. [C] ___ starter kurset?
+     options: Hvornår | Hvordan | Hvor | Hvem
+     CORRECT: Hvornår
+     why: Hvornår asks about time.
+5. [C] ___ har du det?
+     options: Hvilken | Hvorfor | Hvordan | Hvad
+     CORRECT: Hvordan
+     why: Hvordan har du det is the standard 'how are you'.
+6. [C] ___ er det?
+     options: Hvem | Hvor | Hvad | Hvilken
+     CORRECT: Hvem
+     why: Hvem asks about a person.
+7. [C] ___ kommer du for sent?
+     options: Hvorfor | Hvordan | Hvem | Hvornår
+     CORRECT: Hvorfor
+     why: Hvorfor asks for a reason.
+8. [C] ___ bus skal jeg tage?
+     options: Hvilken | Hvilket | Hvad | Hvem
+     CORRECT: Hvilken
+     why: Hvilken for en-words, hvilket for et-words, hvilke for plurals.
+9. [C] ___ værelse er dit?
+     options: Hvem | Hvilken | Hvilke | Hvilket
+     CORRECT: Hvilket
+     why: Et værelse, so hvilket.
+10. [C] ___ mange søskende har du?
+     options: Hvad | Hvor | Hvordan | Hvilke
+     CORRECT: Hvor
+     why: Hvor mange, hvor gammel, hvor længe — hvor combines with an adjective or quantity.
+11. [C] Lav et ja/nej-spørgsmål: jeg skal på arbejde
+     options: Gør jeg skal på arbejde? | Skal jeg på arbejde?
+     CORRECT: Skal jeg på arbejde?
+     why: The verb comes first. Danish has no do-support, so gør never appears in a question the way English do does.
+12. [C] Lav et ja/nej-spørgsmål: vi tager til Norge
+     options: Gør vi tager til Norge? | Tager vi til Norge?
+     CORRECT: Tager vi til Norge?
+     why: The verb comes first. Danish has no do-support, so gør never appears in a question the way English do does.
+13. [C] Lav et ja/nej-spørgsmål: hun cykler til skole
+     options: Gør hun cykler til skole? | Cykler hun til skole?
+     CORRECT: Cykler hun til skole?
+     why: The verb comes first. Danish has no do-support, so gør never appears in a question the way English do does.
+14. [C] Lav et ja/nej-spørgsmål: toget kører fra Aarhus
+     options: Kører toget fra Aarhus? | Gør toget kører fra Aarhus?
+     CORRECT: Kører toget fra Aarhus?
+     why: The verb comes first. Danish has no do-support, so gør never appears in a question the way English do does.
+15. [C] Lav et ja/nej-spørgsmål: han var hjemme
+     options: Gør han var hjemme? | Var han hjemme?
+     CORRECT: Var han hjemme?
+     why: The verb comes first. Danish has no do-support, so gør never appears in a question the way English do does.
+16. [C] Lav et ja/nej-spørgsmål: det bliver mørkt klokken fire
+     options: Bliver det mørkt klokken fire? | Gør det bliver mørkt klokken fire?
+     CORRECT: Bliver det mørkt klokken fire?
+     why: The verb comes first. Danish has no do-support, so gør never appears in a question the way English do does.
+17. [C] Lav et ja/nej-spørgsmål: min kollega starter i et nyt job
+     options: Gør min kollega starter i et nyt job? | Starter min kollega i et nyt job?
+     CORRECT: Starter min kollega i et nyt job?
+     why: The verb comes first. Danish has no do-support, so gør never appears in a question the way English do does.
+18. [C] Lav et ja/nej-spørgsmål: jeg ringer til lægen
+     options: Gør jeg ringer til lægen? | Ringer jeg til lægen?
+     CORRECT: Ringer jeg til lægen?
+     why: The verb comes first. Danish has no do-support, so gør never appears in a question the way English do does.
+
+===== TOPIC nutid-datid — Nutid og datid [TID] =====
+RULE: Present tense is one form for everybody — stem + -r. No I work / he works split. The past splits into two regular groups: most verbs take -ede (arbejde → arbejdede), a smaller set takes -te (køre → kørte), and the strong verbs change the vowel instead.
+
+1. [C] I går ___ jeg tidligt. (at arbejde — to work)
+     options: arbejde | arbejdet | arbejder | arbejdede
+     CORRECT: arbejdede
+     why: arbejdede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+2. [W] Skriv nutid af at arbejde: Jeg ___ hver dag.
+     CORRECT: arbejder
+     why: arbejder — stem plus -r, the same for jeg, du, han and de.
+3. [C] I går ___ jeg tidligt. (at lave — to make, to do)
+     options: laver | lave | lavede | lavet
+     CORRECT: lavede
+     why: lavede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+4. [W] Skriv nutid af at lave: Jeg ___ hver dag.
+     CORRECT: laver
+     why: laver — stem plus -r, the same for jeg, du, han and de.
+5. [C] I går ___ jeg tidligt. (at vente — to wait)
+     options: venter | vente | ventet | ventede
+     CORRECT: ventede
+     why: ventede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+6. [W] Skriv nutid af at vente: Jeg ___ hver dag.
+     CORRECT: venter
+     why: venter — stem plus -r, the same for jeg, du, han and de.
+7. [C] I går ___ jeg tidligt. (at huske — to remember)
+     options: husket | huskede | husker | huske
+     CORRECT: huskede
+     why: huskede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+8. [W] Skriv nutid af at huske: Jeg ___ hver dag.
+     CORRECT: husker
+     why: husker — stem plus -r, the same for jeg, du, han and de.
+9. [C] I går ___ jeg tidligt. (at snakke — to chat)
+     options: snakkede | snakke | snakker | snakket
+     CORRECT: snakkede
+     why: snakkede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+10. [W] Skriv nutid af at snakke: Jeg ___ hver dag.
+     CORRECT: snakker
+     why: snakker — stem plus -r, the same for jeg, du, han and de.
+11. [C] I går ___ jeg tidligt. (at starte — to start)
+     options: startede | starter | startet | starte
+     CORRECT: startede
+     why: startede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+12. [W] Skriv nutid af at starte: Jeg ___ hver dag.
+     CORRECT: starter
+     why: starter — stem plus -r, the same for jeg, du, han and de.
+13. [C] I går ___ jeg tidligt. (at hente — to fetch, to pick up)
+     options: hentede | hente | hentet | henter
+     CORRECT: hentede
+     why: hentede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+14. [W] Skriv nutid af at hente: Jeg ___ hver dag.
+     CORRECT: henter
+     why: henter — stem plus -r, the same for jeg, du, han and de.
+15. [C] I går ___ jeg tidligt. (at ringe — to call, to ring)
+     options: ringe | ringede | ringet | ringer
+     CORRECT: ringede
+     why: ringede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+16. [W] Skriv nutid af at ringe: Jeg ___ hver dag.
+     CORRECT: ringer
+     why: ringer — stem plus -r, the same for jeg, du, han and de.
+17. [C] I går ___ jeg tidligt. (at åbne — to open)
+     options: åbnede | åbner | åbnet | åbne
+     CORRECT: åbnede
+     why: åbnede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+18. [W] Skriv nutid af at åbne: Jeg ___ hver dag.
+     CORRECT: åbner
+     why: åbner — stem plus -r, the same for jeg, du, han and de.
+19. [C] I går ___ jeg tidligt. (at kigge — to look)
+     options: kigge | kiggede | kigget | kigger
+     CORRECT: kiggede
+     why: kiggede is datid. Regular group 1. Stem + -ede in datid, stem + -et in førnutid: arbejde &rarr; arbejdede &rarr; har arbejdet. This is the biggest group and the one a new verb usually joins.
+20. [W] Skriv nutid af at kigge: Jeg ___ hver dag.
+     CORRECT: kigger
+     why: kigger — stem plus -r, the same for jeg, du, han and de.
+21. [C] I går ___ jeg tidligt. (at spise — to eat)
+     options: spiste | spise | spiser | spist
+     CORRECT: spiste
+     why: spiste is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+22. [W] Skriv nutid af at spise: Jeg ___ hver dag.
+     CORRECT: spiser
+     why: spiser — stem plus -r, the same for jeg, du, han and de.
+23. [C] I går ___ jeg tidligt. (at læse — to read)
+     options: læste | læse | læser | læst
+     CORRECT: læste
+     why: læste is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+24. [W] Skriv nutid af at læse: Jeg ___ hver dag.
+     CORRECT: læser
+     why: læser — stem plus -r, the same for jeg, du, han and de.
+25. [C] I går ___ jeg tidligt. (at købe — to buy)
+     options: købte | købt | køber | købe
+     CORRECT: købte
+     why: købte is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+26. [W] Skriv nutid af at købe: Jeg ___ hver dag.
+     CORRECT: køber
+     why: køber — stem plus -r, the same for jeg, du, han and de.
+27. [C] I går ___ jeg tidligt. (at bruge — to use, to spend)
+     options: bruger | bruge | brugte | brugt
+     CORRECT: brugte
+     why: brugte is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+28. [W] Skriv nutid af at bruge: Jeg ___ hver dag.
+     CORRECT: bruger
+     why: bruger — stem plus -r, the same for jeg, du, han and de.
+29. [C] I går ___ jeg tidligt. (at høre — to hear)
+     options: hørte | høre | hørt | hører
+     CORRECT: hørte
+     why: hørte is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+30. [W] Skriv nutid af at høre: Jeg ___ hver dag.
+     CORRECT: hører
+     why: hører — stem plus -r, the same for jeg, du, han and de.
+31. [C] I går ___ jeg tidligt. (at tale — to speak)
+     options: tale | talte | taler | talt
+     CORRECT: talte
+     why: talte is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+32. [W] Skriv nutid af at tale: Jeg ___ hver dag.
+     CORRECT: taler
+     why: taler — stem plus -r, the same for jeg, du, han and de.
+33. [C] I går ___ jeg tidligt. (at betale — to pay)
+     options: betalte | betaler | betalt | betale
+     CORRECT: betalte
+     why: betalte is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+34. [W] Skriv nutid af at betale: Jeg ___ hver dag.
+     CORRECT: betaler
+     why: betaler — stem plus -r, the same for jeg, du, han and de.
+35. [C] I går ___ jeg tidligt. (at vise — to show)
+     options: vist | viste | viser | vise
+     CORRECT: viste
+     why: viste is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+36. [W] Skriv nutid af at vise: Jeg ___ hver dag.
+     CORRECT: viser
+     why: viser — stem plus -r, the same for jeg, du, han and de.
+37. [C] I går ___ jeg tidligt. (at mene — to think, to mean)
+     options: mente | ment | mener | mene
+     CORRECT: mente
+     why: mente is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+38. [W] Skriv nutid af at mene: Jeg ___ hver dag.
+     CORRECT: mener
+     why: mener — stem plus -r, the same for jeg, du, han and de.
+39. [C] I går ___ jeg tidligt. (at sende — to send)
+     options: sendte | sende | sendt | sender
+     CORRECT: sendte
+     why: sendte is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+40. [W] Skriv nutid af at sende: Jeg ___ hver dag.
+     CORRECT: sender
+     why: sender — stem plus -r, the same for jeg, du, han and de.
+41. [C] I går ___ jeg tidligt. (at møde — to meet)
+     options: mødte | mødt | møder | møde
+     CORRECT: mødte
+     why: mødte is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+42. [W] Skriv nutid af at møde: Jeg ___ hver dag.
+     CORRECT: møder
+     why: møder — stem plus -r, the same for jeg, du, han and de.
+43. [C] I går ___ jeg tidligt. (at glemme — to forget)
+     options: glemme | glemte | glemmer | glemt
+     CORRECT: glemte
+     why: glemte is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+44. [W] Skriv nutid af at glemme: Jeg ___ hver dag.
+     CORRECT: glemmer
+     why: glemmer — stem plus -r, the same for jeg, du, han and de.
+45. [C] I går ___ jeg tidligt. (at lære — to learn, to teach)
+     options: lært | lærte | lærer | lære
+     CORRECT: lærte
+     why: lærte is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+46. [W] Skriv nutid af at lære: Jeg ___ hver dag.
+     CORRECT: lærer
+     why: lærer — stem plus -r, the same for jeg, du, han and de.
+47. [C] I går ___ jeg tidligt. (at rejse — to travel, to leave)
+     options: rejse | rejste | rejst | rejser
+     CORRECT: rejste
+     why: rejste is datid. Regular group 2. Stem + -te in datid, stem + -t in førnutid: køre &rarr; kørte &rarr; har kørt. Group 2 stems typically end in a consonant you can hold — l, n, r, s — where -ede would be hard to say.
+48. [W] Skriv nutid af at rejse: Jeg ___ hver dag.
+     CORRECT: rejser
+     why: rejser — stem plus -r, the same for jeg, du, han and de.
+49. [C] I går ___ jeg tidligt. (at drikke — to drink)
+     options: drak | drikker | drukket | drikke
+     CORRECT: drak
+     why: drak is datid. Strong verb. Nothing is added; the vowel does the work: i &rarr; a &rarr; u. drikke &rarr; drak &rarr; har drukket. Learn the three-vowel pattern and the whole family follows.
+50. [W] Skriv nutid af at drikke: Jeg ___ hver dag.
+     CORRECT: drikker
+     why: drikker — stem plus -r, the same for jeg, du, han and de.
+51. [C] I går ___ jeg tidligt. (at finde — to find)
+     options: finder | fundet | fandt | finde
+     CORRECT: fandt
+     why: fandt is datid. Strong verb. Nothing is added; the vowel does the work: i &rarr; a &rarr; u. drikke &rarr; drak &rarr; har drukket. Learn the three-vowel pattern and the whole family follows.
+52. [W] Skriv nutid af at finde: Jeg ___ hver dag.
+     CORRECT: finder
+     why: finder — stem plus -r, the same for jeg, du, han and de.
+53. [C] I går ___ jeg tidligt. (at vinde — to win)
+     options: vinder | vundet | vinde | vandt
+     CORRECT: vandt
+     why: vandt is datid. Strong verb. Nothing is added; the vowel does the work: i &rarr; a &rarr; u. drikke &rarr; drak &rarr; har drukket. Learn the three-vowel pattern and the whole family follows.
+54. [W] Skriv nutid af at vinde: Jeg ___ hver dag.
+     CORRECT: vinder
+     why: vinder — stem plus -r, the same for jeg, du, han and de.
+55. [C] I går ___ jeg tidligt. (at synge — to sing)
+     options: sang | sunget | synge | synger
+     CORRECT: sang
+     why: sang is datid. Strong verb. Nothing is added; the vowel does the work: i &rarr; a &rarr; u. drikke &rarr; drak &rarr; har drukket. Learn the three-vowel pattern and the whole family follows.
+56. [W] Skriv nutid af at synge: Jeg ___ hver dag.
+     CORRECT: synger
+     why: synger — stem plus -r, the same for jeg, du, han and de.
+57. [C] I går ___ jeg tidligt. (at springe — to jump, to run)
+     options: springe | springer | sprunget | sprang
+     CORRECT: sprang
+     why: sprang is datid. Strong verb. Nothing is added; the vowel does the work: i &rarr; a &rarr; u. drikke &rarr; drak &rarr; har drukket. Learn the three-vowel pattern and the whole family follows.
+58. [W] Skriv nutid af at springe: Jeg ___ hver dag.
+     CORRECT: springer
+     why: springer — stem plus -r, the same for jeg, du, han and de.
+59. [C] I går ___ jeg tidligt. (at skrive — to write)
+     options: skrive | skrevet | skriver | skrev
+     CORRECT: skrev
+     why: skrev is datid. Strong verb, vowel pattern i &rarr; e &rarr; e: skrive &rarr; skrev &rarr; har skrevet. Note the datid has no ending at all.
+60. [W] Skriv nutid af at skrive: Jeg ___ hver dag.
+     CORRECT: skriver
+     why: skriver — stem plus -r, the same for jeg, du, han and de.
+61. [C] I går ___ jeg tidligt. (at blive — to become, to stay)
+     options: blev | blevet | bliver | blive
+     CORRECT: blev
+     why: blev is datid. Strong verb, vowel pattern i &rarr; e &rarr; e: skrive &rarr; skrev &rarr; har skrevet. Note the datid has no ending at all.
+62. [W] Skriv nutid af at blive: Jeg ___ hver dag.
+     CORRECT: bliver
+     why: bliver — stem plus -r, the same for jeg, du, han and de.
+63. [C] I går ___ jeg tidligt. (at bide — to bite)
+     options: bidt | bide | bed | bider
+     CORRECT: bed
+     why: bed is datid. Strong verb, vowel pattern i &rarr; e &rarr; e: skrive &rarr; skrev &rarr; har skrevet. Note the datid has no ending at all.
+64. [W] Skriv nutid af at bide: Jeg ___ hver dag.
+     CORRECT: bider
+     why: bider — stem plus -r, the same for jeg, du, han and de.
+65. [C] I går ___ jeg tidligt. (at flyve — to fly)
+     options: flyver | flyve | fløj | fløjet
+     CORRECT: fløj
+     why: fløj is datid. Strong verb, vowel pattern y &rarr; ø &rarr; ø: flyve &rarr; fløj &rarr; har fløjet.
+66. [W] Skriv nutid af at flyve: Jeg ___ hver dag.
+     CORRECT: flyver
+     why: flyver — stem plus -r, the same for jeg, du, han and de.
+67. [C] I går ___ jeg tidligt. (at tilbyde — to offer)
+     options: tilbød | tilbyde | tilbudt | tilbyder
+     CORRECT: tilbød
+     why: tilbød is datid. Strong verb, vowel pattern y &rarr; ø &rarr; ø: flyve &rarr; fløj &rarr; har fløjet.
+68. [W] Skriv nutid af at tilbyde: Jeg ___ hver dag.
+     CORRECT: tilbyder
+     why: tilbyder — stem plus -r, the same for jeg, du, han and de.
+69. [C] I går ___ jeg tidligt. (at bryde — to break)
+     options: bryder | brød | bryde | brudt
+     CORRECT: brød
+     why: brød is datid. Strong verb, vowel pattern y &rarr; ø &rarr; ø: flyve &rarr; fløj &rarr; har fløjet.
+70. [W] Skriv nutid af at bryde: Jeg ___ hver dag.
+     CORRECT: bryder
+     why: bryder — stem plus -r, the same for jeg, du, han and de.
+71. [C] I går ___ jeg tidligt. (at tage — to take)
+     options: taget | tager | tage | tog
+     CORRECT: tog
+     why: tog is datid. Strong verb, vowel pattern a/å &rarr; o &rarr; a: tage &rarr; tog &rarr; har taget.
+72. [W] Skriv nutid af at tage: Jeg ___ hver dag.
+     CORRECT: tager
+     why: tager — stem plus -r, the same for jeg, du, han and de.
+73. [C] I går ___ jeg tidligt. (at slå — to hit, to strike)
+     options: slå | slået | slog | slår
+     CORRECT: slog
+     why: slog is datid. Strong verb, vowel pattern a/å &rarr; o &rarr; a: tage &rarr; tog &rarr; har taget.
+74. [W] Skriv nutid af at slå: Jeg ___ hver dag.
+     CORRECT: slår
+     why: slår — stem plus -r, the same for jeg, du, han and de.
+75. [C] I går ___ jeg tidligt. (at være — to be)
+     options: været | var | være | er
+     CORRECT: var
+     why: var is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+76. [W] Skriv nutid af at være: Jeg ___ hver dag.
+     CORRECT: er
+     why: er — stem plus -r, the same for jeg, du, han and de.
+77. [C] I går ___ jeg tidligt. (at have — to have)
+     options: haft | havde | har | have
+     CORRECT: havde
+     why: havde is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+78. [W] Skriv nutid af at have: Jeg ___ hver dag.
+     CORRECT: har
+     why: har — stem plus -r, the same for jeg, du, han and de.
+79. [C] I går ___ jeg tidligt. (at gøre — to do)
+     options: gjorde | gør | gjort | gøre
+     CORRECT: gjorde
+     why: gjorde is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+80. [W] Skriv nutid af at gøre: Jeg ___ hver dag.
+     CORRECT: gør
+     why: gør — stem plus -r, the same for jeg, du, han and de.
+81. [C] I går ___ jeg tidligt. (at gå — to walk, to go)
+     options: gik | går | gå | gået
+     CORRECT: gik
+     why: gik is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+82. [W] Skriv nutid af at gå: Jeg ___ hver dag.
+     CORRECT: går
+     why: går — stem plus -r, the same for jeg, du, han and de.
+83. [C] I går ___ jeg tidligt. (at komme — to come)
+     options: komme | kommet | kom | kommer
+     CORRECT: kom
+     why: kom is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+84. [W] Skriv nutid af at komme: Jeg ___ hver dag.
+     CORRECT: kommer
+     why: kommer — stem plus -r, the same for jeg, du, han and de.
+85. [C] I går ___ jeg tidligt. (at få — to get, to receive)
+     options: fik | få | får | fået
+     CORRECT: fik
+     why: fik is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+86. [W] Skriv nutid af at få: Jeg ___ hver dag.
+     CORRECT: får
+     why: får — stem plus -r, the same for jeg, du, han and de.
+87. [C] I går ___ jeg tidligt. (at se — to see)
+     options: se | set | så | ser
+     CORRECT: så
+     why: så is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+88. [W] Skriv nutid af at se: Jeg ___ hver dag.
+     CORRECT: ser
+     why: ser — stem plus -r, the same for jeg, du, han and de.
+89. [C] I går ___ jeg tidligt. (at give — to give)
+     options: giver | givet | gav | give
+     CORRECT: gav
+     why: gav is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+90. [W] Skriv nutid af at give: Jeg ___ hver dag.
+     CORRECT: giver
+     why: giver — stem plus -r, the same for jeg, du, han and de.
+91. [C] I går ___ jeg tidligt. (at sige — to say)
+     options: sagt | siger | sagde | sige
+     CORRECT: sagde
+     why: sagde is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+92. [W] Skriv nutid af at sige: Jeg ___ hver dag.
+     CORRECT: siger
+     why: siger — stem plus -r, the same for jeg, du, han and de.
+93. [C] I går ___ jeg tidligt. (at vide — to know (a fact))
+     options: vidst | ved | vidste | vide
+     CORRECT: vidste
+     why: vidste is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+94. [W] Skriv nutid af at vide: Jeg ___ hver dag.
+     CORRECT: ved
+     why: ved — stem plus -r, the same for jeg, du, han and de.
+95. [C] I går ___ jeg tidligt. (at stå — to stand)
+     options: stået | står | stå | stod
+     CORRECT: stod
+     why: stod is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+96. [W] Skriv nutid af at stå: Jeg ___ hver dag.
+     CORRECT: står
+     why: står — stem plus -r, the same for jeg, du, han and de.
+97. [C] I går ___ jeg tidligt. (at ligge — to lie, to be situated)
+     options: lå | ligger | ligge | ligget
+     CORRECT: lå
+     why: lå is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+98. [W] Skriv nutid af at ligge: Jeg ___ hver dag.
+     CORRECT: ligger
+     why: ligger — stem plus -r, the same for jeg, du, han and de.
+99. [C] I går ___ jeg tidligt. (at sidde — to sit)
+     options: siddet | sad | sidde | sidder
+     CORRECT: sad
+     why: sad is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+100. [W] Skriv nutid af at sidde: Jeg ___ hver dag.
+     CORRECT: sidder
+     why: sidder — stem plus -r, the same for jeg, du, han and de.
+101. [C] I går ___ jeg tidligt. (at sove — to sleep)
+     options: sov | sove | sover | sovet
+     CORRECT: sov
+     why: sov is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+102. [W] Skriv nutid af at sove: Jeg ___ hver dag.
+     CORRECT: sover
+     why: sover — stem plus -r, the same for jeg, du, han and de.
+103. [C] I går ___ jeg tidligt. (at hedde — to be called)
+     options: hed | hedder | heddet | hedde
+     CORRECT: hed
+     why: hed is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+104. [W] Skriv nutid af at hedde: Jeg ___ hver dag.
+     CORRECT: hedder
+     why: hedder — stem plus -r, the same for jeg, du, han and de.
+105. [C] I går ___ jeg tidligt. (at holde — to hold, to keep)
+     options: holdt | holder | holde
+     CORRECT: holdt
+     why: holdt is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+106. [W] Skriv nutid af at holde: Jeg ___ hver dag.
+     CORRECT: holder
+     why: holder — stem plus -r, the same for jeg, du, han and de.
+107. [C] I går ___ jeg tidligt. (at hjælpe — to help)
+     options: hjælpe | hjulpet | hjælper | hjalp
+     CORRECT: hjalp
+     why: hjalp is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+108. [W] Skriv nutid af at hjælpe: Jeg ___ hver dag.
+     CORRECT: hjælper
+     why: hjælper — stem plus -r, the same for jeg, du, han and de.
+109. [C] I går ___ jeg tidligt. (at vælge — to choose)
+     options: vælge | valgt | vælger | valgte
+     CORRECT: valgte
+     why: valgte is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+110. [W] Skriv nutid af at vælge: Jeg ___ hver dag.
+     CORRECT: vælger
+     why: vælger — stem plus -r, the same for jeg, du, han and de.
+111. [C] I går ___ jeg tidligt. (at lægge — to lay, to put down)
+     options: lagt | lægge | lagde | lægger
+     CORRECT: lagde
+     why: lagde is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+112. [W] Skriv nutid af at lægge: Jeg ___ hver dag.
+     CORRECT: lægger
+     why: lægger — stem plus -r, the same for jeg, du, han and de.
+113. [C] I går ___ jeg tidligt. (at forstå — to understand)
+     options: forstår | forstået | forstå | forstod
+     CORRECT: forstod
+     why: forstod is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+114. [W] Skriv nutid af at forstå: Jeg ___ hver dag.
+     CORRECT: forstår
+     why: forstår — stem plus -r, the same for jeg, du, han and de.
+115. [C] I går ___ jeg tidligt. (at spørge — to ask)
+     options: spurgt | spørger | spurgte | spørge
+     CORRECT: spurgte
+     why: spurgte is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+116. [W] Skriv nutid af at spørge: Jeg ___ hver dag.
+     CORRECT: spørger
+     why: spørger — stem plus -r, the same for jeg, du, han and de.
+117. [C] I går ___ jeg tidligt. (at følge — to follow)
+     options: fulgt | fulgte | følger | følge
+     CORRECT: fulgte
+     why: fulgte is datid. Irregular — no pattern to derive it from, so this one is learnt as a set of three. These are the most common verbs in the language, which is exactly why they resisted regularisation.
+118. [W] Skriv nutid af at følge: Jeg ___ hver dag.
+     CORRECT: følger
+     why: følger — stem plus -r, the same for jeg, du, han and de.
+
+===== TOPIC staerke — Stærke verber [TID] =====
+RULE: A strong verb adds nothing in the past — the vowel changes instead: drikke → drak → drukket, skrive → skrev → skrevet. Learn them in families by their vowel pattern and a dozen verbs come with each one.
+
+1. [C] Hvad er datid af at drikke? (to drink)
+     options: drak | drikkede | drukket | drikker
+     CORRECT: drak
+     why: drak. Stærk · i – a – u. The regularised form is exactly the trap here.
+2. [W] Skriv førnutid af at drikke: Jeg ___ det før.
+     CORRECT: har drukket
+     why: har drukket.
+3. [C] Hvad er datid af at finde? (to find)
+     options: fandt | finder | findede | fundet
+     CORRECT: fandt
+     why: fandt. Stærk · i – a – u. The regularised form is exactly the trap here.
+4. [W] Skriv førnutid af at finde: Jeg ___ det før.
+     CORRECT: har fundet
+     why: har fundet.
+5. [C] Hvad er datid af at vinde? (to win)
+     options: vinder | vundet | vindede | vandt
+     CORRECT: vandt
+     why: vandt. Stærk · i – a – u. The regularised form is exactly the trap here.
+6. [W] Skriv førnutid af at vinde: Jeg ___ det før.
+     CORRECT: har vundet
+     why: har vundet.
+7. [C] Hvad er datid af at synge? (to sing)
+     options: synger | syngede | sang | sunget
+     CORRECT: sang
+     why: sang. Stærk · i – a – u. The regularised form is exactly the trap here.
+8. [W] Skriv førnutid af at synge: Jeg ___ det før.
+     CORRECT: har sunget
+     why: har sunget.
+9. [C] Hvad er datid af at springe? (to jump, to run)
+     options: springede | sprang | springer | sprunget
+     CORRECT: sprang
+     why: sprang. Stærk · i – a – u. The regularised form is exactly the trap here.
+10. [W] Skriv førnutid af at springe: Jeg ___ det før.
+     CORRECT: har sprunget
+     why: har sprunget.
+11. [C] Hvad er datid af at skrive? (to write)
+     options: skrev | skriver | skrevet | skrivede
+     CORRECT: skrev
+     why: skrev. Stærk · i – e – e. The regularised form is exactly the trap here.
+12. [W] Skriv førnutid af at skrive: Jeg ___ det før.
+     CORRECT: har skrevet
+     why: har skrevet.
+13. [C] Hvad er datid af at blive? (to become, to stay)
+     options: bliver | blivede | blev | blevet
+     CORRECT: blev
+     why: blev. Stærk · i – e – e. The regularised form is exactly the trap here.
+14. [W] Skriv førnutid af at blive: Jeg ___ det før.
+     CORRECT: er blevet
+     why: er blevet.
+15. [C] Hvad er datid af at bide? (to bite)
+     options: bed | bidt | bider | bidede
+     CORRECT: bed
+     why: bed. Stærk · i – e – e. The regularised form is exactly the trap here.
+16. [W] Skriv førnutid af at bide: Jeg ___ det før.
+     CORRECT: har bidt
+     why: har bidt.
+17. [C] Hvad er datid af at flyve? (to fly)
+     options: flyvede | fløj | fløjet | flyver
+     CORRECT: fløj
+     why: fløj. Stærk · y – ø – ø. The regularised form is exactly the trap here.
+18. [W] Skriv førnutid af at flyve: Jeg ___ det før.
+     CORRECT: har fløjet
+     why: har fløjet.
+19. [C] Hvad er datid af at tilbyde? (to offer)
+     options: tilbudt | tilbød | tilbydede | tilbyder
+     CORRECT: tilbød
+     why: tilbød. Stærk · y – ø – ø. The regularised form is exactly the trap here.
+20. [W] Skriv førnutid af at tilbyde: Jeg ___ det før.
+     CORRECT: har tilbudt
+     why: har tilbudt.
+21. [C] Hvad er datid af at bryde? (to break)
+     options: brød | bryder | brudt | brydede
+     CORRECT: brød
+     why: brød. Stærk · y – ø – ø. The regularised form is exactly the trap here.
+22. [W] Skriv førnutid af at bryde: Jeg ___ det før.
+     CORRECT: har brudt
+     why: har brudt.
+23. [C] Hvad er datid af at tage? (to take)
+     options: taget | tager | tog | tagede
+     CORRECT: tog
+     why: tog. Stærk · a/å – o – a. The regularised form is exactly the trap here.
+24. [W] Skriv førnutid af at tage: Jeg ___ det før.
+     CORRECT: har taget
+     why: har taget.
+25. [C] Hvad er datid af at slå? (to hit, to strike)
+     options: slået | slår | slog | slåede
+     CORRECT: slog
+     why: slog. Stærk · a/å – o – a. The regularised form is exactly the trap here.
+26. [W] Skriv førnutid af at slå: Jeg ___ det før.
+     CORRECT: har slået
+     why: har slået.
+27. [C] Hvad er datid af at være? (to be)
+     options: er | været | var | værede
+     CORRECT: var
+     why: var. Uregelmæssig. The regularised form is exactly the trap here.
+28. [W] Skriv førnutid af at være: Jeg ___ det før.
+     CORRECT: har været
+     why: har været.
+29. [C] Hvad er datid af at have? (to have)
+     options: havde | haft | har | havede
+     CORRECT: havde
+     why: havde. Uregelmæssig. The regularised form is exactly the trap here.
+30. [W] Skriv førnutid af at have: Jeg ___ det før.
+     CORRECT: har haft
+     why: har haft.
+31. [C] Hvad er datid af at gøre? (to do)
+     options: gør | gørede | gjort | gjorde
+     CORRECT: gjorde
+     why: gjorde. Uregelmæssig. The regularised form is exactly the trap here.
+32. [W] Skriv førnutid af at gøre: Jeg ___ det før.
+     CORRECT: har gjort
+     why: har gjort.
+33. [C] Hvad er datid af at gå? (to walk, to go)
+     options: gik | gået | gåede | går
+     CORRECT: gik
+     why: gik. Uregelmæssig. The regularised form is exactly the trap here.
+34. [W] Skriv førnutid af at gå: Jeg ___ det før.
+     CORRECT: er gået
+     why: er gået.
+35. [C] Hvad er datid af at komme? (to come)
+     options: kommer | kommede | kommet | kom
+     CORRECT: kom
+     why: kom. Uregelmæssig. The regularised form is exactly the trap here.
+36. [W] Skriv førnutid af at komme: Jeg ___ det før.
+     CORRECT: er kommet
+     why: er kommet.
+37. [C] Hvad er datid af at få? (to get, to receive)
+     options: fåede | fik | fået | får
+     CORRECT: fik
+     why: fik. Uregelmæssig. The regularised form is exactly the trap here.
+38. [W] Skriv førnutid af at få: Jeg ___ det før.
+     CORRECT: har fået
+     why: har fået.
+39. [C] Hvad er datid af at se? (to see)
+     options: set | så | sede | ser
+     CORRECT: så
+     why: så. Uregelmæssig. The regularised form is exactly the trap here.
+40. [W] Skriv førnutid af at se: Jeg ___ det før.
+     CORRECT: har set
+     why: har set.
+41. [C] Hvad er datid af at give? (to give)
+     options: givede | givet | gav | giver
+     CORRECT: gav
+     why: gav. Uregelmæssig. The regularised form is exactly the trap here.
+42. [W] Skriv førnutid af at give: Jeg ___ det før.
+     CORRECT: har givet
+     why: har givet.
+43. [C] Hvad er datid af at sige? (to say)
+     options: sagt | sigede | siger | sagde
+     CORRECT: sagde
+     why: sagde. Uregelmæssig. The regularised form is exactly the trap here.
+44. [W] Skriv førnutid af at sige: Jeg ___ det før.
+     CORRECT: har sagt
+     why: har sagt.
+45. [C] Hvad er datid af at vide? (to know (a fact))
+     options: vidste | vidst | ved | videde
+     CORRECT: vidste
+     why: vidste. Uregelmæssig. The regularised form is exactly the trap here.
+46. [W] Skriv førnutid af at vide: Jeg ___ det før.
+     CORRECT: har vidst
+     why: har vidst.
+47. [C] Hvad er datid af at stå? (to stand)
+     options: står | stået | stod | ståede
+     CORRECT: stod
+     why: stod. Uregelmæssig. The regularised form is exactly the trap here.
+48. [W] Skriv førnutid af at stå: Jeg ___ det før.
+     CORRECT: har stået
+     why: har stået.
+49. [C] Hvad er datid af at ligge? (to lie, to be situated)
+     options: ligger | liggede | ligget | lå
+     CORRECT: lå
+     why: lå. Uregelmæssig. The regularised form is exactly the trap here.
+50. [W] Skriv førnutid af at ligge: Jeg ___ det før.
+     CORRECT: har ligget
+     why: har ligget.
+51. [C] Hvad er datid af at sidde? (to sit)
+     options: sad | siddede | siddet | sidder
+     CORRECT: sad
+     why: sad. Uregelmæssig. The regularised form is exactly the trap here.
+52. [W] Skriv førnutid af at sidde: Jeg ___ det før.
+     CORRECT: har siddet
+     why: har siddet.
+53. [C] Hvad er datid af at sove? (to sleep)
+     options: sovede | sover | sovet | sov
+     CORRECT: sov
+     why: sov. Uregelmæssig. The regularised form is exactly the trap here.
+54. [W] Skriv førnutid af at sove: Jeg ___ det før.
+     CORRECT: har sovet
+     why: har sovet.
+55. [C] Hvad er datid af at hedde? (to be called)
+     options: hedder | heddet | hed | heddede
+     CORRECT: hed
+     why: hed. Uregelmæssig. The regularised form is exactly the trap here.
+56. [W] Skriv førnutid af at hedde: Jeg ___ det før.
+     CORRECT: har heddet
+     why: har heddet.
+57. [C] Hvad er datid af at holde? (to hold, to keep)
+     options: holdt | holdede | holder
+     CORRECT: holdt
+     why: holdt. Uregelmæssig. The regularised form is exactly the trap here.
+58. [W] Skriv førnutid af at holde: Jeg ___ det før.
+     CORRECT: har holdt
+     why: har holdt.
+59. [C] Hvad er datid af at hjælpe? (to help)
+     options: hjalp | hjælper | hjælpede | hjulpet
+     CORRECT: hjalp
+     why: hjalp. Uregelmæssig. The regularised form is exactly the trap here.
+60. [W] Skriv førnutid af at hjælpe: Jeg ___ det før.
+     CORRECT: har hjulpet
+     why: har hjulpet.
+61. [C] Hvad er datid af at vælge? (to choose)
+     options: valgt | valgte | vælgede | vælger
+     CORRECT: valgte
+     why: valgte. Uregelmæssig. The regularised form is exactly the trap here.
+62. [W] Skriv førnutid af at vælge: Jeg ___ det før.
+     CORRECT: har valgt
+     why: har valgt.
+63. [C] Hvad er datid af at lægge? (to lay, to put down)
+     options: læggede | lagt | lagde | lægger
+     CORRECT: lagde
+     why: lagde. Uregelmæssig. The regularised form is exactly the trap here.
+64. [W] Skriv førnutid af at lægge: Jeg ___ det før.
+     CORRECT: har lagt
+     why: har lagt.
+65. [C] Hvad er datid af at forstå? (to understand)
+     options: forståede | forstod | forstår | forstået
+     CORRECT: forstod
+     why: forstod. Uregelmæssig. The regularised form is exactly the trap here.
+66. [W] Skriv førnutid af at forstå: Jeg ___ det før.
+     CORRECT: har forstået
+     why: har forstået.
+67. [C] Hvad er datid af at spørge? (to ask)
+     options: spørgede | spurgt | spørger | spurgte
+     CORRECT: spurgte
+     why: spurgte. Uregelmæssig. The regularised form is exactly the trap here.
+68. [W] Skriv førnutid af at spørge: Jeg ___ det før.
+     CORRECT: har spurgt
+     why: har spurgt.
+69. [C] Hvad er datid af at følge? (to follow)
+     options: fulgt | følger | følgede | fulgte
+     CORRECT: fulgte
+     why: fulgte. Uregelmæssig. The regularised form is exactly the trap here.
+70. [W] Skriv førnutid af at følge: Jeg ___ det før.
+     CORRECT: har fulgt
+     why: har fulgt.
+
+===== TOPIC har-er — Førnutid: har eller er [TID] =====
+RULE: Most verbs take har. Verbs of movement from A to B or a change of state take er: jeg er gået, hun er kommet, det er sket, han er blevet træt. The test: has something moved or changed? Then er.
+
+1. [C] Jeg ___ gået klokken syv. (at gå — to walk, to go)
+     options: var | har | er | havde
+     CORRECT: er
+     why: er gået. at gå is movement or a change of state, so it takes er.
+2. [C] Jeg ___ kommet klokken syv. (at komme — to come)
+     options: var | havde | er | har
+     CORRECT: er
+     why: er kommet. at komme is movement or a change of state, so it takes er.
+3. [C] Jeg ___ rejst klokken syv. (at rejse — to travel)
+     options: har | er | var | havde
+     CORRECT: er
+     why: er rejst. at rejse is movement or a change of state, so it takes er.
+4. [C] Jeg ___ flyttet klokken syv. (at flytte — to move house)
+     options: har | havde | var | er
+     CORRECT: er
+     why: er flyttet. at flytte is movement or a change of state, so it takes er.
+5. [C] Jeg ___ blevet klokken syv. (at blive — to become, to stay)
+     options: har | havde | var | er
+     CORRECT: er
+     why: er blevet. at blive is movement or a change of state, so it takes er.
+6. [C] Jeg ___ ankommet klokken syv. (at ankomme — to arrive)
+     options: har | er | var | havde
+     CORRECT: er
+     why: er ankommet. at ankomme is movement or a change of state, so it takes er.
+7. [C] Jeg ___ faldet klokken syv. (at falde — to fall)
+     options: havde | er | var | har
+     CORRECT: er
+     why: er faldet. at falde is movement or a change of state, so it takes er.
+8. [C] Jeg ___ sket klokken syv. (at ske — to happen)
+     options: var | havde | har | er
+     CORRECT: er
+     why: er sket. at ske is movement or a change of state, so it takes er.
+9. [C] Jeg ___ begyndt klokken syv. (at begynde — to begin)
+     options: havde | er | var | har
+     CORRECT: er
+     why: er begyndt. at begynde is movement or a change of state, so it takes er.
+10. [C] Jeg ___ vokset klokken syv. (at vokse — to grow)
+     options: havde | er | har | var
+     CORRECT: er
+     why: er vokset. at vokse is movement or a change of state, so it takes er.
+11. [C] Jeg ___ arbejdet hele dagen. (at arbejde — to work)
+     options: var | havde | er | har
+     CORRECT: har
+     why: har arbejdet. Nothing moves and nothing changes state, so it takes har.
+12. [C] Jeg ___ spist hele dagen. (at spise — to eat)
+     options: var | er | har | havde
+     CORRECT: har
+     why: har spist. Nothing moves and nothing changes state, so it takes har.
+13. [C] Jeg ___ læst hele dagen. (at læse — to read)
+     options: havde | er | var | har
+     CORRECT: har
+     why: har læst. Nothing moves and nothing changes state, so it takes har.
+14. [C] Jeg ___ skrevet hele dagen. (at skrive — to write)
+     options: havde | var | har | er
+     CORRECT: har
+     why: har skrevet. Nothing moves and nothing changes state, so it takes har.
+15. [C] Jeg ___ købt hele dagen. (at købe — to buy)
+     options: er | var | havde | har
+     CORRECT: har
+     why: har købt. Nothing moves and nothing changes state, so it takes har.
+16. [C] Jeg ___ talt hele dagen. (at tale — to speak)
+     options: havde | var | har | er
+     CORRECT: har
+     why: har talt. Nothing moves and nothing changes state, so it takes har.
+17. [C] Jeg ___ hørt hele dagen. (at høre — to hear)
+     options: havde | har | var | er
+     CORRECT: har
+     why: har hørt. Nothing moves and nothing changes state, so it takes har.
+18. [C] Jeg ___ set hele dagen. (at se — to see)
+     options: havde | var | har | er
+     CORRECT: har
+     why: har set. Nothing moves and nothing changes state, so it takes har.
+19. [C] Jeg ___ lavet hele dagen. (at lave — to make, to do)
+     options: er | var | havde | har
+     CORRECT: har
+     why: har lavet. Nothing moves and nothing changes state, so it takes har.
+20. [C] Jeg ___ drukket hele dagen. (at drikke — to drink)
+     options: havde | var | er | har
+     CORRECT: har
+     why: har drukket. Nothing moves and nothing changes state, so it takes har.
+
+===== TOPIC fremtid — Fremtid [TID] =====
+RULE: There is no future form. Danish uses three things instead: the plain present with a time word (jeg rejser i morgen) — which is what you will hear most — or skal + infinitive for a plan or an arrangement, or vil + infinitive for intention. Never skal at, and never skal rejser.
+
+1. [C] I morgen ___ jeg. (at arbejde — to work)
+     options: skal arbejde | skal at arbejde | skal arbejder | vil arbejdede
+     CORRECT: skal arbejde
+     why: skal arbejde — a modal takes a bare infinitive: no -r on the second verb and no at. arbejder i morgen would also be correct Danish.
+2. [C] I morgen ___ jeg. (at lave — to make, to do)
+     options: skal at lave | vil lavede | skal lave | skal laver
+     CORRECT: skal lave
+     why: skal lave — a modal takes a bare infinitive: no -r on the second verb and no at. laver i morgen would also be correct Danish.
+3. [C] I morgen ___ jeg. (at vente — to wait)
+     options: skal at vente | skal vente | vil ventede | skal venter
+     CORRECT: skal vente
+     why: skal vente — a modal takes a bare infinitive: no -r on the second verb and no at. venter i morgen would also be correct Danish.
+4. [C] I morgen ___ jeg. (at huske — to remember)
+     options: skal husker | vil huskede | skal huske | skal at huske
+     CORRECT: skal huske
+     why: skal huske — a modal takes a bare infinitive: no -r on the second verb and no at. husker i morgen would also be correct Danish.
+5. [C] I morgen ___ jeg. (at snakke — to chat)
+     options: skal snakker | skal snakke | vil snakkede | skal at snakke
+     CORRECT: skal snakke
+     why: skal snakke — a modal takes a bare infinitive: no -r on the second verb and no at. snakker i morgen would also be correct Danish.
+6. [C] I morgen ___ jeg. (at starte — to start)
+     options: skal at starte | vil startede | skal starter | skal starte
+     CORRECT: skal starte
+     why: skal starte — a modal takes a bare infinitive: no -r on the second verb and no at. starter i morgen would also be correct Danish.
+7. [C] I morgen ___ jeg. (at hente — to fetch, to pick up)
+     options: skal hente | vil hentede | skal henter | skal at hente
+     CORRECT: skal hente
+     why: skal hente — a modal takes a bare infinitive: no -r on the second verb and no at. henter i morgen would also be correct Danish.
+8. [C] I morgen ___ jeg. (at ringe — to call, to ring)
+     options: skal ringe | skal ringer | skal at ringe | vil ringede
+     CORRECT: skal ringe
+     why: skal ringe — a modal takes a bare infinitive: no -r on the second verb and no at. ringer i morgen would also be correct Danish.
+9. [C] I morgen ___ jeg. (at åbne — to open)
+     options: skal åbner | vil åbnede | skal åbne | skal at åbne
+     CORRECT: skal åbne
+     why: skal åbne — a modal takes a bare infinitive: no -r on the second verb and no at. åbner i morgen would also be correct Danish.
+10. [C] I morgen ___ jeg. (at kigge — to look)
+     options: skal kigge | skal kigger | skal at kigge | vil kiggede
+     CORRECT: skal kigge
+     why: skal kigge — a modal takes a bare infinitive: no -r on the second verb and no at. kigger i morgen would also be correct Danish.
+11. [C] I morgen ___ jeg. (at spise — to eat)
+     options: skal spise | vil spiste | skal at spise | skal spiser
+     CORRECT: skal spise
+     why: skal spise — a modal takes a bare infinitive: no -r on the second verb and no at. spiser i morgen would also be correct Danish.
+12. [C] I morgen ___ jeg. (at læse — to read)
+     options: skal at læse | skal læse | vil læste | skal læser
+     CORRECT: skal læse
+     why: skal læse — a modal takes a bare infinitive: no -r on the second verb and no at. læser i morgen would also be correct Danish.
+13. [C] I morgen ___ jeg. (at købe — to buy)
+     options: vil købte | skal at købe | skal købe | skal køber
+     CORRECT: skal købe
+     why: skal købe — a modal takes a bare infinitive: no -r on the second verb and no at. køber i morgen would also be correct Danish.
+14. [C] I morgen ___ jeg. (at bruge — to use, to spend)
+     options: skal bruge | vil brugte | skal bruger | skal at bruge
+     CORRECT: skal bruge
+     why: skal bruge — a modal takes a bare infinitive: no -r on the second verb and no at. bruger i morgen would also be correct Danish.
+15. [C] I morgen ___ jeg. (at høre — to hear)
+     options: skal høre | vil hørte | skal at høre | skal hører
+     CORRECT: skal høre
+     why: skal høre — a modal takes a bare infinitive: no -r on the second verb and no at. hører i morgen would also be correct Danish.
+16. [C] I morgen ___ jeg. (at tale — to speak)
+     options: skal tale | vil talte | skal taler | skal at tale
+     CORRECT: skal tale
+     why: skal tale — a modal takes a bare infinitive: no -r on the second verb and no at. taler i morgen would also be correct Danish.
+17. [C] I morgen ___ jeg. (at betale — to pay)
+     options: skal at betale | skal betale | skal betaler | vil betalte
+     CORRECT: skal betale
+     why: skal betale — a modal takes a bare infinitive: no -r on the second verb and no at. betaler i morgen would also be correct Danish.
+18. [C] I morgen ___ jeg. (at vise — to show)
+     options: skal viser | vil viste | skal at vise | skal vise
+     CORRECT: skal vise
+     why: skal vise — a modal takes a bare infinitive: no -r on the second verb and no at. viser i morgen would also be correct Danish.
+19. [C] I morgen ___ jeg. (at mene — to think, to mean)
+     options: vil mente | skal mener | skal mene | skal at mene
+     CORRECT: skal mene
+     why: skal mene — a modal takes a bare infinitive: no -r on the second verb and no at. mener i morgen would also be correct Danish.
+20. [C] I morgen ___ jeg. (at sende — to send)
+     options: skal at sende | skal sende | skal sender | vil sendte
+     CORRECT: skal sende
+     why: skal sende — a modal takes a bare infinitive: no -r on the second verb and no at. sender i morgen would also be correct Danish.
+21. [C] I morgen ___ jeg. (at møde — to meet)
+     options: skal møde | skal at møde | skal møder | vil mødte
+     CORRECT: skal møde
+     why: skal møde — a modal takes a bare infinitive: no -r on the second verb and no at. møder i morgen would also be correct Danish.
+22. [C] I morgen ___ jeg. (at glemme — to forget)
+     options: skal at glemme | skal glemme | vil glemte | skal glemmer
+     CORRECT: skal glemme
+     why: skal glemme — a modal takes a bare infinitive: no -r on the second verb and no at. glemmer i morgen would also be correct Danish.
+23. [C] I morgen ___ jeg. (at lære — to learn, to teach)
+     options: skal at lære | skal lærer | skal lære | vil lærte
+     CORRECT: skal lære
+     why: skal lære — a modal takes a bare infinitive: no -r on the second verb and no at. lærer i morgen would also be correct Danish.
+24. [C] I morgen ___ jeg. (at rejse — to travel, to leave)
+     options: vil rejste | skal rejse | skal at rejse | skal rejser
+     CORRECT: skal rejse
+     why: skal rejse — a modal takes a bare infinitive: no -r on the second verb and no at. rejser i morgen would also be correct Danish.
+
+===== TOPIC modal — Modalverber og infinitiv [TID] =====
+RULE: kan, skal, vil, må, bør, tør carry the tense, and the verb after them is a bare infinitive — no at, no ending. Jeg kan svømme, jeg kunne svømme. The modal changes form; the second verb never does.
+
+1. [C] Jeg kan ___ i aften. (at arbejde — to work; kan = can)
+     options: arbejde | arbejdede | at arbejde | arbejder
+     CORRECT: arbejde
+     why: After a modal: bare infinitive. arbejde — no at, no -r.
+2. [C] Jeg skal ___ i aften. (at lave — to make, to do; skal = must, is to)
+     options: at lave | laver | lave | lavede
+     CORRECT: lave
+     why: After a modal: bare infinitive. lave — no at, no -r.
+3. [C] Jeg vil ___ i aften. (at vente — to wait; vil = wants to)
+     options: venter | at vente | ventede | vente
+     CORRECT: vente
+     why: After a modal: bare infinitive. vente — no at, no -r.
+4. [C] Jeg må ___ i aften. (at huske — to remember; må = may, must)
+     options: husker | huskede | at huske | huske
+     CORRECT: huske
+     why: After a modal: bare infinitive. huske — no at, no -r.
+5. [C] Jeg bør ___ i aften. (at snakke — to chat; bør = ought to)
+     options: at snakke | snakkede | snakke | snakker
+     CORRECT: snakke
+     why: After a modal: bare infinitive. snakke — no at, no -r.
+6. [C] Jeg kan ___ i aften. (at starte — to start; kan = can)
+     options: startede | starter | starte | at starte
+     CORRECT: starte
+     why: After a modal: bare infinitive. starte — no at, no -r.
+7. [C] Jeg skal ___ i aften. (at hente — to fetch, to pick up; skal = must, is to)
+     options: at hente | henter | hentede | hente
+     CORRECT: hente
+     why: After a modal: bare infinitive. hente — no at, no -r.
+8. [C] Jeg vil ___ i aften. (at ringe — to call, to ring; vil = wants to)
+     options: ringede | ringer | at ringe | ringe
+     CORRECT: ringe
+     why: After a modal: bare infinitive. ringe — no at, no -r.
+9. [C] Jeg må ___ i aften. (at åbne — to open; må = may, must)
+     options: åbne | åbnede | åbner | at åbne
+     CORRECT: åbne
+     why: After a modal: bare infinitive. åbne — no at, no -r.
+10. [C] Jeg bør ___ i aften. (at kigge — to look; bør = ought to)
+     options: kigge | at kigge | kiggede | kigger
+     CORRECT: kigge
+     why: After a modal: bare infinitive. kigge — no at, no -r.
+11. [C] Jeg kan ___ i aften. (at spise — to eat; kan = can)
+     options: spiser | spiste | spise | at spise
+     CORRECT: spise
+     why: After a modal: bare infinitive. spise — no at, no -r.
+12. [C] Jeg skal ___ i aften. (at læse — to read; skal = must, is to)
+     options: læste | læser | læse | at læse
+     CORRECT: læse
+     why: After a modal: bare infinitive. læse — no at, no -r.
+13. [C] Jeg vil ___ i aften. (at købe — to buy; vil = wants to)
+     options: købte | at købe | køber | købe
+     CORRECT: købe
+     why: After a modal: bare infinitive. købe — no at, no -r.
+14. [C] Jeg må ___ i aften. (at bruge — to use, to spend; må = may, must)
+     options: bruge | bruger | brugte | at bruge
+     CORRECT: bruge
+     why: After a modal: bare infinitive. bruge — no at, no -r.
+15. [C] Jeg bør ___ i aften. (at høre — to hear; bør = ought to)
+     options: at høre | høre | hører | hørte
+     CORRECT: høre
+     why: After a modal: bare infinitive. høre — no at, no -r.
+16. [C] Jeg kan ___ i aften. (at tale — to speak; kan = can)
+     options: taler | talte | tale | at tale
+     CORRECT: tale
+     why: After a modal: bare infinitive. tale — no at, no -r.
+17. [C] Jeg skal ___ i aften. (at betale — to pay; skal = must, is to)
+     options: betalte | betale | at betale | betaler
+     CORRECT: betale
+     why: After a modal: bare infinitive. betale — no at, no -r.
+18. [C] Jeg vil ___ i aften. (at vise — to show; vil = wants to)
+     options: viser | at vise | vise | viste
+     CORRECT: vise
+     why: After a modal: bare infinitive. vise — no at, no -r.
+19. [C] Jeg må ___ i aften. (at mene — to think, to mean; må = may, must)
+     options: mene | mener | mente | at mene
+     CORRECT: mene
+     why: After a modal: bare infinitive. mene — no at, no -r.
+20. [C] Jeg bør ___ i aften. (at sende — to send; bør = ought to)
+     options: sender | at sende | sendte | sende
+     CORRECT: sende
+     why: After a modal: bare infinitive. sende — no at, no -r.
+21. [C] Jeg har lyst til ___ rejse.
+     options: som | at | — | og
+     CORRECT: at
+     why: After a noun or an adjective plus a preposition, the infinitive does keep at: lyst til at rejse.
+22. [C] Jeg prøver ___ forstå.
+     options: — | som | og | at
+     CORRECT: at
+     why: prøve is an ordinary verb, not a modal, so the infinitive after it keeps at.
+23. [C] Det er svært ___ lære dansk.
+     options: som | — | og | at
+     CORRECT: at
+     why: at after an adjective.
+
+===== TOPIC koen — En eller et [KØN] =====
+RULE: About 75% of Danish nouns are en-words, so en is the better guess. But gender is not decoration: it decides the definite ending (-en or -et), the adjective form, and whether you point at it with den or det. Learn every noun as bilen and huset, never as bil and hus.
+
+1. [C] ___ bil (car)
+     options: et | en
+     CORRECT: en
+     why: en bil → bestemt form bilen.
+2. [W] Skriv bestemt form af en bil:
+     CORRECT: bilen
+     why: bilen. Danish hangs the article on the end of the word instead of putting it in front.
+3. [C] ___ hus (house)
+     options: et | en
+     CORRECT: et
+     why: et hus → bestemt form huset.
+4. [W] Skriv bestemt form af et hus:
+     CORRECT: huset
+     why: huset. Danish hangs the article on the end of the word instead of putting it in front.
+5. [C] ___ bog (book)
+     options: et | en
+     CORRECT: en
+     why: en bog → bestemt form bogen.
+6. [W] Skriv bestemt form af en bog:
+     CORRECT: bogen
+     why: bogen. Danish hangs the article on the end of the word instead of putting it in front.
+7. [C] ___ barn (child)
+     options: en | et
+     CORRECT: et
+     why: et barn → bestemt form barnet.
+8. [W] Skriv bestemt form af et barn:
+     CORRECT: barnet
+     why: barnet. Danish hangs the article on the end of the word instead of putting it in front.
+9. [C] ___ mand (man)
+     options: et | en
+     CORRECT: en
+     why: en mand → bestemt form manden.
+10. [W] Skriv bestemt form af en mand:
+     CORRECT: manden
+     why: manden. Danish hangs the article on the end of the word instead of putting it in front.
+11. [C] ___ kvinde (woman)
+     options: en | et
+     CORRECT: en
+     why: en kvinde → bestemt form kvinden.
+12. [W] Skriv bestemt form af en kvinde:
+     CORRECT: kvinden
+     why: kvinden. Danish hangs the article on the end of the word instead of putting it in front.
+13. [C] ___ bord (table)
+     options: en | et
+     CORRECT: et
+     why: et bord → bestemt form bordet.
+14. [W] Skriv bestemt form af et bord:
+     CORRECT: bordet
+     why: bordet. Danish hangs the article on the end of the word instead of putting it in front.
+15. [C] ___ stol (chair)
+     options: et | en
+     CORRECT: en
+     why: en stol → bestemt form stolen.
+16. [W] Skriv bestemt form af en stol:
+     CORRECT: stolen
+     why: stolen. Danish hangs the article on the end of the word instead of putting it in front.
+17. [C] ___ vindue (window)
+     options: en | et
+     CORRECT: et
+     why: et vindue → bestemt form vinduet.
+18. [W] Skriv bestemt form af et vindue:
+     CORRECT: vinduet
+     why: vinduet. Danish hangs the article on the end of the word instead of putting it in front.
+19. [C] ___ dør (door)
+     options: et | en
+     CORRECT: en
+     why: en dør → bestemt form døren.
+20. [W] Skriv bestemt form af en dør:
+     CORRECT: døren
+     why: døren. Danish hangs the article on the end of the word instead of putting it in front.
+21. [C] ___ by (town)
+     options: en | et
+     CORRECT: en
+     why: en by → bestemt form byen.
+22. [W] Skriv bestemt form af en by:
+     CORRECT: byen
+     why: byen. Danish hangs the article on the end of the word instead of putting it in front.
+23. [C] ___ land (country)
+     options: en | et
+     CORRECT: et
+     why: et land → bestemt form landet.
+24. [W] Skriv bestemt form af et land:
+     CORRECT: landet
+     why: landet. Danish hangs the article on the end of the word instead of putting it in front.
+25. [C] ___ ven (friend)
+     options: en | et
+     CORRECT: en
+     why: en ven → bestemt form vennen.
+26. [W] Skriv bestemt form af en ven:
+     CORRECT: vennen
+     why: vennen. Danish hangs the article on the end of the word instead of putting it in front.
+27. [C] ___ dag (day)
+     options: en | et
+     CORRECT: en
+     why: en dag → bestemt form dagen.
+28. [W] Skriv bestemt form af en dag:
+     CORRECT: dagen
+     why: dagen. Danish hangs the article on the end of the word instead of putting it in front.
+29. [C] ___ uge (week)
+     options: et | en
+     CORRECT: en
+     why: en uge → bestemt form ugen.
+30. [W] Skriv bestemt form af en uge:
+     CORRECT: ugen
+     why: ugen. Danish hangs the article on the end of the word instead of putting it in front.
+31. [C] ___ år (year)
+     options: en | et
+     CORRECT: et
+     why: et år → bestemt form året.
+32. [W] Skriv bestemt form af et år:
+     CORRECT: året
+     why: året. Danish hangs the article on the end of the word instead of putting it in front.
+33. [C] ___ måned (month)
+     options: et | en
+     CORRECT: en
+     why: en måned → bestemt form måneden.
+34. [W] Skriv bestemt form af en måned:
+     CORRECT: måneden
+     why: måneden. Danish hangs the article on the end of the word instead of putting it in front.
+35. [C] ___ brev (letter)
+     options: et | en
+     CORRECT: et
+     why: et brev → bestemt form brevet.
+36. [W] Skriv bestemt form af et brev:
+     CORRECT: brevet
+     why: brevet. Danish hangs the article on the end of the word instead of putting it in front.
+37. [C] ___ butik (shop)
+     options: en | et
+     CORRECT: en
+     why: en butik → bestemt form butikken.
+38. [W] Skriv bestemt form af en butik:
+     CORRECT: butikken
+     why: butikken. Danish hangs the article on the end of the word instead of putting it in front.
+39. [C] ___ køkken (kitchen)
+     options: et | en
+     CORRECT: et
+     why: et køkken → bestemt form køkkenet.
+40. [W] Skriv bestemt form af et køkken:
+     CORRECT: køkkenet
+     why: køkkenet. Danish hangs the article on the end of the word instead of putting it in front.
+41. [C] ___ lærer (teacher)
+     options: en | et
+     CORRECT: en
+     why: en lærer → bestemt form læreren.
+42. [W] Skriv bestemt form af en lærer:
+     CORRECT: læreren
+     why: læreren. Danish hangs the article on the end of the word instead of putting it in front.
+43. [C] ___ kollega (colleague)
+     options: et | en
+     CORRECT: en
+     why: en kollega → bestemt form kollegaen.
+44. [W] Skriv bestemt form af en kollega:
+     CORRECT: kollegaen
+     why: kollegaen. Danish hangs the article on the end of the word instead of putting it in front.
+45. [C] ___ møde (meeting)
+     options: et | en
+     CORRECT: et
+     why: et møde → bestemt form mødet.
+46. [W] Skriv bestemt form af et møde:
+     CORRECT: mødet
+     why: mødet. Danish hangs the article on the end of the word instead of putting it in front.
+47. [C] ___ opgave (task)
+     options: en | et
+     CORRECT: en
+     why: en opgave → bestemt form opgaven.
+48. [W] Skriv bestemt form af en opgave:
+     CORRECT: opgaven
+     why: opgaven. Danish hangs the article on the end of the word instead of putting it in front.
+49. [C] ___ job (job)
+     options: en | et
+     CORRECT: et
+     why: et job → bestemt form jobbet.
+50. [W] Skriv bestemt form af et job:
+     CORRECT: jobbet
+     why: jobbet. Danish hangs the article on the end of the word instead of putting it in front.
+51. [C] ___ cykel (bicycle)
+     options: et | en
+     CORRECT: en
+     why: en cykel → bestemt form cyklen.
+52. [W] Skriv bestemt form af en cykel:
+     CORRECT: cyklen
+     why: cyklen. Danish hangs the article on the end of the word instead of putting it in front.
+53. [C] ___ tog (train)
+     options: et | en
+     CORRECT: et
+     why: et tog → bestemt form toget.
+54. [W] Skriv bestemt form af et tog:
+     CORRECT: toget
+     why: toget. Danish hangs the article on the end of the word instead of putting it in front.
+55. [C] ___ bus (bus)
+     options: et | en
+     CORRECT: en
+     why: en bus → bestemt form bussen.
+56. [W] Skriv bestemt form af en bus:
+     CORRECT: bussen
+     why: bussen. Danish hangs the article on the end of the word instead of putting it in front.
+57. [C] ___ værelse (room)
+     options: et | en
+     CORRECT: et
+     why: et værelse → bestemt form værelset.
+58. [W] Skriv bestemt form af et værelse:
+     CORRECT: værelset
+     why: værelset. Danish hangs the article on the end of the word instead of putting it in front.
+59. [C] ___ lejlighed (flat)
+     options: en | et
+     CORRECT: en
+     why: en lejlighed → bestemt form lejligheden.
+60. [W] Skriv bestemt form af en lejlighed:
+     CORRECT: lejligheden
+     why: lejligheden. Danish hangs the article on the end of the word instead of putting it in front.
+61. [C] ___ nabo (neighbour)
+     options: en | et
+     CORRECT: en
+     why: en nabo → bestemt form naboen.
+62. [W] Skriv bestemt form af en nabo:
+     CORRECT: naboen
+     why: naboen. Danish hangs the article on the end of the word instead of putting it in front.
+63. [C] ___ hånd (hand)
+     options: et | en
+     CORRECT: en
+     why: en hånd → bestemt form hånden.
+64. [W] Skriv bestemt form af en hånd:
+     CORRECT: hånden
+     why: hånden. Danish hangs the article on the end of the word instead of putting it in front.
+65. [C] ___ fod (foot)
+     options: en | et
+     CORRECT: en
+     why: en fod → bestemt form foden.
+66. [W] Skriv bestemt form af en fod:
+     CORRECT: foden
+     why: foden. Danish hangs the article on the end of the word instead of putting it in front.
+67. [C] ___ øje (eye)
+     options: en | et
+     CORRECT: et
+     why: et øje → bestemt form øjet.
+68. [W] Skriv bestemt form af et øje:
+     CORRECT: øjet
+     why: øjet. Danish hangs the article on the end of the word instead of putting it in front.
+69. [C] ___ søster (sister)
+     options: en | et
+     CORRECT: en
+     why: en søster → bestemt form søsteren.
+70. [W] Skriv bestemt form af en søster:
+     CORRECT: søsteren
+     why: søsteren. Danish hangs the article on the end of the word instead of putting it in front.
+71. [C] ___ æble (apple)
+     options: en | et
+     CORRECT: et
+     why: et æble → bestemt form æblet.
+72. [W] Skriv bestemt form af et æble:
+     CORRECT: æblet
+     why: æblet. Danish hangs the article on the end of the word instead of putting it in front.
+73. [C] ___ seng (bed)
+     options: en | et
+     CORRECT: en
+     why: en seng → bestemt form sengen.
+74. [W] Skriv bestemt form af en seng:
+     CORRECT: sengen
+     why: sengen. Danish hangs the article on the end of the word instead of putting it in front.
+75. [C] ___ spørgsmål (question)
+     options: et | en
+     CORRECT: et
+     why: et spørgsmål → bestemt form spørgsmålet.
+76. [W] Skriv bestemt form af et spørgsmål:
+     CORRECT: spørgsmålet
+     why: spørgsmålet. Danish hangs the article on the end of the word instead of putting it in front.
+
+===== TOPIC flertal — Flertal [BØJ] =====
+RULE: Three plural endings: -er is the biggest group (biler, bøger), -e is next (huse, borde), and some words add nothing (år, tog, job, børn — though børn also changes its vowel). The definite plural then adds -ne on top: bilerne, husene, årene.
+
+1. [W] Skriv flertal af en bil: to ___
+     CORRECT: biler
+     why: biler. Bestemt flertal: bilerne.
+2. [C] Hvad er bestemt flertal af en bil?
+     options: biler | bilen | bilerne | bilererne
+     CORRECT: bilerne
+     why: bilerne — plural first, then -ne on the end.
+3. [W] Skriv flertal af et hus: to ___
+     CORRECT: huse
+     why: huse. Bestemt flertal: husene.
+4. [C] Hvad er bestemt flertal af et hus?
+     options: huset | huse | husene | huseerne
+     CORRECT: husene
+     why: husene — plural first, then -ne on the end.
+5. [W] Skriv flertal af en bog: to ___
+     CORRECT: bøger
+     why: bøger. Bestemt flertal: bøgerne.
+6. [C] Hvad er bestemt flertal af en bog?
+     options: bøger | bøgererne | bøgerne | bogen
+     CORRECT: bøgerne
+     why: bøgerne — plural first, then -ne on the end.
+7. [W] Skriv flertal af et barn: to ___
+     CORRECT: børn
+     why: børn. Bestemt flertal: børnene.
+8. [C] Hvad er bestemt flertal af et barn?
+     options: børnene | barnet | børn | børnne
+     CORRECT: børnene
+     why: børnene — plural first, then -ne on the end.
+9. [W] Skriv flertal af en mand: to ___
+     CORRECT: mænd
+     why: mænd. Bestemt flertal: mændene.
+10. [C] Hvad er bestemt flertal af en mand?
+     options: mænd | mændene | manden | mændne
+     CORRECT: mændene
+     why: mændene — plural first, then -ne on the end.
+11. [W] Skriv flertal af en kvinde: to ___
+     CORRECT: kvinder
+     why: kvinder. Bestemt flertal: kvinderne.
+12. [C] Hvad er bestemt flertal af en kvinde?
+     options: kvinderne | kvinder | kvinden | kvindererne
+     CORRECT: kvinderne
+     why: kvinderne — plural first, then -ne on the end.
+13. [W] Skriv flertal af et bord: to ___
+     CORRECT: borde
+     why: borde. Bestemt flertal: bordene.
+14. [C] Hvad er bestemt flertal af et bord?
+     options: bordeerne | borde | bordet | bordene
+     CORRECT: bordene
+     why: bordene — plural first, then -ne on the end.
+15. [W] Skriv flertal af en stol: to ___
+     CORRECT: stole
+     why: stole. Bestemt flertal: stolene.
+16. [C] Hvad er bestemt flertal af en stol?
+     options: stolen | stole | stoleerne | stolene
+     CORRECT: stolene
+     why: stolene — plural first, then -ne on the end.
+17. [W] Skriv flertal af et vindue: to ___
+     CORRECT: vinduer
+     why: vinduer. Bestemt flertal: vinduerne.
+18. [C] Hvad er bestemt flertal af et vindue?
+     options: vinduer | vinduet | vinduerne | vinduererne
+     CORRECT: vinduerne
+     why: vinduerne — plural first, then -ne on the end.
+19. [W] Skriv flertal af en dør: to ___
+     CORRECT: døre
+     why: døre. Bestemt flertal: dørene.
+20. [C] Hvad er bestemt flertal af en dør?
+     options: døren | døre | døreerne | dørene
+     CORRECT: dørene
+     why: dørene — plural first, then -ne on the end.
+21. [W] Skriv flertal af en by: to ___
+     CORRECT: byer
+     why: byer. Bestemt flertal: byerne.
+22. [C] Hvad er bestemt flertal af en by?
+     options: byererne | byer | byen | byerne
+     CORRECT: byerne
+     why: byerne — plural first, then -ne on the end.
+23. [W] Skriv flertal af et land: to ___
+     CORRECT: lande
+     why: lande. Bestemt flertal: landene.
+24. [C] Hvad er bestemt flertal af et land?
+     options: landene | lande | landeerne | landet
+     CORRECT: landene
+     why: landene — plural first, then -ne on the end.
+25. [W] Skriv flertal af en ven: to ___
+     CORRECT: venner
+     why: venner. Bestemt flertal: vennerne.
+26. [C] Hvad er bestemt flertal af en ven?
+     options: venner | vennererne | vennen | vennerne
+     CORRECT: vennerne
+     why: vennerne — plural first, then -ne on the end.
+27. [W] Skriv flertal af en dag: to ___
+     CORRECT: dage
+     why: dage. Bestemt flertal: dagene.
+28. [C] Hvad er bestemt flertal af en dag?
+     options: dagen | dagene | dageerne | dage
+     CORRECT: dagene
+     why: dagene — plural first, then -ne on the end.
+29. [W] Skriv flertal af en uge: to ___
+     CORRECT: uger
+     why: uger. Bestemt flertal: ugerne.
+30. [C] Hvad er bestemt flertal af en uge?
+     options: uger | ugen | ugererne | ugerne
+     CORRECT: ugerne
+     why: ugerne — plural first, then -ne on the end.
+31. [W] Skriv flertal af et år: to ___
+     CORRECT: år
+     why: år — no ending at all in the plural. Bestemt flertal: årene.
+32. [C] Hvad er bestemt flertal af et år?
+     options: årne | år | året | årene
+     CORRECT: årene
+     why: årene — plural first, then -ne on the end.
+33. [W] Skriv flertal af en måned: to ___
+     CORRECT: måneder
+     why: måneder. Bestemt flertal: månederne.
+34. [C] Hvad er bestemt flertal af en måned?
+     options: måneden | måneder | månederne | månedererne
+     CORRECT: månederne
+     why: månederne — plural first, then -ne on the end.
+35. [W] Skriv flertal af et brev: to ___
+     CORRECT: breve
+     why: breve. Bestemt flertal: brevene.
+36. [C] Hvad er bestemt flertal af et brev?
+     options: brevet | breve | brevene | breveerne
+     CORRECT: brevene
+     why: brevene — plural first, then -ne on the end.
+37. [W] Skriv flertal af en butik: to ___
+     CORRECT: butikker
+     why: butikker. Bestemt flertal: butikkerne.
+38. [C] Hvad er bestemt flertal af en butik?
+     options: butikkerne | butikkererne | butikker | butikken
+     CORRECT: butikkerne
+     why: butikkerne — plural first, then -ne on the end.
+39. [W] Skriv flertal af et køkken: to ___
+     CORRECT: køkkener
+     why: køkkener. Bestemt flertal: køkkenerne.
+40. [C] Hvad er bestemt flertal af et køkken?
+     options: køkkenererne | køkkener | køkkenet | køkkenerne
+     CORRECT: køkkenerne
+     why: køkkenerne — plural first, then -ne on the end.
+41. [W] Skriv flertal af en lærer: to ___
+     CORRECT: lærere
+     why: lærere. Bestemt flertal: lærerne.
+42. [C] Hvad er bestemt flertal af en lærer?
+     options: lærerene | lærerne | læreren | lærere
+     CORRECT: lærerne
+     why: lærerne — plural first, then -ne on the end.
+43. [W] Skriv flertal af en kollega: to ___
+     CORRECT: kolleger
+     why: kolleger. Bestemt flertal: kollegerne.
+44. [C] Hvad er bestemt flertal af en kollega?
+     options: kollegererne | kollegaen | kolleger | kollegerne
+     CORRECT: kollegerne
+     why: kollegerne — plural first, then -ne on the end.
+45. [W] Skriv flertal af et møde: to ___
+     CORRECT: møder
+     why: møder. Bestemt flertal: møderne.
+46. [C] Hvad er bestemt flertal af et møde?
+     options: møderne | mødet | møder | mødererne
+     CORRECT: møderne
+     why: møderne — plural first, then -ne on the end.
+47. [W] Skriv flertal af en opgave: to ___
+     CORRECT: opgaver
+     why: opgaver. Bestemt flertal: opgaverne.
+48. [C] Hvad er bestemt flertal af en opgave?
+     options: opgaver | opgaverne | opgavererne | opgaven
+     CORRECT: opgaverne
+     why: opgaverne — plural first, then -ne on the end.
+49. [W] Skriv flertal af et job: to ___
+     CORRECT: job
+     why: job — no ending at all in the plural. Bestemt flertal: jobbene.
+50. [C] Hvad er bestemt flertal af et job?
+     options: jobne | jobbene | job | jobbet
+     CORRECT: jobbene
+     why: jobbene — plural first, then -ne on the end.
+51. [W] Skriv flertal af en cykel: to ___
+     CORRECT: cykler
+     why: cykler. Bestemt flertal: cyklerne.
+52. [C] Hvad er bestemt flertal af en cykel?
+     options: cyklerne | cyklererne | cykler | cyklen
+     CORRECT: cyklerne
+     why: cyklerne — plural first, then -ne on the end.
+53. [W] Skriv flertal af et tog: to ___
+     CORRECT: tog
+     why: tog — no ending at all in the plural. Bestemt flertal: togene.
+54. [C] Hvad er bestemt flertal af et tog?
+     options: togene | togne | toget | tog
+     CORRECT: togene
+     why: togene — plural first, then -ne on the end.
+55. [W] Skriv flertal af en bus: to ___
+     CORRECT: busser
+     why: busser. Bestemt flertal: busserne.
+56. [C] Hvad er bestemt flertal af en bus?
+     options: bussererne | bussen | busser | busserne
+     CORRECT: busserne
+     why: busserne — plural first, then -ne on the end.
+57. [W] Skriv flertal af et værelse: to ___
+     CORRECT: værelser
+     why: værelser. Bestemt flertal: værelserne.
+58. [C] Hvad er bestemt flertal af et værelse?
+     options: værelser | værelsererne | værelserne | værelset
+     CORRECT: værelserne
+     why: værelserne — plural first, then -ne on the end.
+59. [W] Skriv flertal af en lejlighed: to ___
+     CORRECT: lejligheder
+     why: lejligheder. Bestemt flertal: lejlighederne.
+60. [C] Hvad er bestemt flertal af en lejlighed?
+     options: lejlighederne | lejligheden | lejlighedererne | lejligheder
+     CORRECT: lejlighederne
+     why: lejlighederne — plural first, then -ne on the end.
+61. [W] Skriv flertal af en nabo: to ___
+     CORRECT: naboer
+     why: naboer. Bestemt flertal: naboerne.
+62. [C] Hvad er bestemt flertal af en nabo?
+     options: naboen | naboerne | naboer | naboererne
+     CORRECT: naboerne
+     why: naboerne — plural first, then -ne on the end.
+63. [W] Skriv flertal af en hånd: to ___
+     CORRECT: hænder
+     why: hænder. Bestemt flertal: hænderne.
+64. [C] Hvad er bestemt flertal af en hånd?
+     options: hånden | hænderne | hænder | hændererne
+     CORRECT: hænderne
+     why: hænderne — plural first, then -ne on the end.
+65. [W] Skriv flertal af en fod: to ___
+     CORRECT: fødder
+     why: fødder. Bestemt flertal: fødderne.
+66. [C] Hvad er bestemt flertal af en fod?
+     options: føddererne | foden | fødder | fødderne
+     CORRECT: fødderne
+     why: fødderne — plural first, then -ne on the end.
+67. [W] Skriv flertal af et øje: to ___
+     CORRECT: øjne
+     why: øjne. Bestemt flertal: øjnene.
+68. [C] Hvad er bestemt flertal af et øje?
+     options: øjne | øjet | øjneerne | øjnene
+     CORRECT: øjnene
+     why: øjnene — plural first, then -ne on the end.
+69. [W] Skriv flertal af en søster: to ___
+     CORRECT: søstre
+     why: søstre. Bestemt flertal: søstrene.
+70. [C] Hvad er bestemt flertal af en søster?
+     options: søsteren | søstrene | søstreerne | søstre
+     CORRECT: søstrene
+     why: søstrene — plural first, then -ne on the end.
+71. [W] Skriv flertal af et æble: to ___
+     CORRECT: æbler
+     why: æbler. Bestemt flertal: æblerne.
+72. [C] Hvad er bestemt flertal af et æble?
+     options: æblerne | æbler | æblererne | æblet
+     CORRECT: æblerne
+     why: æblerne — plural first, then -ne on the end.
+73. [W] Skriv flertal af en seng: to ___
+     CORRECT: senge
+     why: senge. Bestemt flertal: sengene.
+74. [C] Hvad er bestemt flertal af en seng?
+     options: sengene | sengen | senge | sengeerne
+     CORRECT: sengene
+     why: sengene — plural first, then -ne on the end.
+75. [W] Skriv flertal af et spørgsmål: to ___
+     CORRECT: spørgsmål
+     why: spørgsmål — no ending at all in the plural. Bestemt flertal: spørgsmålene.
+76. [C] Hvad er bestemt flertal af et spørgsmål?
+     options: spørgsmål | spørgsmålne | spørgsmålet | spørgsmålene
+     CORRECT: spørgsmålene
+     why: spørgsmålene — plural first, then -ne on the end.
+
+===== TOPIC adjektiv — Adjektiver [BØJ] =====
+RULE: An adjective takes three shapes. Plain with an en-word (en stor bil), -t with an et-word (et stort hus), and -e in the plural and after anything definite (store huse, det store hus, min store bil). The rule is easier than it sounds: if it is definite or plural, it ends in -e.
+
+1. [C] et ___ land (stor — big)
+     options: stor | stort | store
+     CORRECT: stort
+     why: An et-word takes -t: stort.
+2. [C] de ___ busser (stor — big)
+     options: stor | store | stort
+     CORRECT: store
+     why: Plural and definite both take -e: store.
+3. [C] en ___ bus (stor — big)
+     options: stort | stor | store
+     CORRECT: stor
+     why: An en-word in the indefinite singular takes the plain form: stor.
+4. [W] Gradbøj: stor — ___ — ___ (big)
+     CORRECT: større størst
+     why: stor · større · størst.
+5. [C] et ___ bord (god — good)
+     options: gode | godt | god
+     CORRECT: godt
+     why: An et-word takes -t: godt.
+6. [C] de ___ kolleger (god — good)
+     options: godt | god | gode
+     CORRECT: gode
+     why: Plural and definite both take -e: gode.
+7. [C] en ___ kollega (god — good)
+     options: godt | gode | god
+     CORRECT: god
+     why: An en-word in the indefinite singular takes the plain form: god.
+8. [W] Gradbøj: god — ___ — ___ (good)
+     CORRECT: bedre bedst
+     why: god · bedre · bedst.
+9. [C] et ___ barn (dårlig — bad)
+     options: dårligt | dårlig | dårlige
+     CORRECT: dårligt
+     why: An et-word takes -t: dårligt.
+10. [C] de ___ måneder (dårlig — bad)
+     options: dårligt | dårlige | dårlig
+     CORRECT: dårlige
+     why: Plural and definite both take -e: dårlige.
+11. [C] en ___ måned (dårlig — bad)
+     options: dårlige | dårligt | dårlig
+     CORRECT: dårlig
+     why: An en-word in the indefinite singular takes the plain form: dårlig.
+12. [W] Gradbøj: dårlig — ___ — ___ (bad)
+     CORRECT: dårligere dårligst
+     why: dårlig · dårligere · dårligst.
+13. [C] et ___ år (ny — new)
+     options: nyt | ny | nye
+     CORRECT: nyt
+     why: An et-word takes -t: nyt.
+14. [C] de ___ venner (ny — new)
+     options: nye | ny | nyt
+     CORRECT: nye
+     why: Plural and definite both take -e: nye.
+15. [C] en ___ ven (ny — new)
+     options: nyt | nye | ny
+     CORRECT: ny
+     why: An en-word in the indefinite singular takes the plain form: ny.
+16. [W] Gradbøj: ny — ___ — ___ (new)
+     CORRECT: nyere nyest
+     why: ny · nyere · nyest.
+17. [C] et ___ barn (gammel — old)
+     options: gammelt | gammel | gamle
+     CORRECT: gammelt
+     why: An et-word takes -t: gammelt.
+18. [C] de ___ lejligheder (gammel — old)
+     options: gammel | gamle | gammelt
+     CORRECT: gamle
+     why: Plural and definite both take -e: gamle.
+19. [C] en ___ lejlighed (gammel — old)
+     options: gamle | gammel | gammelt
+     CORRECT: gammel
+     why: An en-word in the indefinite singular takes the plain form: gammel.
+20. [W] Gradbøj: gammel — ___ — ___ (old)
+     CORRECT: ældre ældst
+     why: gammel · ældre · ældst.
+21. [C] et ___ brev (dyr — expensive)
+     options: dyre | dyr | dyrt
+     CORRECT: dyrt
+     why: An et-word takes -t: dyrt.
+22. [C] de ___ lærere (dyr — expensive)
+     options: dyrt | dyr | dyre
+     CORRECT: dyre
+     why: Plural and definite both take -e: dyre.
+23. [C] en ___ lærer (dyr — expensive)
+     options: dyrt | dyre | dyr
+     CORRECT: dyr
+     why: An en-word in the indefinite singular takes the plain form: dyr.
+24. [W] Gradbøj: dyr — ___ — ___ (expensive)
+     CORRECT: dyrere dyrest
+     why: dyr · dyrere · dyrest.
+25. [C] et ___ køkken (billig — cheap)
+     options: billigt | billig | billige
+     CORRECT: billigt
+     why: An et-word takes -t: billigt.
+26. [C] de ___ opgaver (billig — cheap)
+     options: billige | billig | billigt
+     CORRECT: billige
+     why: Plural and definite both take -e: billige.
+27. [C] en ___ opgave (billig — cheap)
+     options: billig | billigt | billige
+     CORRECT: billig
+     why: An en-word in the indefinite singular takes the plain form: billig.
+28. [W] Gradbøj: billig — ___ — ___ (cheap)
+     CORRECT: billigere billigst
+     why: billig · billigere · billigst.
+29. [C] et ___ bord (lang — long)
+     options: lange | lang | langt
+     CORRECT: langt
+     why: An et-word takes -t: langt.
+30. [C] de ___ opgaver (lang — long)
+     options: langt | lang | lange
+     CORRECT: lange
+     why: Plural and definite both take -e: lange.
+31. [C] en ___ opgave (lang — long)
+     options: langt | lange | lang
+     CORRECT: lang
+     why: An en-word in the indefinite singular takes the plain form: lang.
+32. [W] Gradbøj: lang — ___ — ___ (long)
+     CORRECT: længere længst
+     why: lang · længere · længst.
+33. [C] et ___ barn (kort — short)
+     options: kort | korte
+     CORRECT: kort
+     why: kort — unchanged. An adjective that already ends in -t adds nothing for an et-word, so base and neuter look the same.
+34. [C] de ___ lejligheder (kort — short)
+     options: kort | korte
+     CORRECT: korte
+     why: Plural and definite both take -e: korte.
+35. [C] en ___ lejlighed (kort — short)
+     options: korte | kort
+     CORRECT: kort
+     why: An en-word in the indefinite singular takes the plain form: kort.
+36. [W] Gradbøj: kort — ___ — ___ (short)
+     CORRECT: kortere kortest
+     why: kort · kortere · kortest.
+37. [C] et ___ brev (varm — warm)
+     options: varme | varmt | varm
+     CORRECT: varmt
+     why: An et-word takes -t: varmt.
+38. [C] de ___ lejligheder (varm — warm)
+     options: varmt | varme | varm
+     CORRECT: varme
+     why: Plural and definite both take -e: varme.
+39. [C] en ___ lejlighed (varm — warm)
+     options: varm | varmt | varme
+     CORRECT: varm
+     why: An en-word in the indefinite singular takes the plain form: varm.
+40. [W] Gradbøj: varm — ___ — ___ (warm)
+     CORRECT: varmere varmest
+     why: varm · varmere · varmest.
+41. [C] et ___ vindue (kold — cold)
+     options: kold | kolde | koldt
+     CORRECT: koldt
+     why: An et-word takes -t: koldt.
+42. [C] de ___ cykler (kold — cold)
+     options: kold | kolde | koldt
+     CORRECT: kolde
+     why: Plural and definite both take -e: kolde.
+43. [C] en ___ cykel (kold — cold)
+     options: kold | kolde | koldt
+     CORRECT: kold
+     why: An en-word in the indefinite singular takes the plain form: kold.
+44. [W] Gradbøj: kold — ___ — ___ (cold)
+     CORRECT: koldere koldest
+     why: kold · koldere · koldest.
+45. [C] et ___ brev (let — easy)
+     options: let | lette
+     CORRECT: let
+     why: let — unchanged. An adjective that already ends in -t adds nothing for an et-word, so base and neuter look the same.
+46. [C] de ___ dage (let — easy)
+     options: lette | let
+     CORRECT: lette
+     why: Plural and definite both take -e: lette.
+47. [C] en ___ dag (let — easy)
+     options: let | lette
+     CORRECT: let
+     why: An en-word in the indefinite singular takes the plain form: let.
+48. [W] Gradbøj: let — ___ — ___ (easy)
+     CORRECT: lettere lettest
+     why: let · lettere · lettest.
+49. [C] et ___ barn (svær — difficult)
+     options: svært | svær | svære
+     CORRECT: svært
+     why: An et-word takes -t: svært.
+50. [C] de ___ mænd (svær — difficult)
+     options: svært | svære | svær
+     CORRECT: svære
+     why: Plural and definite both take -e: svære.
+51. [C] en ___ mand (svær — difficult)
+     options: svær | svære | svært
+     CORRECT: svær
+     why: An en-word in the indefinite singular takes the plain form: svær.
+52. [W] Gradbøj: svær — ___ — ___ (difficult)
+     CORRECT: sværere sværest
+     why: svær · sværere · sværest.
+53. [C] et ___ møde (rolig — calm)
+     options: roligt | rolige | rolig
+     CORRECT: roligt
+     why: An et-word takes -t: roligt.
+54. [C] de ___ uger (rolig — calm)
+     options: rolige | rolig | roligt
+     CORRECT: rolige
+     why: Plural and definite both take -e: rolige.
+55. [C] en ___ uge (rolig — calm)
+     options: rolige | rolig | roligt
+     CORRECT: rolig
+     why: An en-word in the indefinite singular takes the plain form: rolig.
+56. [W] Gradbøj: rolig — ___ — ___ (calm)
+     CORRECT: roligere roligst
+     why: rolig · roligere · roligst.
+57. [C] et ___ hus (sund — healthy)
+     options: sund | sunde | sundt
+     CORRECT: sundt
+     why: An et-word takes -t: sundt.
+58. [C] de ___ kvinder (sund — healthy)
+     options: sundt | sund | sunde
+     CORRECT: sunde
+     why: Plural and definite both take -e: sunde.
+59. [C] en ___ kvinde (sund — healthy)
+     options: sundt | sund | sunde
+     CORRECT: sund
+     why: An en-word in the indefinite singular takes the plain form: sund.
+60. [W] Gradbøj: sund — ___ — ___ (healthy)
+     CORRECT: sundere sundest
+     why: sund · sundere · sundest.
+61. [C] et ___ land (ung — young)
+     options: ung | unge | ungt
+     CORRECT: ungt
+     why: An et-word takes -t: ungt.
+62. [C] de ___ naboer (ung — young)
+     options: ung | ungt | unge
+     CORRECT: unge
+     why: Plural and definite both take -e: unge.
+63. [C] en ___ nabo (ung — young)
+     options: ungt | ung | unge
+     CORRECT: ung
+     why: An en-word in the indefinite singular takes the plain form: ung.
+64. [W] Gradbøj: ung — ___ — ___ (young)
+     CORRECT: yngre yngst
+     why: ung · yngre · yngst.
+65. [C] et ___ brev (høj — tall, high)
+     options: høje | højt | høj
+     CORRECT: højt
+     why: An et-word takes -t: højt.
+66. [C] de ___ mænd (høj — tall, high)
+     options: høj | højt | høje
+     CORRECT: høje
+     why: Plural and definite both take -e: høje.
+67. [C] en ___ mand (høj — tall, high)
+     options: høje | høj | højt
+     CORRECT: høj
+     why: An en-word in the indefinite singular takes the plain form: høj.
+68. [W] Gradbøj: høj — ___ — ___ (tall, high)
+     CORRECT: højere højest
+     why: høj · højere · højest.
+69. [C] et ___ bord (lav — low)
+     options: lave | lav | lavt
+     CORRECT: lavt
+     why: An et-word takes -t: lavt.
+70. [C] de ___ hænder (lav — low)
+     options: lav | lavt | lave
+     CORRECT: lave
+     why: Plural and definite both take -e: lave.
+71. [C] en ___ hånd (lav — low)
+     options: lave | lavt | lav
+     CORRECT: lav
+     why: An en-word in the indefinite singular takes the plain form: lav.
+72. [W] Gradbøj: lav — ___ — ___ (low)
+     CORRECT: lavere lavest
+     why: lav · lavere · lavest.
+73. [C] et ___ hus (hurtig — fast)
+     options: hurtigt | hurtige | hurtig
+     CORRECT: hurtigt
+     why: An et-word takes -t: hurtigt.
+74. [C] de ___ stole (hurtig — fast)
+     options: hurtige | hurtig | hurtigt
+     CORRECT: hurtige
+     why: Plural and definite both take -e: hurtige.
+75. [C] en ___ stol (hurtig — fast)
+     options: hurtige | hurtig | hurtigt
+     CORRECT: hurtig
+     why: An en-word in the indefinite singular takes the plain form: hurtig.
+76. [W] Gradbøj: hurtig — ___ — ___ (fast)
+     CORRECT: hurtigere hurtigst
+     why: hurtig · hurtigere · hurtigst.
+77. [C] et ___ år (langsom — slow)
+     options: langsomt | langsomme | langsom
+     CORRECT: langsomt
+     why: An et-word takes -t: langsomt.
+78. [C] de ___ cykler (langsom — slow)
+     options: langsomme | langsomt | langsom
+     CORRECT: langsomme
+     why: Plural and definite both take -e: langsomme.
+79. [C] en ___ cykel (langsom — slow)
+     options: langsom | langsomme | langsomt
+     CORRECT: langsom
+     why: An en-word in the indefinite singular takes the plain form: langsom.
+80. [W] Gradbøj: langsom — ___ — ___ (slow)
+     CORRECT: langsommere langsomst
+     why: langsom · langsommere · langsomst.
+81. [C] et ___ job (venlig — friendly)
+     options: venligt | venlige | venlig
+     CORRECT: venligt
+     why: An et-word takes -t: venligt.
+82. [C] de ___ byer (venlig — friendly)
+     options: venlig | venligt | venlige
+     CORRECT: venlige
+     why: Plural and definite both take -e: venlige.
+83. [C] en ___ by (venlig — friendly)
+     options: venligt | venlig | venlige
+     CORRECT: venlig
+     why: An en-word in the indefinite singular takes the plain form: venlig.
+84. [W] Gradbøj: venlig — ___ — ___ (friendly)
+     CORRECT: venligere venligst
+     why: venlig · venligere · venligst.
+85. [C] et ___ barn (vigtig — important)
+     options: vigtig | vigtigt | vigtige
+     CORRECT: vigtigt
+     why: An et-word takes -t: vigtigt.
+86. [C] de ___ lærere (vigtig — important)
+     options: vigtigt | vigtige | vigtig
+     CORRECT: vigtige
+     why: Plural and definite both take -e: vigtige.
+87. [C] en ___ lærer (vigtig — important)
+     options: vigtige | vigtig | vigtigt
+     CORRECT: vigtig
+     why: An en-word in the indefinite singular takes the plain form: vigtig.
+88. [W] Gradbøj: vigtig — ___ — ___ (important)
+     CORRECT: vigtigere vigtigst
+     why: vigtig · vigtigere · vigtigst.
+89. [C] et ___ brev (travl — busy)
+     options: travlt | travl | travle
+     CORRECT: travlt
+     why: An et-word takes -t: travlt.
+90. [C] de ___ butikker (travl — busy)
+     options: travle | travl | travlt
+     CORRECT: travle
+     why: Plural and definite both take -e: travle.
+91. [C] en ___ butik (travl — busy)
+     options: travlt | travle | travl
+     CORRECT: travl
+     why: An en-word in the indefinite singular takes the plain form: travl.
+92. [W] Gradbøj: travl — ___ — ___ (busy)
+     CORRECT: travlere travlest
+     why: travl · travlere · travlest.
+93. [C] et ___ år (træt — tired)
+     options: træt | trætte
+     CORRECT: træt
+     why: træt — unchanged. An adjective that already ends in -t adds nothing for an et-word, so base and neuter look the same.
+94. [C] de ___ biler (træt — tired)
+     options: trætte | træt
+     CORRECT: trætte
+     why: Plural and definite both take -e: trætte.
+95. [C] en ___ bil (træt — tired)
+     options: trætte | træt
+     CORRECT: træt
+     why: An en-word in the indefinite singular takes the plain form: træt.
+96. [W] Gradbøj: træt — ___ — ___ (tired)
+     CORRECT: mere træt mest træt
+     why: træt · mere træt · mest træt.
+
+===== TOPIC sin — Sin, sit, sine — eller hans og hendes [BØJ] =====
+RULE: English has one word for both: Peter washes his car can mean his own or someone else's. Danish splits them. If the owner is the subject of the clause, use sin / sit / sine (matching the thing owned: en-word, et-word, plural). If the owner is anyone else, use hans / hendes / deres. Only with a singular subject — a plural subject always takes deres.
+
+1. [W] Skriv det rigtige ord: Anna henter ___ søn i børnehaven. (Annas egen søn)
+     CORRECT: sin
+     why: sin — the owner is the subject, so it is reflexive.
+2. [W] Skriv det rigtige ord: Anna henter ___ søn i børnehaven. (Peters søn)
+     CORRECT: hans
+     why: hans — the owner is not the subject of this clause.
+3. [W] Skriv det rigtige ord: Peter vasker ___ bil om lørdagen. (Peters egen bil)
+     CORRECT: sin
+     why: sin — the owner is the subject, so it is reflexive.
+4. [W] Skriv det rigtige ord: Peter vasker ___ bil om lørdagen. (naboens bil)
+     CORRECT: hans
+     why: hans — the owner is not the subject of this clause.
+5. [W] Skriv det rigtige ord: Maria har glemt ___ nøgler. (Marias egne)
+     CORRECT: sine
+     why: sine — the owner is the subject, so it is reflexive.
+6. [W] Skriv det rigtige ord: Maria har glemt ___ nøgler. (Peters)
+     CORRECT: hans
+     why: hans — the owner is not the subject of this clause.
+7. [W] Skriv det rigtige ord: Han kan godt lide ___ arbejde. (sit eget)
+     CORRECT: sit
+     why: sit — the owner is the subject, so it is reflexive.
+8. [W] Skriv det rigtige ord: Hun spurgte, om han kunne låne ___ cykel. (hendes, ikke hans)
+     CORRECT: hendes
+     why: hendes — the owner is not the subject of this clause.
+9. [W] Skriv det rigtige ord: Lars ringer til ___ mor hver søndag. (Lars' egen mor)
+     CORRECT: sin
+     why: sin — the owner is the subject, so it is reflexive.
+10. [W] Skriv det rigtige ord: Sofie tager ___ barn med på arbejde. (Sofies eget barn)
+     CORRECT: sit
+     why: sit — the owner is the subject, so it is reflexive.
+11. [W] Skriv det rigtige ord: Min chef har solgt ___ hus. (chefens eget hus)
+     CORRECT: sit
+     why: sit — the owner is the subject, so it is reflexive.
+12. [W] Skriv det rigtige ord: Hun kender ikke ___ naboer særlig godt. (hendes egne naboer)
+     CORRECT: sine
+     why: sine — the owner is the subject, so it is reflexive.
+13. [W] Skriv det rigtige ord: Jonas glemte ___ telefon i toget. (Jonas' egen)
+     CORRECT: sin
+     why: sin — the owner is the subject, so it is reflexive.
+14. [W] Skriv det rigtige ord: Jonas fandt ___ telefon i toget. (Marias telefon)
+     CORRECT: hendes
+     why: hendes — the owner is not the subject of this clause.
+15. [C] Anna henter ___ søn i børnehaven. (Annas egen søn)
+     options: hans | sit | sin | sine
+     CORRECT: sin
+     why: The owner is the subject, so it is reflexive: sin for an en-word.
+16. [C] Anna henter ___ søn i børnehaven. (Peters søn)
+     options: hans | sit | sin | sine
+     CORRECT: hans
+     why: The owner is not the subject of this clause, so the reflexive is wrong and you need hans. Using sin here would say it belongs to the subject.
+17. [C] Peter vasker ___ bil om lørdagen. (Peters egen bil)
+     options: hans | sit | sine | sin
+     CORRECT: sin
+     why: The owner is the subject, so it is reflexive: sin for an en-word.
+18. [C] Peter vasker ___ bil om lørdagen. (naboens bil)
+     options: sit | sin | sine | hans
+     CORRECT: hans
+     why: The owner is not the subject of this clause, so the reflexive is wrong and you need hans. Using sin here would say it belongs to the subject.
+19. [C] Maria har glemt ___ nøgler. (Marias egne)
+     options: sin | sine | hans | sit
+     CORRECT: sine
+     why: The owner is the subject, so it is reflexive: sine for a plural.
+20. [C] Maria har glemt ___ nøgler. (Peters)
+     options: hans | sit | sine | sin
+     CORRECT: hans
+     why: The owner is not the subject of this clause, so the reflexive is wrong and you need hans. Using sin here would say it belongs to the subject.
+21. [C] Han kan godt lide ___ arbejde. (sit eget)
+     options: sit | hans | sine | sin
+     CORRECT: sit
+     why: The owner is the subject, so it is reflexive: sit for an et-word.
+22. [C] Hun spurgte, om han kunne låne ___ cykel. (hendes, ikke hans)
+     options: sine | sit | hendes | sin
+     CORRECT: hendes
+     why: The owner is not the subject of this clause, so the reflexive is wrong and you need hendes. Using sin here would say it belongs to the subject.
+23. [C] Lars ringer til ___ mor hver søndag. (Lars' egen mor)
+     options: hans | sit | sin | sine
+     CORRECT: sin
+     why: The owner is the subject, so it is reflexive: sin for an en-word.
+24. [C] Sofie tager ___ barn med på arbejde. (Sofies eget barn)
+     options: sine | sit | hans | sin
+     CORRECT: sit
+     why: The owner is the subject, so it is reflexive: sit for an et-word.
+25. [C] Min chef har solgt ___ hus. (chefens eget hus)
+     options: sit | hans | sine | sin
+     CORRECT: sit
+     why: The owner is the subject, so it is reflexive: sit for an et-word.
+26. [C] Hun kender ikke ___ naboer særlig godt. (hendes egne naboer)
+     options: sit | hans | sin | sine
+     CORRECT: sine
+     why: The owner is the subject, so it is reflexive: sine for a plural.
+27. [C] Jonas glemte ___ telefon i toget. (Jonas' egen)
+     options: hans | sit | sine | sin
+     CORRECT: sin
+     why: The owner is the subject, so it is reflexive: sin for an en-word.
+28. [C] Jonas fandt ___ telefon i toget. (Marias telefon)
+     options: sin | sit | sine | hendes
+     CORRECT: hendes
+     why: The owner is not the subject of this clause, so the reflexive is wrong and you need hendes. Using sin here would say it belongs to the subject.
+
+===== TOPIC refleksiv — Refleksive verber [BØJ] =====
+RULE: A lot of everyday Danish verbs carry a reflexive pronoun that English drops: glæde sig, skynde sig, sætte sig, føle sig, kede sig. The pronoun follows the subject — jeg → mig, du → dig, han/hun/de → sig, vi → os, I → jer. Leave it out and the sentence is not wrong so much as incomprehensible.
+
+1. [C] Jeg glæder ___ til ferien.
+     options: os | dig | mig | sig
+     CORRECT: mig
+     why: Subject jeg → mig.
+2. [C] Hun skynder ___ hen til bussen.
+     options: mig | dig | os | sig
+     CORRECT: sig
+     why: Subject hun → sig. sig covers han, hun, den, det and de.
+3. [C] Sætter du ___ ned?
+     options: mig | os | sig | dig
+     CORRECT: dig
+     why: Subject du → dig.
+4. [C] Vi føler ___ trætte i dag.
+     options: os | dig | sig | mig
+     CORRECT: os
+     why: Subject vi → os.
+5. [C] Børnene keder ___ i regnvejr.
+     options: sig | mig | os | dig
+     CORRECT: sig
+     why: Subject de → sig. sig covers han, hun, den, det and de.
+6. [C] Han vasker ___ hver morgen.
+     options: os | mig | sig | dig
+     CORRECT: sig
+     why: Subject han → sig. sig covers han, hun, den, det and de.
+7. [C] Jeg har vænnet ___ til vejret.
+     options: sig | mig | os | dig
+     CORRECT: mig
+     why: Subject jeg → mig.
+8. [C] I skal klæde ___ på nu.
+     options: mig | sig | dig | jer
+     CORRECT: jer
+     why: Subject I → jer.
+9. [C] Hun bekymrer ___ for meget.
+     options: mig | dig | sig | os
+     CORRECT: sig
+     why: Subject hun → sig. sig covers han, hun, den, det and de.
+10. [C] Vi morede ___ til festen.
+     options: os | mig | sig | dig
+     CORRECT: os
+     why: Subject vi → os.
+11. [C] Du må ikke sætte ___ der.
+     options: mig | dig | sig | os
+     CORRECT: dig
+     why: Subject du → dig.
+12. [C] De glæder ___ til at se dig.
+     options: mig | sig | os | dig
+     CORRECT: sig
+     why: Subject de → sig. sig covers han, hun, den, det and de.
+13. [W] Skriv pronominet: Jeg glæder ___ til ferien.
+     CORRECT: mig
+     why: Subject jeg → mig.
+14. [W] Skriv pronominet: Hun skynder ___ hen til bussen.
+     CORRECT: sig
+     why: Subject hun → sig. sig covers han, hun, den, det and de.
+15. [W] Skriv pronominet: Sætter du ___ ned?
+     CORRECT: dig
+     why: Subject du → dig.
+16. [W] Skriv pronominet: Vi føler ___ trætte i dag.
+     CORRECT: os
+     why: Subject vi → os.
+17. [W] Skriv pronominet: Børnene keder ___ i regnvejr.
+     CORRECT: sig
+     why: Subject de → sig. sig covers han, hun, den, det and de.
+18. [W] Skriv pronominet: Han vasker ___ hver morgen.
+     CORRECT: sig
+     why: Subject han → sig. sig covers han, hun, den, det and de.
+19. [W] Skriv pronominet: Jeg har vænnet ___ til vejret.
+     CORRECT: mig
+     why: Subject jeg → mig.
+20. [W] Skriv pronominet: I skal klæde ___ på nu.
+     CORRECT: jer
+     why: Subject I → jer.
+21. [W] Skriv pronominet: Hun bekymrer ___ for meget.
+     CORRECT: sig
+     why: Subject hun → sig. sig covers han, hun, den, det and de.
+22. [W] Skriv pronominet: Vi morede ___ til festen.
+     CORRECT: os
+     why: Subject vi → os.
+23. [W] Skriv pronominet: Du må ikke sætte ___ der.
+     CORRECT: dig
+     why: Subject du → dig.
+24. [W] Skriv pronominet: De glæder ___ til at se dig.
+     CORRECT: sig
+     why: Subject de → sig. sig covers han, hun, den, det and de.
+
+===== TOPIC dendet — Den eller det [BØJ] =====
+RULE: When you replace a noun you have already mentioned, the pronoun follows its gender: an en-word becomes den, an et-word becomes det. This is the practical reason gender matters — get the noun's gender wrong and every later sentence about it is wrong too.
+
+1. [C] Hvor er bogen? — ___ ligger på bordet.
+     options: De | Den | Der | Det
+     CORRECT: Den
+     why: The noun is an en-word, so den.
+2. [C] Hvor er huset? — ___ ligger ved stationen.
+     options: Der | De | Det | Den
+     CORRECT: Det
+     why: The noun is an et-word, so det.
+3. [C] Kan du se bussen? — Ja, ___ kommer nu.
+     options: De | Der | det | den
+     CORRECT: den
+     why: The noun is an en-word, so den.
+4. [C] Hvad med brevet? — ___ kom i går.
+     options: Det | De | Den | Der
+     CORRECT: Det
+     why: The noun is an et-word, so det.
+5. [C] Har du set min cykel? — ___ står udenfor.
+     options: Den | Der | De | Det
+     CORRECT: Den
+     why: The noun is an en-word, so den.
+6. [C] Hvor er mødet? — ___ er i lokale tre.
+     options: Der | Den | Det | De
+     CORRECT: Det
+     why: The noun is an et-word, so det.
+7. [C] Kan jeg låne din stol? — ___ er optaget.
+     options: De | Det | Den | Der
+     CORRECT: Den
+     why: The noun is an en-word, so den.
+8. [C] Hvad koster værelset? — ___ koster 4000 kroner.
+     options: De | Det | Den | Der
+     CORRECT: Det
+     why: The noun is an et-word, so det.
+9. [C] Er lejligheden stor? — Nej, ___ er ret lille.
+     options: det | De | den | Der
+     CORRECT: den
+     why: The noun is an en-word, so den.
+10. [C] Hvornår kører toget? — ___ kører om ti minutter.
+     options: Det | Den | Der | De
+     CORRECT: Det
+     why: The noun is an et-word, so det.
+11. [C] Hvor er bilen? — ___ står derovre. (car)
+     options: Det | De | Den
+     CORRECT: Den
+     why: en bil is an en-word → den.
+12. [C] Kan du se huset? — Ja, ___ er lige der. (house)
+     options: Det | Den | De
+     CORRECT: Det
+     why: et hus is an et-word → det.
+13. [C] Hvad med bogen? — ___ er i orden. (book)
+     options: Det | Den | De
+     CORRECT: Den
+     why: en bog is an en-word → den.
+14. [C] Hvor blev barnet af? — ___ ligger i tasken. (child)
+     options: Det | De | Den
+     CORRECT: Det
+     why: et barn is an et-word → det.
+15. [C] Hvor er manden? — ___ står derovre. (man)
+     options: Det | Den | De
+     CORRECT: Den
+     why: en mand is an en-word → den.
+16. [C] Kan du se kvinden? — Ja, ___ er lige der. (woman)
+     options: Det | Den | De
+     CORRECT: Den
+     why: en kvinde is an en-word → den.
+17. [C] Hvad med bordet? — ___ er i orden. (table)
+     options: Den | Det | De
+     CORRECT: Det
+     why: et bord is an et-word → det.
+18. [C] Hvor blev stolen af? — ___ ligger i tasken. (chair)
+     options: Den | De | Det
+     CORRECT: Den
+     why: en stol is an en-word → den.
+19. [C] Hvor er vinduet? — ___ står derovre. (window)
+     options: Det | Den | De
+     CORRECT: Det
+     why: et vindue is an et-word → det.
+20. [C] Kan du se døren? — Ja, ___ er lige der. (door)
+     options: De | Den | Det
+     CORRECT: Den
+     why: en dør is an en-word → den.
+21. [C] Hvad med byen? — ___ er i orden. (town)
+     options: Det | Den | De
+     CORRECT: Den
+     why: en by is an en-word → den.
+22. [C] Hvor blev landet af? — ___ ligger i tasken. (country)
+     options: Den | Det | De
+     CORRECT: Det
+     why: et land is an et-word → det.
+23. [C] Hvor er vennen? — ___ står derovre. (friend)
+     options: De | Den | Det
+     CORRECT: Den
+     why: en ven is an en-word → den.
+24. [C] Kan du se dagen? — Ja, ___ er lige der. (day)
+     options: Det | De | Den
+     CORRECT: Den
+     why: en dag is an en-word → den.
+25. [C] Hvad med ugen? — ___ er i orden. (week)
+     options: Det | Den | De
+     CORRECT: Den
+     why: en uge is an en-word → den.
+26. [C] Hvor blev året af? — ___ ligger i tasken. (year)
+     options: Det | De | Den
+     CORRECT: Det
+     why: et år is an et-word → det.
+27. [C] Hvor er måneden? — ___ står derovre. (month)
+     options: De | Det | Den
+     CORRECT: Den
+     why: en måned is an en-word → den.
+28. [C] Kan du se brevet? — Ja, ___ er lige der. (letter)
+     options: De | Den | Det
+     CORRECT: Det
+     why: et brev is an et-word → det.
+29. [C] Hvad med butikken? — ___ er i orden. (shop)
+     options: Den | Det | De
+     CORRECT: Den
+     why: en butik is an en-word → den.
+30. [C] Hvor blev køkkenet af? — ___ ligger i tasken. (kitchen)
+     options: De | Det | Den
+     CORRECT: Det
+     why: et køkken is an et-word → det.
+31. [C] Hvor er læreren? — ___ står derovre. (teacher)
+     options: Den | De | Det
+     CORRECT: Den
+     why: en lærer is an en-word → den.
+32. [C] Kan du se kollegaen? — Ja, ___ er lige der. (colleague)
+     options: De | Det | Den
+     CORRECT: Den
+     why: en kollega is an en-word → den.
+33. [C] Hvad med mødet? — ___ er i orden. (meeting)
+     options: Den | De | Det
+     CORRECT: Det
+     why: et møde is an et-word → det.
+34. [C] Hvor blev opgaven af? — ___ ligger i tasken. (task)
+     options: Det | Den | De
+     CORRECT: Den
+     why: en opgave is an en-word → den.
+35. [C] Hvor er jobbet? — ___ står derovre. (job)
+     options: De | Det | Den
+     CORRECT: Det
+     why: et job is an et-word → det.
+36. [C] Kan du se cyklen? — Ja, ___ er lige der. (bicycle)
+     options: Det | De | Den
+     CORRECT: Den
+     why: en cykel is an en-word → den.
+37. [C] Hvad med toget? — ___ er i orden. (train)
+     options: De | Den | Det
+     CORRECT: Det
+     why: et tog is an et-word → det.
+38. [C] Hvor blev bussen af? — ___ ligger i tasken. (bus)
+     options: Den | Det | De
+     CORRECT: Den
+     why: en bus is an en-word → den.
+39. [C] Hvor er værelset? — ___ står derovre. (room)
+     options: Det | Den | De
+     CORRECT: Det
+     why: et værelse is an et-word → det.
+40. [C] Kan du se lejligheden? — Ja, ___ er lige der. (flat)
+     options: Den | De | Det
+     CORRECT: Den
+     why: en lejlighed is an en-word → den.
+41. [C] Hvad med naboen? — ___ er i orden. (neighbour)
+     options: Den | De | Det
+     CORRECT: Den
+     why: en nabo is an en-word → den.
+42. [C] Hvor blev hånden af? — ___ ligger i tasken. (hand)
+     options: Det | Den | De
+     CORRECT: Den
+     why: en hånd is an en-word → den.
+43. [C] Hvor er foden? — ___ står derovre. (foot)
+     options: Det | De | Den
+     CORRECT: Den
+     why: en fod is an en-word → den.
+44. [C] Kan du se øjet? — Ja, ___ er lige der. (eye)
+     options: Den | De | Det
+     CORRECT: Det
+     why: et øje is an et-word → det.
+45. [C] Hvad med søsteren? — ___ er i orden. (sister)
+     options: De | Det | Den
+     CORRECT: Den
+     why: en søster is an en-word → den.
+46. [C] Hvor blev æblet af? — ___ ligger i tasken. (apple)
+     options: Den | De | Det
+     CORRECT: Det
+     why: et æble is an et-word → det.
+47. [C] Hvor er sengen? — ___ står derovre. (bed)
+     options: Den | De | Det
+     CORRECT: Den
+     why: en seng is an en-word → den.
+48. [C] Kan du se spørgsmålet? — Ja, ___ er lige der. (question)
+     options: Det | De | Den
+     CORRECT: Det
+     why: et spørgsmål is an et-word → det.
+
+===== TOPIC praep — Præpositioner [PRÆ] =====
+RULE: Prepositions are the last thing to come right, and they are learnt as whole phrases rather than as rules: på arbejde, i skole, til København, om sommeren, glæde sig til, vente på, god til. Where a verb fixes the preposition, it is almost never the English one — so store the pair, not the word.
+
+1. [C] Jeg bor ___ Danmark.
+     options: i | på | om | til
+     CORRECT: i
+     why: Countries take i: i Danmark, i Indien, i Tyskland.
+2. [C] Min svigerfamilie bor ___ Fyn.
+     options: i | til | på | ved
+     CORRECT: på
+     why: Danish islands take på: på Fyn, på Sjælland, på Amager — but i Jylland, which is not an island.
+3. [C] Vi ses ___ mandag.
+     options: til | om | på | i
+     CORRECT: på
+     why: A single named day takes på: på mandag. Om mandagen means every Monday.
+4. [C] ___ sommeren tager vi til Norge.
+     options: I | På | Til | Om
+     CORRECT: Om
+     why: Om + definite season or time of day means every: om sommeren, om aftenen.
+5. [C] Jeg har boet her ___ tre år.
+     options: siden | om | i | på
+     CORRECT: i
+     why: i + a period says how long something lasted. Om tre år would mean three years from now.
+6. [C] Jeg kommer ___ ti minutter.
+     options: på | om | efter | i
+     CORRECT: om
+     why: om + a period points forward: in ten minutes' time.
+7. [C] Hun er ___ arbejde lige nu.
+     options: til | på | i | ved
+     CORRECT: på
+     why: Fixed expression: på arbejde. Also på hospitalet, på kontoret.
+8. [C] Mine børn går ___ skole.
+     options: i | på | til | ved
+     CORRECT: i
+     why: Fixed expression: gå i skole — but på universitetet.
+9. [C] Vi skal ___ København på fredag.
+     options: på | i | om | til
+     CORRECT: til
+     why: til marks movement toward a place. I København would be being there.
+10. [C] Han venter ___ bussen.
+     options: efter | til | på | for
+     CORRECT: på
+     why: vente på — the verb fixes the preposition, and it is not the English one.
+11. [C] Jeg glæder mig ___ ferien.
+     options: til | for | på | om
+     CORRECT: til
+     why: glæde sig til — always til, never for.
+12. [C] Tak ___ hjælpen!
+     options: til | på | for | med
+     CORRECT: for
+     why: tak for — for the thing itself. Tak til introduces a person being thanked.
+13. [C] Bogen ligger ___ bordet.
+     options: i | på | under | ved
+     CORRECT: på
+     why: A flat surface takes på.
+14. [C] Nøglerne ligger ___ tasken.
+     options: ved | om | i | på
+     CORRECT: i
+     why: Inside a container takes i.
+15. [C] Jeg tænker tit ___ min familie.
+     options: til | om | for | på
+     CORRECT: på
+     why: tænke på — think about. Tænke om is not Danish.
+16. [C] Hun er god ___ at lytte.
+     options: i | på | til | ved
+     CORRECT: til
+     why: god til + noun or at-infinitive: god til dansk, god til at lytte.
+17. [W] Skriv præpositionen: Jeg bor ___ Danmark.
+     CORRECT: i
+     why: Countries take i: i Danmark, i Indien, i Tyskland.
+18. [W] Skriv præpositionen: Min svigerfamilie bor ___ Fyn.
+     CORRECT: på
+     why: Danish islands take på: på Fyn, på Sjælland, på Amager — but i Jylland, which is not an island.
+19. [W] Skriv præpositionen: Vi ses ___ mandag.
+     CORRECT: på
+     why: A single named day takes på: på mandag. Om mandagen means every Monday.
+20. [W] Skriv præpositionen: ___ sommeren tager vi til Norge.
+     CORRECT: Om
+     why: Om + definite season or time of day means every: om sommeren, om aftenen.
+21. [W] Skriv præpositionen: Jeg har boet her ___ tre år.
+     CORRECT: i
+     why: i + a period says how long something lasted. Om tre år would mean three years from now.
+22. [W] Skriv præpositionen: Jeg kommer ___ ti minutter.
+     CORRECT: om
+     why: om + a period points forward: in ten minutes' time.
+23. [W] Skriv præpositionen: Hun er ___ arbejde lige nu.
+     CORRECT: på
+     why: Fixed expression: på arbejde. Also på hospitalet, på kontoret.
+24. [W] Skriv præpositionen: Mine børn går ___ skole.
+     CORRECT: i
+     why: Fixed expression: gå i skole — but på universitetet.
+25. [W] Skriv præpositionen: Vi skal ___ København på fredag.
+     CORRECT: til
+     why: til marks movement toward a place. I København would be being there.
+26. [W] Skriv præpositionen: Han venter ___ bussen.
+     CORRECT: på
+     why: vente på — the verb fixes the preposition, and it is not the English one.
+27. [W] Skriv præpositionen: Jeg glæder mig ___ ferien.
+     CORRECT: til
+     why: glæde sig til — always til, never for.
+28. [W] Skriv præpositionen: Tak ___ hjælpen!
+     CORRECT: for
+     why: tak for — for the thing itself. Tak til introduces a person being thanked.
+29. [W] Skriv præpositionen: Bogen ligger ___ bordet.
+     CORRECT: på
+     why: A flat surface takes på.
+30. [W] Skriv præpositionen: Nøglerne ligger ___ tasken.
+     CORRECT: i
+     why: Inside a container takes i.
+31. [W] Skriv præpositionen: Jeg tænker tit ___ min familie.
+     CORRECT: på
+     why: tænke på — think about. Tænke om is not Danish.
+32. [W] Skriv præpositionen: Hun er god ___ at lytte.
+     CORRECT: til
+     why: god til + noun or at-infinitive: god til dansk, god til at lytte.
+
+===== TOPIC bindeord — Bindeord [VALG] =====
+RULE: Two families, and the difference is the word order that follows. Ledsætningsbindeord — at, fordi, hvis, når, da, selvom, som — start a subordinate clause, so the subject comes before the adverbial. Hovedsætningsbindeord — derfor, så, alligevel, desuden — keep main-clause order, so the verb comes straight after them.
+
+1. [C] Jeg tager toget, ___ min cykel er i stykker.
+     options: selvom | derfor | fordi | men
+     CORRECT: fordi
+     why: fordi introduces the reason and starts a ledsætning. Derfor introduces the consequence and starts a main clause.
+2. [C] Min cykel er i stykker. ___ tager jeg toget.
+     options: Selvom | Fordi | Derfor | Hvis
+     CORRECT: Derfor
+     why: Derfor is a main-clause connector, so the verb comes straight after it — derfor tager jeg, not derfor jeg tager.
+3. [C] ___ det regner, tager jeg alligevel cyklen.
+     options: Selvom | Fordi | Så | Derfor
+     CORRECT: Selvom
+     why: Selvom concedes: it is true, and it changes nothing. It starts a ledsætning.
+4. [C] ___ du har tid, kan vi mødes i morgen.
+     options: Selvom | Når | Fordi | Hvis
+     CORRECT: Hvis
+     why: Hvis is a condition you are not sure about. Når is a time you expect to happen.
+5. [C] ___ jeg kommer hjem, laver jeg mad.
+     options: Da | Hvis | Når | Selvom
+     CORRECT: Når
+     why: Når for something repeated or expected. Da is for one single moment in the past.
+6. [C] ___ jeg var barn, boede vi i Indien.
+     options: Hvis | Selvom | Da | Når
+     CORRECT: Da
+     why: Da + past, for one period that happened once. Når there would mean 'every time I was a child'.
+7. [C] Jeg ville gerne komme, ___ jeg har et møde.
+     options: og | så | fordi | men
+     CORRECT: men
+     why: men joins two main clauses and does not change the word order after it.
+8. [C] Jeg står tidligt op, ___ jeg kan nå toget.
+     options: fordi | selvom | men | så
+     CORRECT: så
+     why: så here means 'so that' — the purpose. Fordi would give the cause instead.
+9. [C] Han sagde, ___ han kommer senere.
+     options: der | når | som | at
+     CORRECT: at
+     why: at introduces reported speech and starts a ledsætning — subject before the adverbial after it.
+10. [C] Manden, ___ bor ved siden af, er lærer.
+     options: som han | hvem | der | hvad
+     CORRECT: der
+     why: der or som as the subject of a relative clause. Only som works when it is the object.
+11. [C] Jeg kan ikke komme, ___ jeg er syg.
+     options: for | så | selvom | derfor
+     CORRECT: for
+     why: for gives a reason and joins two main clauses — a lighter alternative to fordi.
+12. [C] Først spiser vi, og ___ går vi en tur.
+     options: bagefter | fordi | derfor | selvom
+     CORRECT: bagefter
+     why: bagefter sequences in time. It is an adverb, so the verb follows it if it starts the clause.
+13. [W] Skriv bindeordet: Jeg tager toget, ___ min cykel er i stykker.
+     CORRECT: fordi
+     why: fordi introduces the reason and starts a ledsætning. Derfor introduces the consequence and starts a main clause.
+14. [W] Skriv bindeordet: Min cykel er i stykker. ___ tager jeg toget.
+     CORRECT: Derfor
+     why: Derfor is a main-clause connector, so the verb comes straight after it — derfor tager jeg, not derfor jeg tager.
+15. [W] Skriv bindeordet: ___ det regner, tager jeg alligevel cyklen.
+     CORRECT: Selvom
+     why: Selvom concedes: it is true, and it changes nothing. It starts a ledsætning.
+16. [W] Skriv bindeordet: ___ du har tid, kan vi mødes i morgen.
+     CORRECT: Hvis
+     why: Hvis is a condition you are not sure about. Når is a time you expect to happen.
+17. [W] Skriv bindeordet: ___ jeg kommer hjem, laver jeg mad.
+     CORRECT: Når
+     why: Når for something repeated or expected. Da is for one single moment in the past.
+18. [W] Skriv bindeordet: ___ jeg var barn, boede vi i Indien.
+     CORRECT: Da
+     why: Da + past, for one period that happened once. Når there would mean 'every time I was a child'.
+19. [W] Skriv bindeordet: Jeg ville gerne komme, ___ jeg har et møde.
+     CORRECT: men
+     why: men joins two main clauses and does not change the word order after it.
+20. [W] Skriv bindeordet: Jeg står tidligt op, ___ jeg kan nå toget.
+     CORRECT: så
+     why: så here means 'so that' — the purpose. Fordi would give the cause instead.
+21. [W] Skriv bindeordet: Han sagde, ___ han kommer senere.
+     CORRECT: at
+     why: at introduces reported speech and starts a ledsætning — subject before the adverbial after it.
+22. [W] Skriv bindeordet: Manden, ___ bor ved siden af, er lærer.
+     CORRECT: der
+     why: der or som as the subject of a relative clause. Only som works when it is the object.
+23. [W] Skriv bindeordet: Jeg kan ikke komme, ___ jeg er syg.
+     CORRECT: for
+     why: for gives a reason and joins two main clauses — a lighter alternative to fordi.
+24. [W] Skriv bindeordet: Først spiser vi, og ___ går vi en tur.
+     CORRECT: bagefter
+     why: bagefter sequences in time. It is an adverb, so the verb follows it if it starts the clause.

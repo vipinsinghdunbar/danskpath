@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DanskPath — Live Deployment + QR Codes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #F2F2F7; color: #121417; line-height: 1.5; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 20px; }
+  .banner { background: #FF9500; color: black; text-align: center; padding: 12px; font-size: 12px; font-weight: 600; }
+  .card { background: white; border-radius: 24px; padding: 24px; margin-top: 16px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .qr-box { background: #F2F2F7; border-radius: 20px; padding: 16px; text-align: center; }
+  .qr-box img { width: 100%; max-width: 300px; height: auto; border-radius: 12px; background: white; padding: 12px; }
+  .btn { display: inline-flex; background: black; color: white; padding: 12px 20px; border-radius: 999px; font-weight: 600; font-size: 14px; text-decoration: none; margin-top: 8px; }
+  .btn-blue { background: #007AFF; }
+  .badge { display: inline-flex; background: white; border: 1px solid rgba(0,0,0,0.05); border-radius: 999px; padding: 4px 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+  code { background: #F2F2F7; padding: 2px 8px; border-radius: 6px; font-size: 12px; word-break: break-all; }
+  h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; line-height: 0.9; }
+  h2 { font-size: 20px; font-weight: 700; margin-top: 24px; }
+  ul { margin-left: 20px; margin-top: 8px; }
+  li { font-size: 14px; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="banner">⚠️ Ephemeral preview — dies when chat closes • Deploy to Render/Vercel for permanent URL → See DEPLOYMENT.md</div>
+<div class="container">
+  <div class="badge">Live now • Sandbox ik1t6d5enxwfmhfkhf8wb • Works outside chat for a few hours</div>
+  <h1 style="margin-top: 16px;">DanskPath<br>Live QR + Public Links</h1>
+  <p style="margin-top: 12px; color: #3C3C43; max-width: 600px;">Scan QR with iPhone camera right now. For permanent QR that works forever, deploy to Render (free, 5 min) — see DEPLOYMENT.md</p>
+
+  <div class="grid" style="margin-top: 24px;">
+    <div class="card">
+      <div class="badge">🌐 Website • Public marketing</div>
+      <h2 style="margin-top: 12px;">Public Website</h2>
+      <p style="margin-top: 8px; font-size: 14px; color: #8E8E93;">What is app, how it works M1→PD3, CTA</p>
+      <div style="margin-top: 12px;"><code id="url-website">https://5173-ik1t6d5enxwfmhfkhf8wb.e2b.app/?page=website</code></div>
+      <a class="btn" href="/?page=website">Open Website →</a>
+    </div>
+    <div class="card" style="background: black; color: white;">
+      <div class="badge" style="background: rgba(255,255,255,0.1); color: white; border-color: rgba(255,255,255,0.1);">🔗 Assessment • Shareable QR</div>
+      <h2 style="margin-top: 12px; color: white;">Shareable Assessment</h2>
+      <p style="margin-top: 8px; font-size: 14px; color: rgba(255,255,255,0.6);">7-min test M1→PD3, independent session, no admin exposed</p>
+      <div style="margin-top: 12px;"><code style="background: rgba(255,255,255,0.1); color: white;" id="url-assessment">https://5173-ik1t6d5enxwfmhfkhf8wb.e2b.app/?page=assessment</code></div>
+      <a class="btn" style="background: white; color: black;" href="/?page=assessment">Open Assessment →</a>
+      <div style="margin-top: 8px; font-size: 11px; color: rgba(255,255,255,0.5);">QR below scans to this URL</div>
+    </div>
+    <div class="card">
+      <div class="badge">📱 Full iPhone App</div>
+      <h2 style="margin-top: 12px;">Full Learning App</h2>
+      <p style="margin-top: 8px; font-size: 14px; color: #8E8E93;">M1→PD3 complete, PWA install, Add to Home Screen</p>
+      <div style="margin-top: 12px;"><code id="url-app">https://5173-ik1t6d5enxwfmhfkhf8wb.e2b.app/?page=practice</code></div>
+      <a class="btn btn-blue" href="/?page=practice">Open Full App →</a>
+    </div>
+  </div>
+
+  <div class="grid" style="margin-top: 24px;">
+    <div class="card qr-box">
+      <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #8E8E93;">QR Code — Scan Now (Ephemeral)</div>
+      <img src="/assessment-qr-ephemeral.png" alt="QR Ephemeral" style="margin-top: 16px;">
+      <div style="margin-top: 12px; font-size: 12px; color: #8E8E93;">Points to:<br><code>https://5173-...e2b.app/?page=assessment</code></div>
+      <div style="margin-top: 12px;"><a class="btn" href="/assessment-qr-ephemeral.png" download>Download QR (works now)</a></div>
+      <div style="margin-top: 8px; font-size: 11px; color: #FF9500;">⚠️ Dies when chat closes</div>
+    </div>
+    <div class="card qr-box">
+      <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #8E8E93;">QR Code — Permanent Placeholder</div>
+      <img src="/assessment-qr-production-final.png" alt="QR Production" style="margin-top: 16px;">
+      <div style="margin-top: 12px; font-size: 12px; color: #8E8E93;">Points to:<br><code>https://danskpath.app/?page=assessment</code><br>(after you deploy + set domain)</div>
+      <div style="margin-top: 12px;"><a class="btn" href="/assessment-qr-production-final.png" download>Download QR (for production)</a></div>
+      <div style="margin-top: 8px; font-size: 11px; color: #34C759;">✓ Works forever after deployment</div>
+    </div>
+    <div class="card">
+      <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #8E8E93;">Permanent Deployment — 5 min free</div>
+      <h2>Make QR Work Outside Chat</h2>
+      <ul>
+        <li><b>Render (Recommended):</b> Free, persistent DB, Frankfurt region, custom domain</li>
+        <li><b>Vercel:</b> Fast CDN, free, serverless</li>
+        <li><b>Fly.io:</b> Stockholm region (30ms from Copenhagen)</li>
+      </ul>
+      <div style="margin-top: 16px; background: #F2F2F7; border-radius: 16px; padding: 16px; font-size: 12px; font-family: monospace; line-height: 1.6;">
+        1. git init && git add . && git commit -m "deploy"<br>
+        2. Create repo github.com/new → danskpath<br>
+        3. git remote add origin https://github.com/YOU/danskpath.git<br>
+        4. git push -u origin main<br>
+        5. dashboard.render.com/blueprint/new → Connect repo → Apply<br>
+        6. Public URL: https://danskpath.onrender.com<br>
+        7. Generate QR: node -e "require('qrcode').toFile('qr.png', 'https://danskpath.onrender.com/?page=assessment')"
+      </div>
+      <a class="btn" href="/DEPLOYMENT.md" target="_blank">Full Deployment Guide →</a>
+      <a class="btn" style="background: white; color: black; border: 1px solid rgba(0,0,0,0.1); margin-left: 8px;" href="/THREE_EXPERIENCES.md" target="_blank">Three Experiences Doc</a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top: 24px;">
+    <h2>End-to-End Test Right Now</h2>
+    <div style="margin-top: 12px; font-family: monospace; font-size: 12px; line-height: 1.8; background: #F2F2F7; padding: 16px; border-radius: 12px;">
+      1. Scan QR (ephemeral) with iPhone camera<br>
+      2. Opens https://5173-...e2b.app/?page=assessment<br>
+      3. See "Find your Danish level" landing<br>
+      4. Tap "Start assessment → 7 min"<br>
+      5. Enter name, when started, goal → Start<br>
+      6. Answer 20 Q (dots Q7 of 20, feedback why)<br>
+      7. Receive skill profile (strengths ≥75%, weaknesses &lt;60%)<br>
+      8. See path M1→5 (V2, collocations, listening, writing)<br>
+      9. Tap "Enter personalised learning path"<br>
+      10. Practice M1→M5, progress, no repeat SRS
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; text-align: center; font-size: 11px; color: #8E8E93; padding: 20px;">
+    DanskPath • Modul 1→PD3 • A1→B2 Full education • Modern • Friendly • Educational • Scandinavian • Clean • Trustworthy<br>
+    Same design system across website, assessment, iPhone app • Admin isolated • DB portable danish-platform-db.json<br>
+    Ephemeral sandbox ik1t6d5enxwfmhfkhf8wb • Deploy to Render/Vercel/Fly for permanent URL outside chat
+  </div>
+</div>
+<script>
+  // Update URLs with current origin
+  document.getElementById('url-website').textContent = window.location.origin + '/?page=website';
+  document.getElementById('url-assessment').textContent = window.location.origin + '/?page=assessment';
+  document.getElementById('url-app').textContent = window.location.origin + '/?page=practice';
+</script>
+</body>
+</html>

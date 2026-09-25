@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DanskPath — Three Experiences Testing Guide</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Inter, -apple-system, sans-serif; background: #F2F2F7; color: #121417; line-height: 1.5; }
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 20px; }
+  h1 { font-size: 40px; font-weight: 800; letter-spacing: -0.03em; line-height: 0.9; }
+  h2 { font-size: 24px; font-weight: 700; margin-top: 40px; }
+  .badge { display: inline-flex; gap: 8px; align-items: center; background: white; border: 1px solid rgba(0,0,0,0.05); border-radius: 999px; padding: 6px 14px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+  .card { background: white; border-radius: 24px; padding: 24px; margin-top: 16px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-top: 16px; }
+  a { color: #007AFF; text-decoration: none; font-weight: 600; }
+  a:hover { text-decoration: underline; }
+  .btn { display: inline-flex; background: black; color: white; padding: 12px 24px; border-radius: 999px; font-weight: 600; font-size: 14px; margin-top: 12px; }
+  .btn:hover { background: #222; text-decoration: none; }
+  .qr { width: 200px; height: 200px; background: #F2F2F7; border-radius: 16px; padding: 12px; }
+  code { background: #F2F2F7; padding: 2px 8px; border-radius: 6px; font-size: 13px; }
+  ul { margin-left: 20px; margin-top: 8px; }
+  li { margin-top: 4px; font-size: 14px; }
+  .success { color: #34C759; }
+  .warn { color: #FF9500; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="badge"><span style="width:8px;height:8px;background:#34C759;border-radius:50%;display:inline-block;"></span> Three experiences — One product — Ready to test</div>
+  <h1 style="margin-top: 24px;">DanskPath<br>Testing Guide</h1>
+  <p style="margin-top: 16px; font-size: 18px; color: #3C3C43; max-width: 600px;">Three connected experiences using same visual identity, logo, design system. Test end-to-end as real person would.</p>
+
+  <h2>🌐 1. Public Website</h2>
+  <div class="card">
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8E8E93;">Entry: / or /?page=website</div>
+    <p style="margin-top: 12px;"><b>What:</b> Polished marketing intro explaining app before learning experience.</p>
+    <ul>
+      <li>What is app? Workbook M1→PD3, not game, for adults job/family</li>
+      <li>How it works: 5 steps Assess→Personalise→Learn→Practise→Progress</li>
+      <li>Full education M1→5 grid with genuine difficulty 3-6→15-25 words</li>
+      <li>CTA Find my Danish level → assessment</li>
+    </ul>
+    <a class="btn" href="/?page=website">Open Website →</a>
+    <div style="margin-top: 16px; font-size: 12px; color: #8E8E93;">Test: landing, navigation, CTA, mobile 390px, desktop 1120px, logo branding, responsive, accessibility</div>
+  </div>
+
+  <h2>🔗 2. Shareable Assessment + QR</h2>
+  <div class="grid">
+    <div class="card">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8E8E93;">Entry: /?page=assessment or /assessment</div>
+      <p style="margin-top: 12px;"><b>Shareable URL:</b> <code>/?page=assessment</code></p>
+      <p style="margin-top: 8px; font-size: 14px;">Pretty URL <code>/assessment</code> via SPA fallback. QR opens directly to assessment landing.</p>
+      <div style="margin-top: 16px; display: flex; gap: 16px; align-items: start;">
+        <img src="/assessment-qr.png" alt="QR" class="qr">
+        <div style="font-size: 12px; line-height: 1.5; color: #8E8E93;">
+          <b style="color: black;">How to share:</b><br>
+          • In person: show QR<br>
+          • LinkedIn: download + post<br>
+          • Email: paste link + QR<br>
+          • Presentation: full-screen QR<br>
+          • Print: A4, poster, handout<br>
+          • Messages: WhatsApp/SMS<br><br>
+          <b style="color: black;">Privacy:</b> No admin exposed. Each learner own trialId. Independent session.
+        </div>
+      </div>
+      <a class="btn" href="/?page=assessment">Open Assessment Landing →</a>
+      <a class="btn" style="background: white; color: black; border: 1px solid rgba(0,0,0,0.1); margin-left: 8px;" href="/assessment-qr.png" download>Download QR</a>
+    </div>
+    <div class="card">
+      <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8E8E93;">Learner flow — 10 steps</div>
+      <ol style="margin-left: 20px; margin-top: 12px; font-size: 14px;">
+        <li>Open shared link or scan QR</li>
+        <li>See short explanation</li>
+        <li>Start assessment</li>
+        <li>Answer 20 Q adaptive M1→M5</li>
+        <li>Receive varied questions (5,100+ variants)</li>
+        <li>Complete assessment</li>
+        <li>Receive skill profile (strengths ≥75%, weaknesses &lt;60%)</li>
+        <li>See strengths/weaknesses per category</li>
+        <li>See suggested starting point M1→5</li>
+        <li>Continue into full learning experience</li>
+      </ol>
+      <div style="margin-top: 16px; font-size: 12px;">
+        <span class="success">✓</span> Independent session per learner<br>
+        <span class="success">✓</span> No admin data exposed<br>
+        <span class="success">✓</span> Questions varied via hash(seed)<br>
+        <span class="success">✓</span> Results saved per trialId
+      </div>
+    </div>
+  </div>
+
+  <h2>📱 3. Full iPhone App</h2>
+  <div class="card">
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #8E8E93;">Entry: /?page=practice or after diagnostic or Add to Home Screen</div>
+    <p style="margin-top: 12px;"><b>Complete learner experience M1→PD3:</b></p>
+    <div class="grid" style="margin-top: 12px;">
+      <ul>
+        <li>Account creation and login (Vipin/vipin123 admin)</li>
+        <li>Initial assessment 7-min M1→M5</li>
+        <li>Danish level assessment per skill</li>
+        <li>Personalised learning path</li>
+        <li>Modules 1-5, lessons within each</li>
+        <li>Reading, Listening, Writing, Grammar, Vocab</li>
+        <li>Practice, Weekly tests, Progress tracking</li>
+      </ul>
+      <ul>
+        <li>Reassessment, recommendations</li>
+        <li>Motivation, profile/settings</li>
+        <li>PWA: app icon, splash, standalone</li>
+        <li>iOS-friendly navigation, haptics</li>
+        <li>Smooth transitions, micro-interactions</li>
+        <li>Touch targets 44px, accessible typography</li>
+        <li>Fast loading, loading/error states</li>
+      </ul>
+    </div>
+    <a class="btn" href="/?page=practice">Open Full App →</a>
+    <a class="btn" style="background: #007AFF; margin-left: 8px;" href="/?page=diagnostic">Start Level Test →</a>
+  </div>
+
+  <h2>🎨 Brand Identity</h2>
+  <div class="card">
+    <div style="display: flex; gap: 24px; align-items: center;">
+      <div style="width: 80px; height: 80px; background: black; border-radius: 20px; display: grid; place-items: center; color: white; font-size: 32px; font-weight: 800;">D</div>
+      <div>
+        <div style="font-size: 20px; font-weight: 800;">DanskPath — Modul 1 → PD3</div>
+        <div style="font-size: 12px; color: #8E8E93; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">Modern • Friendly • Educational • Scandinavian • Clean • Trustworthy</div>
+        <div style="margin-top: 8px; font-size: 13px; color: #3C3C43;">Logo: D + speech bubble + blue arrow forward. Black #121417 + blue #007AFF. Works at 24px. Full variant with wordmark.</div>
+      </div>
+    </div>
+    <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+      <span style="background: #F2F2F7; padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 600;">#121417 black</span>
+      <span style="background: #007AFF; color: white; padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 600;">#007AFF blue</span>
+      <span style="background: #F2F2F7; padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 600;">#F2F2F7 bg</span>
+      <span style="background: white; border: 1px solid rgba(0,0,0,0.1); padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 600;">Inter • SF Pro</span>
+      <span style="background: white; border: 1px solid rgba(0,0,0,0.1); padding: 6px 12px; border-radius: 999px; font-size: 11px; font-weight: 600;">iOS HIG • 24-32px cards • black pill buttons</span>
+    </div>
+  </div>
+
+  <h2>✅ End-to-End Test</h2>
+  <div class="card" style="background: black; color: white;">
+    <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.6;">Journey as real person</div>
+    <div style="margin-top: 12px; font-family: monospace; font-size: 13px; line-height: 1.8; opacity: 0.9;">
+      Scan QR code<br>
+      ↓<br>
+      Open website<br>
+      ↓<br>
+      Understand what product does<br>
+      ↓<br>
+      Start Danish assessment<br>
+      ↓<br>
+      Create learner session (trialId)<br>
+      ↓<br>
+      Complete assessment (20 Q adaptive)<br>
+      ↓<br>
+      Receive skill profile (strengths/weaknesses)<br>
+      ↓<br>
+      Receive recommended starting point M1→5<br>
+      ↓<br>
+      Enter personalised learning path<br>
+      ↓<br>
+      Complete lesson<br>
+      ↓<br>
+      Practise (SRS Box 0→5, 30-day no repeat)<br>
+      ↓<br>
+      Take test (Modultest/PD3)<br>
+      ↓<br>
+      Receive updated progress<br>
+      ↓<br>
+      Continue learning — works without manual intervention
+    </div>
+  </div>
+
+  <div style="margin-top: 40px; padding: 20px; background: white; border-radius: 16px; border: 1px solid rgba(0,0,0,0.05); font-size: 12px; color: #8E8E93;">
+    <b>Servers:</b> Backend API+DB 0.0.0.0:3001 • Frontend vite 5.4.8 0.0.0.0:5173<br>
+    <b>DB:</b> danish-platform-db.json portable — users, referrals, trials, assessments, feedback<br>
+    <b>Admin:</b> Vipin / vipin123 (change after first login) — isolated from public assessment<br>
+    <b>PWA:</b> manifest.json + sw.js v4 + icons 60/120/180/192/512/1024 + apple-touch-icon<br>
+    <b>Three entry points:</b> Website (marketing) • Assessment (shareable QR) • iPhone App (full learning) — same design system, shared account, admin separated
+  </div>
+</div>
+</body>
+</html>

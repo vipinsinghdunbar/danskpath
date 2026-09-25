@@ -1,0 +1,37 @@
+# Render one-click deploy — DanskPath Full Stack
+# https://render.com/docs/blueprint-spec
+# Free tier: 750 hours/month, persistent disk for DB
+
+services:
+  - type: web
+    name: danskpath
+    env: node
+    plan: free
+    region: frankfurt # close to Copenhagen
+    branch: main
+    buildCommand: npm ci && npm run build
+    startCommand: node server.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000 # Render sets PORT=10000
+    disk:
+      name: danskpath-data
+      mountPath: /data
+      sizeGB: 1
+    domains:
+      - danskpath.app # optional custom domain — set after first deploy
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: ALLOWALL
+      - path: /manifest.json
+        name: Content-Type
+        value: application/manifest+json
+      - path: /sw.js
+        name: Cache-Control
+        value: no-cache

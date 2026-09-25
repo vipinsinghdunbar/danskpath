@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/icon-192.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+    <title>DanskPath — Modul 1 til PD3 / A1 til B2 — Full Danish Education</title>
+    <meta name="description" content="Moderne dansk læring for voksne på Danskuddannelse 1-3. Fra Modul 1 (A1 alfabet æøå) til PD3 (B2). Personlig læringssti, 7-min test, 5.100+ varianter, ingen streaks." />
+    
+    <!-- PWA / iOS -->
+    <meta name="theme-color" content="#121417" />
+    <meta name="background-color" content="#F2F2F7" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="DanskPath" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="DanskPath" />
+    <meta name="msapplication-TileColor" content="#121417" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    
+    <!-- Icons -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icon-180.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icon-60.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    
+    <!-- iOS Splash (optional) -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    
+    <!-- Social / Share -->
+    <meta property="og:title" content="DanskPath — Find your Danish level" />
+    <meta property="og:description" content="7-min adaptive Danish test. From Modul 1 to PD3. Get your personal learning path. Shareable QR." />
+    <meta property="og:image" content="/icon-512.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="DanskPath — Modul 1→PD3" />
+    <meta name="twitter:description" content="Moderne dansk læring for voksne. 7-min test → personal path M1→5" />
+    <meta name="twitter:image" content="/icon-512.png" />
+    
+    <!-- Fonts - Inter for iOS-like -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+      * { -webkit-tap-highlight-color: transparent; }
+      html { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif; }
+      body { overscroll-behavior-y: none; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+      @keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

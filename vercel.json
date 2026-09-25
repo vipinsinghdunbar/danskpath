@@ -1,0 +1,53 @@
+{
+  "version": 2,
+  "name": "danskpath",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    },
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/assets/(.*)",
+      "dest": "/dist/assets/$1"
+    },
+    {
+      "src": "/icon-.*\\.png",
+      "dest": "/dist/$0"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/dist/manifest.json"
+    },
+    {
+      "src": "/sw.js",
+      "dest": "/dist/sw.js"
+    },
+    {
+      "src": "/assessment-qr.*\\.png",
+      "dest": "/dist/$0"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/dist/index.html"
+    }
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "env": {
+    "VITE_PUBLIC_URL": "https://danskpath.app"
+  }
+}

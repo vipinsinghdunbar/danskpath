@@ -1,0 +1,42 @@
+{
+  "name": "danskpath",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 5173",
+    "dev:backend": "node server.js",
+    "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev\"",
+    "build": "vite build",
+    "build:prod": "vite build && echo 'Build complete — dist ready for deployment'",
+    "start": "node server.js",
+    "start:prod": "NODE_ENV=production node server.js",
+    "lint": "oxlint",
+    "preview": "vite preview --host 0.0.0.0 --port 4173",
+    "deploy:render": "echo 'Push to GitHub → Render auto-deploys via render.yaml'",
+    "deploy:vercel": "vercel --prod",
+    "deploy:fly": "fly deploy"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "esbuild": "^0.25.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "uuid": "^14.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^4.3.3",
+    "autoprefixer": "^10.6.1",
+    "oxlint": "^1.81.0",
+    "playwright": "^1.63.0",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^3.4.19",
+    "vite": "^5.4.8"
+  }
+}
