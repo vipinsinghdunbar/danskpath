@@ -6,6 +6,7 @@ const sections = [
     items: [
       { id: "website", label: "Website", meta: "Public", icon: "◐", desc: "Marketing + intro" },
       { id: "assessment", label: "Assessment", meta: "Shareable", icon: "◑", desc: "QR + link" },
+      { id: "architecture", label: "Architecture Map", meta: "Interactive", icon: "🗺️", desc: "Motion arrows + flow" },
       { id: "share", label: "Share QR", meta: "QR code", icon: "↗", desc: "For LinkedIn etc" },
     ]
   },

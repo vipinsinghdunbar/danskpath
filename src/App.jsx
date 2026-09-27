@@ -4,6 +4,7 @@ import BottomNav, { MoreSheet } from './components/BottomNav';
 import LandingPage from './components/LandingPage';
 import WebsiteView from './components/WebsiteView';
 import AssessmentLandingView from './components/AssessmentLandingView';
+import ArchitectureMapView from './components/ArchitectureMapView';
 import PracticeView from './components/PracticeView';
 import PathView from './components/PathView';
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
@@ -144,6 +145,11 @@ export default function App() {
       case 'assessment':
       case 'assessment-landing':
         return <AssessmentLandingView setActive={handleSetActive} />;
+      case 'architecture':
+      case 'arch':
+      case 'map':
+      case 'flowchart':
+        return <ArchitectureMapView setActive={handleSetActive} />;
       
       // Legacy landing (keep for internal)
       case 'landing':
