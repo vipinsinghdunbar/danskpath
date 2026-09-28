@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DanskPath — After Test Journey & Roadmaps</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,-apple-system,sans-serif;background:#FFFBF5;color:#121417;line-height:1.5}
+h1,h2,h3{font-family:Outfit,sans-serif;font-weight:700}
+.container{max-width:1120px;margin:0 auto;padding:24px 20px 120px}
+.pill{display:inline-flex;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.pill-black{background:#121417;color:white}
+.pill-cream{background:white;border:1px solid #E8E0D6;color:#8E8E93}
+.card{background:white;border-radius:32px;padding:28px;border:1px solid #E8E0D6;box-shadow:0 2px 24px rgba(0,0,0,0.04)}
+.card-dark{background:#121417;color:white;border-radius:32px;padding:28px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+@media(max-width:800px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+.flow{display:flex;gap:8px;overflow-x:auto;padding:12px 0;scroll-snap-type:x mandatory}
+.flow-step{min-width:220px;background:white;border:1px solid #E8E0D6;border-radius:20px;padding:16px;scroll-snap-align:start;position:relative}
+.flow-step.active{border:2px solid #121417;box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.arrow{display:grid;place-items:center;width:32px;flex-shrink:0;color:#8E8E93}
+.timeline{display:flex;flex-direction:column;gap:0;position:relative}
+.timeline::before{content:'';position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:#E8E0D6}
+.node{display:flex;gap:16px;align-items:flex-start;position:relative;padding:12px 0}
+.dot{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;flex-shrink:0;z-index:1;border:3px solid #FFFBF5}
+.dot.done{background:#121417;color:white}
+.dot.active{background:white;border:3px solid #121417;color:#121417;box-shadow:0 0 0 4px #12141715}
+.dot.next{background:white;border:2px solid #E8E0D6;color:#8E8E93}
+.screenshot{width:100%;border-radius:20px;border:1px solid #E8E0D6;box-shadow:0 8px 32px rgba(0,0,0,0.08)}
+.case{border-radius:24px;padding:20px;background:white;border:1px solid #E8E0D6}
+.case-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.progress{height:6px;background:#F2F2F7;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;background:#121417;border-radius:999px;transition:width 1s}
+.badge{display:inline-flex;font-size:10px;font-weight:700;padding:4px 8px;border-radius:999px}
+.badge-green{background:#34C75915;color:#34C759;border:1px solid #34C75930}
+.badge-orange{background:#FF950015;color:#FF9500;border:1px solid #FF950030}
+.badge-red{background:#FF3B3015;color:#FF3B30;border:1px solid #FF3B3030}
+.mono{font-family:ui-monospace,monospace;font-size:12px}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:36px;height:36px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-weight:700">D</div><div><div style="font-weight:700;font-size:14px">DanskPath • After Test Journey</div><div style="font-size:11px;color:#8E8E93">Live: https://danskpath.onrender.com • Build 6b5707c Apple Premium</div></div></div>
+<div style="display:flex;gap:8px"><span class="pill pill-black">M1 → PD3 Full Education</span><span class="pill pill-cream">Apple Premium iPhone 390px</span></div>
+</div>
+
+<h1 style="font-size:42px;line-height:0.95;letter-spacing:-0.02em">What happens after<br/>you take the test?</h1>
+<p style="margin-top:12px;font-size:18px;color:#3C3C43;max-width:720px">Not just a % score. We analyze per-level, per-category, per-type, consistency and time — then build a personal path from your weakest skill <60% first. One clear primary action at each screen.</p>
+
+<!-- FLOW -->
+<h2 style="margin-top:48px;font-size:24px">Complete Flow — 8 screens, one purpose each</h2>
+<div class="flow" style="margin-top:16px">
+<div class="flow-step"><div class="pill pill-black" style="font-size:9px">1 • Welcome</div><div style="margin-top:8px;font-weight:600;font-size:14px">Lær dansk på din måde</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">3-step onboarding • Danish line art • progress dots • no overflow iPhone</div><img src="screenshots/02-welcome.png" class="screenshot" style="margin-top:12px"></div>
+<div class="arrow">→</div>
+<div class="flow-step"><div class="pill pill-black" style="font-size:9px">2 • Assessment Landing</div><div style="margin-top:8px;font-weight:600;font-size:14px">Find dit niveau</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">7 min • 15 Q • 3 cards explanation • Start test →</div><img src="screenshots/07-assessment-landing.png" class="screenshot" style="margin-top:12px"></div>
+<div class="arrow">→</div>
+<div class="flow-step"><div class="pill pill-black" style="font-size:9px">3 • Instructions</div><div style="margin-top:8px;font-weight:600;font-size:14px">Sådan fungerer testen</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">5 bullets • what happens after • usage • Start Test goes directly to Q1</div><img src="screenshots/08-instructions.png" class="screenshot" style="margin-top:12px"></div>
+<div class="arrow">→</div>
+<div class="flow-step active"><div class="pill pill-black" style="font-size:9px">4 • Test Q1-15</div><div style="margin-top:8px;font-weight:600;font-size:14px">Test = only test</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">Distraction-free • no learning path • randomized A/B/C • variation engine 5,100+ variants • progress shimmer 4px • 1 purpose 1 action</div><img src="screenshots/09-test-q1.png" class="screenshot" style="margin-top:12px"><div class="mono" style="margin-top:8px;font-size:10px;color:#8E8E93">Q: Hvor mange vokaler har dansk? Options shuffled per userSeed, hashStr prevents pattern</div></div>
+<div class="arrow">→</div>
+<div class="flow-step active" style="min-width:280px"><div class="pill pill-black" style="font-size:9px">5 • Results Analysis</div><div style="margin-top:8px;font-weight:600;font-size:14px">Dit niveau — beyond %</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">67% Modul 3 • levelPct A1/A2/B1/B2 • strengths black pills 75%+ • focus white • consistency • timeAvg • timeline</div><img src="screenshots/12-results.png" class="screenshot" style="margin-top:12px"><div style="margin-top:8px;display:flex;gap:4px;flex-wrap:wrap"><span class="badge badge-green">✓ Strength 75%+</span><span class="badge badge-orange">• To improve <60%</span><span class="badge badge-red">○ Borderline</span></div></div>
+<div class="arrow">→</div>
+<div class="flow-step active"><div class="pill pill-black" style="font-size:9px">6 • Path</div><div style="margin-top:8px;font-weight:600;font-size:14px">Din læringsvej</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">Only relevant stage • vertical timeline • active black • weekly writing • next 4 weeks • passing criteria</div><img src="screenshots/13-path.png" class="screenshot" style="margin-top:12px"></div>
+<div class="arrow">→</div>
+<div class="flow-step active"><div class="pill pill-black" style="font-size:9px">7 • Practice</div><div style="margin-top:8px;font-weight:600;font-size:14px">Hej klar til at øve?</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">One recommendation • why now • unlocks real life • 15 min one hand • can-do wins • pace heatmap</div><img src="screenshots/14-practice.png" class="screenshot" style="margin-top:12px"></div>
+</div>
+
+<!-- ANALYSIS DEEP DIVE -->
+<h2 style="margin-top:64px;font-size:28px">Where is the analysis? — VerdictEngine.js</h2>
+<p style="margin-top:8px;color:#3C3C43">Two learners can both score 80% but need different paths. Code: <span class="mono">src/lib/verdictEngine.js calculateVerdict()</span></p>
+
+<div class="grid-2" style="margin-top:20px">
+<div class="card">
+<div class="pill pill-black" style="font-size:10px">Analysis 1 • Beyond %</div>
+<h3 style="margin-top:12px">Level determined by per-level, not just total %</h3>
+<div class="mono" style="margin-top:12px;background:#F2F2F7;padding:12px;border-radius:12px;font-size:11px;line-height:1.6">
+if A1 <50% → Modul 1 (A1)<br>
+else if A1 ≥70% && A2 <60% → Modul 2 (A1-A2)<br>
+else if A2 ≥65% && B1 <60% → Modul 3 (A2)<br>
+else if B1 ≥65% && B2 <60% → Modul 4 (B1)<br>
+else if B1 ≥70% && B2 ≥60% → Modul 5 PD3 klar
+</div>
+<div style="margin-top:12px;font-size:13px;color:#3C3C43">If A1 is 40% you stay Modul 1 even if overall 80% guessed. Prevents false high level.</div>
+<div style="margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+<div style="background:#F2F2F7;border-radius:12px;padding:10px;text-align:center"><div style="font-size:11px;font-weight:700">A1</div><div style="font-size:18px;font-weight:700">40%</div></div>
+<div style="background:#F2F2F7;border-radius:12px;padding:10px;text-align:center"><div style="font-size:11px;font-weight:700">A2</div><div style="font-size:18px;font-weight:700">85%</div></div>
+<div style="background:#F2F2F7;border-radius:12px;padding:10px;text-align:center"><div style="font-size:11px;font-weight:700">B1</div><div style="font-size:18px;font-weight:700">90%</div></div>
+<div style="background:black;color:white;border-radius:12px;padding:10px;text-align:center"><div style="font-size:11px;font-weight:700">Result</div><div style="font-size:14px;font-weight:700">Modul 1</div></div>
+</div>
+</div>
+
+<div class="card">
+<div class="pill pill-black" style="font-size:10px">Analysis 2 • Category + Type</div>
+<h3 style="margin-top:12px">Strengths / Weaknesses / Borderline + Consistency</h3>
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+<div class="case" style="flex:1;min-width:140px"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#34C759">Strengths 75%+</div><div style="margin-top:8px;font-size:13px;font-weight:600">✓ V2 inversion</div><div style="font-size:11px;color:#8E8E93">Keep strong — don't over-practice</div></div>
+<div class="case" style="flex:1;min-width:140px"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#FF9500">To improve <60%</div><div style="margin-top:8px;font-size:13px;font-weight:600">• Listening → Reduktion d'er</div><div style="font-size:11px;color:#8E8E93">We build path from these first</div></div>
+</div>
+<div style="margin-top:16px">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#8E8E93">Consistency + Time</div>
+<div class="mono" style="margin-top:8px;background:#FFF3F3;border:1px solid #FF3B3030;padding:10px;border-radius:12px;font-size:11px">Inconsistent: easy 20% vs hard 90% — suggests guessing<br>Avg 4s/q — too fast, may be guessing | Slow careful | Normal</div>
+</div>
+</div>
+</div>
+
+<div class="card-dark" style="margin-top:16px">
+<div style="display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap">
+<div><div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;opacity:0.6">Timeline • Why this path?</div><div style="margin-top:8px;font-size:15px;line-height:1.5">Estimated: <b>4 måneder til PD3 med 15 min/dag, 4 dage/uge</b> — base from your level + 0.5 month per weakness. Why this path? Your assessment shows listening, V2 less 60%. We focus V2 first because 80% of B1 errors are V2.</div><div class="mono" style="margin-top:12px;opacity:0.7;font-size:11px">Base Modul 4: 4 months + 2 weaknesses × 0.5 = 5 months → 3-4 days/week enough — research: enough to pass Modultest 3 in 3 months</div></div>
+<div style="min-width:200px;background:white;color:#121417;border-radius:20px;padding:16px"><div style="font-size:11px;font-weight:700;text-transform:uppercase">Personal Path — 4 steps built from weakest</div><div style="margin-top:12px" class="timeline"><div class="node"><div class="dot done">1</div><div><div style="font-size:13px;font-weight:600">V2 + inversion</div><div style="font-size:11px;color:#8E8E93">I morgen skal jeg... • Week 1-2 • 80% B1 errors</div></div></div><div class="node"><div class="dot active">2</div><div><div style="font-size:13px;font-weight:600">Ledsætning at han ikke kommer</div><div style="font-size:11px;color:#8E8E93">ikke before verb • Week 2-3</div></div></div><div class="node"><div class="dot next">3</div><div><div style="font-size:13px;font-weight:600">Kollokationer holde et møde</div><div style="font-size:11px;color:#8E8E93">Week 3-4 • speech not single words</div></div></div><div class="node"><div class="dot next">4</div><div><div style="font-size:13px;font-weight:600">Lytning uden tekst DSB DR</div><div style="font-size:11px;color:#8E8E93">Week 4-5 • 25% stavelser sluges</div></div></div></div></div>
+</div>
+</div>
+
+<!-- HOW THEY START LEARNING -->
+<h2 style="margin-top:64px;font-size:28px">How they start learning — PracticeView recommendation engine</h2>
+<div class="grid-2" style="margin-top:20px">
+<div class="card">
+<h3>One recommendation — not a list</h3>
+<p style="margin-top:8px;font-size:14px;color:#3C3C43">System weights: listening 60% • 250 new words Box0 • 5/17 grammar • weakest skill <60% • your personal goal. Not random, not curriculum.</p>
+<div style="margin-top:16px;background:#F2F2F7;border-radius:20px;padding:16px">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#8E8E93">Example recommendation</div>
+<div style="margin-top:8px;font-size:18px;font-weight:700">V2 rule — I morgen skal jeg...</div>
+<div style="font-size:12px;color:#8E8E93;margin-top:4px">Verb on position 2 • 10 min • Goal-driven: job interview</div>
+<div style="margin-top:12px;font-size:14px;line-height:1.5">In Danish verb must be on position 2 in main clauses. In English you do it sometimes (Never have I...). In Danish always. Fastest way to fewer errors.</div>
+<div style="margin-top:12px;background:white;border-radius:12px;padding:12px;border:1px solid #E8E0D6"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#007AFF">Unlocks in real life</div><div style="font-size:14px;font-weight:600;margin-top:4px">Say "I morgen skal jeg til møde" correctly</div><div style="font-size:12px;color:#8E8E93">→ At work, colleagues understand first time</div></div>
+<button style="margin-top:16px;width:100%;background:#121417;color:white;padding:14px;border-radius:999px;font-weight:600;border:none">Practice V2 → 10 min • one hand on bus</button>
+</div>
+</div>
+<div class="card">
+<h3>After clicking Practice → where learning happens</h3>
+<div class="grid-2" style="margin-top:16px">
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700;text-transform:uppercase">Grammar</div><div style="font-size:13px;font-weight:600;margin-top:4px">Infinite variants</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">5,100+ variants • 30-day no-repeat • variationEngine.js • Anna København seed different per learner</div></div>
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700;text-transform:uppercase">Vocab</div><div style="font-size:13px;font-weight:600;margin-top:4px">SRS Box 0→5</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">Collocations not single words • holde et møde • træffe beslutning • Box0 250 new</div></div>
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700;text-transform:uppercase">Listening</div><div style="font-size:13px;font-weight:600;margin-top:4px">No transcript first</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">DSB, DR, telephone borgerservice • 25% reductions d'er skaddu • second time 30% more</div></div>
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700;text-transform:uppercase">Writing</div><div style="font-size:13px;font-weight:600;margin-top:4px">Weekly new • No repeat 60d</div><div style="font-size:11px;color:#8E8E93;margin-top:4px">30-50 → 150-200 words • PD3 structure indledning 2 args konklusion • jo/da/vel</div></div>
+</div>
+<div style="margin-top:16px;background:#121417;color:white;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700;text-transform:uppercase;opacity:0.6">Motivation — no shame</div><div style="margin-top:8px;display:flex;gap:6px"><div style="flex:1;height:36px;border-radius:999px;background:white;color:black;display:grid;place-items:center;font-weight:700">✓</div><div style="flex:1;height:36px;border-radius:999px;background:#ffffff20;display:grid;place-items:center">·</div><div style="flex:1;height:36px;border-radius:999px;background:white;color:black;display:grid;place-items:center;font-weight:700">✓</div><div style="flex:1;height:36px;border-radius:999px;background:#ffffff20;display:grid;place-items:center">·</div><div style="flex:1;height:36px;border-radius:999px;background:white;color:black;display:grid;place-items:center;font-weight:700">✓</div><div style="flex:1;height:36px;border-radius:999px;background:#ffffff20;display:grid;place-items:center">·</div><div style="flex:1;height:36px;border-radius:999px;background:white;color:black;display:grid;place-items:center;font-weight:700">✓</div></div><div style="margin-top:8px;font-size:11px;opacity:0.7">3-4 days/week is enough — research: enough to pass Modultest 3 in 3 months. No streaks. No hearts.</div></div>
+</div>
+</div>
+
+<!-- ROADMAP EACH CASE -->
+<h2 style="margin-top:80px;font-size:32px">Roadmap for each case possible — Journey Maps</h2>
+<p style="margin-top:8px;color:#3C3C43;max-width:720px">StageEngine.js defines M1→M5 with genuine difficulty increase: sentence 3-6 words → 15-25 words with 2-3 grammar combined, vocab 200→1354 active, writing 30-50→150-200 words. Here are 4 real personas.</p>
+
+<div style="margin-top:24px;display:grid;gap:24px">
+
+<!-- CASE 1 -->
+<div class="case" style="border:2px solid #121417">
+<div class="case-header"><div><div class="pill pill-black">Case 1 • New learner</div><h3 style="margin-top:8px;font-size:22px">M1 (A1) → PD3 • 9 months • From zero</h3><div style="font-size:13px;color:#8E8E93">Alphabet æøå • SVO • en/et • 0-100 tal • 200 words</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:700">9 mo</div><div style="font-size:11px;color:#8E8E93">15 min/day • 4 days/week</div><div style="margin-top:8px"><div class="progress" style="width:120px"><div class="progress-fill" style="width:10%"></div></div><div style="font-size:10px;color:#8E8E93;margin-top:4px">10% → 100% PD3</div></div></div></div>
+
+<div class="grid-2">
+<div>
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#8E8E93;margin-bottom:8px">Journey Map — Vertical Timeline</div>
+<div class="timeline">
+<div class="node"><div class="dot active">1</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:14px">Modul 1 — Foundation A1</span><span class="badge badge-green">Week 1-6</span></div><div style="font-size:12px;color:#3C3C43;margin-top:4px"><b>Sentence:</b> 3-6 words: Jeg hedder Ali. Jeg bor i Aarhus.</div><div style="font-size:11px;color:#8E8E93"><b>Grammar:</b> alfabet æøå, SVO, nutid -r, en/et, tal, spørgsmål hv-ord • <b>Vocab:</b> 200w family home time daily routine • <b>Writing:</b> 30-50w S-V-O present only</div><div style="margin-top:6px;display:flex;gap:4px"><span class="badge" style="background:#F2F2F7">Alphabet dictation 80%</span><span class="badge" style="background:#F2F2F7">SVO 80%</span><span class="badge" style="background:#F2F2F7">en/et 60%</span></div></div></div>
+<div class="node"><div class="dot next">2</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:14px">Modul 2 — Daily life A1-A2</span><span class="badge badge-orange">Week 7-14</span></div><div style="font-size:12px;color:#3C3C43;margin-top:4px"><b>Sentence:</b> 6-9 words: I dag arbejder jeg hjemme, fordi jeg er syg.</div><div style="font-size:11px;color:#8E8E93"><b>Shift:</b> SVO → V2 inversion (biggest A1→A2), present → past -ede, 30-50 → 60-80w with fordi • <b>Listening:</b> DSB announcement</div></div></div>
+<div class="node"><div class="dot next">3</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:14px">Modul 3 — Independent A2-B1</span><span class="badge" style="background:#007AFF15;color:#007AFF">Week 15-24</span></div><div style="font-size:12px;color:#3C3C43;margin-top:4px"><b>Sentence:</b> 9-14 words: Jeg ved, at håndværkeren ikke kommer i morgen, fordi han er syg.</div><div style="font-size:11px;color:#8E8E93"><b>Shift:</b> Main only → subordinate flips ikke before verb, -ede → har/er perfect, 60-80 → 80-120w, telephone without transcript 25% reductions</div></div></div>
+<div class="node"><div class="dot next">4</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:14px">Modul 4 — Fluent everyday B1</span><span class="badge" style="background:#5856D615;color:#5856D6">Week 25-32</span></div><div style="font-size:12px;color:#3C3C43;margin-top:4px"><b>Sentence:</b> 12-18 words: Selvom skoene kun er to uger gamle, er de allerede i stykker, derfor vil jeg gerne have pengene tilbage.</div><div style="font-size:11px;color:#8E8E93">Strong verbs drikke/drak/drukket, sin/hans, selvom/hvis/når/da, debate 120-150w fordele/ulemper</div></div></div>
+<div class="node"><div class="dot next">5</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600;font-size:14px">Modul 5 — PD3 ready B1-B2</span><span class="badge badge-red">Week 33-36 • Exam</span></div><div style="font-size:12px;color:#3C3C43;margin-top:4px"><b>Sentence:</b> 15-25 words: Det er jo klart, at selvom man har boet her i tre år, har man ikke nødvendigvis forstået...</div><div style="font-size:11px;color:#8E8E93">All 17 topics combined 2-3 rules, passive, relative der/som, jo/da/vel, 150-200w PD3 structure indledning 2 args konklusion, culture Folketing 179 flexicurity</div></div></div>
+</div>
+</div>
+<div>
+<img src="screenshots/13-path.png" class="screenshot">
+<div style="margin-top:12px;background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700;text-transform:uppercase">What changes genuinely?</div><table style="width:100%;font-size:11px;margin-top:8px;border-collapse:collapse"><tr style="border-bottom:1px solid #E8E0D6"><td style="padding:6px 0;font-weight:600">Sentence</td><td>3-6w → 15-25w</td></tr><tr style="border-bottom:1px solid #E8E0D6"><td style="padding:6px 0;font-weight:600">Grammar</td><td>1 rule → 2-3 combined</td></tr><tr style="border-bottom:1px solid #E8E0D6"><td style="padding:6px 0;font-weight:600">Vocab</td><td>200 → 1354 active, 3000 receptive</td></tr><tr><td style="padding:6px 0;font-weight:600">Writing</td><td>30-50 → 150-200 PD3</td></tr></table></div>
+</div>
+</div>
+</div>
+
+<!-- CASE 2 -->
+<div class="case">
+<div class="case-header"><div><div class="pill" style="background:#007AFF;color:white">Case 2 • A2 learner — Most common</div><h3 style="margin-top:8px;font-size:22px">M3 (A2) → PD3 • 6 months • Daily life done, needs independence</h3><div style="font-size:13px;color:#8E8E93">Diagnostic: A1 85% A2 70% B1 40% B2 20% → V2 okay, subordinate weak, listening 45%</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:700">6 mo</div><div style="font-size:11px;color:#8E8E93">Base 6 + 2 weak ×0.5 =7 → 6 with focus</div></div></div>
+<div class="grid-4">
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700">Week 1-2 • Focus V2 + Listening</div><div style="font-size:12px;margin-top:6px"><b>Why:</b> Assessment shows listening 45% <60%, V2 borderline 62% • Practice telephone borgerservice no transcript, DSB DR</div><div style="margin-top:8px"><span class="badge badge-orange">Listening</span><span class="badge" style="background:white">Reduktion d'er skaddu</span></div></div>
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700">Week 3-6 • Ledsætning</div><div style="font-size:12px;margin-top:6px"><b>Core:</b> at han ikke kommer vs kommer ikke • har/er perfect • 80-120w email landlord</div><div style="margin-top:8px"><span class="badge" style="background:white">Subordinate 60%</span></div></div>
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700">Week 7-14 • B1 Fluent</div><div style="font-size:12px;margin-top:6px"><b>Core:</b> Strong verbs, sin/hans, selvom, debate 120-150w • DR news multi-speaker</div></div>
+<div style="background:#121417;color:white;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700;opacity:0.6">Week 15-24 • PD3 Exam</div><div style="font-size:12px;margin-top:6px">150-200w structure for det første derudover til sidst • jo/da/vel • Folketing 179 • 2 months exam prep</div></div>
+</div>
+</div>
+
+<!-- CASE 3 -->
+<div class="case">
+<div class="case-header"><div><div class="pill" style="background:#5856D6;color:white">Case 3 • B1 learner — Vipin case</div><h3 style="margin-top:8px;font-size:22px">M4 (B1) → PD3 • 4 months • Fluent everyday, needs exam format</h3><div style="font-size:13px;color:#8E8E93">Diagnostic: A1 90% A2 80% B1 68% B2 45% • Strength V2, weakness writing + modal particles jo/da/vel • Goal: job interview</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:700">4 mo</div><div style="font-size:11px;color:#8E8E93">Base 4 + 1 weak ×0.5 =4.5 → 4</div></div></div>
+<div class="grid-2">
+<div>
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700">Vipin's personal path — from verdictEngine</div>
+<div style="margin-top:12px" class="timeline">
+<div class="node"><div class="dot done">1</div><div><div style="font-size:13px;font-weight:600">Bindeord jo/da/vel — nuance</div><div style="font-size:11px;color:#8E8E93">jo = shared knowledge, vel = confirmation, da = surprise • B2 cost in PD3 writing</div></div></div>
+<div class="node"><div class="dot active">2</div><div><div style="font-size:13px;font-weight:600">Skrivning 150-200w PD3 structure</div><div style="font-size:11px;color:#8E8E93">Indledning, 2 argumenter, konklusion, for det første/derudover/til sidst • 70% needed</div></div></div>
+<div class="node"><div class="dot next">3</div><div><div style="font-size:13px;font-weight:600">Kollokationer arbejde: holde fyraften</div><div style="font-size:11px;color:#8E8E93">Goal-driven: job interview • 1000→1354 words</div></div></div>
+<div class="node"><div class="dot next">4</div><div><div style="font-size:13px;font-weight:600">Culture + PD3 format</div><div style="font-size:11px;color:#8E8E93">Folketing 179, flexicurity, jantelov, DR podcast normal speed • Exam simulation</div></div></div>
+</div>
+</div>
+<div><img src="screenshots/14-practice.png" class="screenshot"><div style="margin-top:12px;background:#007AFF10;border:1px solid #007AFF20;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700;color:#007AFF">PracticeView for Vipin — what he sees today</div><div style="margin-top:8px;font-size:14px;font-weight:600">Flat structure at work • 10 min</div><div style="font-size:12px;color:#3C3C43;margin-top:4px">Your listening 65% and V2 solid. Next: understand Danish work culture — directly relevant for PD3 and job.</div><div style="margin-top:8px;font-size:11px;color:#007AFF">→ Unlocks: Understand jantelov at work — you understand why Danes share credit</div></div></div>
+</div>
+</div>
+
+<!-- CASE 4 -->
+<div class="case" style="border:1px dashed #121417">
+<div class="case-header"><div><div class="pill" style="background:#34C759;color:white">Case 4 • B2 PD3 ready</div><h3 style="margin-top:8px;font-size:22px">M5 (B1-B2) → PD3 • 2 months • Exam format + time pressure only</h3><div style="font-size:13px;color:#8E8E93">Diagnostic: A1 95% A2 88% B1 82% B2 70% • No weakness <60% • Needs exam format, culture 8/10, writing structure</div></div><div style="text-align:right"><div style="font-size:28px;font-weight:700">2 mo</div><div style="font-size:11px;color:#8E8E93">No new grammar • only exam</div></div></div>
+<div class="grid-3">
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700">Week 1-3 • Exam format</div><div style="font-size:12px;margin-top:6px">PD3 Delprøve 1-4 format • Læsning gapped text • Lytning podcast fast • Skrivning 150-200w structure • Mundtlig picture description monologue discussion</div></div>
+<div style="background:#F2F2F7;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700">Week 4-6 • Culture + Speed</div><div style="font-size:12px;margin-top:6px">Folketing 179, Grundlovsdag 5. juni, flexicurity, jantelov • Time pressure 40-60s/Q • All 17 topics combined 2-3 rules at once</div></div>
+<div style="background:#121417;color:white;border-radius:16px;padding:14px"><div style="font-size:11px;font-weight:700;opacity:0.6">Week 7-8 • Mock exam</div><div style="font-size:12px;margin-top:6px">Full PD3 simulation • 150-200w with jo/da/vel • DR podcast 60% without transcript • Pass criteria 80% grammar 80% vocab 75% listening 70% writing</div></div>
+</div>
+</div>
+
+</div>
+
+<!-- FOOTER LINKS -->
+<div style="margin-top:48px;background:white;border-radius:24px;padding:20px;border:1px solid #E8E0D6">
+<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center">
+<div><div style="font-weight:700">Live App — Test it now</div><div style="font-size:12px;color:#8E8E93">All 4 cases start from same test — path differs based on your weaknesses</div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<a href="https://danskpath.onrender.com/assessment" style="background:#121417;color:white;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:13px">Take test → danskpath.onrender.com/assessment</a>
+<a href="https://danskpath.onrender.com/path" style="background:#F2F2F7;color:#121417;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:13px;border:1px solid #E8E0D6">See Path</a>
+<a href="https://danskpath.onrender.com/practice" style="background:#F2F2F7;color:#121417;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:13px;border:1px solid #E8E0D6">See Practice</a>
+</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
