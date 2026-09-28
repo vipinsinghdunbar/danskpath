@@ -1,37 +1,23 @@
-# Render one-click deploy — DanskPath Full Stack
+# Render one-click deploy — DanskPath Full Stack — FREE TIER COMPATIBLE
 # https://render.com/docs/blueprint-spec
-# Free tier: 750 hours/month, persistent disk for DB
+# Free tier: 750 hours/month — no disk needed (uses ephemeral storage, DB resets on deploy but works)
+# For persistent DB, upgrade to Starter $7/month and add disk back
 
 services:
   - type: web
     name: danskpath
     env: node
     plan: free
-    region: frankfurt # close to Copenhagen
+    region: frankfurt # close to Copenhagen, GDPR EU
     branch: main
     buildCommand: npm ci && npm run build
     startCommand: node server.js
     healthCheckPath: /api/health
+    autoDeploy: true # auto-deploy on git push to main → GitHub → App updates automatically
     envVars:
       - key: NODE_ENV
         value: production
       - key: JWT_SECRET
         generateValue: true
       - key: PORT
-        value: 10000 # Render sets PORT=10000
-    disk:
-      name: danskpath-data
-      mountPath: /data
-      sizeGB: 1
-    domains:
-      - danskpath.app # optional custom domain — set after first deploy
-    headers:
-      - path: /*
-        name: X-Frame-Options
-        value: ALLOWALL
-      - path: /manifest.json
-        name: Content-Type
-        value: application/manifest+json
-      - path: /sw.js
-        name: Cache-Control
-        value: no-cache
+        value: 10000
