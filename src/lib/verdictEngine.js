@@ -113,9 +113,23 @@ export function calculateVerdict(answers, questionBank, timeSpent) {
   // Consistency check — did learner guess?
   const isConsistent = checkConsistency(byLevel, byDifficulty);
   
-  // Time check — too fast might be guessing
-  const timePerQ = total ? timeSpent/total : 0;
-  const timeFlag = timePerQ < 10 ? 'too fast — maybe guessing' : timePerQ > 120 ? 'slow — careful' : 'normal';
+  // Time check — handle array or empty
+  let timePerQ = 0;
+  let timeFlag = 'normal';
+  try {
+    if (Array.isArray(timeSpent) && timeSpent.length > 0) {
+      const totalTime = timeSpent.reduce((sum, t) => sum + (typeof t === 'number' ? t : 0), 0);
+      timePerQ = totalTime / (timeSpent.length || 1);
+    } else if (typeof timeSpent === 'number') {
+      timePerQ = timeSpent;
+    } else {
+      timePerQ = 12; // default
+    }
+    timeFlag = timePerQ < 8 ? 'too fast — maybe guessing' : timePerQ > 60 ? 'slow — careful' : 'normal';
+  } catch {
+    timePerQ = 12;
+    timeFlag = 'normal';
+  }
 
   // Recommended path — based on weaknesses, not just pct
   const recommendedPath = buildPath(weaknesses, typeWeaknesses, level);
