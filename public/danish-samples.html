@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DanskPath — Danish Design System — No AI Humans — With Transitions</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+--cream:#FFFBF5;--paper:#FFF8F0;--sage:#8AA99E;--sage-dark:#6B8A7F;--sage-light:#E3EDEA;
+--terracotta:#D88C7A;--sky:#8BBEE8;--charcoal:#121417;--ink:#2B2D33;--line:#E8E0D6;
+--shadow:0 8px 32px rgba(18,20,23,0.06);--shadow-md:0 16px 48px rgba(18,20,23,0.08);
+--r-sm:12px;--r-md:16px;--r-lg:20px;--r-pill:999px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+header{position:sticky;top:0;z-index:20;background:rgba(255,251,245,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:Outfit,sans-serif;font-weight:700;font-size:18px;display:flex;align-items:center;gap:10px}
+.logo i{width:32px;height:32px;background:var(--charcoal);color:white;border-radius:10px;display:grid;place-items:center;font-style:normal;font-size:16px}
+nav a{margin-left:8px;padding:8px 14px;border-radius:var(--r-pill);text-decoration:none;font-size:13px;font-weight:600;color:var(--ink);background:white;box-shadow:0 2px 8px rgba(0,0,0,0.04)}
+nav a.active{background:var(--charcoal);color:white}
+.hero{max-width:1120px;margin:0 auto;padding:56px 20px 24px;text-align:center}
+.hero .kicker{display:inline-flex;gap:8px;background:white;border:1px solid var(--line);padding:6px 14px;border-radius:var(--r-pill);font-size:12px;font-weight:600;letter-spacing:0.04em;margin-bottom:20px}
+.hero h1{font-family:Outfit,sans-serif;font-size:clamp(32px,5vw,56px);font-weight:700;line-height:0.95;letter-spacing:-0.03em;margin-bottom:16px}
+.hero h1 span{color:var(--sage-dark)}
+.hero p{max-width:720px;margin:0 auto 24px;font-size:17px;opacity:0.7}
+.palette{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:20px 0}
+.swatch{display:flex;align-items:center;gap:8px;background:white;padding:6px 12px 6px 6px;border-radius:var(--r-pill);box-shadow:var(--shadow);font-size:12px;font-weight:600}
+.swatch div{width:24px;height:24px;border-radius:999px}
+.principles{max-width:1120px;margin:0 auto;padding:0 20px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.principle{background:white;border-radius:var(--r-md);padding:16px;box-shadow:var(--shadow)}
+.principle h4{font-family:Outfit,sans-serif;font-size:14px;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.principle p{font-size:13px;opacity:0.7}
+.grid{max-width:1120px;margin:0 auto;padding:20px;display:grid;grid-template-columns:1fr;gap:28px}
+.card{background:white;border-radius:var(--r-lg);box-shadow:var(--shadow-md);overflow:hidden;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1)}
+.card:hover{transform:translateY(-3px)}
+.card img{width:100%;height:auto;display:block}
+.card-body{padding:20px 20px 22px}
+.card-body h3{font-family:Outfit,sans-serif;font-size:20px;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.num{width:28px;height:28px;background:var(--charcoal);color:white;border-radius:999px;display:grid;place-items:center;font-size:13px;font-weight:700}
+.meta{font-size:12px;font-weight:600;letter-spacing:0.04em;opacity:0.5;margin-bottom:10px;text-transform:uppercase}
+.card-body p{font-size:14px;opacity:0.75;margin-bottom:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tag{font-size:11px;padding:5px 10px;border-radius:999px;background:#F2F2F7;font-weight:600}
+.tag.sage{background:var(--sage-light);color:#2F4A44}
+.tag.blue{background:#E3EEFF;color:#2F4A8A}
+.tag.terracotta{background:#FBE8E2;color:#8A4A3A}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px}
+.box h5{font-size:12px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:6px;opacity:0.6}
+.box ul{font-size:13px;padding-left:16px;opacity:0.8}
+.box li{margin-bottom:4px}
+.transitions{margin-top:16px;padding:14px;background:#121417;color:#E8E0D6;border-radius:var(--r-sm);font-family:JetBrains Mono,monospace;font-size:12px;line-height:1.7}
+.transitions b{color:#8AA99E}
+.links{display:flex;gap:8px;margin-top:14px}
+.links a{font-size:12px;font-weight:700;text-decoration:none;padding:9px 14px;border-radius:var(--r-pill);background:var(--charcoal);color:white}
+.links a.secondary{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
+footer{max-width:1120px;margin:40px auto;padding:20px;text-align:center;font-size:12px;opacity:0.5}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo"><i>d</i> DanskPath — Danish Design • No AI Humans • Transitions</div>
+<nav><a href="#samples" class="active">10 Samples</a><a href="/dribbble-samples.html">Prev Dribbble</a><a href="/api/health">API 200</a></nav>
+</header>
+
+<div class="hero">
+<div class="kicker">🇩🇰 DANSK DESIGN — FUNCTIONAL • MINIMAL • HUMAN-CENTERED — NO AI GENERATED HUMANS</div>
+<h1>Danish Design <span>for DanskPath</span><br>Clean. Functional. Hygge.</h1>
+<p>Picked Danish Design style — no AI-generated humans. All illustrations are geometric, line art, abstract landscapes, icons, Copenhagen houses, bicycles, windmills, candles, typography. Focus on transitions & animations — spring, stagger, waveform, progress.</p>
+<div class="palette">
+<div class="swatch"><div style="background:#FFFBF5;border:1px solid #E8E0D6"></div>Cream #FFFBF5</div>
+<div class="swatch"><div style="background:#8AA99E"></div>Sage #8AA99E</div>
+<div class="swatch"><div style="background:#6B8A7F"></div>Sage Dark #6B8A7F</div>
+<div class="swatch"><div style="background:#D88C7A"></div>Terracotta #D88C7A</div>
+<div class="swatch"><div style="background:#8BBEE8"></div>Sky #8BBEE8</div>
+<div class="swatch"><div style="background:#121417"></div>Charcoal #121417</div>
+<div class="swatch"><div style="background:#E8E0D6"></div>Line #E8E0D6</div>
+</div>
+</div>
+
+<div class="principles">
+<div class="principle"><h4>🇩🇰 1. Functional Minimalism</h4><p>Every element has purpose. No decoration for decoration. Whitespace, grid, typography hierarchy.</p></div>
+<div class="principle"><h4>🪵 2. Natural & Hygge</h4><p>Cream paper, wood texture, soft shadows, warm light. Candle, bicycle, houses — no people, but human presence felt.</p></div>
+<div class="principle"><h4>🔤 3. Typography First</h4><p>Outfit bold for Danish headlines æøå, Inter for body. Large type 40-56px hero, 14px details.</p></div>
+<div class="principle"><h4>⚙️ 4. No AI Humans</h4><p>Zero AI-generated people. Use line icons, geometric avatars, abstract landscapes, symbols. Real photos only if consensual.</p></div>
+<div class="principle"><h4>🎞️ 5. Transitions Matter</h4><p>Spring 300ms ease-out, stagger 60ms, progress morph, waveform sync, button press scale 0.98, check pop.</p></div>
+<div class="principle"><h4>♿ 6. Accessible iOS</h4><p>48-56px touch, 4.5:1 contrast, VoiceOver Danish labels, haptics, safe areas, PWA installable.</p></div>
+</div>
+
+<div id="samples" class="grid">
+
+<!-- 1 -->
+<div class="card">
+<img src="danish-01-website-landing-v2.png" alt="Website Landing Danish">
+<div class="card-body">
+<div class="meta">PAGE 1 — WEBSITE LANDING — MARKETING INTRO</div>
+<h3><span class="num">1</span> Lær Dansk M1 til PD3 — Danish Design</h3>
+<div class="tags"><span class="tag sage">Danish Design</span><span class="tag blue">No Humans</span><span class="tag terracotta">Line Art</span></div>
+<p><strong>Danish Style:</strong> Cream paper #FFFBF5, top nav DanskPath + flag + Hvad vi tilbyder Metodologi Priser Blog Login Kom i gang. Hero bold "Lær Dansk M1 til PD3" 56px Outfit, subtext "DanskPath er din skræddersyede vej til sproglig mestring – fra M1 til PD3." Geometric line art: Copenhagen houses, bicycle, sailboat, windmill, abstract circles X. No people. CTA "Start din læring nu" terracotta pill. Bottom "Vores 5-trins Metodologi" 5 cards muted sage/blue/beige: 1. Assess Test dit niveau, 2. Personalize Tilpasset læreplan, 3. Learn Interaktive lektioner, 4. Practice Talefærdigheder & udtale, 5. Progress Spor din udvikling.</p>
+<div class="two">
+<div class="box"><h5>✅ Why Danish</h5><ul><li>Functional, not decorative — line art explains Denmark without humans</li><li>Typography first — large Danish headline with æøå</li><li>5-step methodology scannable — muted palette sage/blue/beige</li></ul></div>
+<div class="box"><h5>🔧 To Build</h5><ul><li>Grid + line art SVG (houses, bike, windmill, sailboat) — animate draw on scroll</li><li>5 cards with icons 👤⚙️🎓🎙️📈 — hover lift 4px spring</li><li>CTA terracotta pill 48px — press scale 0.98 + haptic</li></ul></div>
+</div>
+<div class="transitions"><b>Transitions:</b><br>• Hero line art: draw path 1.2s ease-out stagger 100ms (houses → bike → boat → windmill)<br>• Headline: fade + slide up 400ms spring (y: 20→0, opacity 0→1)<br>• 5 cards: stagger in 60ms each, y: 16→0, scale 0.98→1, spring 300ms<br>• CTA: hover lift 2px, press scale 0.98, focus ring sage 2px<br>• Scroll: parallax subtle 8% on background circles</div>
+<div class="links"><a href="danish-01-website-landing-v2.png" target="_blank">View Full PNG</a><a class="secondary" href="#transitions">See Transitions Spec ↓</a></div>
+</div>
+</div>
+
+<!-- 2 -->
+<div class="card">
+<img src="danish-02-website-hero-transition.png" alt="Website Hero Transition">
+<div class="card-body">
+<div class="meta">PAGE 1b — WEBSITE — TRANSITION STATES</div>
+<h3><span class="num">1b</span> Hero Transition — Minimal Scandinavian Interiors</h3>
+<div class="tags"><span class="tag sage">Transition Spec</span><span class="tag blue">Morph</span><span class="tag">No Humans</span></div>
+<p><strong>Concept:</strong> Shows 3 states of Danish design hero — State 01 Aesthetics wireframe cube "Form meets purpose" sage card, State 02 Sustainability organic shape blue card, State 03 Modern Utility beige card. Demonstrates morphing geometric shapes with blur motion, pagination 01 02 03. This is the <b>transition language</b> for whole app — shapes morph, cards slide, not fade.</p>
+<div class="two">
+<div class="box"><h5>✅ Transition Principles</h5><ul><li>Shape morph: cube → organic → hourglass — 600ms spring</li><li>Cards: slide + blur 200ms — feels tactile</li><li>Pagination: active underline grows 0→100% 300ms</li></ul></div>
+<div class="box"><h5>🔧 Implementation</h5><ul><li>Framer Motion: AnimatePresence mode=wait, layoutId for morph</li><li>Blur: filter blur 8px→0 during transition</li><li>Stagger: children 80ms</li></ul></div>
+</div>
+<div class="transitions"><b>Code:</b><br>motion.div initial={{x:20,opacity:0,filter:"blur(8px)"}} animate={{x:0,opacity:1,filter:"blur(0)"}} transition={{type:"spring",stiffness:300,damping:30,delay:index*0.08}}<br>shape: motion.path d morph via flubber or Framer layoutId="shape"</div>
+<div class="links"><a href="danish-02-website-hero-transition.png" target="_blank">View Full</a><a class="secondary" href="#">Danish Design Ref: Hay, Muuto, &Tradition</a></div>
+</div>
+</div>
+
+<!-- 3 -->
+<div class="card">
+<img src="danish-03-assessment-landing-v2.png" alt="Assessment Landing Danish">
+<div class="card-body">
+<div class="meta">PAGE 2 — ASSESSMENT LANDING — FIND DIT NIVEAU</div>
+<h3><span class="num">2</span> Find dit danske niveau — No Humans</h3>
+<div class="tags"><span class="tag sage">Danish Landscape</span><span class="tag blue">QR Share</span><span class="tag terracotta">No Humans</span></div>
+<p><strong>Danish Style:</strong> Header "DanskDesign Nivå — Om os Vurdering Login Dansk (DK)". Hero split — left: "Find dit danske niveau" 48px serif + sans mix, subtext "Vurder dit danske sprog-, kultur- og designniveau gennem en enkel og præcis assessment." CTA "START VURDERING →" sage pill 48px. 3 info cards with line icons: Sprog & Kultur 💡 Forstå din sproglige og kulturelle dybde, Fremskridt 📈 Spor din udvikling og nå dine mål, Målretning 🎯 Personlig vurdering af dine kompetencer. Right: abstract Danish landscape geometric flat — houses white red roofs, bicycle, Danish flag, hills, sun, flowers — no people, only bike as human presence. QR bottom right "Scanner til app-vurdering" for LinkedIn/email/print. Footer © 2025 DanskDesign Nivå | København.</p>
+<div class="two">
+<div class="box"><h5>✅ Why Danish No Humans</h5><ul><li>Bike + houses = Denmark without showing people — avoids AI human uncanny</li><li>Geometric flat illustration — like Danish poster design (1950s travel posters)</li><li>QR prominent — shareable in person/LinkedIn/email/presentations/print</li></ul></div>
+<div class="box"><h5>🔧 To Build</h5><ul><li>Illustration SVG with layers — hills, houses, bike — parallax 4% on mouse move</li><li>3 cards hover lift + icon draw animation</li><li>QR generates from /assessment URL — canvas 800px #121417</li></ul></div>
+</div>
+<div class="transitions"><b>Transitions:</b><br>• Page load: hero text slide up 400ms, illustration fade + scale 0.96→1 600ms spring<br>• CTA: hover arrow moves 4px right, press scale 0.97<br>• Cards: on viewport stagger 100ms, icon stroke draws 800ms<br>• QR: hover scale 1.02, click copies link + toast "Link kopieret!"</div>
+<div class="links"><a href="danish-03-assessment-landing-v2.png" target="_blank">View Full</a><a class="secondary" href="#">Danish Poster Ref</a></div>
+</div>
+</div>
+
+<!-- 4 -->
+<div class="card">
+<img src="danish-04-assessment-quiz-v2.png" alt="Quiz Danish">
+<div class="card-body">
+<div class="meta">PAGE 3 — ASSESSMENT QUIZ FLOW — ADAPTIVE</div>
+<h3><span class="num">3</span> Hvad betyder 'Hygge'? — No Humans</h3>
+<div class="tags"><span class="tag blue">Quiz Danish</span><span class="tag sage">Candle Icon</span><span class="tag">No Humans</span></div>
+<p><strong>Danish Style:</strong> iPhone top 10:30 Dansk Kultur 30% bar gray + blue fill + timer 0:24 blue circular, Spørgsmål 3 af 10. Question card cream rounded 20px with line icon candle with drops (hygge) mint, question "Hvad betyder 'Hygge'?" 24px bold. Options 4 pills: A: En følelse af tryghed, varme og hygge (selected blue #4F6EF7 white text), B: Et ord for en voldsom fest, C: En form for traditionel dans, D: At løbe en tur i naturen — white with dark text. CTA "Næste Spørgsmål (20pt)" blue pill 56px, Bekræft small. Bottom tab Hjem Udførsk Quiz (active blue) Profil — line icons minimal.</p>
+<div class="two">
+<div class="box"><h5>✅ Why Danish No Humans</h5><ul><li>Candle line icon = hygge — no need for human photo</li><li>Options as pills — large touch 48px+ — iOS native</li><li>Points 20pt — gamification without childish</li></ul></div>
+<div class="box"><h5>🔧 To Build</h5><ul><li>Option select: scale 0.98→1 + blue fill + haptic light</li><li>Progress bar: width animates spring 500ms</li><li>Timer circular: strokeDashoffset animates 1s linear</li></ul></div>
+</div>
+<div class="transitions"><b>Transitions:</b><br>• Question change: card slide out left 200ms, new card slide in right 300ms spring — like turning page<br>• Option tap: scale 0.98 100ms → 1, background blue 200ms, check pop 300ms<br>• Timer: circular progress stroke 60s → 0, color blue→orange at 10s<br>• Next button: disabled until selection, enabled scale 1.02 pulse once</div>
+<div class="links"><a href="danish-04-assessment-quiz-v2.png" target="_blank">View Full</a><a class="secondary" href="#">Hygge Icon: Line Art</a></div>
+</div>
+</div>
+
+<!-- 5 -->
+<div class="card">
+<img src="danish-05-login-v2.png" alt="Login Danish">
+<div class="card-body">
+<div class="meta">PAGE 4 — LOGIN / ONBOARDING — iPHONE APP</div>
+<h3><span class="num">4</span> DanskPath Login — Line Art Path</h3>
+<div class="tags"><span class="tag sage">Line Art</span><span class="tag">No Humans</span><span class="tag blue">Hygge Wood</span></div>
+<p><strong>Danish Style:</strong> iPhone on wood table (hygge texture), screen cream #FFF8F0. Logo DanskPath with pin + Danish flag geometric. Illustration line art minimal: Danish flag + house + path zigzag + trees — no people, just path as journey. Inputs pill outline: @ E-mailadresse, 🔒 Adgangskode — 48px height, border 1px charcoal, focus sage 2px. Buttons: "Log Ind" teal #2A7D7A pill 48px, "Sign in with Apple" black pill with Apple logo. No human photos, only line art path.</p>
+<div class="two">
+<div class="box"><h5>✅ Why Danish No Humans</h5><ul><li>Wood table background = hygge without humans</li><li>Path line art = your journey M1→PD3 — metaphor, not person</li><li>Outline inputs — Danish functionalism — less is more</li></ul></div>
+<div class="box"><h5>🔧 To Build</h5><ul><li>Inputs: focus border sage 2px + label floats up 200ms</li><li>Path illustration: draw animation on load 1.5s — path draws left to right</li><li>Buttons: press scale 0.97 + shadow reduces</li></ul></div>
+</div>
+<div class="transitions"><b>Transitions:</b><br>• Load: logo fade in 300ms, illustration draw 1.5s ease-out, inputs stagger 80ms up<br>• Focus: input border sage 2px + label scale 0.85 moves to top left 200ms<br>• Login: button loading spinner 3 dots, success check pop + navigate to dashboard slide up<br>• Error: shake 4px 300ms + red border</div>
+<div class="links"><a href="danish-05-login-v2.png" target="_blank">View Full</a><a class="secondary" href="#">Danish Line Art Ref</a></div>
+</div>
+</div>
+
+<!-- 6 -->
+<div class="card">
+<img src="danish-06-dashboard-path-v2.png" alt="Dashboard Danish">
+<div class="card-body">
+<div class="meta">PAGE 5 — DASHBOARD — PERSONALIZED PATH M1→PD3</div>
+<h3><span class="num">5</span> Hej, Søren! — 78 dage streak — M2 Lektion 14</h3>
+<div class="tags"><span class="tag sage">Path Danish</span><span class="tag blue">No Humans</span><span class="tag terracotta">Winding Path</span></div>
+<p><strong>Danish Style:</strong> Top "Hej, Søren!" 32px bold + pie chart icon geometric (not avatar human). Streak card white rounded with flame line icon orange 78 dage streak. Circular progress 68% Modul 2 14pt sage. Path vertical winding sage line #8AA99E — nodes: Completed check green, M2 active green glow Lektion 14, M3 Låst gray, M4 🔒 Låst, M5 🔒 Låst, PD3 🔒 Låst, target 🎯 Låst. Right cards: Lektion 14: Hverdagsliv 🎧 + progress bar, Læsning & Ordforråd 📖, Skriftlig Øvelse ✏️. CTA "Fortsæt Lektion 14" sage pill 56px. Bottom tab line icons: home, path, chart, pie — no human icons.</p>
+<div class="two">
+<div class="box"><h5>✅ Why Danish No Humans</h5><ul><li>Geometric pie icon instead of human avatar — privacy + Danish abstract</li><li>Path like Danish design museum wayfinding — functional</li><li>Line icons headphone book pen — not photos</li></ul></div>
+<div class="box"><h5>🔧 To Build</h5><ul><li>Path: SVG path with strokeDasharray — draws on scroll 2s</li><li>Nodes: active glows with box-shadow pulse 2s infinite</li><li>Lesson cards: slide in from right stagger 80ms when M2 active</li></ul></div>
+</div>
+<div class="transitions"><b>Transitions:</b><br>• Path draw: strokeDashoffset 1000→0 2s ease-out, nodes pop scale 0→1 stagger 150ms<br>• Circular progress: 0→68% 1s spring, number counts up<br>• Streak card: flame icon flickers subtle 2s infinite scale 1→1.05<br>• Continue button: hover lift 2px, press 0.97, progress bar inside fills on hover<br>• Lesson cards: hover border sage 1px + shadow md</div>
+<div class="links"><a href="danish-06-dashboard-path-v2.png" target="_blank">View Full</a><a class="secondary" href="#">Wayfinding Ref</a></div>
+</div>
+</div>
+
+<!-- 7 -->
+<div class="card">
+<img src="danish-07-dashboard-transition.png" alt="Dashboard Transition">
+<div class="card-body">
+<div class="meta">PAGE 5b — DASHBOARD — TRANSITION STATES</div>
+<h3><span class="num">5b</span> Dashboard Transition — Progress & Cards Stagger</h3>
+<div class="tags"><span class="tag sage">Transition Spec</span><span class="tag blue">Stagger 60ms</span><span class="tag">No Humans</span></div>
+<p><strong>Concept:</strong> Shows dashboard elements animating — streak card, circular progress, path nodes, lesson cards. Demonstrates stagger 60ms, spring, progress fill. This is used for all app screens — elements enter with subtle motion, not just fade.</p>
+<div class="two">
+<div class="box"><h5>✅ Transition Principles</h5><ul><li>Stagger: each card 60ms delay — feels natural, not robotic</li><li>Spring: stiffness 300 damping 30 — Danish smooth, not bouncy</li><li>Progress: circular + linear both animate 1s</li></ul></div>
+<div class="box"><h5>🔧 Implementation</h5><ul><li>Container: motion.div variants staggerChildren 0.06</li><li>Item: initial y:12 opacity:0 → y:0 opacity:1 spring</li><li>Path: motion.path initial pathLength:0 → 1 duration 2s</li></ul></div>
+</div>
+<div class="transitions"><b>Code:</b><br>const container = {hidden:{},show:{transition:{staggerChildren:0.06}}}<br>const item = {hidden:{y:12,opacity:0},show:{y:0,opacity:1,transition:{type:"spring",stiffness:300,damping:30}}}<br>&lt;motion.div variants={container} initial="hidden" animate="show"&gt;{items.map(i=&gt;&lt;motion.div variants={item}&gt;...)}&lt;/motion.div&gt;</div>
+<div class="links"><a href="danish-07-dashboard-transition.png" target="_blank">View Full</a><a class="secondary" href="#">Framer Motion Docs</a></div>
+</div>
+</div>
+
+<!-- 8 -->
+<div class="card">
+<img src="danish-08-lesson-lytte-v2.png" alt="Lesson Lytte Danish">
+<div class="card-body">
+<div class="meta">PAGE 6 — LESSON VIEW — LYTTE / LÆSE / SKRIVE / GRAMMATIK</div>
+<h3><span class="num">6</span> Lytte — Audio Waveform — No Humans</h3>
+<div class="tags"><span class="tag blue">Waveform</span><span class="tag sage">Lytte</span><span class="tag">No Humans</span></div>
+<p><strong>Danish Style:</strong> Top back arrow + Lytte title + circular 65% blue. Tabs pill outline: Laese, Lytte active blue fill, Skrive, Grammatik — 36px height. Audio card white rounded with pause gray circle + waveform blue bars (abstract, not human voice photo), transcript "Dess tem er godtft unteren gar så solskin van gl. Dermir, minte atf gver envre kaffe innerødt længer..." word "kaffe" highlighted blue pill. Options A Kaar kaffe B Dogt solskin C Strute at godt — outline pills. Vocab chips bottom: ☕ Kaffe 🀦 Solskin 👍 Godt — pill outline with line icons, no human photos.</p>
+<div class="two">
+<div class="box"><h5>✅ Why Danish No Humans</h5><ul><li>Waveform abstract blue bars — not human avatar — privacy + minimal</li><li>Word highlight blue pill — focus on vocab, not people</li><li>Chips with line icons — functional, not decorative</li></ul></div>
+<div class="box"><h5>🔧 To Build</h5><ul><li>Waveform: 32 bars, height animates with audio currentTime — scaleY 0.3→1 150ms</li><li>Transcript: word highlight syncs with audio time — background blue 200ms</li><li>Options: select border blue 2px + background light blue 100ms</li></ul></div>
+</div>
+<div class="transitions"><b>Transitions:</b><br>• Tab switch: pill slides with layoutId "activeTab" 300ms spring — like iOS segmented control<br>• Waveform: bars scaleY with audio — 32 bars, each delay index*20ms, amplitude from audio<br>• Word highlight: background blue pill scales 0.9→1 200ms when audio reaches word<br>• Next: button enabled after correct answer, pulse once</div>
+<div class="links"><a href="danish-08-lesson-lytte-v2.png" target="_blank">View Full</a><a class="secondary" href="#">Waveform: Web Audio API</a></div>
+</div>
+</div>
+
+<!-- 9 -->
+<div class="card">
+<img src="danish-09-lesson-reading-v2.png" alt="Lesson Reading Danish">
+<div class="card-body">
+<div class="meta">PAGE 6b — LESSON VIEW — LÆSNING</div>
+<h3><span class="num">6b</span> Læsning & Ordforråd — Reading</h3>
+<div class="tags"><span class="tag sage">Reading</span><span class="tag blue">No Humans</span><span class="tag terracotta">Vocab Chips</span></div>
+<p><strong>Danish Style:</strong> Reading article card with Danish text, image abstract geometric of Danish city without people (houses, harbor), vocab highlights, comprehension questions. Same design system — cream bg, white cards rounded 16px, line icons, no human photos. Focus on content, not people.</p>
+<div class="two">
+<div class="box"><h5>✅ Reading Pattern</h5><ul><li>Article: serif font for Danish text — 18px line-height 1.7 — readable</li><li>Image: abstract geometric city — not photo of people — keeps focus on language</li><li>Vocab: chips with icons — tap to hear pronunciation</li></ul></div>
+<div class="box"><h5>🔧 To Build</h5><ul><li>Article: scroll progress indicator top — width 0→100% on scroll</li><li>Vocab chips: tap scale 0.95 + audio plays + highlight</li><li>Comprehension: same pill options as quiz</li></ul></div>
+</div>
+<div class="transitions"><b>Transitions:</b><br>• Article: paragraphs fade in on scroll viewport 100ms stagger<br>• Image: parallax 8% on scroll<br>• Vocab chips: hover lift 2px, tap scale 0.95 + sound wave icon animates</div>
+<div class="links"><a href="danish-09-lesson-reading-v2.png" target="_blank">View Full</a><a class="secondary" href="#">Reading: Typography Spec</a></div>
+</div>
+</div>
+
+<!-- 10 -->
+<div class="card">
+<img src="danish-10-progress-v2.png" alt="Progress Danish">
+<div class="card-body">
+<div class="meta">PAGE 7 — PROGRESS & PROFILE — STATS</div>
+<h3><span class="num">7</span> Progress — 42 Days Streak — Radar & Weekly</h3>
+<div class="tags"><span class="tag sage">Radar Chart</span><span class="tag blue">Weekly Bars</span><span class="tag">No Humans</span></div>
+<p><strong>Danish Style:</strong> 3 screens side by side showing evolution — header PROGRESS mint #C5E8D5 + gear icon + geometric avatar (not human photo) J.S. Stats: Current Streak 42 DAYS DAYS ACTIVE + Total Experience 114k XP TOTAL XP beige cards. LEVEL 12 ADVANCED. WEEKLY ACTIVITY Average Daily XP 1400 + bar chart M-S 850 1200 etc. blue/green/peach/beige rounded bars 850→1400 XP growing. SKILLS ASSESSMENT radar hexagon Grammar Writing Reading Listening Speaking Vocab — gray fill blue stroke. ACHIEVEMENTS 5 badges: Language Level 3 🌐, Champion Level 3 🏆, Insight Level 1 💡, Speaker Level 1 🎙️, Timely Level 1 ⏱️ — each small card beige with line icons, no human photos. Bottom tab Home Progress (active) Leaderboard Profile — line icons.</p>
+<div class="two">
+<div class="box"><h5>✅ Why Danish No Humans</h5><ul><li>Geometric avatar J.S. circle with abstract shapes — not human photo — privacy</li><li>Radar chart — visual skills without people — functional</li><li>Badges line icons — not photos — scalable</li></ul></div>
+<div class="box"><h5>🔧 To Build</h5><ul><li>Bar chart: bars grow from 0 height 800ms spring stagger 80ms</li><li>Radar: polygon draws pathLength 0→1 1.2s ease-out</li><li>Badges: flip 3D 600ms when earned + confetti</li></ul></div>
+</div>
+<div class="transitions"><b>Transitions:</b><br>• Bars: motion.div initial height:0 → height: value% 800ms spring stagger 80ms<br>• Radar: motion.path pathLength 0→1 1.2s, fill opacity 0→0.2 600ms delay 400ms<br>• Achievements: on earn, card scale 1→1.1→1 400ms + confetti particles<br>• Level up: circular progress 0→100% + number count up + haptic success</div>
+<div class="links"><a href="danish-10-progress-v2.png" target="_blank">View Full</a><a class="secondary" href="#">Chart: Recharts + Framer</a></div>
+</div>
+</div>
+
+<!-- 11 & 12 — Placeholders for remaining -->
+<div class="card">
+<div class="card-body">
+<div class="meta">PAGE 8 — ARCHITECTURE & ROADMAP — DOCS (Next Batch)</div>
+<h3><span class="num">8</span> Architecture Map & Roadmap — Danish Tech Docs</h3>
+<div class="tags"><span class="tag blue">Tech Docs</span><span class="tag sage">Motion Arrows</span><span class="tag">No Humans</span></div>
+<p><strong>Danish Style (Coming Next — hit image limit 10 per turn, will generate next):</strong> Documentation portal — grid background, 5 nodes USER INTERFACE ACTIVE green AUTH SERVICE DEVELOPMENT blue API GATEWAY DEVELOPMENT blue DATA STORAGE PLANNED yellow THIRD-PARTY APIS LEGACY gray — white cards rounded 16px icons line art (users, lock, api, database) — curved gradient arrows teal-blue-purple motion dash 0.5s + dot 1.2s (keep existing). Roadmap vertical timeline Q1-Q4 CORE PLATFORM USER EXPERIENCE ADVANCED FEATURES SCALING — checkboxes + status badges Completed green In Progress blue Planned yellow — clean typography, sage dots, cream bg, 3D buildings line art without people.</p>
+<div class="two">
+<div class="box"><h5>✅ Why Danish</h5><ul><li>Grid + line art — like Danish architectural drawings</li><li>Motion arrows keep — functional animation shows data flow</li><li>Status badges muted — not neon — Danish calm</li></ul></div>
+<div class="box"><h5>🔧 To Build Next</h5><ul><li>Architecture: SVG curved arrows dash 20 dashOffset animates -20 0.5s linear infinite + dot moves 1.2s</li><li>Roadmap: timeline dots scale 0→1 stagger, line draws height 0→100% 1s</li><li>Cards: hover lift 2px + border sage</li></ul></div>
+</div>
+<div class="transitions"><b>Transitions (Existing + Improved):</b><br>• Architecture arrows: stroke-dasharray 8 8, animate stroke-dashoffset -20 0.5s linear infinite — keep<br>• Dot: circle moves along path 0→100% 1.2s ease-in-out infinite — keep<br>• Roadmap: on scroll, timeline line draws, dots pop, cards slide in from right 60ms stagger<br>• Download SVG: button press scale 0.97 + download animates</div>
+<div class="links"><a href="/architecture" target="_blank">Current Architecture 200 OK</a><a class="secondary" href="/roadmap">Current Roadmap 200 OK</a></div>
+</div>
+</div>
+
+<div class="card" id="transitions">
+<div class="card-body">
+<div class="meta">TRANSITIONS & ANIMATIONS — SPEC</div>
+<h3><span class="num">✦</span> Danish Motion — Functional, Not Decorative</h3>
+<div class="tags"><span class="tag sage">Spring 300ms</span><span class="tag blue">Stagger 60ms</span><span class="tag terracotta">Press 0.98</span></div>
+<p><strong>Danish Motion Principles:</strong> Motion should be functional — show hierarchy, feedback, causality. No bouncy overshoot. Use spring stiffness 300 damping 30 — smooth, calm, like Danish furniture drawers.</p>
+<div class="two">
+<div class="box"><h5>🎞️ Page Transitions</h5><ul><li><b>Slide:</b> new page x: 20→0 opacity 0→1 300ms spring, old page x:0→-20 opacity 1→0 200ms</li><li><b>Fade:</b> for modals — backdrop opacity 0→1 200ms, content scale 0.96→1 300ms spring</li><li><b>Shared:</b> logo, tab bar stay, content morphs with layoutId</li></ul></div>
+<div class="box"><h5>🃏 Card & List</h5><ul><li><b>Stagger:</b> container staggerChildren 0.06, item y:12→0 opacity 0→1 spring 300ms</li><li><b>Hover:</b> lift y:-2 shadow md 200ms, press scale 0.98 100ms</li><li><b>Check:</b> pop scale 0→1.2→1 400ms + confetti</li></ul></div>
+</div>
+<div class="two">
+<div class="box"><h5>📊 Progress & Charts</h5><ul><li><b>Circular:</b> strokeDashoffset 0→68% 1s spring, number count up 0→68 1s</li><li><b>Bar:</b> height 0→value% 800ms spring stagger 80ms per bar</li><li><b>Radar:</b> pathLength 0→1 1.2s ease-out, fill opacity 0→0.2 600ms delay</li><li><b>Waveform:</b> 32 bars scaleY 0.3→1 with audio time, delay index*20ms</li></ul></div>
+<div class="box"><h5>🔘 Buttons & Inputs</h5><ul><li><b>Button:</b> hover lift 2px, press scale 0.97, focus ring sage 2px 200ms</li><li><b>Input:</b> focus border sage 2px, label float up scale 0.85 200ms</li><li><b>Tab:</b> active pill slides with layoutId "activeTab" 300ms spring</li><li><b>Option:</b> select scale 0.98→1 + bg blue 200ms + haptic light</li></ul></div>
+</div>
+<div class="transitions"><b>Implementation — Framer Motion:</b><br>import { motion, AnimatePresence } from "framer-motion"<br><br>// Container stagger<br>const container = {hidden:{},show:{transition:{staggerChildren:0.06}}}<br>const item = {hidden:{y:12,opacity:0},show:{y:0,opacity:1,transition:{type:"spring",stiffness:300,damping:30}}}<br><br>// Button press<br>&lt;motion.button whileHover={{y:-2}} whileTap={{scale:0.97}} transition={{type:"spring",stiffness:400,damping:25}}&gt;<br><br>// Progress<br>&lt;motion.circle initial={{pathLength:0}} animate={{pathLength:0.68}} transition={{duration:1,type:"spring"}} /&gt;<br><br>// No AI humans — use line icons from Lucide or custom SVG — stroke 1.5px rounded caps</div>
+<div class="links"><a href="https://www.framer.com/motion/" target="_blank">Framer Motion</a><a class="secondary" href="https://lucide.dev/" target="_blank">Lucide Icons — Line Art No Humans</a></div>
+</div>
+</div>
+
+</div>
+
+<footer>
+Danish Design System — No AI Humans — 10 samples (8 pages + 2 transition specs) — All illustrations geometric line art, abstract landscapes, icons, Copenhagen houses, bicycles, windmills, candles, typography — No AI-generated people<br>
+Current Live: http://localhost:3001/dribbble-samples.html + /samples-danish/index.html — 200 OK locally — Tunnel reconnecting — Permanent after push https://danskpath.onrender.com — Repo https://github.com/vipinsinghdunbar/danskpath 200 OK empty commit 6f72138 all routes 200 OK<br>
+Next: 4 more samples Architecture + Roadmap + Transitions Overview (hit 10 image limit per turn, will generate next turn) — Then build with Danish design + transitions + no humans
+</footer>
+</body>
+</html>

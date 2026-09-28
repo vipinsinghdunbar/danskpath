@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DanskPath — Dribbble-Inspired Redesign Samples</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--sage:#8AA99E;--sage-dark:#6B8A7F;--cream:#FFFBF5;--terracotta:#D88C7A;--sky:#8BBEE8;--charcoal:#2B2D33;--shadow:0 8px 32px rgba(0,0,0,0.08);--radius:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,sans-serif;background:var(--cream);color:var(--charcoal);line-height:1.6}
+header{position:sticky;top:0;z-index:10;background:rgba(255,251,245,0.8);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.06);padding:16px 24px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-family:Outfit,sans-serif;font-weight:700;font-size:22px;display:flex;align-items:center;gap:8px}
+.logo span{width:32px;height:32px;background:var(--sage);border-radius:10px;display:grid;place-items:center;color:white}
+nav{display:flex;gap:12px;align-items:center}
+nav a{padding:8px 16px;border-radius:999px;text-decoration:none;color:var(--charcoal);font-weight:500;font-size:14px}
+nav a.active{background:var(--sage);color:white}
+.hero{max-width:1200px;margin:0 auto;padding:48px 24px;text-align:center}
+.hero h1{font-family:Outfit,sans-serif;font-size:clamp(32px,5vw,52px);font-weight:700;line-height:1.1;margin-bottom:16px}
+.hero p{max-width:640px;margin:0 auto 24px;font-size:18px;opacity:0.7}
+.badge{display:inline-flex;gap:8px;background:white;padding:8px 16px;border-radius:999px;box-shadow:var(--shadow);font-size:13px;font-weight:600;margin-bottom:24px}
+.grid{max-width:1200px;margin:0 auto;padding:24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px}
+.card{background:white;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:transform 0.3s ease}
+.card:hover{transform:translateY(-4px)}
+.card img{width:100%;height:auto;display:block;background:#f5f5f5}
+.card-body{padding:20px}
+.card-body h3{font-family:Outfit,sans-serif;font-size:20px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.card-body h3 span.num{width:28px;height:28px;background:var(--sage);color:white;border-radius:999px;display:grid;place-items:center;font-size:14px}
+.card-body p{font-size:14px;opacity:0.7;margin-bottom:12px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tag{font-size:11px;padding:4px 10px;border-radius:999px;background:#F2F2F7;font-weight:600}
+.tag.sage{background:#E3EDEA;color:#3A5A51}
+.tag.blue{background:#E3EEFF;color:#3A5A9A}
+.tag.peach{background:#FFF0E3;color:#8A5A3A}
+.tag.pink{background:#FFE3EC;color:#8A3A5A}
+.links{display:flex;gap:8px}
+.links a{font-size:13px;font-weight:600;text-decoration:none;padding:8px 14px;border-radius:999px;background:var(--charcoal);color:white}
+.links a.secondary{background:#F2F2F7;color:var(--charcoal)}
+.design-system{max-width:1200px;margin:48px auto;padding:24px}
+.design-system h2{font-family:Outfit,sans-serif;font-size:28px;margin-bottom:16px}
+.palette{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0 32px}
+.color{width:120px}
+.color div{height:64px;border-radius:12px;margin-bottom:6px;box-shadow:var(--shadow)}
+.color span{font-size:12px;font-weight:600}
+.comparison{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+.compare-card{padding:16px;border-radius:12px;background:white;box-shadow:var(--shadow)}
+.compare-card h4{font-size:14px;margin-bottom:8px}
+.compare-card ul{font-size:13px;opacity:0.8;padding-left:16px}
+footer{max-width:1200px;margin:48px auto;padding:24px;text-align:center;opacity:0.6;font-size:13px}
+@media(max-width:640px){.grid{grid-template-columns:1fr}.comparison{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="logo"><span>d</span> DanskPath — Dribbble Redesign Samples</div>
+<nav><a href="#samples" class="active">Samples 1-8</a><a href="https://kid-incorporate-cheats-organizations.trycloudflare.com" target="_blank">Live Current</a><a href="https://github.com/vipinsinghdunbar/danskpath" target="_blank">GitHub</a></nav>
+</header>
+
+<div class="hero">
+<div class="badge">✨ Inspired by Dribbble 2024-2025 • Scandinavian • Claymorphism • Pastel</div>
+<h1>Should we rebuild DanskPath like this?</h1>
+<p>8 Dribbble-inspired concepts for every page — Website, Assessment, iPhone App, Lesson, Progress, Architecture. Pick your favorites before we develop. All routes already 200 OK fixed.</p>
+<div class="palette" style="justify-content:center">
+<div class="color"><div style="background:#8AA99E"></div><span>Sage #8AA99E</span></div>
+<div class="color"><div style="background:#FFFBF5;border:1px solid #eee"></div><span>Cream #FFFBF5</span></div>
+<div class="color"><div style="background:#D88C7A"></div><span>Terracotta</span></div>
+<div class="color"><div style="background:#8BBEE8"></div><span>Sky Blue</span></div>
+<div class="color"><div style="background:#2B2D33"></div><span>Charcoal</span></div>
+</div>
+</div>
+
+<div id="samples" class="grid">
+
+<div class="card">
+<img src="dribbble-01-website-landing.png" alt="Website Landing">
+<div class="card-body">
+<h3><span class="num">1</span> 🌐 Website Landing — Marketing</h3>
+<div class="tags"><span class="tag sage">Fluent Dribbble</span><span class="tag blue">3D Clay</span><span class="tag peach">Pastel Cards</span></div>
+<p><strong>Current:</strong> Dark tech list. <strong>New:</strong> Cream bg, bold "Learn Danish M1 to PD3", 3D friends with "Hej! Taler du Dansk? Godmorgen" bubbles, 5 pastel cards Assess→Progress, iPhone mockup, App Store badges. Friendly diverse.</p>
+<div class="comparison"><div class="compare-card"><h4>✅ Dribbble Why</h4><ul><li>3D clay 2025 trend</li><li>Pastel cards scannable</li><li>Trustworthy not corporate</li></ul></div><div class="compare-card"><h4>🔧 To Build</h4><ul><li>Hero 3D illustration</li><li>5 cards ASSESS etc.</li><li>iPhone mockup</li></ul></div></div>
+<div class="links"><a href="dribbble-01-website-landing.png" target="_blank">View Full</a><a class="secondary" href="https://dribbble.com/tags/education_app" target="_blank">Dribbble Ref</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="dribbble-02-assessment-landing.png" alt="Assessment Landing">
+<div class="card-body">
+<h3><span class="num">2</span> 🔗 Assessment Landing — Find Level</h3>
+<div class="tags"><span class="tag sage">Minimal Onboarding</span><span class="tag peach">QR Share</span><span class="tag blue">Scandinavian</span></div>
+<p><strong>New:</strong> Split 50/50 — left "Find your Danish level" + dots + big pill "Start Assessment" sage, 3 info cards How it works / Your Profile / Strengths & Areas, QR card "Share your progress". Right illustration woman bike Danish houses flag windmill — hygge.</p>
+<div class="comparison"><div class="compare-card"><h4>✅ Dribbble Why</h4><ul><li>Questionnaire onboarding 707 likes</li><li>Illustration reduces anxiety</li><li>QR prominent for sharing</li></ul></div><div class="compare-card"><h4>🔧 To Build</h4><ul><li>Split layout</li><li>3 info cards</li><li>QR card shareable</li></ul></div></div>
+<div class="links"><a href="dribbble-02-assessment-landing.png" target="_blank">View Full</a><a class="secondary" href="https://dribbble.com/search/onboarding-questionnaire" target="_blank">Dribbble Ref</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="dribbble-03-assessment-quiz.png" alt="Assessment Quiz">
+<div class="card-body">
+<h3><span class="num">3</span> 📝 Quiz Flow — Adaptive</h3>
+<div class="tags"><span class="tag blue">Quiz UI Oma 1k likes</span><span class="tag pink">Gamified</span><span class="tag sage">Large Touch</span></div>
+<p><strong>New:</strong> iPhone top progress 30% 6/20 timer 0:24, question card cream rounded 24px "Hvad betyder det danske ord 'Hygge'?" + candle illustration, 4 pill options A-D selected blue + check, CTA "NÆSTE SPØRGSMÅL" pill blue, bottom tab Hjem Træning Profil Indstillinger Danish.</p>
+<div class="comparison"><div class="compare-card"><h4>✅ Dribbble Why</h4><ul><li>Gamification 236k views</li><li>48px touch targets</li><li>Timer reduces drop-off</li></ul></div><div class="compare-card"><h4>🔧 To Build</h4><ul><li>Progress + timer</li><li>Option pills A-D</li><li>Micro tap 0.98 + check anim</li></ul></div></div>
+<div class="links"><a href="dribbble-03-assessment-quiz.png" target="_blank">View Full</a><a class="secondary" href="https://dribbble.com/tags/quiz-ui" target="_blank">Dribbble Ref</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="dribbble-04-login-onboarding.png" alt="Login">
+<div class="card-body">
+<h3><span class="num">4</span> 🔐 Login / Onboarding</h3>
+<div class="tags"><span class="tag sage">EdQuiz</span><span class="tag peach">Hygge</span><span class="tag blue">Apple Sign In</span></div>
+<p><strong>New:</strong> iPhone in hand wood background, logo DanskPath + flag, illustration woman path to red house "Your path to Danish", title "Velkommen til DanskPath! Din vej til dansk sprog" Danish, pill inputs ✉️ E-mail 🔒 Adgangskode + Vis, buttons "Log Ind" teal + "Log ind med Apple" black.</p>
+<div class="comparison"><div class="compare-card"><h4>✅ Dribbble Why</h4><ul><li>Onboarding illustration</li><li>Apple sign-in 2025 standard</li><li>Danish hygge trustworthy</li></ul></div><div class="compare-card"><h4>🔧 To Build</h4><ul><li>Pill inputs 56px inner shadow</li><li>Illustration path house</li><li>Danish toggle</li></ul></div></div>
+<div class="links"><a href="dribbble-04-login-onboarding.png" target="_blank">View Full</a><a class="secondary" href="https://dribbble.com/shots/24426384-EdQuiz-Interactive-Learning-Platform-UI-Design" target="_blank">Dribbble Ref</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="dribbble-05-dashboard-path.png" alt="Dashboard Path">
+<div class="card-body">
+<h3><span class="num">5</span> 📱 Dashboard — M1→PD3 Path</h3>
+<div class="tags"><span class="tag sage">Ronas IT Path</span><span class="tag peach">Duolingo Minimal</span><span class="tag pink">Streak</span></div>
+<p><strong>New:</strong> Header "Hej, Søren! 👋" + avatar, streak 🔥 78 Dage Strækning beige pill, circular 68% M2 Hverdagsliv 12/18, right vertical winding path sage line M1 done M2 active M3-M5-PD3 locked 🔒 with labels Arbejde & Uddannelse etc., left lesson cards Hjemmet Listening/Vocab etc. + CTA "Fortsæt Lektion 14" pill sage, bottom tab Hjem Bibliotek Øvelser Profil.</p>
+<div class="comparison"><div class="compare-card"><h4>✅ Dribbble Why</h4><ul><li>Duolingo path top trend</li><li>Scandinavian minimal not childish</li><li>Streak + circular motivation</li></ul></div><div class="compare-card"><h4>🔧 To Build</h4><ul><li>Vertical winding path</li><li>Circular progress</li><li>Lesson cards + streak</li></ul></div></div>
+<div class="links"><a href="dribbble-05-dashboard-path.png" target="_blank">View Full</a><a class="secondary" href="https://dribbble.com/shots/24559423-Language-Learning-Mobile-App" target="_blank">Dribbble Ref</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="dribbble-06-lesson-view.png" alt="Lesson">
+<div class="card-body">
+<h3><span class="num">6</span> 📚 Lesson — Lytte/Læse/Skrive</h3>
+<div class="tags"><span class="tag blue">WANDR App</span><span class="tag sage">Waveform</span><span class="tag peach">Vocab Chips</span></div>
+<p><strong>New:</strong> Top progress 65% + "LEKTION 3: Hverdagsdansk" 2/3 trin, tabs Læse Lytte (active blue pill) Skrive Grammatik, audio card white rounded Anna Morgenrutine pause + waveform blue bars 0:32/1:15, transcript "Hej Ole, godmorgen!..." godmorgen highlighted blue, exercise "Hvad skal Ole have?" A) Kaffe selected green check B) Te C) Juice, vocab chips ☕ Kaffe Coffee ☀️ Morgen Morning 👍 Fint Fine, nav Forrige + Næste → pill blue.</p>
+<div class="comparison"><div class="compare-card"><h4>✅ Dribbble Why</h4><ul><li>Listening key for Danish</li><li>Waveform visual sync</li><li>Vocab chips pattern</li></ul></div><div class="compare-card"><h4>🔧 To Build</h4><ul><li>Audio waveform</li><li>Transcript highlight</li><li>Exercise pills + vocab chips</li></ul></div></div>
+<div class="links"><a href="dribbble-06-lesson-view.png" target="_blank">View Full</a><a class="secondary" href="https://dribbble.com/tags/education_app" target="_blank">Dribbble Ref</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="dribbble-07-progress-profile.png" alt="Progress">
+<div class="card-body">
+<h3><span class="num">7</span> 📈 Progress & Profile — Stats</h3>
+<div class="tags"><span class="tag sage">SaaS Dashboard</span><span class="tag blue">Radar Chart</span><span class="tag pink">Achievements</span></div>
+<p><strong>New:</strong> Header Profile & Progress + ANYA V. 🇸🇪🇫🇷 LEVEL M3 Polyglot Scholar Next Level M4, 2 cards STREAK 42 DAYS + TOTAL XP 114,870 XP beige, Weekly Progress bar chart M-S 10 15 20 12 18 25 22 "122 XP | 3.5 Hours", Skills Overview radar hexagon Grammar 90 Vocab 85 Speaking 78 Listening 92 Reading 88 Writing 75 blue fill, Achievements 4 badges 40-DAY STREAK Fire LEXICON MASTER Book FLUENT SPEAKER Mic POLYGLOT M3 Badge, bottom tab Home Learn Progress (Active) Community Profile.</p>
+<div class="comparison"><div class="compare-card"><h4>✅ Dribbble Why</h4><ul><li>Stats + streak + XP motivation</li><li>Radar chart skills visual</li><li>Achievements gamification</li></ul></div><div class="compare-card"><h4>🔧 To Build</h4><ul><li>Bar chart weekly</li><li>Radar chart hexagon</li><li>Badge cards</li></ul></div></div>
+<div class="links"><a href="dribbble-07-progress-profile.png" target="_blank">View Full</a><a class="secondary" href="https://dribbble.com/search/student-progress" target="_blank">Dribbble Ref</a></div>
+</div>
+</div>
+
+<div class="card">
+<img src="dribbble-08-architecture-roadmap.png" alt="Architecture Roadmap">
+<div class="card-body">
+<h3><span class="num">8</span> 🗺️ Architecture & Roadmap — Docs</h3>
+<div class="tags"><span class="tag blue">Tech Portal</span><span class="tag sage">Motion Arrows</span><span class="tag peach">Timeline</span></div>
+<p><strong>New:</strong> Documentation Portal header AppName + Home Overview Architecture API Roadmap + search, title SYSTEM ARCHITECTURE & DEVELOPMENT ROADMAP, left SYSTEM ARCHITECTURE MAP grid bg 5 nodes USER INTERFACE ACTIVE green AUTH SERVICE DEVELOPMENT blue API GATEWAY DEVELOPMENT blue DATA STORAGE PLANNED yellow THIRD-PARTY APIS LEGACY gray AUTH SERVICE PLANNED yellow cards with icons 👥🔒🔗🗄️⚙️ curved gradient arrows teal-blue-purple motion dash 0.5s + dot 1.2s (keep ours), right PRODUCT ROADMAP & PHASES vertical timeline Q1-Q4 CORE PLATFORM etc. checkbox + status badges Completed green In Progress blue Planned yellow, 3D buildings decoration, border gradient green-pink.</p>
+<div class="comparison"><div class="compare-card"><h4>✅ Dribbble Why</h4><ul><li>Docs portal trend</li><li>Grid + 3D icons friendly</li><li>Status badges scannable</li></ul></div><div class="compare-card"><h4>🔧 To Build</h4><ul><li>Grid bg + curved arrows motion</li><li>Status badges ✅⚠️❌🔜</li><li>Timeline Q1-Q4</li></ul></div></div>
+<div class="links"><a href="dribbble-08-architecture-roadmap.png" target="_blank">View Full</a><a class="secondary" href="https://dribbble.com/tags/progress-tracker" target="_blank">Dribbble Ref</a></div>
+</div>
+</div>
+
+</div>
+
+<div class="design-system">
+<h2>🎨 New Design System — DanskPath Dribbble Edition</h2>
+<div class="comparison">
+<div class="compare-card"><h4>Colors</h4><ul><li>Sage #8AA99E primary — trust calm nature</li><li>Cream #FFFBF5 bg — hygge</li><li>Terracotta #D88C7A accent warm</li><li>Sky #8BBEE8 learning</li><li>Charcoal #2B2D33 text</li><li>Success Mint #A8D5BA</li></ul></div>
+<div class="compare-card"><h4>Typography & Radius</h4><ul><li>Headings Outfit / Plus Jakarta Sans Rounded Bold 700</li><li>Body Inter 400/500 — æøå support</li><li>Cards 16-20px radius</li><li>Buttons 999px pill 48-56px height</li><li>Shadows soft 0 8px 32px rgba(0,0,0,0.06)</li><li>Motion spring 300ms, dash 0.5s, dot 1.2s</li></ul></div>
+</div>
+<h2 style="margin-top:32px">🤔 Questions Before Build</h2>
+<div class="comparison">
+<div class="compare-card"><h4>Pick Your Favorites</h4><ul><li>Palette: Sage+Cream+Terracotta+Sky (sample 2) or colorful pastel blue/green/orange/purple/pink (sample 1)?</li><li>Illustration: 3D clay (sample 1) or flat Scandinavian bike/houses/windmill (sample 2)?</li><li>Path: Winding Duolingo vertical (sample 5) or horizontal cards?</li><li>Language: Danish labels (Hej, Lytte, Hjem) or English? Toggle?</li><li>Gamification: Keep streak 78 + XP + badges (5/7) or minimal?</li></ul></div>
+<div class="compare-card"><h4>Next Steps After Approval</h4><ul><li>Phase 1 Design System 1 day — Tailwind new colors radius shadows fonts components Card PillButton PillInput CircularProgress Waveform Radar PathNode Badge</li><li>Phase 2 Pages 2-3 days — Website, Assessment landing, Quiz, Login, Dashboard M1→PD3 path, Lesson Lytte, Progress radar, Architecture motion arrows</li><li>Phase 3 Polish 1 day — micro tap 0.98 check pop spring waveform sync iOS safe area haptics 48px touch a11y contrast 4.5:1 VoiceOver Danish perf <100KB per route</li><li>Deliverables all routes 200 OK PWA installable light/dark responsive new logo QR regenerated for https://danskpath.onrender.com</li></ul></div>
+</div>
+</div>
+
+<footer>
+Current Free Live (all routes 200 OK) https://kid-incorporate-cheats-organizations.trycloudflare.com — Permanent after push https://danskpath.onrender.com — Repo https://github.com/vipinsinghdunbar/danskpath 200 OK empty ready to push commit 6f72138 — Build 888KB 232KB gzip<br>
+Dribbble inspirations: Language Learning App UI by Swapnil Limbe, Mostafizur Rahaman, Ronas IT, Quiz UI Oma 1k likes, slothUI, Fluent, Comu, WANDR, Student Progress SaaS — Trends 2025 Claymorphism Pastel Scandinavian Gamification
+</footer>
+</body>
+</html>

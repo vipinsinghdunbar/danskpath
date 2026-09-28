@@ -6,6 +6,11 @@ import WebsiteView from './components/WebsiteView';
 import AssessmentLandingView from './components/AssessmentLandingView';
 import ArchitectureMapView from './components/ArchitectureMapView';
 import PracticeView from './components/PracticeView';
+import PrivacyView from './components/PrivacyView';
+import TermsView from './components/TermsView';
+import SecurityView from './components/SecurityView';
+import RoadmapView from './components/RoadmapView';
+import ErrorBoundary from './components/ErrorBoundary';
 import PathView from './components/PathView';
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
 import ProgressView from './components/ProgressView';
@@ -43,10 +48,33 @@ export default function App() {
     const params = new URLSearchParams(window.location.search);
     const pageParam = params.get('page');
     const hash = window.location.hash.replace('#','');
+    const pathname = window.location.pathname;
     
-    // Handle /assessment path or ?page=assessment
+    // Handle pretty URLs /assessment /architecture /privacy /terms /security /roadmap /website /practice etc.
     if (pageParam) return pageParam;
-    if (hash === 'assessment' || window.location.pathname.includes('/assessment')) return 'assessment';
+    if (hash) return hash;
+    if (pathname.includes('/assessment')) return 'assessment';
+    if (pathname.includes('/architecture') || pathname.includes('/arch') || pathname.includes('/map') || pathname.includes('/flowchart')) return 'architecture';
+    if (pathname.includes('/roadmap') || pathname.includes('/road')) return 'roadmap';
+    if (pathname.includes('/privacy') || pathname.includes('/privatliv')) return 'privacy';
+    if (pathname.includes('/terms') || pathname.includes('/vilkar')) return 'terms';
+    if (pathname.includes('/security') || pathname.includes('/audit') || pathname.includes('/launch')) return 'security';
+    if (pathname.includes('/website') || pathname === '/' ) {
+      // Check if root but has completed diagnostic → go practice, else website
+      const diag = localStorage.getItem('dansk_diagnostic');
+      const trialResult = localStorage.getItem('dansk_trial_result');
+      if (diag || trialResult) {
+        // If root and has diagnostic, still show website as default for public, but user can go practice via nav
+        // Keep website as default for public marketing
+      }
+      if (pathname === '/website') return 'website';
+    }
+    if (pathname.includes('/practice')) return 'practice';
+    if (pathname.includes('/path')) return 'path';
+    if (pathname.includes('/progress')) return 'progress';
+    if (pathname.includes('/login')) return 'login';
+    if (pathname.includes('/admin')) return 'admin';
+    if (pathname.includes('/share')) return 'share';
     if (isTrialLink()) return 'trial';
     if (isLoggedIn() && isAdmin()) return 'admin';
     
@@ -150,6 +178,20 @@ export default function App() {
       case 'map':
       case 'flowchart':
         return <ArchitectureMapView setActive={handleSetActive} />;
+      case 'privacy':
+      case 'privatliv':
+        return <PrivacyView setActive={handleSetActive} />;
+      case 'terms':
+      case 'vilkar':
+        return <TermsView setActive={handleSetActive} />;
+      case 'security':
+      case 'audit':
+      case 'launch':
+        return <SecurityView setActive={handleSetActive} />;
+      case 'roadmap':
+      case 'road':
+      case 'plan':
+        return <RoadmapView setActive={handleSetActive} />;
       
       // Legacy landing (keep for internal)
       case 'landing':
@@ -201,18 +243,20 @@ export default function App() {
   // Navigation visibility logic for three experiences
   const isWebsite = active === 'website' || active === 'home' || active === 'landing';
   const isAssessmentLanding = active === 'assessment' || active === 'assessment-landing' || active === 'share' || active === 'share-qr';
+  const isPublicLegal = active === 'privacy' || active === 'terms' || active === 'security' || active === 'architecture' || active === 'roadmap';
   const isTrial = active === 'trial';
   const isLogin = active === 'login';
   const isAdminView = active === 'admin';
   
   // Show nav only for full iPhone app (learning experience)
-  const showNav = !isWebsite && !isAssessmentLanding && !isTrial && !isLogin && !isAdminView;
+  const showNav = !isWebsite && !isAssessmentLanding && !isPublicLegal && !isTrial && !isLogin && !isAdminView;
 
   if(!authChecked) {
     return <div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>;
   }
 
   return (
+    <ErrorBoundary>
     <div className="min-h-screen flex flex-col bg-[#F2F2F7] text-black">
       <EphemeralBanner />
       <div className="flex-1 flex min-h-0">
@@ -246,5 +290,6 @@ export default function App() {
       <PWAInstallBanner />
       </div>
     </div>
+    </ErrorBoundary>
   );
 }

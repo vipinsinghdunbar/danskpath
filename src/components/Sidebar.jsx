@@ -7,6 +7,7 @@ const sections = [
       { id: "website", label: "Website", meta: "Public", icon: "◐", desc: "Marketing + intro" },
       { id: "assessment", label: "Assessment", meta: "Shareable", icon: "◑", desc: "QR + link" },
       { id: "architecture", label: "Architecture Map", meta: "Interactive", icon: "🗺️", desc: "Motion arrows + flow" },
+      { id: "roadmap", label: "Roadmap 0→Launch", meta: "Live", icon: "🛣️", desc: "Achieved/Missing/Next" },
       { id: "share", label: "Share QR", meta: "QR code", icon: "↗", desc: "For LinkedIn etc" },
     ]
   },

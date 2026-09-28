@@ -17,9 +17,81 @@ const DATA_DIR = fs.existsSync('/data') ? '/data' : __dirname;
 const DB_FILE = path.join(DATA_DIR, 'danish-platform-db.json');
 const JWT_SECRET = process.env.JWT_SECRET || 'danskpath-secret-key-change-in-prod';
 const JWT_EXPIRES = '30d';
+const NODE_ENV = process.env.NODE_ENV || 'development';
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '').split(',').filter(Boolean);
 
-app.use(cors({ origin: true, credentials: true }));
+// Security: warn if using default secret in production
+if (NODE_ENV === 'production' && JWT_SECRET === 'danskpath-secret-key-change-in-prod') {
+  console.warn('⚠️  SECURITY: Using default JWT_SECRET in production! Set JWT_SECRET env var!');
+}
+
+// === Security Headers (helmet-like without dependency) ===
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '0'); // Disable old XSS filter, rely on CSP
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Permissions-Policy', 'camera=(), microphone=(self), geolocation=()');
+  if (NODE_ENV === 'production') {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  }
+  // CSP: allow self, fonts.googleapis, inline styles needed for Tailwind
+  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self' https:; worker-src 'self'; manifest-src 'self'");
+  res.removeHeader('X-Powered-By');
+  next();
+});
+
+// === CORS - restricted in production ===
+const corsOptions = {
+  origin: (origin, cb) => {
+    // Allow no origin (mobile apps, curl, same-origin)
+    if (!origin) return cb(null, true);
+    if (ALLOWED_ORIGINS.length === 0) {
+      // Dev: allow all, Prod: allow trycloudflare + render + vercel + localhost
+      if (NODE_ENV !== 'production') return cb(null, true);
+      const allowedPatterns = ['trycloudflare.com', 'danskpath', 'render.com', 'vercel.app', 'localhost', '127.0.0.1'];
+      const isAllowed = allowedPatterns.some(p => origin.includes(p));
+      return cb(null, isAllowed);
+    }
+    return cb(null, ALLOWED_ORIGINS.includes(origin));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
 app.use(express.json({ limit: '1mb' }));
+
+// === Rate Limiting (in-memory) ===
+const rateLimitStore = new Map();
+function rateLimit({ windowMs = 15*60*1000, max = 100, keyPrefix = 'rl' } = {}) {
+  return (req, res, next) => {
+    const key = `${keyPrefix}:${req.ip}:${req.path}`;
+    const now = Date.now();
+    const entry = rateLimitStore.get(key) || { count: 0, reset: now + windowMs };
+    if (now > entry.reset) {
+      entry.count = 0;
+      entry.reset = now + windowMs;
+    }
+    entry.count++;
+    rateLimitStore.set(key, entry);
+    if (entry.count > max) {
+      return res.status(429).json({ error: 'Too many requests, try again later', retryAfter: Math.ceil((entry.reset - now)/1000) });
+    }
+    next();
+  };
+}
+// Clean old entries every 10 min
+setInterval(() => {
+  const now = Date.now();
+  for (const [k,v] of rateLimitStore.entries()) if (now > v.reset) rateLimitStore.delete(k);
+}, 10*60*1000);
+
+// === Input sanitization helper ===
+function sanitizeString(s, maxLen = 500) {
+  if (typeof s !== 'string') return '';
+  return s.slice(0, maxLen).replace(/[<>]/g, '').trim();
+}
 
 // Serve frontend build + public assets
 const distPath = path.join(__dirname, 'dist');
@@ -194,18 +266,22 @@ function calculateResult(answers) {
 }
 
 // ========== AUTH ==========
-app.post('/api/auth/setup', (req, res) => {
+app.post('/api/auth/setup', rateLimit({ max: 5, windowMs: 60*1000, keyPrefix: 'setup' }), (req, res) => {
   const admin = ensureAdmin();
   res.json({ ok: true, admin: { id: admin.id, name: admin.name, email: admin.email, role: admin.role } });
 });
 
-app.post('/api/auth/login', (req, res) => {
+app.post('/api/auth/login', rateLimit({ max: 10, windowMs: 15*60*1000, keyPrefix: 'login' }), (req, res) => {
   const { email, password, name } = req.body;
+  if (!password || typeof password !== 'string' || password.length < 3 || password.length > 128) {
+    return res.status(400).json({ error: 'Invalid password format' });
+  }
   const db = readDB();
   
-  // Allow login by name or email
-  const user = db.users.find(u => u.email === email || u.name === name || u.email === name);
-  if (!user) return res.status(401).json({ error: 'User not found. Default admin: Vipin / vipin123' });
+  // Allow login by name or email - sanitize
+  const identifier = sanitizeString(email || name || '', 200);
+  const user = db.users.find(u => u.email === identifier || u.name === identifier || u.email === name);
+  if (!user) return res.status(401).json({ error: 'User not found. Default admin: Vipin / vipin123 (change in production)' });
   
   const valid = bcrypt.compareSync(password, user.passwordHash);
   if (!valid) return res.status(401).json({ error: 'Wrong password' });
@@ -267,9 +343,13 @@ app.get('/api/questions', (req, res) => {
   res.json({ ok: true, questions: publicQs });
 });
 
-app.post('/api/trial/start', (req, res) => {
+app.post('/api/trial/start', rateLimit({ max: 20, windowMs: 15*60*1000, keyPrefix: 'trial_start' }), (req, res) => {
   const { code, name, danishStartDate, goal, email } = req.body;
   if (!name) return res.status(400).json({ error: 'Name required' });
+  // Sanitize
+  const cleanName = sanitizeString(name, 100);
+  const cleanEmail = sanitizeString(email || '', 200);
+  if (cleanName.length < 2) return res.status(400).json({ error: 'Name too short' });
   
   const db = readDB();
   let referral = null;
@@ -283,12 +363,12 @@ app.post('/api/trial/start', (req, res) => {
   const trial = {
     id: uuidv4(),
     referralId: referral?.id || null,
-    code: code || null,
-    name,
-    email: email || '',
-    danishStartDate: danishStartDate || '',
-    goal: goal || '',
-    invitedBy: referral?.createdByName || req.body.invitedBy || 'Vipin',
+    code: code ? sanitizeString(code, 50) : null,
+    name: cleanName,
+    email: cleanEmail,
+    danishStartDate: sanitizeString(danishStartDate || '', 50),
+    goal: sanitizeString(goal || '', 100),
+    invitedBy: referral?.createdByName || sanitizeString(req.body.invitedBy || 'Vipin', 100),
     invitedById: referral?.createdBy || null,
     status: 'started',
     createdAt: new Date().toISOString(),
@@ -470,7 +550,74 @@ app.get('/api/stats', (req, res)=>{
   res.json({ totalTrials: trials.length, avgPct, byLevel, recent: trials.slice(-5).reverse() });
 });
 
-app.get('/api/health', (req,res)=>res.json({ ok: true, time: new Date().toISOString(), users: readDB().users.length }));
+// Security & Compliance endpoints
+app.get('/api/health', (req,res)=>res.json({ ok: true, time: new Date().toISOString(), users: readDB().users.length, env: NODE_ENV, secure: NODE_ENV === 'production' ? JWT_SECRET !== 'danskpath-secret-key-change-in-prod' : true }));
+
+app.get('/api/security/audit', (req,res)=>{
+  const issues = [];
+  if (JWT_SECRET === 'danskpath-secret-key-change-in-prod') issues.push({ level: 'high', msg: 'Default JWT_SECRET in use', fix: 'Set JWT_SECRET env var 32+ chars' });
+  if (NODE_ENV !== 'production') issues.push({ level: 'info', msg: 'Running in development mode' });
+  res.json({
+    ok: issues.filter(i=>i.level==='high').length===0,
+    headers: {
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'HSTS': NODE_ENV==='production',
+      'CSP': true,
+      'CORS-restricted': ALLOWED_ORIGINS.length>0 || NODE_ENV==='production'
+    },
+    rateLimit: true,
+    inputValidation: true,
+    auth: { jwt: true, bcrypt: true, expiry: JWT_EXPIRES },
+    storage: { type: 'json-file', encrypted: false, recommendation: 'Use Postgres for production at scale' },
+    pii: { collected: ['name','email','danishStartDate','goal','assessment answers'], stored: 'local JSON + localStorage', gdprReady: false },
+    issues
+  });
+});
+
+// GDPR: Data deletion & export (user rights)
+app.delete('/api/user/data', authMiddleware, (req,res)=>{
+  const db = readDB();
+  const uid = req.user.id;
+  db.trials = db.trials.filter(t=> t.invitedById !== uid && t.email !== req.user.email);
+  db.assessments = db.assessments.filter(a=> a.userId !== uid);
+  // Keep user but anonymize if requested
+  if (req.query.anonymize === 'true') {
+    const u = db.users.find(u=>u.id===uid);
+    if (u) { u.email = `deleted_${uid}@deleted.local`; u.name = 'Deleted User'; }
+  }
+  writeDB(db);
+  res.json({ ok: true, message: 'Data deletion processed. For full account deletion contact privacy@danskpath.dk' });
+});
+
+app.get('/api/user/export', authMiddleware, (req,res)=>{
+  const db = readDB();
+  const uid = req.user.id;
+  const userTrials = db.trials.filter(t=> t.email === req.user.email || t.invitedById === uid);
+  const userAssessments = db.assessments.filter(a=> userTrials.some(t=>t.id===a.trialId));
+  res.json({ ok: true, user: db.users.find(u=>u.id===uid), trials: userTrials, assessments: userAssessments, exportedAt: new Date().toISOString() });
+});
+
+// Explicit public routes that should serve index.html (fix broken links — user reported)
+const publicRoutes = ['/assessment', '/architecture', '/privacy', '/terms', '/security', '/roadmap', '/website', '/practice', '/path', '/login', '/admin', '/share', '/diagnostic', '/progress', '/levels', '/flow'];
+publicRoutes.forEach(route => {
+  app.get(route, (req, res)=>{
+    const distIndex = path.join(__dirname, 'dist', 'index.html');
+    if (fs.existsSync(distIndex)) return res.sendFile(distIndex);
+    // Dev fallback
+    return res.json({ ok: true, route, message: `Route ${route} — frontend on :5173 in dev, dist not built yet` });
+  });
+});
+// Also handle pretty URLs with trailing slash
+app.get('/.well-known/security.txt', (req,res)=>{
+  res.type('text/plain').send(`Contact: mailto:security@danskpath.dk
+Expires: 2027-09-27T00:00:00.000Z
+Acknowledgments: https://danskpath.app/security
+Preferred-Languages: en, da
+Canonical: https://${req.get('host')}/.well-known/security.txt
+Policy: https://${req.get('host')}/security
+`);
+});
 
 // Shareable assessment info endpoint
 app.get('/api/assessment/info', (req, res)=>{
