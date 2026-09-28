@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DanskPath — Practice Experience & Flow Chart</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,sans-serif;background:#FFFBF5;color:#121417;line-height:1.6}
+h1,h2,h3{font-family:Outfit,sans-serif}
+.container{max-width:1200px;margin:0 auto;padding:24px 20px 120px}
+.pill{display:inline-flex;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.pill-black{background:#121417;color:white}
+.pill-cream{background:white;border:1px solid #E8E0D6;color:#8E8E93}
+.card{background:white;border-radius:32px;padding:28px;border:1px solid #E8E0D6;box-shadow:0 2px 24px rgba(0,0,0,0.04)}
+.card-dark{background:#121417;color:white;border-radius:32px;padding:28px}
+.screenshot{width:100%;border-radius:20px;border:1px solid #E8E0D6;box-shadow:0 8px 32px rgba(0,0,0,0.08)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}}
+.flow-svg{width:100%;height:auto;background:white;border-radius:24px;border:1px solid #E8E0D6;padding:20px}
+.step{border:2px solid #E8E0D6;border-radius:20px;padding:16px;background:white;position:relative}
+.step.active{border-color:#121417;box-shadow:0 8px 24px rgba(0,0,0,0.08)}
+.step.done{border-color:#34C759;background:#34C75908}
+.badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:999px;display:inline-flex}
+.badge-green{background:#34C75915;color:#34C759;border:1px solid #34C75930}
+.badge-blue{background:#007AFF15;color:#007AFF;border:1px solid #007AFF30}
+.badge-orange{background:#FF950015;color:#FF9500;border:1px solid #FF950030}
+.badge-red{background:#FF3B3015;color:#FF3B30;border:1px solid #FF3B3030}
+.mono{font-family:ui-monospace,monospace;font-size:11px}
+.progress{height:6px;background:#F2F2F7;border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;background:#121417;border-radius:999px}
+.phone{width:390px;max-width:100%;margin:0 auto;background:white;border-radius:32px;border:8px solid #121417;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative}
+.phone-notch{width:120px;height:24px;background:#121417;border-radius:0 0 16px 16px;margin:0 auto}
+.phone-screen{padding:16px;min-height:600px}
+.timeline{display:flex;flex-direction:column;gap:0;position:relative}
+.timeline::before{content:'';position:absolute;left:19px;top:20px;bottom:20px;width:2px;background:#E8E0D6}
+.node{display:flex;gap:16px;align-items:flex-start;padding:12px 0;position:relative}
+.dot{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;flex-shrink:0;z-index:1;border:3px solid #FFFBF5}
+.dot.done{background:#121417;color:white}
+.dot.active{background:white;border:3px solid #121417;color:#121417;box-shadow:0 0 0 4px #12141715}
+.dot.next{background:white;border:2px solid #E8E0D6;color:#8E8E93}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:36px;height:36px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-weight:700">D</div><div><div style="font-weight:700">DanskPath • Practice Experience</div><div style="font-size:11px;color:#8E8E93">Live https://danskpath.onrender.com • Build 24c92c5 • Apple Premium 390px iPhone</div></div></div>
+<div style="display:flex;gap:8px"><span class="pill pill-black">M1→PD3 Full</span><span class="pill pill-cream">15 min • one hand • bus</span></div>
+</div>
+
+<h1 style="font-size:44px;line-height:0.9;letter-spacing:-0.02em;margin-top:32px">Practice & Experience<br/>how they look & how you do it</h1>
+<p style="margin-top:12px;font-size:18px;color:#3C3C43;max-width:760px">Not a list of lessons. One recommendation that moves you toward Modultest and PD3, with why it matters now and what it unlocks in real life. 15 min, one hand on bus, infinite variants, no repeat 30 days, SRS Box 0→5.</p>
+
+<!-- FLOW CHART -->
+<h2 style="margin-top:56px;font-size:28px">Flow Chart — Complete Journey from Open to PD3 Ready</h2>
+<div class="card" style="margin-top:16px;padding:12px">
+<svg viewBox="0 0 1000 880" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:Inter,sans-serif">
+<!-- Definitions -->
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8E8E93"/></marker>
+</defs>
+
+<!-- Column 1: Onboarding -->
+<g>
+<rect x="20" y="20" width="280" height="90" rx="20" fill="#121417"/><text x="160" y="45" text-anchor="middle" fill="white" font-size="11" font-weight="700" letter-spacing="1">ONBOARDING</text><text x="160" y="68" text-anchor="middle" fill="white" font-size="14" font-weight="600">Open → Welcome</text><text x="160" y="86" text-anchor="middle" fill="#FFFFFF80" font-size="11">Lær dansk på din måde • 3 steps</text>
+<rect x="20" y="130" width="280" height="80" rx="16" fill="white" stroke="#E8E0D6" stroke-width="2"/><text x="160" y="155" text-anchor="middle" font-size="12" font-weight="600">Login / Sign up</text><text x="160" y="172" text-anchor="middle" font-size="11" fill="#8E8E93">Velkommen tilbage • 56px inputs</text><text x="160" y="188" text-anchor="middle" font-size="10" fill="#8E8E93">demo login • Hvad sker der nu? 3 bullets</text>
+<rect x="20" y="230" width="280" height="80" rx="16" fill="white" stroke="#E8E0D6"/><text x="160" y="255" text-anchor="middle" font-size="12" font-weight="600">Assessment Landing</text><text x="160" y="272" text-anchor="middle" font-size="11" fill="#8E8E93">Find dit niveau • 7 min • 15 Q</text><text x="160" y="288" text-anchor="middle" font-size="10" fill="#8E8E93">3 cards explanation</text>
+<rect x="20" y="330" width="280" height="80" rx="16" fill="white" stroke="#E8E0D6"/><text x="160" y="355" text-anchor="middle" font-size="12" font-weight="600">Instructions</text><text x="160" y="372" text-anchor="middle" font-size="11" fill="#8E8E93">5 bullets • what happens after</text><text x="160" y="388" text-anchor="middle" font-size="10" fill="#8E8E93">Start Test → direct to Q1</text>
+</g>
+
+<!-- Arrows col1 -->
+<line x1="160" y1="110" x2="160" y2="130" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160" y1="210" x2="160" y2="230" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="160" y1="310" x2="160" y2="330" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- Column 2: Test & Analysis -->
+<g>
+<rect x="360" y="20" width="280" height="110" rx="20" fill="white" stroke="#121417" stroke-width="2.5"/><text x="500" y="45" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1">TEST • DISTRACTION FREE</text><text x="500" y="68" text-anchor="middle" font-size="14" font-weight="600">Test Q1-15 • Only test</text><text x="500" y="86" text-anchor="middle" font-size="11" fill="#8E8E93">Randomized A/B/C • variationEngine</text><text x="500" y="102" text-anchor="middle" font-size="10" fill="#8E8E93">5,100+ variants • hashStr seed • no path</text>
+<rect x="360" y="150" width="280" height="130" rx="20" fill="#121417"/><text x="500" y="175" text-anchor="middle" fill="white" font-size="11" font-weight="700" letter-spacing="1">ANALYSIS • VERDICT ENGINE</text><text x="500" y="195" text-anchor="middle" fill="white" font-size="13" font-weight="600">Beyond % — per-level, per-type</text><text x="500" y="212" text-anchor="middle" fill="#FFFFFF80" font-size="10">A1/A2/B1/B2 % • category % • strengths 75%+ • weakness &lt;60%</text><text x="500" y="226" text-anchor="middle" fill="#FFFFFF80" font-size="10">consistency easy vs hard • timeFlag • timeline</text><text x="500" y="242" text-anchor="middle" fill="#FFFFFF80" font-size="10">path 4 steps from weakest first • 80% B1 errors V2</text>
+<rect x="360" y="300" width="280" height="90" rx="16" fill="white" stroke="#E8E0D6" stroke-width="2"/><text x="500" y="325" text-anchor="middle" font-size="12" font-weight="600">Results — Dit niveau</text><text x="500" y="342" text-anchor="middle" font-size="11" fill="#8E8E93">67% Modul 3 • strengths black pills</text><text x="500" y="358" text-anchor="middle" font-size="11" fill="#8E8E93">focus white • dark card timeline 4 måneder</text><text x="500" y="374" text-anchor="middle" font-size="10" fill="#007AFF">CTA: Se min læringsvej →</text>
+<rect x="360" y="410" width="280" height="70" rx="16" fill="white" stroke="#E8E0D6"/><text x="500" y="432" text-anchor="middle" font-size="12" font-weight="600">Goals — pick 3</text><text x="500" y="448" text-anchor="middle" font-size="11" fill="#8E8E93">Job, family, study • adapts practice</text>
+</g>
+
+<!-- Arrows col2 -->
+<line x1="500" y1="130" x2="500" y2="150" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="500" y1="280" x2="500" y2="300" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="500" y1="390" x2="500" y2="410" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+<!-- Connect onboarding to test -->
+<line x1="300" y1="370" x2="360" y2="75" stroke="#121417" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 4"/>
+
+<!-- Column 3: Path & Practice -->
+<g>
+<rect x="700" y="20" width="280" height="90" rx="20" fill="white" stroke="#E8E0D6" stroke-width="2"/><text x="840" y="45" text-anchor="middle" font-size="11" font-weight="700" letter-spacing="1">PATH • STAGE ENGINE</text><text x="840" y="68" text-anchor="middle" font-size="13" font-weight="600">Din læringsvej • M1→M5</text><text x="840" y="86" text-anchor="middle" font-size="11" fill="#8E8E93">Only relevant • vertical timeline • weekly</text>
+<rect x="700" y="130" width="280" height="130" rx="20" fill="#007AFF"/><text x="840" y="155" text-anchor="middle" fill="white" font-size="11" font-weight="700" letter-spacing="1">PRACTICE • TODAY'S ONE ACTION</text><text x="840" y="175" text-anchor="middle" fill="white" font-size="13" font-weight="600">What should you practice now?</text><text x="840" y="192" text-anchor="middle" fill="#FFFFFF90" font-size="11">15 min • one hand • why now • unlocks real life</text><text x="840" y="208" text-anchor="middle" fill="white" font-size="10" font-weight="600">V2 — I morgen skal jeg... → 10 min</text><text x="840" y="224" text-anchor="middle" fill="#FFFFFF80" font-size="10">weights: listening 60% + Box0 250 + weakest &lt;60% + goal</text>
+<!-- Branch to 5 practice types -->
+<rect x="700" y="280" width="130" height="60" rx="12" fill="white" stroke="#E8E0D6"/><text x="765" y="300" text-anchor="middle" font-size="11" font-weight="600">Grammar</text><text x="765" y="314" text-anchor="middle" font-size="9" fill="#8E8E93">Infinite 5100+</text><text x="765" y="326" text-anchor="middle" font-size="9" fill="#8E8E93">30d no-repeat</text>
+<rect x="850" y="280" width="130" height="60" rx="12" fill="white" stroke="#E8E0D6"/><text x="915" y="300" text-anchor="middle" font-size="11" font-weight="600">Vocab SRS</text><text x="915" y="314" text-anchor="middle" font-size="9" fill="#8E8E93">Box 0→5 collocations</text><text x="915" y="326" text-anchor="middle" font-size="9" fill="#8E8E93">holde et møde</text>
+<rect x="700" y="360" width="130" height="60" rx="12" fill="white" stroke="#E8E0D6"/><text x="765" y="380" text-anchor="middle" font-size="11" font-weight="600">Listening</text><text x="765" y="394" text-anchor="middle" font-size="9" fill="#8E8E93">No transcript first</text><text x="765" y="406" text-anchor="middle" font-size="9" fill="#8E8E93">DSB DR 25% reduc</text>
+<rect x="850" y="360" width="130" height="60" rx="12" fill="white" stroke="#E8E0D6"/><text x="915" y="380" text-anchor="middle" font-size="11" font-weight="600">Reading</text><text x="915" y="394" text-anchor="middle" font-size="9" fill="#8E8E93">Glossary yellow</text><text x="915" y="406" text-anchor="middle" font-size="9" fill="#8E8E93">gapped cloze PD3</text>
+<rect x="700" y="440" width="280" height="70" rx="12" fill="white" stroke="#121417" stroke-width="1.5"/><text x="840" y="460" text-anchor="middle" font-size="11" font-weight="600">Writing Weekly + Exam PD3</text><text x="840" y="476" text-anchor="middle" font-size="9" fill="#8E8E93">30-50→150-200w • 60d no repeat • AI feedback • timer</text><text x="840" y="490" text-anchor="middle" font-size="9" fill="#8E8E93">Before/After • PD3 structure for det første</text>
+<rect x="700" y="530" width="280" height="80" rx="16" fill="#F2F2F7" stroke="#E8E0D6"/><text x="840" y="555" text-anchor="middle" font-size="11" font-weight="600">Progress • Motivation • No shame</text><text x="840" y="572" text-anchor="middle" font-size="10" fill="#8E8E93">Can-do last 3 wins • pace heatmap 7d • Box2+ secure</text><text x="840" y="586" text-anchor="middle" font-size="10" fill="#8E8E93">3-4 days/week enough • no streaks no hearts</text>
+</g>
+
+<!-- Arrows col2->col3 -->
+<line x1="640" y1="345" x2="700" y2="65" stroke="#121417" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="640" y1="445" x2="700" y2="195" stroke="#007AFF" stroke-width="2" marker-end="url(#arrow)"/>
+<line x1="840" y1="260" x2="840" y2="280" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="840" y1="340" x2="840" y2="360" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="840" y1="420" x2="840" y2="440" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+<line x1="840" y1="510" x2="840" y2="530" stroke="#8E8E93" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+<!-- Loop back -->
+<path d="M 840 610 Q 840 680 500 680 Q 160 680 160 500" fill="none" stroke="#8E8E93" stroke-width="1.2" stroke-dasharray="6 4" marker-end="url(#arrow)"/>
+<text x="500" y="700" text-anchor="middle" font-size="10" fill="#8E8E93">Loop: Practice → Progress → Next recommendation • SRS • 30-day no-repeat • infinite variants</text>
+
+<!-- Bottom: Data flow -->
+<rect x="20" y="730" width="960" height="70" rx="16" fill="#121417"/><text x="500" y="755" text-anchor="middle" fill="white" font-size="12" font-weight="600">Data: localStorage dansk_level / dansk_diagnostic / dansk_progress / dansk_scores / dansk_user_seed + server danish-platform-db.json /data + JWT + bcrypt</text><text x="500" y="775" text-anchor="middle" fill="#FFFFFF70" font-size="10">Tracking: getUsed/markUsed no repeat 30d/60d • getBox SRS 0→5 • getModuleProgress • getWeeklyWriting • getPace heatmap • getCanDoProgress functional wins</text>
+</svg>
+</div>
+
+<!-- PRACTICE EXPERIENCE DETAILS -->
+<h2 style="margin-top:64px;font-size:32px">Practice Experience — How each looks & how you do it</h2>
+
+<div class="grid-2" style="margin-top:20px">
+<div class="phone">
+<div class="phone-notch"></div>
+<div class="phone-screen">
+<div style="display:flex;gap:8px;align-items:center"><div style="width:28px;height:28px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-size:12px;font-weight:700">D</div><span style="font-size:13px;font-weight:600">DanskPath • Today</span><span style="font-size:10px;padding:4px 8px;border-radius:999px;background:white;border:1px solid #E8E0D6">15 min • 1 hand</span></div>
+<h2 style="margin-top:16px;font-size:24px;line-height:0.95">What should you<br/>practice now?</h2>
+<div style="margin-top:12px;background:#121417;color:white;border-radius:20px;padding:16px"><div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.6">Grammar • 10 min • Goal-driven: job</div><div style="margin-top:6px;font-weight:700;font-size:16px">V2 rule — I morgen skal jeg...</div><div style="font-size:12px;opacity:0.8;margin-top:6px;line-height:1.4">In Danish verb must be position 2. In English sometimes (Never have I...). In Danish always. Fastest way fewer errors.</div><div style="margin-top:12px;background:white;color:#121417;border-radius:12px;padding:10px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#007AFF">Unlocks real life</div><div style="font-size:12px;font-weight:600">Say "I morgen skal jeg til møde" correctly</div><div style="font-size:11px;color:#8E8E93">→ At work colleagues understand first time</div></div><button style="margin-top:12px;width:100%;background:white;color:#121417;border:none;padding:12px;border-radius:999px;font-weight:600">Practice V2 →</button></div>
+<div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px"><div style="background:#F2F2F7;border-radius:16px;padding:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#8E8E93">You can now — last 3 wins</div><div style="margin-top:6px;font-size:11px">● Introduce yourself 30 sec<br/>● Explain delay 1 min<br/>● Sick message 60-80w</div></div><div style="background:#F2F2F7;border-radius:16px;padding:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#8E8E93">Last 7 days</div><div style="margin-top:6px;display:flex;gap:4px"><div style="width:20px;height:20px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-size:10px">✓</div><div style="width:20px;height:20px;border-radius:50%;background:#E8E0D6"></div><div style="width:20px;height:20px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-size:10px">✓</div><div style="width:20px;height:20px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-size:10px">✓</div></div><div style="font-size:10px;color:#8E8E93;margin-top:6px">3-4 days/week enough</div></div></div>
+</div>
+</div>
+<div>
+<div class="card">
+<div class="pill pill-black" style="font-size:10px">PracticeView • Recommendation Engine</div>
+<h3 style="margin-top:12px">How it decides what you practice now — not random</h3>
+<div class="mono" style="margin-top:12px;background:#F2F2F7;padding:12px;border-radius:12px;font-size:11px;line-height:1.6">
+if !diagnosticDone → Find your level 7min<br>
+else if listeningAcc&lt;60 && attempts&lt;8 → Phone borgerservice no transcript 8min<br>
+else if relevantTopics from goals → Goal-driven practice<br>
+else if Box0&gt;250 → 10 flashcards collocations<br>
+else if grammarDone&lt;5 → V2 rule I morgen skal jeg 10min<br>
+else if writingAttempts&lt;2 → Weekly writing 80-120w 15min<br>
+else → Culture flat structure 10min<br><br>
+weights: listening 60% • 250 new words • 5/17 grammar • weakest &lt;60% • personal goal
+</div>
+<div style="margin-top:12px;font-size:13px;color:#3C3C43">One primary action, why it matters now, what it unlocks in real life functional. No list, no overwhelm.</div>
+<img src="screenshots/14-practice.png" class="screenshot" style="margin-top:16px">
+</div>
+<div class="card" style="margin-top:16px">
+<div class="pill" style="background:#007AFF;color:white;font-size:10px">How you do it — 15 min one hand on bus</div>
+<ul style="margin-top:12px;font-size:13px;line-height:1.6;padding-left:16px">
+<li><b>Open app:</b> PWA Add to Home Screen, iPhone 390px dvh safe-area, no overflow</li>
+<li><b>See TODAY card:</b> One recommendation with time 10 min, type grammar/vocab/listening</li>
+<li><b>Tap primary CTA:</b> Practice V2 → goes to GrammarView / Vocab / Listening etc.</li>
+<li><b>Do it:</b> 10 min, one hand, infinite variants 5,100+, no repeat 30 days, SRS Box 0→5</li>
+<li><b>Mark done:</b> localStorage dansk_progress[grammar_V2]=true → next recommendation updates</li>
+<li><b>Loop:</b> Progress heatmap, can-do wins, next functional win, weekly writing new</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- EACH PRACTICE TYPE -->
+<div style="margin-top:64px;display:grid;gap:24px">
+
+<!-- GRAMMAR -->
+<div class="card">
+<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+<div><div class="pill pill-black">1 • Grammar • Infinite Engine</div><h3 style="margin-top:8px;font-size:24px">Forklaring før drill • Engelsk først • 761 base + uendelig</h3><p style="font-size:13px;color:#8E8E93;max-width:600px">Princip: V2 er 80% af B1-fejl — normalt. 17 topics A1→B2, variationEngine 5,100+ variants, 30-dage regel ingen gentagelse</p></div>
+<div style="min-width:200px;background:#EEF2FB;border:1px solid #D6E0F5;border-radius:16px;padding:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#2A4F9E">English first bridge</div><div style="font-size:12px;margin-top:4px;color:#1E3A5F">På engelsk gør du V2 nogle gange: Never have I seen... På dansk gør du det i hver sætning. Du ejer allerede mekanismen.</div></div>
+</div>
+
+<div class="grid-2" style="margin-top:20px">
+<div>
+<div style="background:#F8F6F1;border-radius:16px;padding:16px;border:1px solid #E8E2D9">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#8E8E93">Lektion — forklaring før drill</div>
+<div style="margin-top:8px;font-size:14px;line-height:1.5">V2: Når noget andet end subjektet står først (I dag, På mandag, I går), skal verbet på plads 2 med inversion. SVO bliver VSO. Hovedsætning: Jeg arbejder hjemme i dag. Med tid først: I dag arbejder jeg hjemme. Ledsætning vender: at han ikke kommer (ikke før verbet).</div>
+</div>
+<div style="margin-top:16px">
+<div style="font-size:13px;font-weight:700">Eksempler • tap for lyd ▶ TTS da-DK</div>
+<div style="margin-top:8px;display:grid;gap:8px">
+<div style="background:white;border:1px solid #E8E0D6;border-radius:12px;padding:12px;display:flex;justify-content:space-between"><div><div style="font-weight:500;font-size:14px">I dag arbejder jeg hjemme.</div><div style="font-size:12px;color:#8E8E93">Today I work from home (but Danish inverts)</div></div><button style="width:32px;height:32px;border-radius:50%;border:1px solid #E8E0D6;background:white">▶</button></div>
+<div style="background:white;border:1px solid #E8E0D6;border-radius:12px;padding:12px;display:flex;justify-content:space-between"><div><div style="font-weight:500;font-size:14px">På mandag starter hun nyt job.</div><div style="font-size:11px;color:#9CA3AF">V2 + future — front time → inversion</div></div><button style="width:32px;height:32px;border-radius:50%;border:1px solid #E8E0D6;background:white">▶</button></div>
+</div>
+</div>
+<div>
+<div style="font-size:13px;font-weight:700">Øvelser — med grunde på hvert svar</div>
+<div style="font-size:11px;color:#8E8E93">Ikke bare rigtigt/forkert. Hvorfor er dit svar fristende?</div>
+<div style="margin-top:12px;background:white;border:1px solid #E8E0D6;border-radius:16px;padding:16px">
+<div style="font-size:14px;font-weight:500">Vælg korrekt: ___ arbejder jeg hjemme.</div>
+<div style="font-size:11px;color:#8E8E93;margin-top:4px">Hint: tid først → inversion</div>
+<div style="margin-top:12px;display:grid;gap:8px">
+<button style="padding:10px 16px;border-radius:999px;border:1px solid #121417;background:#121417;color:white;text-align:left;font-size:13px">I dag ✓ — korrekt, V2 inversion</button>
+<button style="padding:10px 16px;border-radius:999px;border:1px solid #E8E0D6;background:#F8F6F1;text-align:left;font-size:13px">I dag jeg — English habit S-V-O, Danish needs V2</button>
+<button style="padding:10px 16px;border-radius:999px;border:1px solid #E8E0D6;background:#F8F6F1;text-align:left;font-size:13px">I dag er jeg — extra er not needed</button>
+</div>
+<div style="margin-top:12px;background:#EEF2FB;border:1px solid #D6E0F5;border-radius:12px;padding:12px;font-size:12px"><b>Hvorfor er dit fejl-svar fristende?</b> Fordi du tænker på engelsk S-V-O: "I dag jeg arbejder" lyder som "Today I work". Men dansk kræver inversion når noget andet end subjektet står først. Derfor: "I dag arbejder jeg".<br><b>Regel:</b> V2 inversion — tid først → verb på plads 2</div>
+</div>
+<div style="margin-top:12px;background:#121417;color:white;border-radius:12px;padding:12px;font-size:12px"><b>PD3-tip:</b> V2-fejl koster dyrt i Delprøve 3 og 4. Tjek altid: står verbet på plads 2? I ledsætninger: står 'ikke' FØR verbet?</div>
+</div>
+</div>
+</div>
+
+<!-- VOCAB -->
+<div class="card">
+<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+<div><div class="pill" style="background:#34C759;color:white">2 • Vocabulary • SRS Box 0→5 • Collocations</div><h3 style="margin-top:8px;font-size:24px">Words that work in speech — not single words</h3><p style="font-size:13px;color:#8E8E93">Not "møde = meeting" but "holde et møde". 200→1354 active, 3000 receptive, Box 0 new → Box5 secure, variation per learner</p></div>
+<div style="display:flex;gap:8px"><span class="badge badge-green">List</span><span class="badge badge-blue">Flashcards SRS</span><span class="badge badge-orange">Collocations</span></div>
+</div>
+
+<div class="grid-3" style="margin-top:20px">
+<div style="background:#F2F2F7;border-radius:20px;padding:16px">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase">List Mode • Search</div>
+<div style="margin-top:12px;background:white;border-radius:16px;padding:14px;border:1px solid #E8E0D6"><div style="font-weight:600">holde et møde — to have a meeting</div><div style="margin-top:6px;font-size:11px;background:#FFD84D40;border:1px solid #FFD84D;padding:4px 8px;border-radius:999px;display:inline-block">holde et møde</div><div style="font-size:11px;color:#8E8E93;margin-top:6px;font-style:italic">Vi holder et møde i morgen kl 10</div><div style="margin-top:8px;display:flex;gap:6px"><span style="font-size:10px;background:#F2F2F7;padding:4px 8px;border-radius:999px">Arbejde</span><span style="font-size:10px;border:1px solid #E8E0D6;padding:4px 8px;border-radius:999px">B1</span><span style="font-size:10px;color:#8E8E93">Box 2</span></div></div>
+<div style="margin-top:8px;background:white;border-radius:16px;padding:14px;border:1px solid #E8E0D6"><div style="font-weight:600">træffe en beslutning — make a decision</div><div style="margin-top:6px;font-size:11px;background:#F2F2F7;padding:4px 8px;border-radius:999px;display:inline-block">træffe en beslutning</div></div>
+</div>
+<div style="background:#121417;color:white;border-radius:20px;padding:16px">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;opacity:0.6">Flashcards SRS • How you do it</div>
+<div style="margin-top:12px;background:white;color:#121417;border-radius:24px;padding:20px;text-align:center"><div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#8E8E93">Arbejde • B1 • Box 2 • 20 due • 45 practiced</div><div style="margin-top:12px;font-size:28px;font-weight:700">holde fyraften</div><div style="margin-top:8px;font-size:11px;background:#FFD84D40;border:1px solid #FFD84D;padding:6px 12px;border-radius:999px;display:inline-block">holde fyraften</div><div style="margin-top:8px;font-size:12px;color:#8E8E93;font-style:italic">Vi holder fyraften kl 16 i dag</div><button style="margin-top:16px;background:#121417;color:white;border:none;padding:12px 24px;border-radius:999px;font-weight:600">Show translation</button><div style="margin-top:16px;display:flex;gap:8px;justify-content:center"><button style="padding:8px 16px;border-radius:999px;background:#FF3B3015;border:1px solid #FF3B3030;color:#FF3B30;font-size:12px;font-weight:600">✗ Not yet → Box 0</button><button style="padding:8px 16px;border-radius:999px;background:#34C75915;border:1px solid #34C75930;color:#34C759;font-size:12px;font-weight:600">✓ I know it → Box 3</button></div></div>
+<div style="margin-top:12px;font-size:11px;opacity:0.7">SRS: Box0 not practiced, Box1 unsure 1 day, Box2 3 days, Box3 7 days, Box4 14 days, Box5 secure 30 days. Brain learns from recognizing old, not seeing new.</div>
+</div>
+<div style="background:#FFD84D20;border:1px solid #FFD84D;border-radius:20px;padding:16px">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase">Collocations Mode • Why?</div><div style="margin-top:8px;font-size:13px;line-height:1.5">You don't speak single words. You say "holde et møde" not "møde". Not "beslutning" but "træffe en beslutning". This view trains only words with collocation — what works in real speech at work, kindergarten, borgerservice.</div>
+<div style="margin-top:12px;display:grid;gap:8px">
+<div style="background:white;border-radius:12px;padding:12px;border:1px solid #E8E0D6"><div style="font-size:11px;color:#8E8E93">to have a meeting</div><div style="font-weight:600">holde et møde (møde)</div></div>
+<div style="background:white;border-radius:12px;padding:12px;border:1px solid #E8E0D6"><div style="font-size:11px;color:#8E8E93">to finish work for the day</div><div style="font-weight:600">holde fyraften (fyraften)</div></div>
+<div style="background:white;border-radius:12px;padding:12px;border:1px solid #E8E0D6"><div style="font-size:11px;color:#8E8E93">to take a stance</div><div style="font-weight:600">tage stilling til (stilling)</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- LISTENING -->
+<div class="card">
+<div class="pill" style="background:#5856D6;color:white">3 • Listening • No transcript first • DSB DR Telephone</div>
+<h3 style="margin-top:8px;font-size:24px">Danish swallows 25% syllables — second time you understand 30% more</h3>
+<div class="grid-2" style="margin-top:16px">
+<div>
+<div style="background:#FCFBF7;border:1px solid #E8E2D9;border-radius:16px;padding:14px">
+<div style="font-size:11px;font-weight:700">Lytning · A2 B1 B2 · Monolog telefon nyhed radio multi-speaker annonce instruktion — uden transskript først</div>
+<div style="margin-top:12px;display:grid;gap:6px">
+<div style="background:white;border:1px solid #121417;border-radius:12px;padding:10px;display:flex;justify-content:space-between"><div><div style="font-size:13px;font-weight:500">✓ DSB forsinkelse</div><div style="font-size:11px;color:#8E8E93">Annonce • 1:20 • klaret</div></div><span style="font-size:10px;padding:4px 8px;border-radius:999px;background:white;border:1px solid #E8E0D6">A2</span></div>
+<div style="background:white;border:1px solid #E8E2D9;border-radius:12px;padding:10px;display:flex;justify-content:space-between"><div><div style="font-size:13px;font-weight:500">Borgerservice telefon</div><div style="font-size:11px;color:#8E8E93">Telefon • 2:30 • uden transskript først</div></div><span style="font-size:10px;padding:4px 8px;border-radius:999px;background:#007AFF;color:white">B1</span></div>
+<div style="background:white;border:1px solid #E8E0D9;border-radius:12px;padding:10px;display:flex;justify-content:space-between"><div><div style="font-size:13px;font-weight:500">DR nyhed normal fart</div><div style="font-size:11px;color:#8E8E93">Nyhed • 2:00 • 25% reduktioner</div></div><span style="font-size:10px;padding:4px 8px;border-radius:999px;background:#5856D6;color:white">B2</span></div>
+</div>
+<div style="margin-top:12px"><div style="font-size:11px;font-weight:700">Reduktionsordbog • 30</div><div style="margin-top:6px;font-size:11px;display:grid;gap:4px"><div style="display:flex;justify-content:space-between;border-bottom:1px solid #E8E2D9;padding:4px 0"><span>det er → <b>d'er</b></span><span>▶</span></div><div style="display:flex;justify-content:space-between;border-bottom:1px solid #E8E2D9;padding:4px 0"><span>skal du → <b>skaddu</b></span><span>▶</span></div><div style="display:flex;justify-content:space-between;border-bottom:1px solid #E8E2D9;padding:4px 0"><span>skal du med → <b>skaddu med?</b></span><span>▶</span></div></div></div>
+</div>
+</div>
+<div>
+<div style="background:white;border:1px solid #E8E0D6;border-radius:16px;padding:16px">
+<div style="display:flex;gap:8px"><span class="pill pill-black">B1</span><span style="font-size:11px;color:#8E8E93;text-transform:uppercase">Telefon • 2:30</span></div>
+<h4 style="margin-top:12px;font-size:18px">Borgerservice — flytning anmeldelse</h4>
+<div style="margin-top:12px;display:flex;gap:8px"><button style="background:#121417;color:white;border:none;padding:10px 16px;border-radius:999px;font-size:12px;font-weight:600">▶ Afspil (TTS da-DK)</button><button style="background:white;border:1px solid #E8E0D6;padding:10px 16px;border-radius:999px;font-size:12px">Vis transskript</button></div>
+<div style="margin-top:16px;background:#FCFBF7;border:1px solid #E8E2D9;border-radius:12px;padding:12px"><div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#8E8E93">Transskript (after trying without)</div><div style="margin-top:8px;font-size:13px;line-height:1.5">Hej, det er kommunen. D'er et problem med din anmeldelse. Skaddu komme forbi i morgen? Vi har åbent fra 10 til 14...</div></div>
+<div style="margin-top:16px"><div style="font-size:13px;font-weight:700">Forståelsesspørgsmål</div>
+<div style="margin-top:8px;background:white;border:1px solid #E8E0D6;border-radius:12px;padding:12px"><div style="font-size:13px;font-weight:500">Hvad er problemet?</div><div style="margin-top:8px;display:grid;gap:6px"><button style="padding:8px 12px;border-radius:12px;border:1px solid #34C759;background:#34C75910;text-align:left;font-size:12px">Anmeldelse mangler info ✓</button><button style="padding:8px 12px;border-radius:12px;border:1px solid #E8E2D9;background:white;text-align:left;font-size:12px">Ingen tid</button></div><div style="margin-top:6px;font-size:11px;color:#34C759">Rigtigt!</div></div>
+</div>
+</div>
+<div style="margin-top:12px;background:#FF950010;border:1px solid #FF950030;border-radius:12px;padding:12px;font-size:12px"><b>Real-speaker tip:</b> TTS er kun træning. For at forstå rigtig dansk, hør DR Radio og markér reduktioner. App har 30 entries — find flere selv.</div>
+</div>
+</div>
+</div>
+
+<!-- WRITING -->
+<div class="card">
+<div class="pill" style="background:#FF9500;color:white">4 • Writing • Weekly new • No repeat 60d • Before/After</div>
+<h3 style="margin-top:8px;font-size:24px">30-50 → 150-200 ord • PD3 structure indledning 2 args konklusion</h3>
+<div class="grid-2" style="margin-top:16px">
+<div>
+<div style="background:white;border:1px solid #121417;border-radius:16px;padding:16px">
+<div style="font-size:10px;letter-spacing:0.1em;text-transform:uppercase">Opgave • 80-120 ord • Uge 12 • ingen gentagelse i 60 dage</div>
+<div style="margin-top:8px;font-weight:700">Email til udlejer — håndværker kommer ikke</div>
+<p style="margin-top:8px;font-family:serif;font-size:13px;line-height:1.6">Du har boet i lejligheden i 3 år. Håndværkeren skulle komme i dag kl 10, men er ikke kommet. Skriv email til udlejer: forklar situation, hvad du har gjort, hvad du ønsker. Brug fordi, at han ikke kommer (ledsætning), har boet (perfect).</p>
+<div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap"><span style="font-size:11px;background:#EEF2FB;border:1px solid #2A4F9E;color:#1E3A5F;padding:4px 8px;border-radius:999px">fordi ✓</span><span style="font-size:11px;background:#FFFCF7;border:1px solid #E8E2D9;padding:4px 8px;border-radius:999px">ledsætning at han ikke kommer</span><span style="font-size:11px;background:#FFFCF7;border:1px solid #E8E2D9;padding:4px 8px;border-radius:999px">har perfect</span><span style="font-size:11px;background:#FFFCF7;border:1px solid #E8E2D9;padding:4px 8px;border-radius:999px">80-120 ord</span></div>
+</div>
+<div style="margin-top:12px"><div style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:700;text-transform:uppercase">Din tekst</span><span style="font-size:11px;background:#EEF2FB;border:1px solid #D6E0F5;padding:4px 8px;border-radius:999px">45 ord / 80-120</span></div><textarea style="width:100%;min-height:120px;margin-top:8px;padding:12px;border:1px solid #121417;background:#FFFCF7;font-family:serif;font-size:13px" placeholder="Skriv på dansk her...">Kære udlejer,
+
+Jeg har boet her i tre år. I dag skulle håndværkeren komme kl 10, men han er ikke kommet. Jeg ved, at han ikke kommer, fordi jeg har ringet...</textarea>
+<div style="margin-top:8px;display:flex;gap:8px"><button style="background:#121417;color:white;border:none;padding:8px 16px;font-size:11px;text-transform:uppercase;letter-spacing:0.1em">Få feedback</button><button style="background:white;border:1px solid #E8E2D9;padding:8px 16px;font-size:11px;text-transform:uppercase">Ryd</button><button style="background:white;border:1px solid #E8E2D9;padding:8px 16px;font-size:11px;text-transform:uppercase">Ny opgave samme niveau →</button></div>
+</div>
+</div>
+<div>
+<div style="background:white;border:1px solid #121417;border-radius:16px;padding:16px">
+<div style="font-size:10px;text-transform:uppercase;color:#8E8E93">Feedback • V2 + bindeord + struktur • Offline virker uden nøgle</div>
+<div style="margin-top:8px;font-family:serif;font-size:12px;line-height:1.7;white-space:pre-wrap">✓ Godt: V2 korrekt "I dag skulle..." + ledsætning "at han ikke kommer" korrekt ikke før verbet + har perfect
+→ Forbedr: Tilføj bindeord "derfor vil jeg gerne..." for sammenhæng + afslut med hvad du ønsker: "Kan I sende en ny tid?"
+PD3 bedømmelse: Indhold 7/10, sammenhæng 6/10 (mangler derfor), ordforråd 7/10, grammatik 8/10
+Næste: Øv bindeord selvom/hvis/når/da for debat
+
+Normalt: 80% B1-fejl er V2. Andre på Modul 1-5 kæmper også. Box0 svært er meningen — anden gang 30% bedre.</div>
+</div>
+<div style="margin-top:12px;background:#121417;color:white;border-radius:16px;padding:14px"><div style="font-size:10px;text-transform:uppercase;opacity:0.6">Før / Efter — din fremgang</div><div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#121417"><div style="background:white;color:#121417;padding:12px"><div style="font-size:10px;color:#8E8E93">Første • 15/09 • 32 ord • Min familie</div><div style="margin-top:6px;font-family:serif;font-size:11px">Jeg hedder Ali. Jeg bor i Aarhus med min kone...</div></div><div style="background:#EEF2FB;color:#121417;padding:12px"><div style="font-size:10px;color:#2A4F9E">Seneste • 28/09 • 95 ord • Email udlejer • 8 tekster total</div><div style="margin-top:6px;font-family:serif;font-size:11px">Kære udlejer, Jeg har boet her i tre år. I dag skulle...</div><div style="margin-top:8px;font-size:10px;font-weight:600;color:#2A4F9E">Fremskridt: +63 ord vs første • 8 tekster gemt lokalt</div></div></div></div>
+</div>
+</div>
+</div>
+
+<!-- READING + EXAM -->
+<div class="grid-2">
+<div class="card">
+<div class="pill" style="background:#8E8E93;color:white">5 • Reading • Gapped text • Cloze • Glossary yellow</div>
+<h3 style="margin-top:8px;font-size:18px">A1→B2 debate 200-300w • gapped text • argumentation</h3>
+<div style="margin-top:12px;background:#FCFBF7;border:1px solid #E8E2D9;border-radius:12px;padding:12px">
+<div style="font-size:11px;font-weight:700">Filters: Alle A1 A2 B1 B2 • Alle typer: email, report, community, debate, complaint, job ad</div>
+<div style="margin-top:8px;font-size:13px;line-height:1.6">Det er <span style="background:#FFD84D66;border-bottom:2px solid #FFD84D">flexicurity</span> som gør dansk arbejdsmarked specielt. Let at fyre, let at få nyt job, <span style="background:#FFD84D66;border-bottom:2px solid #FFD84D">dagpenge</span> imellem. <span style="background:#FFD84D66;border-bottom:2px solid #FFD84D">På den ene side</span> godt for virksomheder, <span style="background:#FFD84D66;border-bottom:2px solid #FFD84D">på den anden side</span> usikkert for medarbejdere.</div>
+<div style="margin-top:8px;display:flex;gap:6px"><button style="font-size:11px;padding:6px 12px;border-radius:999px;background:white;border:1px solid #E8E0D6">▶ Lyt (TTS)</button><button style="font-size:11px;padding:6px 12px;border-radius:999px;background:white;border:1px solid #E8E0D6">Vis gloser</button></div>
+</div>
+<div style="margin-top:12px;background:#007AFF10;border:1px solid #007AFF20;border-radius:12px;padding:12px"><div style="font-size:11px;font-weight:700;color:#007AFF">PD3 Gapped text</div><div style="font-size:11px;margin-top:4px;color:#3C3C43">Indsæt sætninger der skaber sammenhæng. Tester logik og bindeord: derfor, selvom, mens. Gaps: [Derfor er det vigtigt...] | [Selvom det lyder...]</div></div>
+<div style="margin-top:8px;background:#FF950010;border:1px solid #FF950020;border-radius:12px;padding:12px"><div style="font-size:11px;font-weight:700;color:#FF9500">PD3 Cloze</div><div style="font-size:11px;margin-top:4px">Ord der mangler: for det første, derudover, til sidst, bæredygtig, fællesskab</div></div>
+</div>
+<div class="card">
+<div class="pill pill-black">6 • Exam PD3 • 6 delprøver • Timer • Simulation</div>
+<h3 style="margin-top:8px;font-size:18px">Delprøve 1-4 skriftlig + mundtlig • 4 skriftlige + mundtlig</h3>
+<div style="margin-top:12px;display:grid;gap:8px">
+<div style="background:white;border:1px solid #121417;border-radius:12px;padding:12px;display:flex;justify-content:space-between"><div><div style="font-size:13px;font-weight:600">Delprøve 1 • Læsning 1</div><div style="font-size:11px;color:#8E8E93">30 min • Folketing 179 Grundlovsdag</div></div><span style="font-size:10px;background:#121417;color:white;padding:4px 8px;border-radius:999px">30 min</span></div>
+<div style="background:white;border:1px solid #E8E0D6;border-radius:12px;padding:12px;display:flex;justify-content:space-between"><div><div style="font-size:13px;font-weight:600">Delprøve 2A • Læsning 2 gapped</div><div style="font-size:11px;color:#8E8E93">60 min • sammenhæng bindeord</div></div><span style="font-size:10px;background:white;border:1px solid #E8E0D6;padding:4px 8px;border-radius:999px">60 min</span></div>
+<div style="background:white;border:1px solid #E8E0D6;border-radius:12px;padding:12px;display:flex;justify-content:space-between"><div><div style="font-size:13px;font-weight:600">Delprøve 4 • Skrivning</div><div style="font-size:11px;color:#8E8E93">60 min • 150-200w struktur jo/da/vel</div></div><span style="font-size:10px;background:white;border:1px solid #E8E0D6;padding:4px 8px;border-radius:999px">60 min</span></div>
+</div>
+<div style="margin-top:12px;background:#121417;color:white;border-radius:12px;padding:12px"><div style="font-size:11px;font-weight:700;opacity:0.6">Simuleret eksamen — sådan øver du</div><ol style="margin-top:8px;font-size:11px;line-height:1.6;padding-left:16px;opacity:0.9"><li>Sæt timer på 60 min (knap venstre)</li><li>Lav Delprøve 2B+3 fra Læsning gapped+cloze</li><li>Skriv Delprøve 4 i Skrivning uden hjælpemidler kun ordbog</li><li>Brug AI-feedback bagefter til at rette</li><li>Mundtlig: optag dig selv 2 min om billede</li></ol></div>
+</div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<div style="margin-top:48px;background:white;border-radius:24px;padding:20px;border:1px solid #E8E0D6">
+<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center">
+<div><div style="font-weight:700">Live — Try the practice now</div><div style="font-size:12px;color:#8E8E93">All practice works offline localStorage + optional AI feedback with key</div></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<a href="https://danskpath.onrender.com/practice" style="background:#121417;color:white;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:13px">Practice →</a>
+<a href="https://danskpath.onrender.com/journey-map.html" style="background:#F2F2F7;color:#121417;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:13px;border:1px solid #E8E0D6">Journey Map</a>
+<a href="https://danskpath.onrender.com/grammar" style="background:#F2F2F7;color:#121417;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:13px;border:1px solid #E8E0D6">Grammar</a>
+<a href="https://danskpath.onrender.com/vocab" style="background:#F2F2F7;color:#121417;padding:10px 18px;border-radius:999px;text-decoration:none;font-weight:600;font-size:13px;border:1px solid #E8E0D6">Vocab SRS</a>
+</div>
+</div>
+</div>
+
+</div>
+</body>
+</html>
