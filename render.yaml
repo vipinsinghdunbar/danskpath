@@ -1,17 +1,17 @@
-# Render one-click deploy — DanskPath Full Stack — FREE TIER COMPATIBLE v2
-# Blueprint ID exs-dat3gtm0tbcc739o29d0 — Sync 41d2a24 fixed disk/headers
-# This v2 adds NODE_VERSION and removes healthCheckPath to prevent false failed deploys
+# Render one-click deploy — DanskPath Full Stack — FREE TIER COMPATIBLE v3
+# Fixes vite: not found — vite is in devDependencies, NODE_ENV=production skips devDeps
+# Solution: npm ci --include=dev && npm run build
 
 services:
   - type: web
     name: danskpath
     env: node
     plan: free
-    region: frankfurt # close to Copenhagen, GDPR EU — if fails try oregon
+    region: frankfurt # close to Copenhagen, GDPR EU
     branch: main
-    buildCommand: npm ci && npm run build
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: node server.js
-    autoDeploy: true # GitHub push → App auto-updates
+    autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
