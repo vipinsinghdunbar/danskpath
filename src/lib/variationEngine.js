@@ -43,6 +43,36 @@ const variationTemplates = {
   ]
 };
 
+export function shuffleOptionsInQuestion(question, seed) {
+  // Randomize answer position to prevent pattern learning
+  const optionsWithIndex = question.options.map((opt, idx) => ({
+    text: opt,
+    originalIndex: idx,
+    isCorrect: idx === question.a
+  }));
+
+  // Seeded shuffle
+  const shuffled = [...optionsWithIndex];
+  let state = hashCode(seed || Math.random().toString());
+  const random = () => {
+    state = (state * 9301 + 49297) % 233280;
+    return state / 233280;
+  };
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  const newCorrectIndex = shuffled.findIndex(opt => opt.isCorrect);
+  
+  return {
+    ...question,
+    options: shuffled.map(opt => opt.text),
+    a: newCorrectIndex
+  };
+}
+
 export function generateVariation(skill, type, seed) {
   const templates = variationTemplates[type] || variationTemplates.V2;
   const idx = seed ? (hashCode(seed) % templates.length) : Math.floor(Math.random()*templates.length);
@@ -174,8 +204,12 @@ export function generateQuestionSet(userId, count = 15) {
       q.options = q.options?.map(o => (!o || o === 'undefined' || o.trim() === '') ? 'ved ikke' : o) || ['korrekt', 'forkert', 'ved ikke'];
       if (q.options.length < 2) q.options = ['korrekt', 'forkert', 'ved ikke'];
     }
+
+    // CRITICAL FIX: Randomize answer position — prevents pattern where correct is always first
+    const shuffleSeed = `${userId}_${q.id}_${i}`;
+    const randomized = shuffleOptionsInQuestion(q, shuffleSeed);
     
-    questions.push(q);
+    questions.push(randomized);
   }
   
   return questions;

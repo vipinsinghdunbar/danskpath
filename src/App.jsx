@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import BottomNav, { MoreSheet } from './components/BottomNav';
 import LandingPage from './components/LandingPage';
 import WebsiteView from './components/WebsiteView';
+import WelcomeView from './components/WelcomeView';
 import AssessmentLandingView from './components/AssessmentLandingView';
 import ArchitectureMapView from './components/ArchitectureMapView';
 import PracticeView from './components/PracticeView';
@@ -50,25 +51,18 @@ export default function App() {
     const hash = window.location.hash.replace('#','');
     const pathname = window.location.pathname;
     
-    // Handle pretty URLs /assessment /architecture /privacy /terms /security /roadmap /website /practice etc.
+    // Handle pretty URLs — iPhone-first onboarding flow: Welcome → Login → Assessment → Path → Practice
     if (pageParam) return pageParam;
     if (hash) return hash;
     if (pathname.includes('/assessment')) return 'assessment';
+    if (pathname.includes('/welcome')) return 'welcome';
+    if (pathname.includes('/diagnostic')) return 'diagnostic';
     if (pathname.includes('/architecture') || pathname.includes('/arch') || pathname.includes('/map') || pathname.includes('/flowchart')) return 'architecture';
     if (pathname.includes('/roadmap') || pathname.includes('/road')) return 'roadmap';
     if (pathname.includes('/privacy') || pathname.includes('/privatliv')) return 'privacy';
     if (pathname.includes('/terms') || pathname.includes('/vilkar')) return 'terms';
     if (pathname.includes('/security') || pathname.includes('/audit') || pathname.includes('/launch')) return 'security';
-    if (pathname.includes('/website') || pathname === '/' ) {
-      // Check if root but has completed diagnostic → go practice, else website
-      const diag = localStorage.getItem('dansk_diagnostic');
-      const trialResult = localStorage.getItem('dansk_trial_result');
-      if (diag || trialResult) {
-        // If root and has diagnostic, still show website as default for public, but user can go practice via nav
-        // Keep website as default for public marketing
-      }
-      if (pathname === '/website') return 'website';
-    }
+    if (pathname.includes('/website')) return 'website';
     if (pathname.includes('/practice')) return 'practice';
     if (pathname.includes('/path')) return 'path';
     if (pathname.includes('/progress')) return 'progress';
@@ -78,13 +72,33 @@ export default function App() {
     if (isTrialLink()) return 'trial';
     if (isLoggedIn() && isAdmin()) return 'admin';
     
-    // If user has completed diagnostic, go to practice (iPhone app)
+    // iPhone-first logic: Check onboarding status
     const diag = localStorage.getItem('dansk_diagnostic');
-    const trialResult = localStorage.getItem('dansk_trial_result');
-    if (diag || trialResult) return 'practice';
+    const hasWelcomed = localStorage.getItem('dansk_welcomed');
+    const isLoggedInUser = isLoggedIn();
     
-    // Default to website (public marketing)
-    return 'website';
+    // If user has completed diagnostic, go to practice (main app)
+    if (diag) return 'practice';
+    
+    // If user is logged in but no diagnostic, go to assessment (find level)
+    if (isLoggedInUser) return 'assessment';
+    
+    // If user has seen welcome but not logged in, go to login
+    if (hasWelcomed) return 'login';
+    
+    // Default for new users — iPhone-first welcome, not website
+    // For PWA / iPhone app, show welcome. For desktop web, still show website as marketing
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
+    const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    
+    if (pathname === '/' && (isMobile || isPWA)) {
+      return 'welcome';
+    }
+    
+    // Desktop default remains website for marketing
+    if (pathname === '/') return 'website';
+    
+    return 'welcome';
   });
 
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -166,6 +180,12 @@ export default function App() {
 
   const render = () => {
     switch(active) {
+      // === iPhone-first Onboarding Flow: Welcome → Login → Assessment → Diagnostic → Path → Practice ===
+      case 'welcome':
+        return <WelcomeView setActive={(id)=>{
+          if(id==='login') localStorage.setItem('dansk_welcomed', 'true');
+          handleSetActive(id);
+        }} />;
       // === THREE MAIN EXPERIENCES ===
       case 'website':
       case 'home':
@@ -246,10 +266,12 @@ export default function App() {
   const isPublicLegal = active === 'privacy' || active === 'terms' || active === 'security' || active === 'architecture' || active === 'roadmap';
   const isTrial = active === 'trial';
   const isLogin = active === 'login';
+  const isWelcome = active === 'welcome';
+  const isDiagnostic = active === 'diagnostic';
   const isAdminView = active === 'admin';
   
-  // Show nav only for full iPhone app (learning experience)
-  const showNav = !isWebsite && !isAssessmentLanding && !isPublicLegal && !isTrial && !isLogin && !isAdminView;
+  // Show nav only for full iPhone app (learning experience) — NOT during onboarding or test
+  const showNav = !isWebsite && !isAssessmentLanding && !isPublicLegal && !isTrial && !isLogin && !isWelcome && !isDiagnostic && !isAdminView;
 
   if(!authChecked) {
     return <div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>;

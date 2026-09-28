@@ -394,9 +394,55 @@ html { -webkit-tap-highlight-color: transparent; }
 /* Focus */
 :focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; border-radius: 8px; }
 
-/* Safe area */
+/* Safe area — iPhone-first */
 .pb-safe { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
 .pt-safe { padding-top: env(safe-area-inset-top); }
+.min-h-dvh { min-height: 100dvh; }
+.h-dvh { height: 100dvh; }
+
+/* iPhone viewport fix — prevent web page squeezed look */
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior: none;
+}
+
+body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+
+/* iPhone container — max 390px, centered, no stretched proportions */
+.iphone-container {
+  max-width: 390px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  min-height: 100dvh;
+  background: var(--cream);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Prevent horizontal overflow on iPhone */
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* iOS input zoom prevention — 16px min */
+input, select, textarea {
+  font-size: 16px !important;
+}
+
+/* Native iOS button feel */
+button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
 
 /* Animations — Danish */
 @keyframes draw { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }

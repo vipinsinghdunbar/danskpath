@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { stages, getAllStagesProgress, getStageById } from '../lib/stageEngine';
-import { getWeeklyWriting, getUpcomingWriting } from '../lib/writingEngine';
+import { getWeeklyWriting } from '../lib/writingEngine';
 
+// iPhone-first PathView — clean visual progression, minimal text, no excessive CEFR display
 export default function PathView({ setActive }) {
   const [progresses, setProgresses] = useState([]);
   const [activeModule, setActiveModule] = useState('m1');
@@ -19,157 +20,155 @@ export default function PathView({ setActive }) {
   const activeStage = getStageById(activeModule) || stages[2];
   const activeProgress = progresses.find(p=>p.stage.moduleId===activeModule)?.progress;
   const weekly = getWeeklyWriting(activeModule);
-  const upcoming = getUpcomingWriting(activeModule, 4);
+  const userLevel = localStorage.getItem('dansk_level') || 'Modul 1';
 
   const tap = (id) => { if(navigator.vibrate) navigator.vibrate(10); setActive(id); };
 
+  // Only show relevant stage, not all CEFR levels permanently
+  const relevantStages = (() => {
+    const currentIdx = stages.findIndex(s => s.moduleId === activeModule);
+    // Show only current, next, and previous — progressive disclosure
+    return stages.slice(Math.max(0, currentIdx - 1), Math.min(stages.length, currentIdx + 2));
+  })();
+
   return (
-    <div className="min-h-screen bg-[#F2F2F7] pb-[120px]">
-      <div className="max-w-[1100px] mx-auto px-5 lg:px-8 pt-8">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 rounded-full bg-black text-white grid place-items-center font-bold text-[12px]">◍</div>
-          <span className="text-[13px] font-[600]">Learning Path • Modul 1→5 • Full education • No repeat</span>
+    <div className="min-h-[100dvh] bg-[#FFFBF5] flex flex-col">
+      <div className="h-[env(safe-area-inset-top)] bg-[#FFFBF5] shrink-0" />
+      
+      {/* Header — minimal, no excessive text */}
+      <div className="px-6 pt-2 pb-4 shrink-0 max-w-[390px] mx-auto w-full">
+        <div className="flex items-center justify-between">
+          <button 
+            onClick={()=>setActive('practice')}
+            className="w-9 h-9 rounded-full bg-white border border-[#E8E0D6] grid place-items-center text-[16px] active:scale-[0.95] transition-transform"
+          >
+            ←
+          </button>
+          <div className="text-[15px] font-[600] text-[#121417]">Min vej</div>
+          <div className="w-9 h-9" />
         </div>
-        <h1 className="ios-large-title">Your path from<br/>Modul 1 to PD3</h1>
-        <p className="mt-3 text-[17px] leading-[1.4] text-[#3C3C43]/70 max-w-[700px]">Full Danish education — from alphabet and SVO in Modul 1 (A1) to argumentative writing with jo/da/vel in Modul 5 (B1-B2) PD3 ready. Each stage has clear objectives, not just longer questions. Difficulty genuinely increases: from 4-6 words to 15-25 words with 2-3 grammar rules combined. 30-day no-repeat — infinite engine gives new variants of same rule.</p>
+      </div>
 
-        {/* Module selector — iOS segmented */}
-        <div className="mt-8 bg-white rounded-full p-1.5 shadow-sm border border-black/5 flex gap-1 overflow-x-auto max-w-fit">
-          {stages.map(s=>{
-            const isActive = activeModule===s.moduleId;
-            const prog = progresses.find(p=>p.stage.id===s.id)?.progress;
-            return (
-              <button key={s.id} onClick={()=>setActiveModule(s.moduleId)} className={`px-5 py-2.5 rounded-full text-[13px] font-[600] whitespace-nowrap transition-all tap-haptic ${isActive?'bg-black text-white shadow-sm':'text-[#8E8E93] hover:text-black'}`}>
-                {s.title.split('—')[0]} • {s.cefl} {prog?.overall?`• ${prog.overall}%`:''}
-              </button>
-            );
-          })}
+      <div className="flex-1 px-6 pb-[calc(16px+env(safe-area-inset-bottom))] max-w-[390px] mx-auto w-full overflow-y-auto no-scrollbar">
+        
+        {/* Title — clean, minimal text, no large block */}
+        <div className="pt-2 pb-6">
+          <h1 className="text-[28px] font-[700] tracking-[-0.02em] leading-[1.1] text-[#121417] font-[Outfit]">
+            Din læringsvej
+          </h1>
+          <p className="mt-2 text-[15px] leading-[1.4] text-[#6B6B6B]">
+            {userLevel} • Næste skridt er markeret
+          </p>
         </div>
 
-        {/* Active stage detail — iOS cards */}
-        <div className="mt-8 grid lg:grid-cols-[1.3fr_0.7fr] gap-4">
-          <div className="bg-white rounded-[32px] p-7 shadow-sm border border-black/5">
-            <div className="flex justify-between items-start gap-4">
-              <div>
-                <div className="inline-flex text-[11px] font-[700] tracking-widest uppercase bg-black text-white px-3 py-1.5 rounded-full">{activeStage.moduleId} • {activeStage.cefl}</div>
-                <h2 className="mt-4 text-[28px] font-[700] tracking-tight leading-[0.95]">{activeStage.title}</h2>
-                <p className="mt-3 text-[15px] leading-[1.5] text-[#3C3C43]/70">{activeStage.objective}</p>
-              </div>
-              <div className="text-right bg-[#F2F2F7] rounded-[16px] p-3">
-                <div className="text-[10px] font-[700] tracking-widest uppercase text-[#8E8E93]">To pass</div>
-                <div className="mt-1 text-[12px] font-[600]">{activeStage.passingCriteria.overall}% overall</div>
-                <div className="text-[11px] text-[#8E8E93]">{activeStage.grammarRequirements.length} grammar • {activeStage.vocabRequirements.count} vocab</div>
-              </div>
-            </div>
+        {/* Visual progression — clean, not excessive CEFR display */}
+        <div className="relative">
+          {/* Vertical line */}
+          <div className="absolute left-[20px] top-[20px] bottom-[20px] w-[2px] bg-[#E8E0D6]/60" />
+          <div 
+            className="absolute left-[20px] top-[20px] w-[2px] bg-[#8AA99E] rounded-full transition-all duration-1000" 
+            style={{ height: `${(relevantStages.findIndex(s => s.moduleId === activeModule) + 1) / relevantStages.length * 80}%` }}
+          />
 
-            {/* Requirements — iOS style */}
-            <div className="mt-7 grid grid-cols-3 lg:grid-cols-5 gap-3">
-              {[
-                { label: "Grammar", value: `${activeProgress?.grammarDone||0}/${activeStage.grammarRequirements.length}`, pct: activeProgress?.grammarPct||0, detail: `${activeStage.grammarRequirements.length} topics • ${activeStage.passingCriteria.grammar}% mastery` },
-                { label: "Vocab", value: `${activeStage.vocabRequirements.count}`, pct: 45, detail: `${activeStage.vocabRequirements.type}` },
-                { label: "Listening", value: "Enough", pct: 60, detail: "No transcript first" },
-                { label: "Reading", value: "Enough", pct: 60, detail: "A1→B2" },
-                { label: "Writing", value: "Weekly", pct: 50, detail: "No repeat 60d" },
-              ].map((r,i)=>(
-                <div key={i} className="bg-[#F2F2F7] rounded-[16px] p-4">
-                  <div className="text-[10px] font-[700] tracking-widest uppercase text-[#8E8E93]">{r.label}</div>
-                  <div className="mt-2 text-[20px] font-[700] tracking-tight">{r.value}</div>
-                  <div className="text-[10px] text-[#8E8E93] mt-1 leading-tight">{r.detail}</div>
-                  <div className="mt-3 h-1 bg-white rounded-full overflow-hidden"><div className="h-full bg-black rounded-full transition-all duration-1000" style={{ width: `${r.pct}%` }} /></div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-6 flex gap-2">
-              <div className={`px-4 py-2 rounded-full text-[12px] font-[600] ${activeProgress?.cleared?'bg-black text-white':'bg-[#F2F2F7] text-[#8E8E93]'}`}>{activeProgress?.cleared?'✓ Stage cleared — next unlocked':`◍ In progress — ${activeProgress?.overall||0}%`}</div>
-            </div>
-
-            {/* Difficulty progression — iOS */}
-            <div className="mt-8 border-t border-black/5 pt-6">
-              <div className="text-[13px] font-[700] tracking-tight">Difficulty — what changes from previous stage?</div>
-              <div className="mt-4 grid lg:grid-cols-2 gap-6">
-                <div className="bg-[#F2F2F7] rounded-[20px] p-5">
-                  <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">This stage</div>
-                  <div className="mt-3 space-y-2 text-[13px] leading-[1.5]">
-                    <div><b>Sentences:</b> {activeStage.difficulty.sentenceLen}</div>
-                    <div><b>Words:</b> {activeStage.difficulty.vocab}</div>
-                    <div><b>Grammar:</b> {activeStage.difficulty.grammar}</div>
-                  </div>
-                  <div className="mt-4 bg-white rounded-[12px] p-3 border border-black/5 text-[12px]"><b>Example:</b> {activeStage.difficulty.example}</div>
-                </div>
-                <div>
-                  <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">Change from previous</div>
-                  <div className="mt-2 text-[13px] leading-[1.5] text-[#3C3C43]/80">{activeStage.difficulty.diffFromPrev}</div>
-                  <div className="mt-4 text-[11px] text-[#8E8E93]">Topics: {activeStage.grammarRequirements.join(', ')}</div>
-                  <button onClick={()=>tap('grammar')} className="mt-4 bg-black text-white px-5 py-2.5 rounded-full text-[13px] font-[600] tap-haptic">Practice these →</button>
-                </div>
-              </div>
-            </div>
-
-            {/* Expected skills */}
-            <div className="mt-8 bg-black text-white rounded-[24px] p-6">
-              <div className="text-[11px] font-[700] tracking-widest uppercase text-white/60">Expected skills at this stage</div>
-              <div className="mt-4 grid grid-cols-2 gap-3 text-[12px] leading-[1.4]">
-                {Object.entries(activeStage.expectedSkills).map(([skill, arr])=>(
-                  <div key={skill}><span className="font-[700] uppercase text-[10px] text-white/60">{skill}:</span> <span className="text-white/80">{Array.isArray(arr)?arr.join(', '):arr}</span></div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right side */}
           <div className="space-y-4">
-            <div className="bg-white rounded-[24px] p-6 shadow-sm border border-black/5">
-              <div className="text-[13px] font-[700]">Weekly writing • {activeStage.title.split('—')[0]}</div>
-              <div className="mt-3">
-                <div className="text-[15px] font-[600] tracking-tight">{weekly.title}</div>
-                <div className="mt-2 text-[13px] leading-[1.4] text-[#8E8E93] line-clamp-3">{weekly.prompt}</div>
-                <div className="mt-3 flex gap-1.5 flex-wrap">{weekly.checklist.map(c=><span key={c} className="text-[10px] bg-[#F2F2F7] px-2.5 py-1 rounded-full">{c}</span>)}</div>
-                <div className="mt-3 text-[11px] text-[#8E8E93]">{weekly.words} words • Week {weekly.week} • No repeat 60 days</div>
-                <button onClick={()=>tap('writing')} className="mt-4 w-full bg-black text-white py-3 rounded-full text-[13px] font-[600] tap-haptic">Write this →</button>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-[24px] p-5 shadow-sm border border-black/5">
-              <div className="text-[13px] font-[700]">Next 4 weeks</div>
-              <div className="mt-3 space-y-2">
-                {upcoming.map((w,i)=>(
-                  <div key={i} className={`p-3 rounded-[12px] ${i===0?'bg-black text-white':'bg-[#F2F2F7]'}`}>
-                    <div className="flex justify-between"><span className="text-[12px] font-[600]">Week {w.week}: {w.title}</span><span className={`text-[10px] ${i===0?'text-white/60':'text-[#8E8E93]'}`}>{w.words}</span></div>
-                    <div className={`text-[11px] mt-1 line-clamp-2 ${i===0?'text-white/70':'text-[#8E8E93]'}`}>{w.prompt.slice(0,100)}...</div>
+            {relevantStages.map((stage, idx) => {
+              const isActive = activeModule === stage.moduleId;
+              const isPast = stages.findIndex(s => s.moduleId === activeModule) > stages.findIndex(s => s.moduleId === stage.moduleId);
+              const progress = progresses.find(p=>p.stage.id===stage.id)?.progress;
+              
+              return (
+                <button
+                  key={stage.id}
+                  onClick={() => setActiveModule(stage.moduleId)}
+                  className={`relative w-full text-left bg-white rounded-[20px] p-4 border transition-all active:scale-[0.98] flex gap-4 ${
+                    isActive 
+                      ? 'border-[#121417] shadow-[0_4px_16px_rgba(18,20,23,0.08)]' 
+                      : 'border-[#E8E0D6]/60 shadow-[0_1px_3px_rgba(18,20,23,0.04)] hover:border-[#D6CFC3]'
+                  }`}
+                >
+                  {/* Node */}
+                  <div className={`w-10 h-10 rounded-full grid place-items-center text-[13px] font-[700] shrink-0 mt-0.5 transition-all ${
+                    isPast ? 'bg-[#8AA99E] text-white' : isActive ? 'bg-[#121417] text-white shadow-[0_2px_8px_rgba(18,20,23,0.15)]' : 'bg-[#FFF8F0] border border-[#E8E0D6] text-[#8E8E93]'
+                  }`}>
+                    {isPast ? '✓' : idx + 1}
                   </div>
-                ))}
-              </div>
-            </div>
 
-            <div className="bg-[#007AFF]/10 rounded-[20px] p-5 border border-[#007AFF]/20">
-              <div className="text-[11px] font-[700] tracking-widest uppercase text-[#007AFF]">Passing criteria</div>
-              <div className="mt-2 space-y-1 text-[12px]">
-                {Object.entries(activeStage.passingCriteria).filter(([k])=>k!=='evidence' && k!=='overall').map(([k,v])=>(
-                  <div key={k} className="flex justify-between"><span>{k}</span><span className="font-bold">{v}%</span></div>
-                ))}
-              </div>
-              <div className="mt-3 text-[11px] text-[#007AFF]/70">Evidence: {activeStage.passingCriteria.evidence}</div>
-            </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <div className="text-[15px] font-[600] tracking-[-0.01em] text-[#121417] leading-tight">
+                          {stage.title.split('—')[0]}
+                        </div>
+                        <div className="mt-1 text-[12px] font-[500] text-[#8E8E93]">
+                          {stage.cefl}
+                        </div>
+                      </div>
+                      {progress && (
+                        <div className="text-[11px] font-[600] bg-[#FFF8F0] border border-[#E8E0D6] px-2.5 py-1 rounded-full">
+                          {progress.overall}%
+                        </div>
+                      )}
+                    </div>
+                    
+                    {isActive && (
+                      <div className="mt-3 animate-fade-up">
+                        <div className="text-[13px] leading-[1.4] text-[#6B6B6B] line-clamp-2">
+                          {stage.objective.slice(0, 100)}...
+                        </div>
+                        <div className="mt-3 h-1.5 bg-[#FFF8F0] rounded-full overflow-hidden">
+                          <div className="h-full bg-[#121417] rounded-full transition-all duration-1000" style={{ width: `${progress?.overall||20}%` }} />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* All stages overview — iOS table */}
-        <div className="mt-8 bg-white rounded-[24px] p-6 shadow-sm border border-black/5">
-          <div className="text-[13px] font-[700]">All stages — how difficulty genuinely increases</div>
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full text-[12px]">
-              <thead className="text-[11px] font-[700] uppercase text-[#8E8E93] border-b border-black/5"><tr><th className="text-left py-2">Stage</th><th>CEFR</th><th>Sentence</th><th>Grammar</th><th>Writing</th><th>Evidence</th></tr></thead>
-              <tbody>
-                {stages.map(s=>{
-                  const p = progresses.find(pp=>pp.stage.id===s.id)?.progress;
-                  return (
-                    <tr key={s.id} className={`border-b border-black/5 ${activeModule===s.moduleId?'bg-[#F2F2F7]':''}`}><td className="py-3 font-[600]">{s.title}</td><td>{s.cefl}</td><td className="text-[11px]">{s.difficulty.sentenceLen}</td><td className="text-[11px]">{s.grammarRequirements.length} topics</td><td className="text-[11px]">{s.moduleId==='m1'?'30-50':s.moduleId==='m2'?'60-80':s.moduleId==='m3'?'80-120':s.moduleId==='m4'?'120-150':'150-200'} words</td><td className="text-[10px] text-[#8E8E93]">{p?.cleared?'✓ cleared':`${p?.overall||0}%`}</td></tr>
-                  );
-                })}
-              </tbody>
-            </table>
+        {/* Active stage detail — minimal, only relevant */}
+        <div className="mt-8 bg-white rounded-[24px] p-5 border border-[#E8E0D6]/60 shadow-[0_1px_3px_rgba(18,20,23,0.04)]">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">{activeStage.cefl}</div>
+              <h2 className="mt-1 text-[18px] font-[700] tracking-[-0.01em] leading-tight text-[#121417] font-[Outfit]">
+                {activeStage.title}
+              </h2>
+            </div>
+            <div className="text-[11px] font-[600] bg-[#FFF8F0] border border-[#E8E0D6] px-2.5 py-1 rounded-full shrink-0">
+              {activeProgress?.overall||0}% færdig
+            </div>
           </div>
+
+          <div className="mt-4 grid grid-cols-3 gap-3">
+            {[
+              { label: "Grammatik", value: `${activeProgress?.grammarDone||0}/${activeStage.grammarRequirements.length}` },
+              { label: "Ord", value: `${activeStage.vocabRequirements.count}` },
+              { label: "Skrivning", value: weekly.words },
+            ].map((r,i)=>(
+              <div key={i} className="bg-[#FFF8F0] rounded-[12px] p-3 text-center">
+                <div className="text-[11px] font-[600] text-[#8E8E93] uppercase tracking-wide">{r.label}</div>
+                <div className="mt-1 text-[14px] font-[700] text-[#121417]">{r.value}</div>
+              </div>
+            ))}
+          </div>
+
+          <button onClick={()=>tap('practice')} className="mt-5 w-full h-[48px] bg-[#121417] text-white rounded-full text-[14px] font-[600] active:scale-[0.98] transition-all">
+            Fortsæt her →
+          </button>
+        </div>
+
+        {/* Weekly writing — minimal */}
+        <div className="mt-4 bg-[#E3EDEA]/40 rounded-[20px] p-4 border border-[#8AA99E]/20">
+          <div className="text-[11px] font-[700] tracking-widest uppercase text-[#6B8A7F]">Denne uge</div>
+          <div className="mt-2 text-[14px] font-[600] text-[#121417] leading-tight">{weekly.title}</div>
+          <div className="mt-1 text-[12px] leading-[1.4] text-[#6B6B6B] line-clamp-2">{weekly.prompt.slice(0, 80)}...</div>
+        </div>
+
+        {/* Bottom safe area */}
+        <div className="mt-8 flex justify-center pb-2">
+          <div className="w-32 h-1 bg-[#121417] rounded-full opacity-10" />
         </div>
       </div>
     </div>
