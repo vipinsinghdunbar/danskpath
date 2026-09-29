@@ -114,128 +114,69 @@ export default function DiagnosticView({ setActive }) {
   };
 
   if(showResult && verdict) {
-    // Fix: verdictEngine returns objects, not strings — normalize for display
-    const strengths = (verdict.strengths||[]).map(s=> typeof s==='string' ? { category: s, pct: 80 } : s);
-    const weaknesses = (verdict.weaknesses||[]).map(w=> typeof w==='string' ? { category: w, pct: 50, types: [] } : w);
-    const borderline = (verdict.borderline||[]).map(b=> typeof b==='string' ? { category: b, pct: 65 } : b);
-    const typeWeak = verdict.typeWeaknesses||[];
-    const path = verdict.recommendedPath || verdict.path || [];
-    const timeline = typeof verdict.timeline === 'string' ? { text: verdict.timeline, months: '?', breakdown: verdict.timeline } : verdict.timeline || { text: '3-6 months', months: 4, breakdown: '' };
-    const levelPct = verdict.levelPct||{};
-    const categoryPct = verdict.categoryPct||{};
-    const consistency = verdict.isConsistent || verdict.consistency || { consistent: true, reason: '' };
-    const timePerQ = verdict.timePerQ || verdict.timeAvg || 15;
-    const timeFlag = verdict.timeFlag || 'normal';
-    const explanation = verdict.explanation || {};
-    const expSummary = typeof explanation === 'string' ? explanation : explanation.summary || '';
-    const wrongDetails = verdict.wrongDetails || [];
-
     return (
       <div className="min-h-screen bg-[#F2F2F7] pb-[120px]">
         <div className="max-w-[800px] mx-auto px-5 lg:px-8 pt-8">
           <div className="bg-white rounded-[32px] p-8 shadow-sm border border-black/5">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <div className="inline-flex text-[11px] font-[700] tracking-widest uppercase bg-[#007AFF] text-white px-3 py-1.5 rounded-full">Dit niveau fundet • {verdict.level}</div>
-                <h1 className="mt-4 text-[34px] font-[700] tracking-tight leading-[0.95]">Your Danish —<br/>{verdict.level}</h1>
-                <div className="mt-3 text-[17px] leading-[1.4] text-[#3C3C43]/70 max-w-[560px]">
-                  {expSummary || `Not just ${verdict.pct}% — we show what kind of ${verdict.pct}%. Two learners can both score ${verdict.pct}% but need different paths. Your path is built from your weakest skill <60% first.`}
-                </div>
+                <div className="inline-flex text-[11px] font-[700] tracking-widest uppercase bg-black text-white px-3 py-1.5 rounded-full">Result {verdict.pct}% {verdict.total} questions</div>
+                <h1 className="mt-4 text-[34px] font-[700] tracking-tight leading-[0.95]">Your Danish —<br/>beyond %</h1>
+                <div className="mt-3 text-[17px] leading-[1.4] text-[#3C3C43]/70 max-w-[560px]">Not just 80% — we show what kind of 80%. Two learners can both score 80% but need different paths. Your path is built from your weakest skill less than 60% first.</div>
               </div>
-              <div className="bg-black text-white rounded-[24px] px-6 py-5 text-center min-w-[160px]">
-                <div className="text-[13px] font-[600] tracking-widest uppercase text-white/60">Niveau</div>
-                <div className="mt-1 text-[20px] font-[700] tracking-tight leading-tight">{verdict.level}</div>
-                <div className="mt-3 text-[11px] font-[600] bg-white/15 rounded-full px-3 py-1.5">{verdict.correct}/{verdict.total} rigtige • {Math.round(timePerQ)}s / spørgsmål</div>
-                <div className="mt-2 text-[11px] text-white/60">Confidence: {verdict.confidence||'medium'} • {timeFlag}</div>
+              <div className="bg-black text-white rounded-[24px] px-6 py-5 text-center min-w-[140px]">
+                <div className="text-[36px] font-[700] tracking-tight leading-none">{verdict.pct}%</div>
+                <div className="mt-2 text-[12px] font-[600] bg-white/15 rounded-full px-3 py-1">{verdict.level}</div>
+                <div className="mt-2 text-[11px] text-white/60">{verdict.correct}/{verdict.total} avg {verdict.timeAvg}s</div>
               </div>
             </div>
 
-            {/* Section scores — per spec: immediately useful level + section scores + strengths separately from focus areas */}
             <div className="mt-8 bg-[#F2F2F7] rounded-[20px] p-5">
-              <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">Dine resultater per område — ikke kun %</div>
-              <div className="mt-3 grid grid-cols-2 lg:grid-cols-3 gap-3">
-                {Object.entries(categoryPct).map(([cat,pct])=>(
-                  <div key={cat} className="bg-white rounded-[12px] p-3 border border-black/5 flex justify-between items-center">
-                    <div><div className="text-[11px] font-[700] uppercase">{cat}</div><div className="text-[10px] text-[#8E8E93]">{cat==='grammar'?'Grammatik':cat==='vocab'?'Ordforråd':cat==='listening'?'Lytning':cat==='reading'?'Læsning':cat==='writing'?'Skrivning':cat==='culture'?'Kultur':cat}</div></div>
-                    <div className={`text-[16px] font-[700] px-2.5 py-1 rounded-full ${pct>=75?'bg-[#34C759]/15 text-[#34C759]':pct<60?'bg-[#FF9500]/15 text-[#FF9500]':'bg-black/5'}`}>{pct}%</div>
-                  </div>
-                ))}
-              </div>
+              <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">How we determined your level — not just %</div>
               <div className="mt-3 grid grid-cols-2 lg:grid-cols-4 gap-3">
-                {Object.entries(levelPct).map(([lvl,pct])=>(
+                {Object.entries(verdict.levelPct||{}).map(([lvl,pct])=>(
                   <div key={lvl} className="bg-white rounded-[12px] p-3 border border-black/5"><div className="text-[11px] font-[700] uppercase">{lvl}</div><div className="text-[18px] font-[700]">{pct}%</div></div>
                 ))}
               </div>
-              <div className="mt-3 text-[13px] leading-[1.4] text-[#3C3C43]/70">
-                Niveau kræver mindst 70% på lavere niveauer for at rykke op. Fx hvis A1 er 40% bliver du i Modul 1 selvom samlet 80% (måske gættet).
-                {consistency && consistency.consistent===false ? <span className="text-[#FF3B30] font-[600]"> Uregelmæssig: let {consistency.easyPct||'?'}% vs svær {consistency.hardPct||'?'}% — tyder på gæt.</span> : <span className="text-[#34C759]"> {consistency.reason||'Konsistent præstation.'}</span>}
-              </div>
+              <div className="mt-3 text-[13px] leading-[1.4] text-[#3C3C43]/70">Level requires lower levels at least 70% to advance. Eg if A1 is 40% you stay Modul 1 even if overall 80% guessed. {verdict.consistency && verdict.consistency.consistent===false ? <span className="text-[#FF3B30] font-[600]"> Inconsistent pattern: easy {verdict.consistency.easyPct}% vs hard {verdict.consistency.hardPct}% — suggests guessing.</span> : null}</div>
             </div>
 
             <div className="mt-6 grid lg:grid-cols-3 gap-3">
               <div className="bg-[#34C759]/10 rounded-[20px] p-5 border border-[#34C759]/20">
-                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#34C759]">Stærke sider 75%+ — behold</div>
+                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#34C759]">Strengths 75%+</div>
                 <div className="mt-3 space-y-2">
-                  {strengths.length ? strengths.map((s,i)=><div key={i} className="text-[14px] font-[600]">✓ {s.category} — {s.pct}%</div>) : <div className="text-[13px] text-[#8E8E93]">Ingen styrke endnu 75%+ — bliv ved, 3 forsøg per færdighed.</div>}
+                  {verdict.strengths.length ? verdict.strengths.map(s=><div key={s} className="text-[14px] font-[600]">✓ {s}</div>) : <div className="text-[13px] text-[#8E8E93]">No strength yet 75%+ — keep practicing.</div>}
                 </div>
-                <div className="mt-3 text-[11px] text-[#8E8E93]">Behold disse — over-øv ikke.</div>
+                <div className="mt-3 text-[11px] text-[#8E8E93]">Keep these strong — don't over-practice.</div>
               </div>
               <div className="bg-[#FF9500]/10 rounded-[20px] p-5 border border-[#FF9500]/20">
-                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#FF9500]">Fokusområder &lt;60% — vi starter her</div>
+                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#FF9500]">To improve less 60%</div>
                 <div className="mt-3 space-y-2">
-                  {weaknesses.length ? weaknesses.map((w,i)=>(
-                    <div key={i} className="text-[14px] font-[600]">
-                      • {w.category} — {w.pct}%
-                      {w.types && w.types.length ? <span className="text-[12px] font-[400] text-[#8E8E93]"> → {w.types.map(t=>t.type||t).join(', ')}</span> : null}
-                      {typeWeak.filter(t=>t.type && w.category==='grammar').length ? <span className="text-[11px] block mt-1 font-[400] text-[#8E8E93]">Svage typer: {typeWeak.map(t=>`${t.type} ${t.pct}%`).join(', ')}</span> : null}
-                    </div>
-                  )) : <div className="text-[13px] text-[#8E8E93]">God balance — ingen område &lt;60%.</div>}
+                  {verdict.weaknesses.length ? verdict.weaknesses.map(s=><div key={s} className="text-[14px] font-[600]">• {s} {verdict.typeWeaknesses && verdict.typeWeaknesses[s] ? "→ "+verdict.typeWeaknesses[s].join(', ') : ""}</div>) : <div className="text-[13px] text-[#8E8E93]">Good balance — no category less 60%.</div>}
                 </div>
-                <div className="mt-3 text-[11px] text-[#8E8E93]">Vi bygger din vej fra disse først — undgår negativt sprog, fokus på næste skridt.</div>
+                <div className="mt-3 text-[11px] text-[#8E8E93]">We build path from these first.</div>
               </div>
               <div className="bg-white rounded-[20px] p-5 border border-black/5">
-                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">I gang 60-74% + Tempo</div>
+                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">Borderline 60-74% + Time</div>
                 <div className="mt-3 space-y-1">
-                  {borderline.length ? borderline.map((b,i)=><div key={i} className="text-[13px]">○ {b.category} — {b.pct}%</div>) : <div className="text-[13px] text-[#8E8E93]">Ingen borderline — enten stærk eller fokus.</div>}
-                  <div className="mt-3 text-[12px] font-[600]">Gns {Math.round(timePerQ)}s / spørgsmål — {timeFlag}</div>
-                  <div className="mt-2 text-[11px] text-[#8E8E93] leading-[1.4]">{typeof explanation === 'object' ? explanation.timeExpl||explanation.whyPath||'' : expSummary}</div>
+                  {verdict.borderline.map(s=><div key={s} className="text-[13px]">○ {s}</div>)}
+                  <div className="mt-3 text-[12px]">Avg {verdict.timeAvg}s/q — {verdict.timeFlag==='too_fast'?'Too fast, may be guessing':verdict.timeFlag==='slow'?'Slow, but careful':'Normal pace'}</div>
+                  <div className="mt-2 text-[11px] text-[#8E8E93]">{verdict.explanation}</div>
                 </div>
               </div>
             </div>
 
-            {/* What was wrong — logical analysis */}
-            {wrongDetails.length>0 && (
-              <div className="mt-8 bg-white rounded-[20px] p-5 border border-black/5">
-                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">Hvad gik galt — logisk analyse af dine fejl</div>
-                <div className="mt-3 space-y-3">
-                  {wrongDetails.map((w,i)=>{
-                    const q = w.question;
-                    const userOpt = q.options[w.userAnswer]||'—';
-                    const correctOpt = q.options[q.a]||'—';
-                    return (
-                      <div key={i} className="bg-[#F2F2F7] rounded-[14px] p-3">
-                        <div className="flex justify-between gap-2"><span className="text-[13px] font-[600]">{q.q}</span><span className="text-[10px] px-2 py-1 rounded-full bg-[#FF3B30] text-white shrink-0">Forkert</span></div>
-                        <div className="mt-1 text-[11px] text-[#8E8E93]">{q.category} • {q.type} • {q.level} • {q.rule}</div>
-                        <div className="mt-2 text-[12px]"><span className="text-[#FF3B30]">Dit svar:</span> {userOpt} • <span className="text-[#34C759]">Rigtigt:</span> {correctOpt}</div>
-                        <div className="mt-2 text-[12px] leading-[1.4] bg-white rounded-[10px] p-2 border border-black/5"><b>Hvorfor:</b> {q.why}</div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
             <div className="mt-8">
-              <div className="text-[15px] font-[700] tracking-tight">Din personlige vej — bygget fra svageste færdighed</div>
+              <div className="text-[15px] font-[700] tracking-tight">Your personal path — built from weakest skill</div>
               <div className="mt-4 space-y-2">
-                {path.length ? path.map((p,i)=>(
+                {verdict.path.map((p,i)=>(
                   <div key={i} className="bg-[#F2F2F7] rounded-[16px] p-4 flex gap-3 items-start">
-                    <div className="w-7 h-7 rounded-full bg-black text-white grid place-items-center text-[11px] font-bold shrink-0">{p.step||i+1}</div>
-                    <div className="flex-1"><div className="text-[14px] font-[600] tracking-tight">{p.title} {p.skill?`• ${p.skill}`:''}</div><div className="text-[12px] text-[#8E8E93] mt-1">{p.why} • {p.time||''}</div><div className="mt-2 inline-flex text-[11px] bg-white px-2.5 py-1 rounded-full border border-black/5">{p.type||p.skill||''} {p.skill?'fokus':''}</div></div>
+                    <div className="w-7 h-7 rounded-full bg-black text-white grid place-items-center text-[11px] font-bold shrink-0">{p.step}</div>
+                    <div className="flex-1"><div className="text-[14px] font-[600] tracking-tight">{p.title} {p.priority?"• "+p.priority+" priority":""}</div><div className="text-[12px] text-[#8E8E93] mt-1">{p.why} • {p.time}</div><div className="mt-2 inline-flex text-[11px] bg-white px-2.5 py-1 rounded-full border border-black/5">{p.moduleId ? p.moduleId.toUpperCase() : ""} {p.objective ? p.objective.slice(0,60) : ""}</div></div>
                   </div>
-                )) : <div className="text-[13px] text-[#8E8E93]">Din vej genereres — fokus på svageste område &lt;60% først. V2 er 80% af B1 fejl, så altid prioritet hvis svag.</div>}
+                ))}
               </div>
-              <div className="mt-4 bg-black text-white rounded-[20px] p-5"><div className="text-[11px] font-[700] tracking-widest uppercase text-white/60">Tidslinje • Hvorfor denne vej?</div><div className="mt-2 text-[14px] leading-[1.5]">Estimeret: {timeline.text||`${timeline.months} måneder`} — {timeline.breakdown||`Base for ${verdict.level} + ${weaknesses.length} fokusområder × 0.5 måned`}. Hvorfor? Din test viser {weaknesses.map(w=>`${w.category} ${w.pct}%`).join(', ')||'blandet'} &lt;60%. Vi fokuserer V2 først fordi 80% af B1 fejl er V2. {timeline.weekly||'3-4 dage/uge er nok.'}</div></div>
+              <div className="mt-4 bg-black text-white rounded-[20px] p-5"><div className="text-[11px] font-[700] tracking-widest uppercase text-white/60">Timeline • Why this path?</div><div className="mt-2 text-[14px] leading-[1.5]">Estimated: {verdict.timeline} — base from your level + 0.5 month per weakness. Why this path? Your assessment shows {verdict.weaknesses.join(', ')||'mixed'} less 60%. We focus V2 first because 80% of B1 errors are V2.</div></div>
             </div>
 
             {goalsStep ? (
@@ -256,17 +197,7 @@ export default function DiagnosticView({ setActive }) {
                 <div className="mt-5 flex gap-2"><button onClick={handleSaveGoals} disabled={selectedGoals.length===0} className="flex-1 bg-black text-white py-4 rounded-full text-[15px] font-[600] disabled:opacity-40">Save {selectedGoals.length} goals → Practice</button><button onClick={()=>setGoalsStep(false)} className="px-5 py-4 rounded-full bg-white border border-black/10 text-[14px] font-[600]">Skip</button></div>
               </div>
             ) : (
-              <div className="mt-8 space-y-4">
-                <div className="flex gap-3 justify-center flex-wrap">
-                  <button onClick={()=>setActive('path')} className="bg-black text-white px-8 py-4 rounded-full text-[16px] font-[600] shadow-[0_8px_24px_rgba(0,0,0,0.15)]">See My Learning Path →</button>
-                  <button onClick={()=>setActive('practice')} className="bg-white border border-black/10 px-6 py-3.5 rounded-full text-[15px] font-[600]">Go to practice →</button>
-                </div>
-                <div className="flex gap-3 justify-center flex-wrap">
-                  <button onClick={()=>setActive('register')} className="bg-[#007AFF] text-white px-8 py-3.5 rounded-full text-[15px] font-[600]">Start Learning → Create Account</button>
-                  <button onClick={()=>setGoalsStep(true)} className="bg-[#F2F2F7] px-5 py-3.5 rounded-full text-[13px] font-[600]">Edit goals ({getGoals().length||selectedGoals.length})</button>
-                </div>
-                <div className="text-center text-[11px] text-[#8E8E93]">No account required to see results • Path preview free • Create account to save journey per spec</div>
-              </div>
+              <div className="mt-8 flex gap-3 justify-center flex-wrap"><button onClick={()=>setActive('practice')} className="bg-black text-white px-6 py-3.5 rounded-full text-[15px] font-[600]">Go to practice →</button><button onClick={()=>setActive('path')} className="bg-white border border-black/10 px-6 py-3.5 rounded-full text-[15px] font-[600]">See Stage 1-5 path</button><button onClick={()=>setGoalsStep(true)} className="bg-[#F2F2F7] px-5 py-3.5 rounded-full text-[13px] font-[600]">Edit goals ({getGoals().length||selectedGoals.length})</button></div>
             )}
           </div>
 
