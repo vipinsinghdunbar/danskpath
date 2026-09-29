@@ -106,7 +106,25 @@ export default function ProgressView({ setActive }) {
             </div>
 
             <div className="bg-white rounded-[24px] p-5 shadow-sm border border-black/5">
-              <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">Weekly report — auto from your data</div>
+              <div className="flex justify-between items-center">
+                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">Weekly report — auto from your data</div>
+                <button onClick={()=>{
+                  if(confirm('Reset all progress? This will clear assessment, level, progress, scores. You can retake test.')){
+                    localStorage.removeItem('dansk_progress');
+                    localStorage.removeItem('dansk_path');
+                    localStorage.removeItem('dansk_scores');
+                    localStorage.removeItem('dansk_srs');
+                    localStorage.removeItem('dansk_seen');
+                    localStorage.removeItem('dansk_level');
+                    localStorage.removeItem('dansk_diagnostic');
+                    localStorage.removeItem('dansk_verdict');
+                    localStorage.removeItem('dansk_user_seed');
+                    localStorage.removeItem('dansk_welcomed');
+                    if(navigator.vibrate) navigator.vibrate(20);
+                    window.location.href='/?page=simple-landing';
+                  }
+                }} className="text-[10px] font-[600] px-3 py-1 rounded-full bg-[#FF3B30]/10 border border-[#FF3B30]/20 text-[#FF3B30] hover:bg-[#FF3B30] hover:text-white transition">Reset progress</button>
+              </div>
               <div className="mt-3 text-[12px] leading-[1.5] font-mono bg-[#F2F2F7] p-4 rounded-[16px] whitespace-pre-wrap">
                 {`Vocab: ${data.box2} secure (Box2+), ${data.box1} unsure, ${data.box0} new
 Grammar: ${data.grammarDone}/${grammarTopics.length} topics
@@ -119,6 +137,7 @@ Stage progress: ${data.stageProgress.map(s=>`${s.stage.moduleId}:${s.progress.ov
 
 Recommendation: ${data.verdict?`Focus ${data.verdict.weaknesses[0]||'balance'} • ${data.verdict.timeline}`:data.box0>200?'Vocab focus':'Listening or writing'}`}
               </div>
+              <div className="mt-3 text-[10px] text-[#8E8E93]">Reset clears localStorage and returns to simple landing. Use for testing 26 Definition of Done tests. Guest assessment transfer tested via register.</div>
             </div>
           </div>
         </div>

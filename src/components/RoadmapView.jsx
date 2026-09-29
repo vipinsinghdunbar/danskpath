@@ -287,11 +287,29 @@ export default function RoadmapView({ setActive }) {
         </div>
 
         <div className="mt-8 text-center pb-8">
-          <div className="inline-flex gap-2">
+          <div className="inline-flex gap-2 flex-wrap justify-center">
             <button onClick={()=>tap('practice')} className="px-6 py-3 rounded-full bg-black text-white text-[13px] font-[600]">Go to practice → Today</button>
             <button onClick={()=>tap('diagnostic')} className="px-6 py-3 rounded-full bg-white border border-black/10 text-[13px] font-[600]">Retake test</button>
+            <button onClick={()=>{
+              if(confirm('Reset all progress? Clear assessment, level, progress, scores?')){
+                localStorage.removeItem('dansk_progress');
+                localStorage.removeItem('dansk_path');
+                localStorage.removeItem('dansk_scores');
+                localStorage.removeItem('dansk_srs');
+                localStorage.removeItem('dansk_seen');
+                localStorage.removeItem('dansk_level');
+                localStorage.removeItem('dansk_diagnostic');
+                localStorage.removeItem('dansk_verdict');
+                localStorage.removeItem('dansk_user_seed');
+                localStorage.removeItem('dansk_welcomed');
+                localStorage.removeItem('danskpath_token');
+                localStorage.removeItem('danskpath_user');
+                if(navigator.vibrate) navigator.vibrate(20);
+                window.location.href='/?page=simple-landing';
+              }
+            }} className="px-6 py-3 rounded-full bg-[#FF3B30]/10 border border-[#FF3B30]/20 text-[#FF3B30] text-[13px] font-[600]">Reset progress</button>
           </div>
-          <div className="mt-3 text-[11px] text-black/50">Personal MVP • M1→PD3 full education • No repeat 30d • Infinite variants • 15 min one hand</div>
+          <div className="mt-3 text-[11px] text-black/50">Personal MVP • M1→PD3 full education • No repeat 30d • Infinite variants • 15 min one hand • Reset for testing 26 tests</div>
         </div>
       </div>
     </div>
