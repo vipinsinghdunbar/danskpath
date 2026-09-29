@@ -271,6 +271,45 @@ app.post('/api/auth/setup', rateLimit({ max: 5, windowMs: 60*1000, keyPrefix: 's
   res.json({ ok: true, admin: { id: admin.id, name: admin.name, email: admin.email, role: admin.role } });
 });
 
+app.post('/api/auth/register', rateLimit({ max: 10, windowMs: 15*60*1000, keyPrefix: 'register' }), (req, res) => {
+  const { name, email, password, guestData } = req.body;
+  const identifier = sanitizeString(name || email || '', 100);
+  const pwd = password || '';
+  
+  if(!identifier || identifier.length < 3) return res.status(400).json({ error: 'Username must be at least 3 characters' });
+  if(!pwd || pwd.length < 6) return res.status(400).json({ error: 'Password must be at least 6 characters' });
+  if(pwd.length > 128) return res.status(400).json({ error: 'Password too long' });
+  
+  const db = readDB();
+  if(db.users.find(u=>u.name===identifier || u.email===identifier)) {
+    return res.status(400).json({ error: 'Username already exists' });
+  }
+  
+  const newUser = {
+    id: uuidv4(),
+    name: identifier,
+    email: identifier.includes('@') ? identifier : `${identifier}@danskpath.local`,
+    passwordHash: bcrypt.hashSync(pwd, 10),
+    role: 'learner',
+    createdAt: new Date().toISOString(),
+    lastActiveAt: new Date().toISOString(),
+    goals: [],
+    // Transfer guest data if provided
+    guestDiagnostic: guestData?.diagnostic ? JSON.parse(guestData.diagnostic) : null,
+    guestLevel: guestData?.level || null,
+    guestVerdict: guestData?.verdict ? JSON.parse(guestData.verdict) : null,
+    guestGoals: guestData?.goals ? JSON.parse(guestData.goals) : [],
+    guestProgress: guestData?.progress ? JSON.parse(guestData.progress) : {},
+    guestScores: guestData?.scores ? JSON.parse(guestData.scores) : {}
+  };
+  
+  db.users.push(newUser);
+  writeDB(db);
+  
+  const token = jwt.sign({ id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
+  res.json({ ok: true, token, user: { id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role, level: newUser.guestLevel } });
+});
+
 app.post('/api/auth/login', rateLimit({ max: 10, windowMs: 15*60*1000, keyPrefix: 'login' }), (req, res) => {
   const { email, password, name } = req.body;
   if (!password || typeof password !== 'string' || password.length < 3 || password.length > 128) {

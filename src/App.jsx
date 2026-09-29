@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import Sidebar from './components/Sidebar';
 import BottomNav, { MoreSheet } from './components/BottomNav';
 import LandingPage from './components/LandingPage';
+import SimpleLandingView from './components/SimpleLandingView';
 import WebsiteView from './components/WebsiteView';
 import WelcomeView from './components/WelcomeView';
 import AssessmentLandingView from './components/AssessmentLandingView';
@@ -13,6 +14,7 @@ import SecurityView from './components/SecurityView';
 import RoadmapView from './components/RoadmapView';
 import ErrorBoundary from './components/ErrorBoundary';
 import PathView from './components/PathView';
+import RegisterView from './components/RegisterView';
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
 import ProgressView from './components/ProgressView';
 import Dashboard from './components/Dashboard';
@@ -51,12 +53,14 @@ export default function App() {
     const hash = window.location.hash.replace('#','');
     const pathname = window.location.pathname;
     
-    // Handle pretty URLs — iPhone-first onboarding flow: Welcome → Login → Assessment → Path → Practice
+    // Handle pretty URLs — Per spec: Open → Understand → Assessment → Results → Path → Create Account → Transfer → Dashboard
     if (pageParam) return pageParam;
     if (hash) return hash;
     if (pathname.includes('/assessment')) return 'assessment';
     if (pathname.includes('/welcome')) return 'welcome';
     if (pathname.includes('/diagnostic')) return 'diagnostic';
+    if (pathname.includes('/register')) return 'register';
+    if (pathname.includes('/simple-landing')) return 'simple-landing';
     if (pathname.includes('/architecture') || pathname.includes('/arch') || pathname.includes('/map') || pathname.includes('/flowchart')) return 'architecture';
     if (pathname.includes('/roadmap') || pathname.includes('/road')) return 'roadmap';
     if (pathname.includes('/privacy') || pathname.includes('/privatliv')) return 'privacy';
@@ -72,33 +76,26 @@ export default function App() {
     if (isTrialLink()) return 'trial';
     if (isLoggedIn() && isAdmin()) return 'admin';
     
-    // iPhone-first logic: Check onboarding status
+    // Per spec: Do NOT force account before value
+    // Guest can: view landing, start assessment, complete, see level, strengths/weaknesses, path preview, decide account
+    // Returning learner: login → current journey → current exercise (no repeat assessment)
     const diag = localStorage.getItem('dansk_diagnostic');
-    const hasWelcomed = localStorage.getItem('dansk_welcomed');
     const isLoggedInUser = isLoggedIn();
     
-    // If user has completed diagnostic, go to practice (main app)
-    if (diag) return 'practice';
+    // If user has completed diagnostic AND is logged in, go to practice (continue journey)
+    if (diag && isLoggedInUser) return 'practice';
     
-    // If user is logged in but no diagnostic, go to assessment (find level)
-    if (isLoggedInUser) return 'assessment';
+    // If user has completed diagnostic but not logged in, show path preview (decide to start learning)
+    if (diag && !isLoggedInUser) return 'path';
     
-    // If user has seen welcome but not logged in, go to login
-    if (hasWelcomed) return 'login';
+    // If logged in but no diagnostic, go to assessment (find level)
+    if (isLoggedInUser && !diag) return 'assessment';
     
-    // Default for new users — iPhone-first welcome, not website
-    // For PWA / iPhone app, show welcome. For desktop web, still show website as marketing
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth < 768;
-    const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+    // Default for new users — simple landing per spec: logo, headline, one-sentence, CTA Take the Test, secondary login, discreet admin
+    // This allows guest to understand value before account creation
+    if (pathname === '/') return 'simple-landing';
     
-    if (pathname === '/' && (isMobile || isPWA)) {
-      return 'welcome';
-    }
-    
-    // Desktop default remains website for marketing
-    if (pathname === '/') return 'website';
-    
-    return 'welcome';
+    return 'simple-landing';
   });
 
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -217,8 +214,10 @@ export default function App() {
       case 'landing':
         return <LandingPage setActive={handleSetActive} />;
       
-      // Auth & Admin
+      // Auth & Admin - per spec: simple register with guest transfer
+      case 'register': return <RegisterView setActive={handleSetActive} />;
       case 'login': return <LoginView onLoggedIn={handleLoggedIn} setActive={handleSetActive} />;
+      case 'simple-landing': return <SimpleLandingView setActive={handleSetActive} />;
       case 'admin': return isLoggedIn() && isAdmin() ? <AdminDashboardView setActive={handleSetActive} /> : <LoginView onLoggedIn={handleLoggedIn} setActive={handleSetActive} />;
       
       // Share / QR
@@ -260,18 +259,21 @@ export default function App() {
     }
   };
 
-  // Navigation visibility logic for three experiences
+  // Navigation visibility logic per spec: Guest = Home only, Learner = Home My Path Progress Profile, Admin separate
   const isWebsite = active === 'website' || active === 'home' || active === 'landing';
+  const isSimpleLanding = active === 'simple-landing';
   const isAssessmentLanding = active === 'assessment' || active === 'assessment-landing' || active === 'share' || active === 'share-qr';
   const isPublicLegal = active === 'privacy' || active === 'terms' || active === 'security' || active === 'architecture' || active === 'roadmap';
   const isTrial = active === 'trial';
   const isLogin = active === 'login';
+  const isRegister = active === 'register';
   const isWelcome = active === 'welcome';
   const isDiagnostic = active === 'diagnostic';
   const isAdminView = active === 'admin';
   
-  // Show nav only for full iPhone app (learning experience) — NOT during onboarding or test
-  const showNav = !isWebsite && !isAssessmentLanding && !isPublicLegal && !isTrial && !isLogin && !isWelcome && !isDiagnostic && !isAdminView;
+  // Show nav only for full iPhone app (learning experience) — NOT during onboarding, assessment, or auth per spec
+  // Guest: Home only, Learner: Home My Path Progress Profile, Admin separate
+  const showNav = !isWebsite && !isSimpleLanding && !isAssessmentLanding && !isPublicLegal && !isTrial && !isLogin && !isRegister && !isWelcome && !isDiagnostic && !isAdminView;
 
   if(!authChecked) {
     return <div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>;
