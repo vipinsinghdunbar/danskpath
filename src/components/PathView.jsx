@@ -156,11 +156,25 @@ export default function PathView({ setActive }) {
               ))}
             </div>
 
-            <button onClick={()=>tap('practice')} className="mt-5 w-full h-[50px] bg-[#121417] text-white rounded-full text-[14px] font-[600] tracking-[-0.01em] shadow-[0_4px_16px_rgba(18,20,23,0.12)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/[0.08] to-white/0 translate-x-[-100%] group-active:translate-x-[100%] transition-transform duration-700" />
-              <span className="relative">Fortsæt her</span>
-              <span className="relative">→</span>
-            </button>
+            <div className="mt-5 grid grid-cols-1 gap-2">
+              <button onClick={()=>tap('practice')} className="w-full h-[50px] bg-[#121417] text-white rounded-full text-[14px] font-[600] tracking-[-0.01em] shadow-[0_4px_16px_rgba(18,20,23,0.12)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/[0.08] to-white/0 translate-x-[-100%] group-active:translate-x-[100%] transition-transform duration-700" />
+                <span className="relative">Fortsæt her — {activeProgress?.grammarDone||0}/{activeStage.grammarRequirements.length} grammatik</span>
+                <span className="relative">→</span>
+              </button>
+              <div className="grid grid-cols-2 gap-2">
+                <button onClick={()=>{
+                  try{
+                    const p = JSON.parse(localStorage.getItem('dansk_progress')||'{}');
+                    p[`stage_${activeModule}_cleared`] = true;
+                    localStorage.setItem('dansk_progress', JSON.stringify(p));
+                    window.location.reload();
+                  }catch{}
+                }} className="h-[44px] bg-white border border-[#E8E0D6] rounded-full text-[12px] font-[600] active:scale-[0.98] transition">Markér færdig ✓</button>
+                <button onClick={()=>tap('grammar')} className="h-[44px] bg-[#FFF8F0] border border-[#E8E0D6]/50 rounded-full text-[12px] font-[600] active:scale-[0.98] transition">Øvelser →</button>
+              </div>
+              {activeProgress?.cleared && (()=>{ const next = stages[stages.findIndex(s=>s.moduleId===activeModule)+1]; return next ? <button onClick={()=>setActiveModule(next.moduleId)} className="w-full h-[44px] bg-[#007AFF] text-white rounded-full text-[12px] font-[600]">Næste: {next.title.split('—')[0]} →</button> : <button onClick={()=>tap('exam')} className="w-full h-[44px] bg-[#34C759] text-white rounded-full text-[12px] font-[600]">PD3 eksamen →</button>; })()}
+            </div>
           </div>
         </div>
 

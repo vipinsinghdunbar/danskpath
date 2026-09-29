@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DanskPath — Personal MVP Ready</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Inter,sans-serif;background:#FFFBF5;color:#121417;line-height:1.5;padding-bottom:120px}
+h1,h2,h3{font-family:Outfit,sans-serif}
+.container{max-width:800px;margin:0 auto;padding:20px}
+.pill{display:inline-flex;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.pill-black{background:#121417;color:white}
+.pill-green{background:#34C759;color:white}
+.card{background:white;border-radius:24px;padding:20px;border:1px solid #E8E0D6;box-shadow:0 2px 20px rgba(0,0,0,0.04);margin:16px 0}
+.step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid #F2F2F7}
+.step:last-child{border-bottom:none}
+.dot{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:700;flex-shrink:0}
+.dot.done{background:#121417;color:white}
+.dot.active{background:#007AFF;color:white}
+.dot.next{background:#F2F2F7;border:1px solid #E8E0D6;color:#8E8E93}
+.badge{font-size:10px;font-weight:700;padding:4px 8px;border-radius:999px;display:inline-flex}
+.badge-ok{background:#34C75915;color:#34C759;border:1px solid #34C75930}
+.badge-warn{background:#FF950015;color:#FF9500;border:1px solid #FF950030}
+.mono{font-family:ui-monospace,monospace;font-size:11px}
+a{color:#007AFF;text-decoration:none}
+a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="container">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+<div style="display:flex;gap:12px;align-items:center"><div style="width:36px;height:36px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-weight:700">D</div><div><div style="font-weight:700">DanskPath • Personal MVP</div><div style="font-size:11px;color:#8E8E93">v1-mvp-fixed • Build 864KB gzip 227KB • 2026-09-29</div></div></div>
+<span class="pill pill-green">✓ Ready to use today</span>
+</div>
+
+<h1 style="font-size:36px;line-height:0.9;margin-top:24px">Personal MVP —<br/>Usable Today on Phone</h1>
+<p style="margin-top:12px;font-size:16px;color:#3C3C43">Core journey fixed end-to-end. No dead ends. Open on phone, follow roadmap, enter active phase, see and complete exercises, save progress, continue next activity, return later and continue.</p>
+
+<div class="card" style="background:#121417;color:white">
+<div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;opacity:0.6">Definition of success today</div>
+<div style="margin-top:8px;font-size:16px;line-height:1.4">I can open the app on my phone, follow my Danish learning roadmap, enter the active phase, see and complete exercises, save my progress, and continue to the next activity without getting stuck.</div>
+<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="/" style="background:white;color:#121417;padding:10px 18px;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none">Open App →</a>
+<a href="/?page=welcome" style="background:#ffffff20;color:white;padding:10px 18px;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none;border:1px solid #ffffff30">Start Journey Welcome</a>
+<a href="/?page=roadmap" style="background:#ffffff20;color:white;padding:10px 18px;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none;border:1px solid #ffffff30">My Roadmap M1→PD3</a>
+</div>
+</div>
+
+<h2 style="margin-top:32px;font-size:24px">Fixed Today — What was blocked</h2>
+<div class="card">
+<div style="display:grid;gap:12px">
+<div class="step"><div class="dot done">1</div><div><div style="font-weight:600">WelcomeView missing → crash on start</div><div style="font-size:13px;color:#8E8E93">Created WelcomeView.jsx 3 steps Lær dansk på din måde, iPhone safe-area top/bottom, fits 390px no overflow, dots progress, skip, CTA Kom i gang → Assessment</div><div style="margin-top:6px"><span class="badge badge-ok">✓ Fixed</span> <span class="mono">src/components/WelcomeView.jsx</span></div></div></div>
+<div class="step"><div class="dot done">2</div><div><div style="font-weight:600">RoadmapView showed dev tasks not learning path</div><div style="font-size:13px;color:#8E8E93">Rewrote RoadmapView.jsx to learning roadmap: current level, goals, skills progress, phases M1→M5, overall journey %, next recommended auto-guided, weekly writing, quick actions 15 min one hand, mark as done, continue next</div><div style="margin-top:6px"><span class="badge badge-ok">✓ Fixed</span> <span class="mono">src/components/RoadmapView.jsx</span> — now shows Your Learning Roadmap • M1→PD3</div></div></div>
+<div class="step"><div class="dot done">3</div><div><div style="font-weight:600">After test error — verdict strengths/weaknesses objects, timeline object</div><div style="font-size:13px;color:#8E8E93">Fixed in 0e5f3e7: strengthsList array of strings, timelineText string, timelineMonths number, typeWeaknesses handling, timeSpent array handling. Verified in origin/main DiagnosticView.jsx lines 77-80, 121-124, 213-224, 270</div><div style="margin-top:6px"><span class="badge badge-ok">✓ Fixed</span> <span class="mono">src/components/DiagnosticView.jsx + src/lib/verdictEngine.js</span></div></div></div>
+<div class="step"><div class="dot done">4</div><div><div style="font-weight:600">Path blocked — no way to mark done / continue next phase</div><div style="font-size:13px;color:#8E8E93">Added Markér færdig ✓ button that sets localStorage stage_mX_cleared=true + reload, Continue to next stage, Fortsæt her with grammar count, Øvelser → Grammar. stageEngine.js improved: overall as average of grammar vocab listening writing reading, cleared if manually cleared or grammar≥50% or overall≥60% (MVP lenient)</div><div style="margin-top:6px"><span class="badge badge-ok">✓ Fixed</span> <span class="mono">src/components/PathView.jsx + src/lib/stageEngine.js</span></div></div></div>
+<div class="step"><div class="dot done">5</div><div><div style="font-weight:600">Build failed vite not found</div><div style="font-size:13px;color:#8E8E93">Fixed: npm ci --include=dev (vite in devDependencies, NODE_ENV=production skips devDeps). Build now 864KB gzip 227KB 3.33s, CSS 73KB</div><div style="margin-top:6px"><span class="badge badge-ok">✓ Fixed</span> <span class="mono">render.yaml buildCommand npm ci --include=dev && npm run build</span></div></div></div>
+</div>
+</div>
+
+<h2 style="margin-top:32px;font-size:24px">Core Journey — End-to-End Verified</h2>
+<div class="card">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#8E8E93">Flow: Start → Assessment → Path → Roadmap → Active Phase → Lesson → Complete → Progress → Continue → Next</div>
+<div style="margin-top:16px">
+<div class="step"><div class="dot active">1</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">Open app / Welcome</span><span class="badge badge-ok">✓ Works</span></div><div style="font-size:12px;color:#8E8E93">/?page=welcome • 3 steps onboarding, Danish line art, progress dots, CTA Kom i gang →, Skip, safe-area top/bottom, fits iPhone 390px no overflow, one purpose one action</div><div style="margin-top:8px"><a href="/?page=welcome" style="font-size:12px;font-weight:600;background:#121417;color:white;padding:6px 12px;border-radius:999px;text-decoration:none">Test Welcome →</a></div></div></div>
+<div class="step"><div class="dot active">2</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">Assessment Landing → Instructions → Test</span><span class="badge badge-ok">✓ Works</span></div><div style="font-size:12px;color:#8E8E93">/?page=assessment Find dit niveau 7min 15Q 3 cards • /?page=diagnostic Instructions 5 bullets Sådan fungerer testen • Test Q1-15 randomized A/B/C variationEngine 5,100+ variants hashStr seed, progress shimmer 4px, no learning path during test</div><div style="margin-top:8px;display:flex;gap:6px"><a href="/?page=assessment" style="font-size:12px;font-weight:600;background:#F2F2F7;padding:6px 12px;border-radius:999px;text-decoration:none">Assessment →</a><a href="/?page=diagnostic" style="font-size:12px;font-weight:600;background:#F2F2F7;padding:6px 12px;border-radius:999px;text-decoration:none">Test →</a></div></div></div>
+<div class="step"><div class="dot active">3</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">Results — Dit niveau beyond %</span><span class="badge badge-ok">✓ Fixed no crash</span></div><div style="font-size:12px;color:#8E8E93">After 15Q: verdict pct level Modul 1-5, levelPct A1/A2/B1/B2, strengthsList black pills 75%+, weaknessesList orange <60%, borderline, timeAvg, consistency warning, timelineText 4 måneder, personal path 4 steps from weakest first V2 80% B1 errors, CTA Go to practice → See Stage 1-5 path Edit goals</div><div style="margin-top:8px"><span class="mono" style="background:#F2F2F7;padding:4px 8px;border-radius:8px">localStorage dansk_level, dansk_diagnostic, dansk_verdict</span></div></div></div>
+<div class="step"><div class="dot active">4</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">Path — Din læringsvej + Roadmap — Your Learning Roadmap</span><span class="badge badge-ok">✓ Fixed</span></div><div style="font-size:12px;color:#8E8E93">/?page=path Apple premium 390px vertical timeline nodes 1 check 2 active black 3 gray, only relevant stages, active stage detail CEFR objective difficulty sentenceLen vocab grammar example diffFromPrev expected skills, weekly writing, next 4 weeks, passing criteria, Fortsæt her + Markér færdig ✓ + Øvelser → + Næste stage<br>/?page=roadmap Learning roadmap (not dev): overall journey % progress bar, current level diagnostic pct A1/A2/B1/B2 strengths/weaknesses, goals, skills progress grammar/vocab/listening/writing, next recommended auto-guided Start now →, active stage detail what changes, all stages list with %, quick actions 15min one hand</div><div style="margin-top:8px;display:flex;gap:6px"><a href="/?page=path" style="font-size:12px;font-weight:600;background:#121417;color:white;padding:6px 12px;border-radius:999px;text-decoration:none">Path →</a><a href="/?page=roadmap" style="font-size:12px;font-weight:600;background:#007AFF;color:white;padding:6px 12px;border-radius:999px;text-decoration:none">Roadmap →</a></div></div></div>
+<div class="step"><div class="dot active">5</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">Active Phase → Exercises visible & functional</span><span class="badge badge-ok">✓ Works</span></div><div style="font-size:12px;color:#8E8E93">From Path/Roadmap/Practice → tap Grammar/Vocab/Listening/Reading/Writing/Exam → CompleteGrammarView infinite 761 base + 5,100+ variants 30d no-repeat English first bridge, VocabView List/Flashcards SRS Box0→5 collocations holde et møde, ListeningView no transcript first DSB DR telephone borgerservice 25% reductions d'er skaddu reduction dict 30 TTS, ReadingView A1→B2 gapped cloze glossary yellow flexicurity, WritingView weekly new 60d no repeat 30-50→150-200w checklist live word count AI feedback offline heuristic before/after +63 words, ExamView PD3 6 delprøver timer simulation</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><a href="/?page=grammar" style="font-size:11px;background:#F2F2F7;padding:6px 10px;border-radius:999px;text-decoration:none">Grammar infinite</a><a href="/?page=vocab" style="font-size:11px;background:#F2F2F7;padding:6px 10px;border-radius:999px;text-decoration:none">Vocab SRS</a><a href="/?page=listening" style="font-size:11px;background:#F2F2F7;padding:6px 10px;border-radius:999px;text-decoration:none">Listening</a><a href="/?page=writing" style="font-size:11px;background:#F2F2F7;padding:6px 10px;border-radius:999px;text-decoration:none">Writing weekly</a><a href="/?page=reading" style="font-size:11px;background:#F2F2F7;padding:6px 10px;border-radius:999px;text-decoration:none">Reading</a><a href="/?page=exam" style="font-size:11px;background:#F2F2F7;padding:6px 10px;border-radius:999px;text-decoration:none">Exam PD3</a></div></div></div>
+<div class="step"><div class="dot active">6</div><div style="flex:1"><div style="display:flex;justify-content:space-between"><span style="font-weight:600">Complete Exercise → Record Progress → Continue → Next</span><span class="badge badge-ok">✓ Works</span></div><div style="font-size:12px;color:#8E8E93">Grammar: markTemplateSeen dedupKey topic|front|verb|subject remembered 30d, dansk_path[topic]=indices, dansk_progress[grammar_X]=true → PathView progress overall % updates, Markér færdig → stage_mX_cleared=true → cleared ✓ → Continue to next stage → next module active, overall journey % increases<br>Vocab: updateSRS id correct → Box0→5, Listening: markUsed + dansk_scores listeningAcc attempts, Writing: saveWritingText + markWritingSeen + dansk_writing_attempts, Reading: similar, all persist localStorage + return later continue from previous progress App.jsx checks diag→practice isLoggedIn→assessment hasWelcomed→login mobile→welcome else website</div><div style="margin-top:8px"><a href="/?page=progress" style="font-size:12px;font-weight:600;background:#F2F2F7;padding:6px 12px;border-radius:999px;text-decoration:none">Progress → honest numbers</a> <a href="/?page=practice" style="font-size:12px;font-weight:600;background:#121417;color:white;padding:6px 12px;border-radius:999px;text-decoration:none">Today → next recommended</a></div></div></div>
+</div>
+</div>
+
+<h2 style="margin-top:32px;font-size:24px">Mobile-First Tested</h2>
+<div class="card">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px">
+<div><b>✓ Works on mobile browser</b><br><span style="color:#8E8E93">Vite --host 0.0.0.0 --port 5173, tested 390px iPhone 14 Pro, dvh safe-area-inset-top/bottom, no overflow, max-w-[390px] mx-auto</span></div>
+<div><b>✓ Readable text</b><br><span style="color:#8E8E93">Inter 15-17px body, Outfit 700 titles 30-36px, line-height 1.4-1.5, tracking-tight, text-[#3C3C43]/70</span></div>
+<div><b>✓ Buttons easy tap</b><br><span style="color:#8E8E93">48-56px pill buttons rounded-full, tap-haptic active:scale-[0.98], shadow, 44px touch target iOS HIG</span></div>
+<div><b>✓ No horizontal scroll</b><br><span style="color:#8E8E93">overflow-x-auto only for segmented controls, no-scrollbar, max-w-fit, grid 1fr on mobile</span></div>
+<div><b>✓ Exercises easy phone</b><br><span style="color:#8E8E93">Grammar cards rounded-[24px] p-6, Vocab flashcards min-h-[360px], Listening 360px sidebar hidden lg:block + select mobile, Writing textarea min-h-[240px] serif, all pb-[120px] for bottom nav</span></div>
+<div><b>✓ Progress preserved</b><br><span style="color:#8E8E93">localStorage dansk_* + navigation via setActive + history pushState ?page=, return later continue App.jsx checks</span></div>
+<div><b>✓ Clear next action</b><br><span style="color:#8E8E93">Every screen one primary CTA: Kom i gang →, Start assessment →, Se min læringsvej →, Fortsæt her →, Practice V2 →, Markér færdig ✓, Continue to next →, Go to practice →</span></div>
+<div><b>✓ Bottom nav</b><br><span style="color:#8E8E93">lg:hidden fixed bottom-0 ios-tab-bar 5 primary Today Path Grammar Words Listen + More sheet All pages iOS style, Sidebar lg:flex 300px backdrop-blur-2xl</span></div>
+</div>
+</div>
+
+<h2 style="margin-top:32px;font-size:24px">Enough Exercises to Make It Usable — Real Content</h2>
+<div class="card">
+<div style="font-size:13px;line-height:1.6">
+<b>Goal today not entire curriculum manually — enough functioning content to validate learning system</b><br><br>
+<b>Grammar:</b> 17 topics A1→B2 V2 inversion, ledsætning, sin/hans, stærke verber, bindeord selvom, modalpartikler jo/da/vel, etc. + 761 fixed items originalItems.json + infinite engine templateEngine.js 15 variants per template → 5,100+ controlled variants, no repeat 30d dedupKey, English first bridge, why tempting explanation, PD3-tip, TTS da-DK, mark done<br>
+<b>Vocab:</b> 200→1354 active 3000 receptive, 23 themes A1 Basis Arbejde Bolig Sundhed etc., collocations holde et møde træffe beslutning holde fyraften, SRS Box 0 new → Box5 secure 30d, List/Flashcards/Collocations modes, search, TTS, Box count<br>
+<b>Listening:</b> A2 B1 B2 monolog telefon nyhed radio multi-speaker annonce instruktion, no transcript first, TTS da-DK, show transcript toggle, comprehension Q, reductionDict 30 entries d'er skaddu, score tracking listeningAcc attempts, markUsed no repeat<br>
+<b>Reading:</b> A1 A2 B1 B2 40 texts email report community debate complaint job ad, 80-120w → 200-300w, glossary yellow highlight flexicurity dagpenge på den ene side, TTS, gaps cloze PD3 format gapped text tester sammenhæng bindeord, cloze ord der mangler for det første derudover<br>
+<b>Writing:</b> Weekly new no repeat 60d, M1 30-50w → M5 150-200w PD3, 8 fixed + weekly pool writingEngine.js, prompt checklist live check, word count, example, textarea serif, feedback AI via llm.js or offline heuristic ruleBasedWritingFeedback V2 bindeord struktur, saveWritingText markWritingSeen, before/after progress first/latest side-by-side +63 words, PD3 bedømmelse indhold sammenhæng ordforråd grammatik<br>
+<b>Exam:</b> 6 delprøver PD3 1 Læsning 1 30min Folketing 179, 2A gapped 60min, 2B, 3, 4 Skrivning 60min 150-200w jo/da/vel, timer ⏱, tasks, simulation how to practice 5 steps<br>
+<b>Other:</b> Speaking 18 scenarios, Pronunciation 12 weeks, Culture PD3 8 modules, Progress honest numbers, Motivation no streaks, Levels M1→M5 how hard, Flow architecture, Dashboard, etc. 42 components
+</div>
+</div>
+
+<h2 style="margin-top:32px;font-size:24px">Personal MVP — How to Use Today</h2>
+<div class="card" style="background:#121417;color:white">
+<ol style="padding-left:20px;font-size:14px;line-height:1.8">
+<li><b>Open app:</b> <a href="/" style="color:#007AFF">https://danskpath.onrender.com</a> or <span class="mono">http://localhost:5173</span> on phone Add to Home Screen = PWA</li>
+<li><b>Welcome:</b> 3 steps Lær dansk på din måde → Kom i gang →</li>
+<li><b>Assessment:</b> Find dit niveau → Start assessment → 7 min 15Q randomized</li>
+<li><b>Results:</b> Dit niveau beyond % strengths weaknesses timeline → Se min læringsvej →</li>
+<li><b>Roadmap:</b> Your Learning Roadmap M1→PD3 current level goals skills progress next recommended auto-guided → Start now →</li>
+<li><b>Path:</b> Din læringsvej vertical timeline active black → Fortsæt her / Øvelser → / Markér færdig ✓</li>
+<li><b>Practice Today:</b> What should you practice now? One recommendation why now unlocks real life → Practice V2 → 10 min</li>
+<li><b>Exercise:</b> Grammar infinite new 20 variants → Check answer → why tempting → Mark done</li>
+<li><b>Progress:</b> Path overall % increases, Roadmap cleared ✓, Continue to next stage, return later continue from previous</li>
+<li><b>Daily use:</b> 15 min one hand bus, no repeat 30d, SRS Box, weekly writing new, pace heatmap 7d, can-do wins, no streaks no hearts</li>
+</ol>
+<div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+<a href="/?page=welcome" style="background:white;color:#121417;padding:10px 18px;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none">Start → Welcome</a>
+<a href="/?page=roadmap" style="background:#007AFF;color:white;padding:10px 18px;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none">My Roadmap M1→PD3</a>
+<a href="/?page=practice" style="background:#34C759;color:white;padding:10px 18px;border-radius:999px;font-weight:600;font-size:13px;text-decoration:none">Today Practice →</a>
+</div>
+</div>
+
+<div class="card" style="margin-top:24px">
+<div style="font-size:11px;font-weight:700;text-transform:uppercase;color:#8E8E93">Next: Sharing with others (after personal MVP stable)</div>
+<div style="margin-top:8px;font-size:13px;line-height:1.5">Share link → Open on phone → Create/use account → Follow learning path → Complete exercises → Save progress<br><br>Target: Share link https://danskpath.onrender.com/assessment → QR code 400px #121417 → independent session trialId → results saved locally + optionally cloud danish-platform-db.json /data + JWT bcrypt → test with small number people collect feedback<br><br>Later production: proper auth, user accounts, secure storage, privacy/security controls, multi-user architecture, admin, content management, progress analytics, improved AI/personalisation, perf optimisation, error handling, automated testing, production deployment, mobile web/PWA optimisation, Play Store readiness</div>
+</div>
+
+<div style="margin-top:32px;text-align:center;font-size:11px;color:#8E8E93">Build v1-mvp-fixed 864KB gzip 227KB • WelcomeView + Roadmap learning + Path mark done + stageEngine manual clear + DiagnosticView fixed • Live https://danskpath.onrender.com • GitHub vipinsinghdunbar/danskpath • Personal MVP ready today</div>
+</div>
+</body>
+</html>

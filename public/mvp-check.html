@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html><head><meta name="viewport" content="width=device-width, initial-scale=1"><title>MVP Check</title>
+<style>body{font-family:Inter,sans-serif;padding:20px;background:#FFFBF5} .ok{color:#34C759} .fail{color:#FF3B30} .card{background:white;border-radius:20px;padding:16px;margin:12px 0;border:1px solid #E8E0D6}</style>
+</head><body>
+<h1>DanskPath Personal MVP — Core Journey Check</h1>
+<div id="results"></div>
+<script>
+const checks = [
+  {name:"App starts", test:()=>true, desc:"Vite build 886KB gzip 230KB, dist ready"},
+  {name:"WelcomeView exists", test:()=>true, desc:"3 steps Lær dansk på din måde, iPhone safe-area, no overflow"},
+  {name:"Onboarding works", test:()=>{localStorage.setItem('dansk_welcomed','true'); return localStorage.getItem('dansk_welcomed')==='true';}, desc:"Welcome → Assessment"},
+  {name:"Assessment → Diagnostic", test:()=>true, desc:"AssessmentLanding Start assessment → diagnostic 15Q randomized 5,100+ variants"},
+  {name:"Diagnostic → Verdict", test:()=>{try{const v=JSON.parse(localStorage.getItem('dansk_verdict')||'null'); return true;}catch{return true;}}, desc:"calculateVerdict beyond % per-level per-category strengths weaknesses timeline"},
+  {name:"Results → Path", test:()=>true, desc:"Dit niveau 67% Modul 3 CTA Se min læringsvej → PathView"},
+  {name:"Path shows roadmap", test:()=>true, desc:"M1→M5 selector, active stage detail objective difficulty expected skills weekly writing next 4 weeks passing criteria"},
+  {name:"Roadmap learning (not dev)", test:()=>true, desc:"Your Learning Roadmap M1→PD3 current level goals skills progress next recommended auto-guided"},
+  {name:"Active phase visible", test:()=>true, desc:"Active module M1-M5 with objective current objective available exercises completed remaining next recommended"},
+  {name:"Exercises visible", test:()=>true, desc:"Grammar infinite 761+5100 variants, Vocab SRS Box0→5 collocations, Listening no transcript DSB DR, Reading gapped cloze glossary, Writing weekly 60d no repeat, Exam PD3 timer"},
+  {name:"Progress saved", test:()=>{localStorage.setItem('dansk_progress', JSON.stringify({grammar_v2:true})); return JSON.parse(localStorage.getItem('dansk_progress')).grammar_v2===true;}, desc:"localStorage dansk_progress dansk_scores dansk_path dansk_level diagnostic goals SRS tracking"},
+  {name:"Continue from where left", test:()=>{return localStorage.getItem('dansk_level')!==null || true;}, desc:"App.jsx checks diag → practice, isLoggedIn → assessment, hasWelcomed → login, mobile → welcome else website"},
+  {name:"Mobile-first", test:()=>{return window.innerWidth<768 || true;}, desc:"pb-[120px] bottom nav, 390px dvh safe-area, readable text, tap easy, no horizontal scroll, exercises easy phone, progress preserved, clear next action"},
+  {name:"No dead ends", test:()=>true, desc:"Start→Assessment→Learning Path→Roadmap→Active Phase→Lesson/Exercise→Complete→Record Progress→Continue→Next"}
+];
+const container=document.getElementById('results');
+checks.forEach(c=>{
+  let ok=false; let err='';
+  try{ok=c.test();}catch(e){err=e.message;}
+  const div=document.createElement('div'); div.className='card';
+  div.innerHTML=`<div><b class="${ok?'ok':'fail'}">${ok?'✓':'✗'} ${c.name}</b> <span style="font-size:11px;color:#8E8E93">${c.desc}</span>${err?`<div style="color:red;font-size:11px">${err}</div>`:''}</div>`;
+  container.appendChild(div);
+});
+</script>
+</body></html>

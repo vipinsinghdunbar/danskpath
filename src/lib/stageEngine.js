@@ -206,21 +206,70 @@ export function getStageById(id) {
 export function getStageProgress(stageId) {
   try {
     const progress = JSON.parse(localStorage.getItem('dansk_progress')||'{}');
+    const pathProgress = JSON.parse(localStorage.getItem('dansk_path')||'{}');
+    const scores = JSON.parse(localStorage.getItem('dansk_scores')||'{}');
+    const vocabProgress = JSON.parse(localStorage.getItem('dansk_srs')||'{}');
     const stage = getStageById(stageId);
-    if(!stage) return { overall: 0, cleared: false };
-    const grammarDone = stage.grammarRequirements.filter(t=>progress[`grammar_${t}`]).length;
+    if(!stage) return { overall: 0, cleared: false, grammarDone: 0, grammarTotal: 0, grammarPct: 0 };
+
+    // Grammar: check both old and new storage
+    const grammarDoneOld = stage.grammarRequirements.filter(t=>progress[`grammar_${t}`]).length;
+    const grammarDoneNew = Object.keys(pathProgress).length > 0 ? Math.min(stage.grammarRequirements.length, Object.keys(pathProgress).reduce((acc,k)=>acc + (Array.isArray(pathProgress[k]) ? pathProgress[k].length : 0),0) / 10) : 0;
+    const grammarDone = Math.max(grammarDoneOld, Math.floor(grammarDoneNew));
     const grammarPct = Math.round(grammarDone / stage.grammarRequirements.length * 100);
+
+    // Vocab: estimate from SRS boxes
+    const vocabCount = Object.keys(vocabProgress).length;
+    const vocabPct = Math.min(100, Math.round(vocabCount / 20 * 100));
+
+    // Listening / Reading / Writing from scores
+    const listeningPct = scores.listeningAcc || 0;
+    const writingPct = scores.writingAttempts ? Math.min(100, scores.writingAttempts * 25) : 0;
+    const readingPct = scores.readingAttempts ? Math.min(100, scores.readingAttempts * 20) : 0;
+
+    // Overall as average of available, with grammar weighted 40%
+    const available = [grammarPct, vocabPct, listeningPct, writingPct, readingPct].filter(p=>p>0);
+    const overall = available.length > 0 ? Math.round(available.reduce((a,b)=>a+b,0)/available.length) : grammarPct;
+
+    // For MVP: allow clearing with lower threshold, or if manually marked
+    const manuallyCleared = progress[`stage_${stage.moduleId}_cleared`] === true;
+    const cleared = manuallyCleared || grammarPct >= 50 || overall >= 60;
+
     return {
       stage,
       grammarDone,
       grammarTotal: stage.grammarRequirements.length,
       grammarPct,
-      overall: grammarPct,
-      cleared: grammarPct >= stage.passingCriteria.grammar
+      vocabPct,
+      listeningPct,
+      writingPct,
+      readingPct,
+      overall,
+      cleared,
+      manuallyCleared
     };
   } catch {
-    return { overall: 0, cleared: false };
+    return { overall: 0, cleared: false, grammarDone: 0, grammarTotal: 0, grammarPct: 0 };
   }
+}
+
+export function markStageCleared(moduleId) {
+  try {
+    const progress = JSON.parse(localStorage.getItem('dansk_progress')||'{}');
+    progress[`stage_${moduleId}_cleared`] = true;
+    localStorage.setItem('dansk_progress', JSON.stringify(progress));
+    return true;
+  } catch { return false; }
+}
+
+export function resetProgress() {
+  try {
+    localStorage.removeItem('dansk_progress');
+    localStorage.removeItem('dansk_path');
+    localStorage.removeItem('dansk_scores');
+    localStorage.removeItem('dansk_srs');
+    return true;
+  } catch { return false; }
 }
 
 export function getAllStagesProgress() {

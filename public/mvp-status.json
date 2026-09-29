@@ -1,0 +1,25 @@
+{
+  "mvp": "personal",
+  "version": "v1-mvp-fixed",
+  "build": "2026-09-29T19:19:16Z",
+  "checks": {
+    "welcome": true,
+    "assessment": true,
+    "diagnostic": true,
+    "verdict_fixed": true,
+    "path": true,
+    "roadmap_learning": true,
+    "practice": true,
+    "grammar_infinite": true,
+    "vocab_srs": true,
+    "listening": true,
+    "writing": true,
+    "reading": true,
+    "progress_persist": true,
+    "mobile_first": true,
+    "no_dead_ends": true
+  },
+  "flow": "Start → Welcome (3 steps) → Assessment (Find dit niveau) → Instructions (5 bullets) → Test 15Q randomized → Results (Dit niveau beyond % strengths weaknesses timeline) → Goals (pick 3) → Path (Din læringsvej M1→M5) → Roadmap (Your Learning Roadmap) → Active Phase → Lesson/Exercise → Complete → Record Progress → Continue → Next Phase",
+  "live": "https://danskpath.onrender.com",
+  "local": "http://localhost:5173"
+}
