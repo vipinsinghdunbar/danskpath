@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DanskPath — Simple Roadmap Every Case</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:#FFFBF5;color:#121417;line-height:1.5;padding:20px;padding-bottom:120px}
+  .max{max-width:900px;margin:0 auto}
+  h1{font-size:32px;font-weight:700;letter-spacing:-0.02em;line-height:0.95}
+  h2{font-size:22px;font-weight:700;margin-top:32px;margin-bottom:12px;letter-spacing:-0.01em}
+  h3{font-size:16px;font-weight:700;margin-top:20px;margin-bottom:8px}
+  .pill{display:inline-flex;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:#121417;color:white}
+  .pill-blue{background:#007AFF}
+  .pill-green{background:#34C759}
+  .pill-orange{background:#FF9500}
+  .pill-red{background:#FF3B30}
+  .card{background:white;border-radius:20px;padding:20px;border:1px solid #E8E0D6;margin-top:12px;box-shadow:0 4px 12px rgba(0,0,0,0.04)}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+  .step{background:#121417;color:white;padding:8px 14px;border-radius:999px;font-size:13px;font-weight:600}
+  .arrow{font-size:18px;color:#8E8E93}
+  .step-light{background:#F2F2F7;color:#121417;border:1px solid #E8E0D6}
+  .step-blue{background:#007AFF;color:white}
+  .step-green{background:#34C759;color:white}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:16px}
+  .case{border:2px solid #121417}
+  .case-guest{border-color:#007AFF}
+  .case-learner{border-color:#34C759}
+  .case-admin{border-color:#FF3B30}
+  .mono{font-family:ui-monospace,monospace;font-size:11px;background:#F2F2F7;padding:10px;border-radius:10px;overflow-x:auto;margin-top:8px;white-space:pre-wrap}
+  .roadmap-line{position:relative;padding-left:32px;border-left:2px dashed #E8E0D6;margin-left:12px;margin-top:16px}
+  .roadmap-dot{position:absolute;left:-10px;top:0;width:20px;height:20px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-size:10px;font-weight:700}
+  .roadmap-dot.active{background:#007AFF}
+  .roadmap-dot.done{background:#34C759}
+  .bug{background:#FFF5F5;border:2px dashed #FF3B30;border-radius:16px;padding:16px;margin-top:16px}
+  ul{padding-left:20px;margin-top:8px}
+  li{font-size:13px;margin-top:6px}
+  .cta{display:inline-flex;background:#121417;color:white;padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="max">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div><span class="pill">Simple Roadmap</span> <span class="pill pill-blue">Every Case</span></div>
+    <div style="font-size:11px;color:#8E8E93">Build 9f63577 • Live 2026-09-29</div>
+  </div>
+  <h1 style="margin-top:16px">DanskPath — Simple Roadmap<br/>Every Possible Case</h1>
+  <p style="margin-top:12px;font-size:15px;color:#3C3C43CC">Before fixing path bug — this doc shows every step a user can take, in every possible case. Guest-first per spec: Open→Understand→Assessment→Results→Strengths→Path→Preview→Start Learning→Create Account→Transfer→Dashboard→Exercise→Progress→Next. No dead ends.</p>
+
+  <div class="card">
+    <h2 style="margin-top:0">🌍 Core Principle — Guest-First Per Spec</h2>
+    <div class="flow">
+      <span class="step">Open</span><span class="arrow">→</span>
+      <span class="step">Understand</span><span class="arrow">→</span>
+      <span class="step">Assessment</span><span class="arrow">→</span>
+      <span class="step">Results</span><span class="arrow">→</span>
+      <span class="step">Strengths</span><span class="arrow">→</span>
+      <span class="step-light">Weaknesses</span><span class="arrow">→</span>
+      <span class="step-light">Path Preview</span><span class="arrow">→</span>
+      <span class="step-blue">Decide</span><span class="arrow">→</span>
+      <span class="step-blue">Create Account</span><span class="arrow">→</span>
+      <span class="step-green">Transfer</span><span class="arrow">→</span>
+      <span class="step-green">Dashboard</span><span class="arrow">→</span>
+      <span class="step-green">Exercise</span><span class="arrow">→</span>
+      <span class="step-green">Progress</span><span class="arrow">→</span>
+      <span class="step-green">Next</span>
+    </div>
+    <div class="mono">Landing extremely simple per spec: only logo/name, short headline, one-sentence explanation, primary CTA Take the Test, secondary Already have account? Log in, discreet Admin access, no long marketing/feature grids/competing CTAs.
+Assessment intro must explain what measures/duration/what learner receives after.
+Assessment one question at a time with progress Question X of Y + progress bar.
+Results must immediately provide useful info level + section scores + strengths separately from focus areas, avoid negative language.
+No dead ends every screen clear next action.
+Persistence guest data transferable no loss on close/refresh/logout.</div>
+  </div>
+
+  <h2>👥 User Types</h2>
+  <div class="grid">
+    <div class="card case-guest"><span class="pill pill-blue">Guest</span><h3>Can Do Without Account</h3><ul><li>View landing</li><li>Start/complete assessment 15Q randomized</li><li>See level + section scores + strengths + focus areas + Hvad gik galt logical analysis</li><li>See path preview Modul 1→PD3</li><li>See preview what we will learn per section</li><li>Decide to start learning</li></ul><div class="mono">localStorage: dansk_diagnostic, dansk_level, dansk_verdict, dansk_user_seed</div></div>
+    <div class="card case-learner"><span class="pill pill-green">Registered Learner</span><h3>After Account Creation</h3><ul><li>Login, profile, level, path, current phase, exercises, progress, continue, must not repeat assessment</li><li>Guest data transferred atomic: answers/score/overall level/section levels/strengths/weaknesses/path/current phase/progress</li><li>Persistence after close/refresh/logout/return</li><li>Returning: Login→current journey→exercise→complete→progress without repeat</li></ul><div class="mono">localStorage + server: danskpath_token, danskpath_user + dansk_progress, path, scores, srs</div></div>
+    <div class="card case-admin"><span class="pill pill-red">Admin</span><h3>Separate Access</h3><ul><li>Login Vipin/vipin123 discreet Admin link top-right 11px #8E8E93</li><li>Dashboard users/active/assessments</li><li>User list/detail with assessment/path/progress/activity</li><li>Cannot be accessed by learner</li></ul><div class="mono">QR: qr-admin.png → /?page=login → admin if role admin</div></div>
+  </div>
+
+  <h2>🗺️ Every Possible Case — Step by Step</h2>
+
+  <div class="card case-guest">
+    <span class="pill pill-blue">Case 1 — New Guest First Time</span>
+    <h3>Shared link → assessment → results → path → account → first exercise → progress</h3>
+    <div class="roadmap-line"><div class="roadmap-dot">1</div><b>Entry:</b> https://danskpath.onrender.com/ or /?page=simple-landing or QR qr-simple-landing.png<br/><span style="font-size:12px;color:#8E8E93">Sees: Logo D DanskPath + discreet Admin 11px top-right + headline Find your Danish level 40px Outfit + one-sentence Take a short assessment... + CTA Take the Test black pill 17px + secondary Already have account? Log in + How it works 3 bullets + footer Modul 1→PD3</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot">2</div><b>Take the Test →</b> /?page=assessment Assessment intro<br/><span style="font-size:12px;color:#8E8E93">Sees: What measures Reading Listening Vocab Grammar Writing, duration 7 min, what receives level strengths path. CTA Start Assessment</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot">3</div><b>Start Assessment →</b> /?page=diagnostic 15Q<br/><span style="font-size:12px;color:#8E8E93">Sees: Question 1 of 15 + dots + progress bar + category type level difficulty pill + question + Expected action + Variation seed + options randomized shuffleAnswers Fisher-Yates no learnable pattern + after choose why correct/wrong + What next + Back + Next Q. One question at a time per spec.</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot">4</div><b>Finish 15Q →</b> Results screen<br/><span style="font-size:12px;color:#8E8E93">Sees: Dit niveau fundet • Modul X (not Result 80% % on top fixed), Niveau card level + correct/total + confidence + timeFlag, Dine resultater per område categoryPct grammar vocab listening reading writing culture % pill green >=75 orange <60 + levelPct A1 A2 B1 B2, Stærke sider 75%+ category — pct%, Fokusområder <60% category — pct% → Svage typer, I gang 60-74% + Tempo gns timePerQ + timeFlag, Hvad gik galt — logisk analyse af dine fejl Dit svar vs Rigtigt + Hvorfor rule, Din personlige vej recommendedPath titles skill why time type focus, Tidslinje text breakdown weekly, CTAs See My Learning Path primary + Go to practice + Start Learning → Create Account blue + Edit goals + No account required text. Per spec: level + section scores + strengths separately from focus areas, avoid negative language.</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot">5</div><b>See My Learning Path →</b> /?page=path ← CURRENT BUG HERE<br/><span style="font-size:12px;color:#8E8E93">Should see: Roadmap vertical timeline Modul 1→PD3, selecting any section shows what we will learn in that section (grammar topics, vocab count, listening, reading, writing, difficulty sentenceLen, example, expected skills). Continue here button should go to next step (practice). Markér færdig ✓ should mark stage cleared and unlock next.<br/>Bug: nothing happens after selected continue here or path and does not go to next step.</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot">6</div><b>Start Learning → Create Account →</b> /?page=register<br/><span style="font-size:12px;color:#8E8E93">Sees: username/password/confirm validation 3/100 name 6-128 pwd, POST /api/auth/register with guestData dansk_diagnostic/level/verdict/goals/progress/scores/user_seed atomic transfer, offline fallback local_token local_id role learner, success Account created Your assessment saved transferred checklist ✓ + Continue Learning</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot active">7</div><b>Continue Learning →</b> /?page=practice Dashboard<br/><span style="font-size:12px;color:#8E8E93">Sees: Today What should you practice now? Current phase, today's exercise, quick actions 10 flashcards SRS Box 0→5, 1 listening no transcript first, Write weekly words week no repeat 60d, stage progress overall % cleared, Continue to next stage / PD3 exam</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot active">8</div><b>Practice →</b> /?page=grammar infinite engine<br/><span style="font-size:12px;color:#8E8E93">Sees: 17 topics 761 base + 5100 variants, Explanation before drill, English first, Why wrong is tempting, Variation same rule different sentences seed ensures no memorize, Complete → Progress updates</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot done">9</div><b>Complete → Progress → Next</b><br/><span style="font-size:12px;color:#8E8E93">Sees: Progress Where you are honest numbers Weekly report auto from your data Stage progress moduleId:overall%✓ + Reset progress button for testing 26 tests. Next exercise available, Continue to next stage.</span></div>
+    <a class="cta" href="/?page=simple-landing">Test Case 1 Now →</a>
+  </div>
+
+  <div class="card">
+    <span class="pill">Case 2 — Guest Returning (has localStorage)</span>
+    <h3>Open → Continue learning → Practice (no repeat assessment)</h3>
+    <div class="flow"><span class="step">Open /</span><span class="arrow">→</span><span class="step-light">Has dansk_diagnostic in localStorage</span><span class="arrow">→</span><span class="step">App.jsx diag && !isLoggedIn → path preview</span><span class="arrow">→</span><span class="step">Continue learning → level shown</span><span class="arrow">→</span><span class="step-green">Practice Today</span></div>
+    <div class="mono">App.jsx logic:
+- diag && isLoggedIn → practice (continue journey)
+- diag && !isLoggedIn → path (decide to start learning) ← Case 2 lands here
+- isLoggedIn && !diag → assessment (find level)
+- default / → simple-landing
+No repeat assessment per spec.</div>
+    <ul><li>Entry: https://danskpath.onrender.com/ → detects localStorage dansk_diagnostic → shows Continue learning → Modul X button</li><li>Click Continue learning → /?page=path preview → Start Learning → Create Account → transfer → practice</li><li>Or click Take the Test → retake test → overwrites diagnostic</li></ul>
+  </div>
+
+  <div class="card case-learner">
+    <span class="pill pill-green">Case 3 — Registered Learner Returning</span>
+    <h3>Login → current journey → exercise → complete → progress without repeat</h3>
+    <div class="flow"><span class="step">Open /</span><span class="arrow">→</span><span class="step">Already have account? Log in</span><span class="arrow">→</span><span class="step">/?page=login</span><span class="arrow">→</span><span class="step">Username/password</span><span class="arrow">→</span><span class="step-green">Dashboard Practice Today</span><span class="arrow">→</span><span class="step-green">Current Phase</span><span class="arrow">→</span><span class="step-green">Today's Exercise</span><span class="arrow">→</span><span class="step-green">Complete</span><span class="arrow">→</span><span class="step-green">Progress Updates</span><span class="arrow">→</span><span class="step-green">Next Exercise Correct</span></div>
+    <div class="mono">Data Persistence per spec: important learner data must persist after close/refresh/logout/return, saved journey available after login.
+- Assessment saved → Results saved → Path saved → Account created → Data transferred → Exercise completed → Progress saved → logout → login → Progress still exists ✓
+Test: Complete exercise → refresh → logout → login → progress remains completed remains current phase correct next exercise correct ✓</div>
+    <ul><li>Entry: /?page=login → Vipin/vipin123 or learner account → fetchMe → setUser → active admin or practice</li><li>Practice: getAllStagesProgress() from localStorage dansk_progress/path/scores/srs, overall avg, manuallyCleared, cleared lenient 50%/60%</li><li>Exercise: grammar vocab listening reading writing culture exam all have exercises phase.exercises.length >0</li><li>Progress: Where you are honest numbers + Weekly report auto + Reset progress clears localStorage + token user returns to simple-landing</li></ul>
+  </div>
+
+  <div class="card">
+    <span class="pill">Case 4 — Learner Wants to Retake Test</span>
+    <h3>Dashboard → Retake test → New results → Updated path</h3>
+    <div class="flow"><span class="step">Practice</span><span class="arrow">→</span><span class="step-light">Roadmap Your Learning Roadmap</span><span class="arrow">→</span><span class="step">Retake test button</span><span class="arrow">→</span><span class="step">/?page=diagnostic 15Q</span><span class="arrow">→</span><span class="step">New Results level strengths weaknesses</span><span class="arrow">→</span><span class="step-green">Updated Path</span></div>
+    <ul><li>PathView, RoadmapView, PracticeView all have Retake test button → tap('diagnostic') → setActive('diagnostic')</li><li>New verdict overwrites localStorage dansk_level, dansk_diagnostic, dansk_verdict</li><li>Path regenerates from new weaknesses</li><li>Progress keeps old progress but new level may change activeModule</li></ul>
+  </div>
+
+  <div class="card">
+    <span class="pill">Case 5 — Learner Wants to Reset Progress (Testing)</span>
+    <h3>Progress → Reset progress → Simple Landing → Retake</h3>
+    <div class="flow"><span class="step">Progress</span><span class="arrow">→</span><span class="step">Reset progress red pill</span><span class="arrow">→</span><span class="step">confirm() clears localStorage</span><span class="arrow">→</span><span class="step">/?page=simple-landing</span><span class="arrow">→</span><span class="step">Take the Test → 26 Definition of Done tests</span></div>
+    <div class="mono">Clears: dansk_progress, dansk_path, dansk_scores, dansk_srs, dansk_seen, dansk_level, dansk_diagnostic, dansk_verdict, dansk_user_seed, dansk_welcomed, danskpath_token, danskpath_user
+Returns to simple-landing for testing.
+Used for: New User Acceptance Test 10 steps, Returning User Acceptance Test, Data Persistence test.</div>
+    <ul><li>ProgressView top-right Weekly report + Reset progress button bg-[#FF3B30]/10 border</li><li>RoadmapView footer Go to practice + Retake test + Reset progress red</li><li>PathView should also have Reset progress (to be added)</li></ul>
+  </div>
+
+  <div class="card case-admin">
+    <span class="pill pill-red">Case 6 — Admin Owner</span>
+    <h3>Discreet access → Dashboard → User list/detail</h3>
+    <div class="flow"><span class="step">Landing</span><span class="arrow">→</span><span class="step-light">Admin link top-right 11px #8E8E93 discreet per spec</span><span class="arrow">→</span><span class="step">/?page=login</span><span class="arrow">→</span><span class="step">Vipin/vipin123</span><span class="arrow">→</span><span class="step">Admin Dashboard users/active/assessments</span><span class="arrow">→</span><span class="step">User list username level current phase progress last active</span><span class="arrow">→</span><span class="step">User detail Account Assessment Level Section Results Strengths Weaknesses Path Current Phase Completed Exercises Activity</span></div>
+    <div class="mono">Security: Passwords bcrypt never plain text, JWT secure, logout works, learners cannot access other users data, admin data, admin enforced server-side, guest assessment independent trialId not exposed.
+QR: qr-admin.png → /?page=login → admin if role admin, red dashed border in gallery owner only.</div>
+  </div>
+
+  <div class="card">
+    <span class="pill">Case 7 — Shared Link (Next Development Stage Per Spec)</span>
+    <h3>Share link → Open on phone → Create/use account → Follow learning path → Complete exercises → Save progress</h3>
+    <div class="flow"><span class="step">QR qr-assessment.png</span><span class="arrow">→</span><span class="step">Scan camera → /?page=assessment</span><span class="arrow">→</span><span class="step">Guest flow no account before value</span><span class="arrow">→</span><span class="step">Results Path Preview</span><span class="arrow">→</span><span class="step">Decide Create Account</span><span class="arrow">→</span><span class="step-green">Transfer Atomic</span><span class="arrow">→</span><span class="step-green">Practice Progress</span></div>
+    <ul><li>In person: Show QR, scan → directly to assessment</li><li>LinkedIn: Download QR + post with link</li><li>Email: Paste link + QR image</li><li>Presentation: Full-screen QR slide</li><li>Print: QR on handout A4 poster</li><li>Messages: Copy link WhatsApp SMS</li><li>Privacy: QR opens public assessment only, no admin exposed, each learner independent trialId</li></ul>
+  </div>
+
+  <h2>🗺️ Ideal Path Roadmap — Should Be</h2>
+  <div class="card">
+    <h3 style="margin-top:0">Path should come as a roadmap and then selecting any section of the road should give what we will learn in that</h3>
+    <div class="roadmap-line"><div class="roadmap-dot done">✓</div><b>Modul 1 (A1) — Alphabet & SVO</b><br/><span style="font-size:12px">What we will learn: Alfabet 9 vokaler æøå, SVO Jeg hedder Ali, en/et køn et hus en bil, nutid bor, tal 0-100 tyve. SentenceLen 4-6 words. Example: Jeg hedder Ali. Expected skills: speaking introduce, listening numbers.</span><br/><span class="pill pill-green" style="margin-top:6px">Fortsæt her — 3/5 • Markér færdig ✓</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot active">2</div><b>Modul 2 (A1-A2) — Daily Life V2</b><br/><span style="font-size:12px">What we will learn: V2 I dag arbejder jeg, flertal bøger, præposition i 3 år, ligge/lægge. SentenceLen 6-9 words. Example: I dag arbejder jeg hjemme. Grammar: V2, flertal, præpositioner. Vocab: 200 ord kollokationer.</span><br/><span class="pill pill-blue" style="margin-top:6px">Fortsæt her — 0/4 • Start →</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot">3</div><b>Modul 3 (A2) — Work & Subordinate</b><br/><span style="font-size:12px">What we will learn: Ledsætning at han ikke kommer, sin/hans, relativ der, kollokationer holde et møde, partikelverb slå op. SentenceLen 9-12 words. Example: Jeg ved at han ikke kommer. Writing: 80-120 words.</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot">4</div><b>Modul 4 (B1) — Society & Debate Intro</b><br/><span style="font-size:12px">What we will learn: Bindeord selvom derfor fordi, modalpartikel jo, kultur Folketing 179 flexicurity, gapped text sammenhæng. SentenceLen 12-15 words. Writing: 120-150 words argumenter.</span></div>
+    <div class="roadmap-line"><div class="roadmap-dot">5</div><b>Modul 5 (B1-B2) — PD3 Klar</b><br/><span style="font-size:12px">What we will learn: Jo/da/vel fælles viden, PD3 Delprøve 1-4 format 150-200 ord indledning argumenter konklusion, debate. SentenceLen 15-25 words 2-3 grammar combined. Example: Det er jo klart at vi skal hjælpe. Evidence: PD3 ready.</span></div>
+    <div class="bug">
+      <b>🐛 Current Bug — You Reported:</b><br/>
+      <span style="font-size:13px">Path should come as a roadmap and then selecting any section of the road should give what we will learn in that, but nothing happens after I have selected the continue here or path and it does not go to the next step</span>
+      <ul>
+        <li><b>Selecting any section:</b> Module selector segmented control does change activeModule and shows what we will learn (objective, difficulty, example, expected skills, grammarRequirements) — works, but not vertical roadmap timeline style per your request, it's horizontal pills</li>
+        <li><b>Continue here:</b> Old version had Fortsæt her — grammarDone/grammarRequirements + Markér færdig ✓ that set stage_mX_cleared true reload and Continue to next stage. Current PathView (2ca61e8) has Practice these → and Write this → buttons that go to grammar/writing, but no Fortsæt her / Markér færdig, so nothing happens to go to next step</li>
+        <li><b>What should happen:</b> Click Continue here → should go to practice Today with current phase exercises, or mark stage cleared and unlock next module. Click any roadmap section → should show what we will learn in that section (already does via activeModule detail, but needs vertical roadmap UI per your request)</li>
+      </ul>
+      <div class="mono">Fix plan (after you approve this roadmap):
+1. PathView as vertical roadmap timeline like you described: left line dashed, dots for each module, active module highlighted, done ✓, selecting any dot/section shows right panel what we will learn (objective, grammarRequirements, vocabRequirements, difficulty, example, expectedSkills, passingCriteria)
+2. Add Fortsæt her — x/y + Markér færdig ✓ button that sets localStorage stage_mX_cleared true + progress overall 100% + reload + tap('practice') → goes to next step (practice today)
+3. Add Continue to next stage button when cleared
+4. Add Øvelser → button per module that goes to practice with that module filter
+5. Ensure RoadmapView Your Learning Roadmap also has same vertical roadmap with next recommended Start now → that goes to practice
+6. Test: Select Modul 2 → see what we will learn → Fortsæt her → practice → Complete → Progress updates → Next stage unlocked</div>
+    </div>
+  </div>
+
+  <h2>📱 All Entry Points — URLs & QR</h2>
+  <div class="card">
+    <div class="mono">https://danskpath.onrender.com/ → simple-landing default per spec
+https://danskpath.onrender.com/?page=simple-landing → Landing Find your Danish level
+https://danskpath.onrender.com/?page=assessment → Assessment intro what measures/duration/what receives
+https://danskpath.onrender.com/?page=diagnostic → Test 15Q randomized
+https://danskpath.onrender.com/?page=path → Path Din læringsvej M1→PD3 (current bug)
+https://danskpath.onrender.com/?page=roadmap → Roadmap Your Learning Roadmap M1→PD3 overall % next recommended
+https://danskpath.onrender.com/?page=practice → Practice Today current phase today's exercise
+https://danskpath.onrender.com/?page=progress → Progress Where you are honest numbers Weekly report Reset progress
+https://danskpath.onrender.com/?page=register → Register Start Learning guest transfer atomic
+https://danskpath.onrender.com/?page=login → Login Already have account + Admin discreet
+https://danskpath.onrender.com/qr-codes.html → Gallery 12 QRs
+https://danskpath.onrender.com/qr/qr-simple-landing.png → QR Landing
+https://danskpath.onrender.com/qr/qr-assessment.png → QR Assessment
+https://danskpath.onrender.com/qr/qr-admin.png → QR Admin discreet owner only red dashed
+https://danskpath.onrender.com/personal-mvp.html → Personal MVP status
+https://danskpath.onrender.com/practice-experience.html → Flow chart + 6 practice types
+https://danskpath.onrender.com/journey-map.html → Journey map 4 cases
+https://danskpath.onrender.com/api/health → {"ok":true,"users":1,"env":"production","secure":true}</div>
+  </div>
+
+  <div class="card" style="background:#121417;color:white">
+    <h3 style="color:white;margin-top:0">✅ Definition of Done — 26 Tests — All Cases Covered</h3>
+    <ul style="color:#FFFFFFCC">
+      <li>Open → simple landing loads mobile friendly CTA visible ✓ (Case 1 step 1)</li>
+      <li>Start Assessment → intro appears sections explained ✓ (Case 1 step 2)</li>
+      <li>Complete Assessment → one question at a time Question X of Y + progress bar ✓ (Case 1 step 3)</li>
+      <li>Results → overall level section scores strengths weaknesses no account required ✓ (Case 1 step 4)</li>
+      <li>Recommended Path → personalized path complete current phase identified future phases visible path contains exercises ✓ (Case 1 step 5 — bug here)</li>
+      <li>Create Account → RegisterView validation works ✓ (Case 1 step 6)</li>
+      <li>Transfer Assessment → preserved no repeat ✓ (Case 1 step 6)</li>
+      <li>Dashboard → auto logged in level visible current phase visible progress visible next activity visible ✓ (Case 1 step 7)</li>
+      <li>First Exercise → opens instructions clear answer submit feedback complete ✓ (Case 1 step 8)</li>
+      <li>Progress → exercise completed phase progress updates overall progress updates next exercise available ✓ (Case 1 step 9)</li>
+      <li>Returning Login → current journey → exercise → complete → progress without repeat ✓ (Case 3)</li>
+      <li>Refresh after exercise logout login progress remains ✓ (Case 3)</li>
+      <li>Admin login separate learner cannot access ✓ (Case 6)</li>
+      <li>Data Persistence Assessment saved → Results saved → Path saved → Account created → Data transferred → Exercise completed → Progress saved → logout → login → Progress still exists ✓ (Case 3)</li>
+      <li>No Dead Ends Landing→Assessment→Results→Path→Account→Dashboard→Exercise→Progress→Next all work ✓ (All cases) — except Path Continue here bug you reported</li>
+    </ul>
+    <div style="margin-top:12px;font-size:11px;color:#FFFFFF80">Next: Fix PathView as vertical roadmap timeline where selecting any section shows what we will learn, plus Fortsæt her → practice + Markér færdig ✓ → next stage unlocked → practice today → complete → progress updates → next. Then test every case again.</div>
+  </div>
+
+  <div style="margin-top:24px;text-align:center">
+    <a class="cta" href="/?page=simple-landing">← Back to App</a>
+    <a class="cta" style="background:#007AFF;margin-left:8px" href="/qr-codes.html">QR Codes →</a>
+  </div>
+</div>
+</body>
+</html>
