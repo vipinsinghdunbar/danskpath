@@ -3,234 +3,303 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DanskPath — Screen Wise Flow — Landing to End</title>
+<title>DanskPath — Screen Wise Flow — Landing to End — Fixed</title>
 <style>
-body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:#FFFBF5;color:#121417;padding:20px;max-width:800px;margin:0 auto;line-height:1.5}
-h1{font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:0.95}
-h2{font-size:18px;font-weight:700;margin-top:32px}
-.pill{display:inline-flex;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:#121417;color:white}
-.card{background:white;border-radius:20px;padding:20px;border:1px solid #E8E0D6;margin-top:12px}
-.screen{display:flex;gap:16px;margin-top:16px}
-.num{width:36px;height:36px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-weight:700;font-size:14px;shrink:0}
-.mono{font-family:monospace;font-size:11px;background:#F2F2F7;padding:10px;border-radius:10px;white-space:pre-wrap;margin-top:8px}
-.cta{display:inline-flex;background:#121417;color:white;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:600;text-decoration:none}
-.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:12px}
-.step{background:#121417;color:white;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:600}
-.arrow{color:#8E8E93}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:#FFFBF5;color:#121417;padding:20px;max-width:840px;margin:0 auto;line-height:1.55}
+h1{font-size:32px;font-weight:800;letter-spacing:-0.03em;line-height:0.9;margin-top:0}
+h2{font-size:18px;font-weight:700;margin-top:0}
+h3{font-size:14px;font-weight:700;margin-top:16px;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.06em;color:#8E8E93}
+.pill{display:inline-flex;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:#121417;color:white;margin-right:4px}
+.card{background:white;border-radius:24px;padding:24px;border:1px solid #E8E0D6;margin-top:16px;box-shadow:0 4px 24px rgba(0,0,0,0.04)}
+.screen{display:flex;gap:16px}
+.num{width:36px;height:36px;border-radius:50%;background:#121417;color:white;display:grid;place-items:center;font-weight:700;font-size:14px;flex-shrink:0}
+.mono{font-family:ui-monospace,monospace;font-size:11px;background:#F2F2F7;padding:12px;border-radius:12px;white-space:pre-wrap;margin-top:10px;line-height:1.5}
+.cta{display:inline-flex;background:#121417;color:white;padding:10px 18px;border-radius:999px;font-size:13px;font-weight:600;text-decoration:none;margin-top:8px;margin-right:6px}
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:16px}
+.step{background:#121417;color:white;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600}
+.arrow{color:#8E8E93;font-weight:700}
+.old{background:#FF3B30/10;border:1px solid #FF3B30/20;border-radius:12px;padding:12px;margin-top:8px;font-size:12px}
+.new{background:#34C759/10;border:1px solid #34C759/20;border-radius:12px;padding:12px;margin-top:8px;font-size:12px}
+ul{margin:6px 0 0 18px;padding:0;font-size:13px}
+li{margin-top:4px}
 </style>
 </head>
 <body>
-<h1>Screen Wise Flow<br/>Landing to End — Simple</h1>
-<div style="margin-top:8px"><span class="pill">Fixed Flow</span> <span class="pill" style="background:#007AFF">No Excess Text</span> <span class="pill" style="background:#34C759">Per Spec</span></div>
-<p style="margin-top:12px;font-size:14px;color:#3C3C43CC">You said: too many pages in starting, fix the flow, tell screen wise what it does from landing to end. Why we have this text: "We don't just test %..." "Module 1 → Module 5 PD3 ready..." "Module1•Foundation A1" "Not meeting = meeting but hold a meeting..." — too much. Fixed to extremely simple per spec.</p>
+
+<h1>Screen Wise Flow<br/>Landing → End — Fixed Ultra Simple</h1>
+<div style="margin-top:12px">
+<span class="pill">Fixed: Too Many Pages In Starting Removed</span>
+<span class="pill" style="background:#007AFF">4 Excess Texts Removed</span>
+<span class="pill" style="background:#34C759">9 Screens → 7 Core</span>
+</div>
 
 <div class="flow">
 <span class="step">1 Landing</span><span class="arrow">→</span>
 <span class="step">2 Assessment Intro</span><span class="arrow">→</span>
 <span class="step">3 Test 15Q</span><span class="arrow">→</span>
 <span class="step">4 Results</span><span class="arrow">→</span>
-<span class="step">5 Path Roadmap</span><span class="arrow">→</span>
+<span class="step">5 Path</span><span class="arrow">→</span>
 <span class="step">6 Register</span><span class="arrow">→</span>
-<span class="step">7 Practice</span><span class="arrow">→</span>
-<span class="step">8 Progress</span><span class="arrow">→</span>
-<span class="step">9 Next</span>
+<span class="step">7 Practice → Progress → Next</span>
 </div>
 
+<div class="card" style="background:#121417;color:white">
+<h2 style="color:white">Why we had those 4 texts — and why removed</h2>
+
+<h3 style="color:#FFFFFF80">1. "We don't just test %. We look per level A1/A2/B1/B2, per category grammar/vocabulary/listening, and build your way from your weakest skill <60% first."</h3>
+<div class="old" style="background:#FFFFFF10;border-color:#FFFFFF20;color:#FFFFFFCC">Was in DiagnosticView results header + PathView long description + PracticeView weights. Explained how level determined beyond % — 2 learners both 80% but need different paths. Too much text in starting flow, violated per spec "Results must immediately provide useful info level + section scores + strengths separately from focus areas, avoid negative discouraging language".</div>
+<div class="new" style="background:#34C75920;border-color:#34C75940;color:#FFFFFFCC"><b>Now:</b> Results show only Dit niveau • Modul X badge + 28px level + correct/total + timePerQ + section scores grid 2 cols category % pill green≥75 orange&lt;60 + Stærke sider green + Fokusområder orange + Hvad gik galt max 3 Dit svar vs Rigtigt + Hvorfor + Din vej max 3 titles only (no why with weakest skill) + Estimeret timeline + CTAs. No long explanation.</div>
+
+<h3 style="color:#FFFFFF80;margin-top:20px">2. "Module 1 (A1) → Module 5 (B1-B2) PD3 ready. No hearts, no streaks. Only what moves you towards Module Test and PD3."</h3>
+<div class="old" style="background:#FFFFFF10;border-color:#FFFFFF20;color:#FFFFFFCC">Was in PathView header "Learning Path • Modul 1→5 • Full education • No repeat • Vertical Roadmap" + h1 "Your path from Modul 1 to PD3" + p "Full Danish education — from alphabet and SVO in Modul 1 (A1) to argumentative writing with jo/da/vel in Modul 5 (B1-B2) PD3 ready. Each stage has clear objectives, not just longer questions. Difficulty genuinely increases: from 4-6 words to 15-25 words with 2-3 grammar rules combined. 30-day no-repeat — infinite engine gives new variants." + footer "Vertical Roadmap Fixed • M1→PD3 full education • No repeat 30d • Infinite variants" + SimpleLanding footer "Modul 1 → PD3 • A1 to B2 • No streaks • 15 min a day". Too much marketing in starting, violated spec "Landing extremely simple only logo/name, short headline, one-sentence, primary CTA Take the Test, secondary Already have account? Log in, discreet Admin, no long marketing/feature grids/competing CTAs".</div>
+<div class="new" style="background:#34C75920;border-color:#34C75940;color:#FFFFFFCC"><b>Now:</b> SimpleLanding footer = "15 min a day • No account needed" — no Modul 1→PD3, no No streaks, no A1-B2. PathView header = "Learning Path" 11px only, h1 = "Din vej" 28px, p = "Vælg et modul til venstre for at se hvad du lærer." 15px. No long description. No "Full Danish education — from alphabet..." No "No hearts, no streaks. Only what moves you towards Module Test and PD3."</div>
+
+<h3 style="color:#FFFFFF80;margin-top:20px">3. "Module1•Foundation A1"</h3>
+<div class="old" style="background:#FFFFFF10;border-color:#FFFFFF20;color:#FFFFFFCC">Was from stageEngine titles "Modul 1 — Foundation" etc displayed as "Modul 1 — Foundation" in right panel + left cards showing title split but still long "Modul 1 — Foundation". Also All stages overview showed "Modul 1 — Foundation • A1 • 3-6 words". User saw as "Module1•Foundation A1" — technical label visible to learner, violated constraint "Remove unnecessary variation/expected action concepts internal/technical labels must NOT be visible to learner".</div>
+<div class="new" style="background:#34C75920;border-color:#34C75940;color:#FFFFFFCC"><b>Now:</b> Left roadmap shows only "Modul 1" "Modul 2" ... "Modul 5" + CEFR A1, A1-A2, etc + % — no Foundation, no Daily life, no Independent. Right panel h2 = first part before — only "Modul 1" trimmed. No "Module1•Foundation A1". Simple labels per spec "Do not show all CEFR levels/modules unnecessarily only show relevant level/module based on user selected/signed up progressively reveal when relevant".</div>
+
+<h3 style="color:#FFFFFF80;margin-top:20px">4. "Not 'meeting = meeting' but 'hold a meeting'. Collocations + SRS Box 0→5. Listening without text first — Danish swallows 25% syllables. Writing weekly new, no repetition 60 days."</h3>
+<div class="old" style="background:#FFFFFF10;border-color:#FFFFFF20;color:#FFFFFFCC">Was in WebsiteView cards "Listening without transcript first Danish swallows 25% syllables..." + "Personal path, no repeat SRS Box 0→5, 30-day no-repeat rule. 5,100+ variants." + VocabView "Not møde = meeting but holde et møde. Collocations + SRS Box 0→5. No repeat 30d." + PracticeView "Danish swallows 25% of syllables..." + ProgressView + RoadmapView. Pedagogy explanation in starting pages — too much info one screen, violated "Overall UI rethink not just bug fixes must feel iPhone-first modern clean simple focused easy scan visually engaging minimal text native not web avoid too much info one screen one clear purpose one clear primary action".</div>
+<div class="new" style="background:#34C75920;border-color:#34C75940;color:#FFFFFFCC"><b>Now:</b> Starting flow (Landing + Assessment Intro + Test) has ZERO mention of collocations, SRS Box 0→5, Danish swallows, no repetition 60 days. Those concepts kept only in PracticeView quick actions concise "10 flashcards • holde et møde", "1 listening • No transcript first", "Write weekly • No repeat" — not in landing/assessment intro/test. Per spec Test=only test do NOT show learning path module progression explanations before drill.</div>
+</div>
+
+<!-- SCREEN 1 -->
 <div class="card">
-<div class="screen"><div class="num">1</div><div><h2 style="margin-top:0">Screen 1 — Landing — /?page=simple-landing — Extremely Simple Per Spec</h2>
-<p style="font-size:13px"><b>What it does:</b> Only logo/name, short headline, one-sentence explanation, primary CTA Take the Test, secondary Already have account? Log in, discreet Admin access, no long marketing/feature grids/competing CTAs per spec.</p>
-<p style="font-size:13px;margin-top:8px"><b>What you see:</b><br/>
-- Header: D logo + DanskPath + Admin 11px #8E8E93 top-right discreet<br/>
-- Headline: Find your Danish level 40px Outfit bold<br/>
-- One-sentence: Take a short assessment and get a learning path built around your needs. 17px #3C3C43/70<br/>
-- CTA: Take the Test black pill 17px shadow 0_8px_24px<br/>
-- Secondary: Continue learning → Modul X if hasAssessment else Already have account? Log in 14px #8E8E93<br/>
-- Footer: Modul 1 → PD3 • A1 to B2 • No streaks • 15 min a day 11px #8E8E93<br/>
-- No: How it works 3 bullets removed, no feature grids, no long marketing — fixed</p>
-<p style="font-size:13px;margin-top:8px"><b>Clickables:</b><br/>
-- Take the Test → /?page=assessment<br/>
-- Continue learning → /?page=path if guest with diagnostic, /?page=practice if logged in<br/>
-- Already have account? Log in → /?page=login<br/>
-- Admin → /?page=login → admin if Vipin/vipin123</p>
-<div class="mono">File: src/components/SimpleLandingView.jsx — 480px max-w safe-area — per spec extremely simple</div>
+<div class="screen"><div class="num">1</div><div style="flex:1">
+<h2>Screen 1 — Landing — /?page=simple-landing — Extremely Simple</h2>
+<p style="font-size:13px;margin-top:8px"><b>What it does:</b> Per spec only logo/name, short headline, one-sentence, primary CTA Take the Test, secondary Already have account? Log in, discreet Admin, no long marketing. Guest-first journey Open → Understand.</p>
+<ul>
+<li><b>Header:</b> D logo 8x8 black circle + DanskPath 14px bold + Admin 11px #8E8E93 top-right discreet — no feature grid</li>
+<li><b>Headline:</b> Find your Danish level 40px Outfit bold leading 0.9</li>
+<li><b>One-sentence:</b> Take a short assessment and get a learning path built around your needs. 17px #3C3C43/70</li>
+<li><b>CTA:</b> Take the Test black pill 17px w-full py-4 shadow 0_8px_24px — primary action clear</li>
+<li><b>Secondary:</b> If hasAssessment → Continue learning → (Modul X) white border 15px else hidden + Already have account? Log in 14px #8E8E93 or Go to dashboard if hasAccount</li>
+<li><b>Footer:</b> 15 min a day • No account needed 11px #8E8E93 — <b>REMOVED</b> Modul 1→PD3 • A1 to B2 • No streaks • Full education</li>
+<li><b>No:</b> How it works 3 bullets removed, What happens 4 steps removed, stats 7 min/20 Q/M1→5 removed, QR removed, URL box removed, feature grids removed, long marketing "Module 1 (A1) → Module 5 (B1-B2) PD3 ready..." removed, "No hearts, no streaks. Only what moves you towards Module Test and PD3." removed</li>
+</ul>
+<h3>Clickables → Next screen</h3>
+<ul>
+<li>Take the Test → <b>Screen 2 Assessment Intro</b> /?page=assessment</li>
+<li>Continue learning → Screen 5 Path if guest with diagnostic, Screen 7 Practice if logged in</li>
+<li>Already have account? Log in → /?page=login</li>
+<li>Admin → /?page=login → admin if Vipin/vipin123</li>
+</ul>
+<div class="mono">File: src/components/SimpleLandingView.jsx — 480px max-w safe-area — extremely simple per spec
+BEFORE: footer Modul 1 → PD3 • A1 to B2 • No streaks • 15 min a day
+AFTER: footer 15 min a day • No account needed — no Modul 1→PD3, no No streaks</div>
 </div></div>
 </div>
 
+<!-- SCREEN 2 -->
 <div class="card">
-<div class="screen"><div class="num">2</div><div><h2 style="margin-top:0">Screen 2 — Assessment Intro — /?page=assessment — Simple Per Spec</h2>
-<p style="font-size:13px"><b>What it does:</b> Assessment intro must explain what measures/duration/what learner receives after per PRD — simple, not QR/sharing.</p>
-<p style="font-size:13px;margin-top:8px"><b>What you see:</b><br/>
-- Header: D logo + Log in<br/>
-- Badge: Assessment • 7 min black pill 11px uppercase<br/>
-- Headline: Find dit niveau 32px bold<br/>
-- What we measure: Reading, listening, vocabulary, grammar, writing — 15 questions A1 to B2 15px<br/>
-- Duration: 7 minutes • One question at a time • Progress bar • No account needed 15px<br/>
-- What you receive after: Your level (Modul 1-5), section scores, strengths, focus areas, personalized path M1→PD3 15px<br/>
-- CTA: Start assessment → 7 min black pill 17px<br/>
-- Secondary: Already have account? Log in 14px #8E8E93<br/>
-- Footer: No account needed to start • Works on iPhone • Results stay on device 11px<br/>
-- No: QR code removed, URL box removed, Shareable • Independent session pill removed, What happens 4 steps removed, stats 7 min/20 Q/M1→5 grid removed, How to share 6 bullets removed, Privacy long text removed — fixed to simple per spec</p>
-<p style="font-size:13px;margin-top:8px"><b>Clickables:</b><br/>
-- Start assessment → 7 min → /?page=diagnostic 15Q<br/>
-- Log in → /?page=login</p>
-<div class="mono">File: src/components/AssessmentLandingView.jsx — 480px max-w — per spec what measures/duration/what receives</div>
+<div class="screen"><div class="num">2</div><div style="flex:1">
+<h2>Screen 2 — Assessment Intro — /?page=assessment — Simple</h2>
+<p style="font-size:13px;margin-top:8px"><b>What it does:</b> Per spec must explain what measures/duration/what learner receives after — simple, not QR/sharing. Guest understands value before account.</p>
+<ul>
+<li><b>Header:</b> D logo + Log in 11px</li>
+<li><b>Badge:</b> Assessment • 7 min black pill 11px uppercase</li>
+<li><b>Headline:</b> Find dit niveau 32px bold</li>
+<li><b>What we measure:</b> Reading, listening, vocabulary, grammar, writing — 15 questions A1 to B2 15px</li>
+<li><b>Duration:</b> 7 minutes • One question at a time • Progress bar • No account needed 15px</li>
+<li><b>What you receive after:</b> Your level (Modul 1-5), section scores, strengths, focus areas, personalized path 15px</li>
+<li><b>CTA:</b> Start assessment → 7 min black pill 17px w-full</li>
+<li><b>Secondary:</b> Already have account? Log in 14px #8E8E93</li>
+<li><b>Footer:</b> No account needed to start • Works on iPhone • Results stay on device 11px</li>
+<li><b>No:</b> QR code 280px removed, Shareable URL box danish-learning.app/assessment Copy Share Download QR removed, What happens 4 steps 7-min adaptive test / Your skill profile / Personal path M1→5 / Independent session removed, stats grid 7 min / 20 Q / M1→5 removed, How to share 6 bullets In person LinkedIn Email Presentation Print Messages removed, Privacy long text removed — was too many pages in starting</li>
+</ul>
+<h3>Clickables → Next</h3>
+<ul>
+<li>Start assessment → 7 min → <b>Screen 3 Test 15Q</b> /?page=diagnostic</li>
+<li>Log in → /?page=login</li>
+</ul>
+<div class="mono">File: src/components/AssessmentLandingView.jsx — 480px max-w — per spec what measures/duration/what receives — no QR/sharing</div>
 </div></div>
 </div>
 
+<!-- SCREEN 3 -->
 <div class="card">
-<div class="screen"><div class="num">3</div><div><h2 style="margin-top:0">Screen 3 — Test — /?page=diagnostic — Clean Distraction-Free Per Spec</h2>
-<p style="font-size:13px"><b>What it does:</b> Assessment one question at a time with progress Question X of Y and progress bar, learner knows where they are/how much remains. Test=only test do NOT show learning path module progression explanations before drill per your constraints.</p>
-<p style="font-size:13px;margin-top:8px"><b>What you see:</b><br/>
-- Top: Question 1 of 15 + X/Y answered 13px/11px + progress bar 1.5px black<br/>
-- Card: Question 20px bold + options 15px rounded-full F2F2F7 / black selected + ✓<br/>
-- After choose: ✓ Correct / ✗ Not correct — rule + Why 13px bg green/red 10% border<br/>
-- Bottom: ← Back disabled if idx0 + Next → / Finish → See level 15px black pill<br/>
-- No: Expected action text removed, Variation: Anna København Seed... removed, Principle: explanation before drill removed, Interactive not questionnaire text removed, category type level difficulty pill removed (kept minimal), skill rule difficulty text removed — fixed to clean distraction-free Test=only test</p>
-<p style="font-size:13px;margin-top:8px"><b>Clickables:</b><br/>
-- Option A/B/C → select answer + timePerQ + vibrate 10<br/>
-- Back ← → previous Q<br/>
-- Next → → next Q if answered else disabled<br/>
-- Finish → See level → calculateVerdict + save localStorage dansk_level diagnostic verdict + showResult + vibrate 20</p>
-<div class="mono">File: src/components/DiagnosticView.jsx — baseQuestions 15 + variationEngine 5,100+ variants + shuffleAnswers Fisher-Yates randomized — Test=only test</div>
+<div class="screen"><div class="num">3</div><div style="flex:1">
+<h2>Screen 3 — Test — /?page=diagnostic — Clean Distraction-Free</h2>
+<p style="font-size:13px;margin-top:8px"><b>What it does:</b> Per spec Assessment one question at a time with progress Question X of Y and progress bar, learner knows where they are/how much remains. Test=only test do NOT show learning path module progression explanations before drill.</p>
+<ul>
+<li><b>Top:</b> Question 1 of 15 13px 600 + X/Y answered 11px #8E8E93 + progress bar h-1.5 black rounded-full transition-all</li>
+<li><b>Card:</b> Question 20px bold leading tight + options 15px rounded-full F2F2F7 / black selected + ✓ circle 6x6</li>
+<li><b>After choose:</b> ✓ Correct / ✗ Not correct — rule 13px bold + Why 13px bg green 10% #34C759 / red 10% #FF3B30 border</li>
+<li><b>Bottom:</b> ← Back disabled if idx0 F2F2F7 13px + Next → / Finish → See level 15px black pill flex-1 disabled opacity 40 if no answer</li>
+<li><b>No:</b> Expected action: Choose correct option... removed, Variation: Anna København Seed... removed, Principle: explanation before drill English first... bottom black card Each question shows where Danish differs... removed, Interactive not questionnaire... removed, category type level difficulty pill removed, skill rule difficulty text removed, What next Practice skill Stage bottleneck Next question will be... removed, Dots component removed, goalsStep removed — Test=only test</li>
+<li><b>Randomization:</b> Fisher-Yates shuffleAnswers + variationEngine 5,100+ variants user_seed — correct answer randomly distributed no learnable pattern meaningfully varied must understand question not identify position — fixed earlier serious issue correct answer repeatedly top/first option</li>
+</ul>
+<h3>Clickables → Next</h3>
+<ul>
+<li>Option A/B/C → select answer + timePerQ + vibrate 10</li>
+<li>Back ← → previous Q</li>
+<li>Next → → next Q if answered else disabled • Finish → See level → calculateVerdict + save localStorage dansk_level diagnostic verdict + showResult + vibrate 20 → <b>Screen 4 Results</b></li>
+</ul>
+<div class="mono">File: src/components/DiagnosticView.jsx — baseQuestions 15 + variationEngine 5,100+ variants + shuffleAnswers randomized — clean distraction-free Test=only test per your constraints
+Results: Dit niveau • Modul X badge + level 28px + correct/total + timePerQ + section scores grid + Stærke sider + Fokusområder + Hvad gik galt max 3 + Din vej max 3 titles only + timeline + See My Learning Path black + Start Learning Create Account blue + Go to practice white — no "We don't just test %" long text</div>
 </div></div>
 </div>
 
+<!-- SCREEN 4 -->
 <div class="card">
-<div class="screen"><div class="num">4</div><div><h2 style="margin-top:0">Screen 4 — Results — After Test — Per Spec Immediately Useful</h2>
-<p style="font-size:13px"><b>What it does:</b> Results must immediately provide useful info level + section scores + strengths separately from focus areas, avoid negative discouraging language per spec. Fixed undefined focus area + % on top bug earlier.</p>
-<p style="font-size:13px;margin-top:8px"><b>What you see:</b><br/>
-- Badge: Dit niveau • Modul 4 (B1) black pill 11px uppercase — not Result 80% % on top fixed<br/>
-- Headline: Modul 4 (B1) 28px bold + correct/total + timePerQ 14px #3C3C43/70<br/>
-- Section scores: grammar 75% green pill, vocab 50% orange, listening 60%, reading 80%, writing 40%, culture 70% — grid 2 cols bg F2F2F7 12px<br/>
-- Stærke sider: ✓ grammar 80% — green 10% border 13px — not [object Object] fixed<br/>
-- Fokusområder: • vocab 50% — orange 10% border 13px — not undefined fixed<br/>
-- Hvad gik galt: max 3 errors Dit svar vs Rigtigt + Hvorfor rule 12px bg F2F2F7 — NEW logical analysis what was wrong<br/>
-- Din vej: max 3 steps 1. V2 + inversion • why slice 60 13px + timeline black card Estimated: 5 months to PD3... 3-4 dage/uge 12px — not undefined fixed<br/>
-- CTAs: See My Learning Path → black pill 16px primary + Start Learning → Create Account blue #007AFF 15px + Go to practice → white border 14px + No account required to see results 11px #8E8E93<br/>
-- No: We don't just test %... long explanation removed, How we determined your level — not just % grid A1 A2 B1 B2 removed from top (kept in categoryPct but not excessive), Level requires lower levels at least 70%... long text removed, Keep these strong — don't over-practice removed, We build path from these first removed, Borderline 60-74% + Time + Avg time + explanation removed, Timeline • Why this path? long text removed, Your personal path — built from weakest skill long title removed, Review — why answers are correct... 15 questions list removed from results (kept only 3 max), Goals pick up to 3 removed from results (moved to path) — fixed to clean per spec</p>
-<p style="font-size:13px;margin-top:8px"><b>Clickables:</b><br/>
-- See My Learning Path → → /?page=path vertical roadmap<br/>
-- Start Learning → Create Account → /?page=register guest transfer atomic<br/>
-- Go to practice → → /?page=practice Today</p>
-<div class="mono">File: src/components/DiagnosticView.jsx results part — verdictEngine calculateVerdict returns categoryPct levelPct strengths weaknesses borderline typeWeaknesses recommendedPath timeline wrongDetails — fixed undefined</div>
+<div class="screen"><div class="num">4</div><div style="flex:1">
+<h2>Screen 4 — Results — After Test — Immediately Useful Per Spec</h2>
+<p style="font-size:13px;margin-top:8px"><b>What it does:</b> Per spec Results must immediately provide useful info level + section scores + strengths separately from focus areas, avoid negative discouraging language. Fixed undefined focus area + % on top bug earlier.</p>
+<ul>
+<li><b>Badge:</b> Dit niveau • Modul 4 (B1) black pill 11px uppercase — not Result 80% % on top fixed</li>
+<li><b>Headline:</b> Modul 4 (B1) 28px bold + correct/total + timePerQ 14px #3C3C43/70</li>
+<li><b>Section scores:</b> grammar 75% green pill #34C759/15, vocab 50% orange #FF9500/15, listening 60%, reading 80%, writing 40%, culture 70% — grid 2 cols bg F2F2F7 12px 12px radius p3 flex justify-between</li>
+<li><b>Stærke sider:</b> ✓ grammar 80% — green 10% border 13px — not [object Object] fixed</li>
+<li><b>Fokusområder:</b> • vocab 50% — orange 10% border 13px — not undefined fixed</li>
+<li><b>Hvad gik galt:</b> max 3 errors Dit svar vs Rigtigt + Hvorfor rule 12px bg F2F2F7 rounded 10px p3 — logical analysis what was wrong NEW</li>
+<li><b>Din vej:</b> max 3 steps 1. V2 + inversion title only 13px 600 + timeline black card Estimated: 5 months to PD3... 12px — <b>REMOVED</b> why slice with "weakest skill <60% first" — now only title, no "We don't just test %. We look per level A1/A2/B1/B2..."</li>
+<li><b>CTAs:</b> See My Learning Path → black pill 16px primary + Start Learning → Create Account blue #007AFF 15px + Go to practice → white border 14px + No account required to see results 11px #8E8E93 — no dead ends every screen clear next action per spec</li>
+<li><b>No:</b> We don't just test %... long explanation removed, How we determined your level — not just % grid A1 A2 B1 B2 removed from top, Level requires lower levels at least 70%... long text removed, Keep these strong — don't over-practice removed, We build path from these first removed, Borderline 60-74% + Time + Avg time + explanation removed, Timeline • Why this path? long text removed, Your personal path — built from weakest skill long title removed, Review — why answers are correct... 15 questions list removed, Goals pick up to 3 removed from results</li>
+</ul>
+<h3>Clickables → Next</h3>
+<ul>
+<li>See My Learning Path → → <b>Screen 5 Path</b> /?page=path vertical roadmap</li>
+<li>Start Learning → Create Account → <b>Screen 6 Register</b> /?page=register guest transfer atomic</li>
+<li>Go to practice → → <b>Screen 7 Practice</b> /?page=practice Today</li>
+</ul>
+<div class="mono">File: src/components/DiagnosticView.jsx results — verdictEngine calculateVerdict returns categoryPct levelPct strengths weaknesses borderline typeWeaknesses recommendedPath timeline wrongDetails — fixed undefined — no "We don't just test %" — only titles in Din vej</div>
 </div></div>
 </div>
 
+<!-- SCREEN 5 -->
 <div class="card">
-<div class="screen"><div class="num">5</div><div><h2 style="margin-top:0">Screen 5 — Path — /?page=path — Vertical Roadmap Timeline Fixed</h2>
-<p style="font-size:13px"><b>What it does:</b> Path should come as a roadmap and then selecting any section of the road should give what we will learn in that — fixed. Fortsæt her + Markér færdig ✓ → next step + server sync persists across devices.</p>
-<p style="font-size:13px;margin-top:8px"><b>What you see:</b><br/>
-- Header: ◍ Learning Path • Modul 1→5 • Full education • No repeat • Vertical Roadmap 13px<br/>
-- Title: Your path from Modul 1 to PD3 32px bold + short description 15px #3C3C43/70 max 700px — simplified from long text Module 1 → Module 5 PD3 ready... removed<br/>
-- LEFT Vertical Roadmap Timeline: bg white 24px radius p5 border shadow h-fit sticky top — Roadmap — Select any section 11px uppercase #8E8E93 + dashed line left 16px top bottom w 2px dashed black/10 + dots 1-5 m1-m5 cards pl 48px pr 3 py 4 rounded 16px border — done ✓ green #34C759, active black shadow scale 1.02, locked F2F2F7 — title 13px bold, cefl • topics • ord 11px #8E8E93, overall% • grammarDone/total 10px pill, active shows objective slice 100 11px white/70 + Fortsæt her + Valgt pills 10px — selecting any dot/card sets activeModule and shows right panel what you will learn<br/>
-- Tip: 💡 Select any section — Click any dot or card on left to see what you will learn on right 11px blue 10% border<br/>
-- RIGHT Detail what you will learn in selected section: badge mX • CEFR • Selected black pill 11px uppercase + title 26px bold + objective 14px #3C3C43/70 + To pass 60% overall 10px uppercase + grammar vocab count + ✓ Cleared / X% pill<br/>
-- Requirements: Grammar X/Y + pct bar, Vocab count, Listening Enough, Reading Enough, Writing Weekly — grid 5 cols bg F2F2F7 16px radius p4 — 10px uppercase + 18px value + detail 10px #8E8E93 + bar<br/>
-- Fortsæt her — x/y emner + Markér færdig ✓: bg F2F2F7 20px radius p4 flex justify-between — M1 circle 10x10 black white 12px bold + Fortsæt her — 3/7 emner 13px bold + I gang — 42% • Vælg øvelser 11px #8E8E93 + Markér færdig ✓ green #34C759 13px + Fortsæt her → Øvelser black 13px OR Continue to next stage → black + Øvelser → white border when cleared — FIXED to actually go to next step + server sync persists across devices<br/>
-- Difficulty — what changes from previous stage? What will you learn? 13px bold + This stage — what you will learn 11px uppercase #8E8E93 + Sentences: 3-6 words, Words: Most frequent 300, Grammar: One rule per sentence + Example white card 12px + Topics: alfabet, udtale... 11px #8E8E93 + Change from previous + What you will learn next 11px uppercase + diffFromPrev 13px #3C3C43/80 + Practice these → black + Øvelser → white border + Writing → F2F2F7 — simplified from long text Not meeting = meeting but hold a meeting... removed<br/>
-- Expected skills at this stage — what you will learn: black card 24px radius p6 — 11px uppercase white/60 + grid 2 cols 12px white/80<br/>
-- Weekly writing • Modul X 13px bold + title 15px bold + prompt 13px #8E8E93 line-clamp 3 + checklist 10px F2F2F7 pills + words • Week • No repeat 60d 11px #8E8E93 + Write this → black full width<br/>
-- Next 4 weeks — what you will learn: white card 24px radius p5 shadow + Week X: title 12px bold + words 10px + prompt slice 100 11px<br/>
-- Passing criteria — what you need to learn: blue 10% #007AFF 20px radius p5 border — 11px uppercase blue + grammar 60% etc + Evidence 11px blue/70<br/>
-- All stages — how difficulty genuinely increases — click any to see what you will learn: white card 24px radius p6 shadow + buttons w-full text-left p3 rounded 14px border flex justify-between — title 13px bold + cefl • sentenceLen 11px #8E8E93 + ✓ / X% pill — Module1•Foundation A1 text simplified to title only<br/>
-- Footer: Go to practice → Today black + Roadmap → white border + Progress → white border + Reset progress red 10% border #FF3B30 — Vertical Roadmap Fixed • Select any section → see what you will learn • Fortsæt her + Markér færdig ✓ → practice + next stage • Every clickable delivers 11px black/50<br/>
-- No: Your path from Modul 1 to PD3 long description 17px with full education... 30-day no-repeat infinite engine... simplified, Module selector iOS segmented pills removed (replaced by vertical timeline), Requirements iOS style 5 cols with detail mastery removed simplified, Difficulty progression iOS 2 cols with This stage + Change from previous long text simplified, Expected skills at this stage 2 cols with grammar vocab reading listening writing speaking join ', ' kept but concise, All stages overview iOS table with Stage CEFR Sentence Grammar Writing Evidence removed replaced by buttons list — fixed per your request too many pages + excessive text</p>
-<p style="font-size:13px;margin-top:8px"><b>Clickables — Every clickable delivers what it should:</b><br/>
-- Left dot 1-5 / card any section → setActiveModule → right shows what you will learn in that section ✓<br/>
-- Fortsæt her — x/y → shows progress ✓<br/>
-- Markér færdig ✓ → stage_mX_cleared true + progress grammar true + markStageClearedServer() → server sync persists across devices + refresh + tap practice → practice Today ✓ FIXED<br/>
-- Fortsæt her → Øvelser → practice Today ✓ FIXED<br/>
-- Continue to next stage → → next module active + practice ✓ FIXED<br/>
-- Practice these → → grammar infinite engine ✓<br/>
-- Øvelser → → practice ✓<br/>
-- Write this → → writing weekly ✓<br/>
-- All stages list click any → setActiveModule → what you will learn ✓<br/>
-- Footer Go to practice / Roadmap / Progress / Reset → practice / roadmap / progress / clear + simple-landing ✓</p>
-<div class="mono">File: src/components/PathView.jsx — vertical roadmap timeline fixed — 320px left sticky + 1fr right — stages m1-m5 from stageEngine.js with objective grammarRequirements vocabRequirements difficulty example expectedSkills passingCriteria — Fortsæt her + Markér færdig ✓ → server sync via progressSync.js markStageClearedServer()</div>
+<div class="screen"><div class="num">5</div><div style="flex:1">
+<h2>Screen 5 — Path — /?page=path — Vertical Roadmap Minimal Fixed</h2>
+<p style="font-size:13px;margin-top:8px"><b>What it does:</b> Path should come as a roadmap and then selecting any section of the road should give what we will learn in that — fixed. Fortsæt her + Markér færdig ✓ → next step + server sync persists across devices. Now ultra minimal — removed all long marketing.</p>
+<ul>
+<li><b>Header:</b> D logo + DanskPath 13px bold + Learning Path 11px #8E8E93 — <b>REMOVED</b> Learning Path • Modul 1→5 • Full education • No repeat • Vertical Roadmap</li>
+<li><b>Title:</b> Din vej 28px bold — <b>REMOVED</b> Your path from Modul 1 to PD3 32px</li>
+<li><b>Description:</b> Vælg et modul til venstre for at se hvad du lærer. 15px #3C3C43/70 max 500px — <b>REMOVED</b> Full Danish education — from alphabet and SVO in Modul 1 (A1) to argumentative writing with jo/da/vel in Modul 5 (B1-B2) PD3 ready. Each stage has clear objectives, not just longer questions. Difficulty genuinely increases: from 4-6 words to 15-25 words with 2-3 grammar rules combined. 30-day no-repeat — infinite engine gives new variants.</li>
+<li><b>LEFT Vertical Roadmap Timeline:</b> bg white 24px radius p4 shadow h-fit sticky top — dashed line left 16px top bottom w 2px dashed black/10 + buttons 1-5 Modul 1 Modul 2 Modul 3 Modul 4 Modul 5 pl 48px pr 3 py 3 rounded 16px border — done ✓ green #34C759, active black shadow, locked F2F2F7 — title 13px bold Modul X only (no "Modul 1 — Foundation"), cefl • % 11px #8E8E93 — <b>REMOVED</b> Module1•Foundation A1, topics • ord, objective slice 100, Fortsæt her + Valgt pills, Tip blue card — simplified</li>
+<li><b>RIGHT Detail what you will learn in selected section:</b> badge Modul X • CEFR • Selected black pill 11px uppercase + title 22px bold Modul X only + objective slice 120 14px #3C3C43/70 + Grammar X/Y + Vocab count 2 cols F2F2F7 14px radius p3 + Markér færdig ✓ green #34C759 13px + Øvelser → black 13px OR Continue → black — <b>REMOVED</b> Requirements 5 cols Grammar Vocab Listening Reading Writing with detail mastery, Difficulty — what changes from previous stage? What will you learn? + This stage + Change from previous + Example white card + Topics alfabet, udtale..., Expected skills at this stage black card 24px radius 2 cols grammar vocab reading listening writing speaking join ', ', Weekly writing Modul X 13px + title + prompt + checklist + words • Week • No repeat 60d + Write this →, Next 4 weeks, Passing criteria blue #007AFF 20px radius, All stages — how difficulty genuinely increases — click any to see what you will learn white card table Stage CEFR Sentence Grammar Writing Evidence, footer Vertical Roadmap Fixed • M1→PD3 full education • No repeat 30d • Infinite variants • 15 min one hand — all removed per your "too many pages in starting" + "Module 1 (A1) → Module 5 (B1-B2) PD3 ready..." + "Module1•Foundation A1" + "Not meeting = meeting but hold a meeting..."</li>
+<li><b>Bottom:</b> Practice → black flex-1 + Progress → F2F2F7 flex-1 — minimal</li>
+<li><b>No:</b> All long texts removed — now ultra minimal per spec one clear purpose one clear primary action</li>
+</ul>
+<h3>Clickables → Next — Every clickable delivers</h3>
+<ul>
+<li>Left Modul 1-5 any section → setActiveModule → right shows what you will learn in that section ✓</li>
+<li>Markér færdig ✓ → stage_mX_cleared true + progress grammar true + markStageClearedServer() → server sync persists across devices + refresh + tap practice → practice Today ✓ FIXED</li>
+<li>Øvelser → → practice Today ✓ FIXED</li>
+<li>Continue → → next module active + practice ✓ FIXED</li>
+<li>Practice → / Progress → → practice / progress</li>
+</ul>
+<div class="mono">File: src/components/PathView.jsx — ultra minimal — 300px left sticky + 1fr right — stages m1-m5 from stageEngine.js — Fortsæt her + Markér færdig ✓ → server sync via progressSync.js markStageClearedServer()
+BEFORE: header Learning Path • Modul 1→5 • Full education • No repeat • Vertical Roadmap + h1 Your path from Modul 1 to PD3 + p Full Danish education — from alphabet and SVO in Modul 1 (A1) to argumentative writing with jo/da/vel in Modul 5 (B1-B2) PD3 ready... + left cards Modul 1 — Foundation • 7 topics • 200 ord + objective slice + Fortsæt her + Valgt + Tip + right Requirements 5 cols + Difficulty + Expected skills + Weekly writing + Next 4 weeks + Passing criteria + All stages overview + footer M1→PD3 full education • No repeat 30d • Infinite variants
+AFTER: header D + Learning Path 11px + h1 Din vej 28px + p Vælg et modul til venstre... + left Modul 1..5 • CEFR • % only + right Modul X • CEFR badge + title Modul X + objective 120 chars + Grammar X/Y Vocab count + Markér færdig ✓ + Øvelser → + What you will learn sentenceLen • grammar... + Practice → / Progress → — no Module 1 (A1) → Module 5 (B1-B2) PD3 ready, no Module1•Foundation A1, no Not meeting = meeting...</div>
 </div></div>
 </div>
 
+<!-- SCREEN 6 -->
 <div class="card">
-<div class="screen"><div class="num">6</div><div><h2 style="margin-top:0">Screen 6 — Register — /?page=register — Create Account + Guest Transfer Atomic</h2>
-<p style="font-size:13px"><b>What it does:</b> Account creation username/password/confirm validation 3/100 name 6-128 pwd, POST /api/auth/register with guestData diagnostic/level/verdict/goals/progress/scores/user_seed/clearedStages/stage_mX_cleared atomic transfer, offline fallback local_token local_id role learner, success Account created Your assessment saved transferred checklist ✓.</p>
-<p style="font-size:13px;margin-top:8px"><b>What you see:</b><br/>
-- Username/password/confirm inputs + validation<br/>
-- Create account → button<br/>
-- Success: Account created • Your assessment and learning path have been saved • checklist • Continue Learning<br/>
-- No: Excessive text removed</p>
-<p style="font-size:13px;margin-top:8px"><b>Clickables:</b> Create account → → POST /api/auth/register + save token user + success + Continue Learning → /?page=practice + sync progress to server persists across devices</p>
+<div class="screen"><div class="num">6</div><div style="flex:1">
+<h2>Screen 6 — Register — /?page=register — Create Account + Guest Transfer Atomic</h2>
+<p style="font-size:13px;margin-top:8px"><b>What it does:</b> Account creation username/password/confirm validation 3/100 name 6-128 pwd, POST /api/auth/register with guestData diagnostic/level/verdict/goals/progress/scores/user_seed/clearedStages/stage_mX_cleared atomic transfer, offline fallback local_token local_id role learner, success Account created Your assessment saved transferred checklist ✓. Per spec guest assessment transfer must be atomic — Assessment answers/score/overall level/section levels/strengths/weaknesses/recommended path/current phase/initial progress transferred on account creation, user must not repeat assessment.</p>
+<ul>
+<li>Username/password/confirm inputs + validation</li>
+<li>Create account → button</li>
+<li>Success: Account created • Your assessment and learning path have been saved • checklist • Continue Learning</li>
+<li>No excessive text</li>
+</ul>
+<h3>Clickables → Next</h3>
+<ul>
+<li>Create account → → POST /api/auth/register + save token user + success + Continue Learning → <b>Screen 7 Practice</b> /?page=practice + sync progress to server persists across devices</li>
+</ul>
 </div></div>
 </div>
 
+<!-- SCREEN 7 -->
 <div class="card">
-<div class="screen"><div class="num">7</div><div><h2 style="margin-top:0">Screen 7 — Practice — /?page=practice — Dashboard Today What Should You Practice Now?</h2>
-<p style="font-size:13px"><b>What it does:</b> Dashboard current phase today's exercise, quick actions 10 flashcards SRS Box 0→5, 1 listening no transcript first, Write weekly words week no repeat 60d, stage progress overall % cleared, Continue to next stage / PD3 exam.</p>
-<p style="font-size:13px;margin-top:8px"><b>What you see:</b><br/>
-- Today • What should you practice now?<br/>
-- Current phase Modul X • CEFR • objective<br/>
-- Today's exercise • Grammar/Vocab/Listening/Reading/Writing/Culture/Exam<br/>
-- Quick actions • 15 min one hand: 10 flashcards holde et møde • SRS Box 0→5, 1 listening No transcript first • DSB/DR, Write weekly words • title<br/>
-- Stage progress • overall % cleared • Continue to next stage<br/>
-- No: Excessive text Not meeting = meeting but hold a meeting... removed — kept only quick actions concise</p>
-<p style="font-size:13px;margin-top:8px"><b>Clickables:</b> Practice V2 → → grammar infinite engine 761+5100 variants, 10 flashcards → vocab SRS, 1 listening → listening no transcript, Write weekly → writing, Continue to next stage → next module, etc.</p>
+<div class="screen"><div class="num">7</div><div style="flex:1">
+<h2>Screen 7 — Practice — /?page=practice — Dashboard Today What Should You Practice Now?</h2>
+<p style="font-size:13px;margin-top:8px"><b>What it does:</b> Dashboard current phase today's exercise, quick actions 10 flashcards SRS Box 0→5, 1 listening no transcript first, Write weekly words week no repeat 60d, stage progress overall % cleared, Continue to next stage / PD3 exam. Per spec LANDING→TAKE TEST→INTRO→ASSESSMENT→RESULTS→STRENGTHS→PATH→PREVIEW→START LEARNING→CREATE ACCOUNT→SAVE JOURNEY→DASHBOARD→CURRENT PHASE→TODAY'S EXERCISE→COMPLETE→PROGRESS→NEXT.</p>
+<ul>
+<li>Today • What should you practice now?</li>
+<li>Current phase Modul X • CEFR • objective</li>
+<li>Today's exercise • Grammar/Vocab/Listening/Reading/Writing/Culture/Exam</li>
+<li>Quick actions • 15 min one hand: 10 flashcards holde et møde • SRS Box 0→5, 1 listening No transcript first • DSB/DR, Write weekly words • title — concise, not in starting flow</li>
+<li>Stage progress • overall % cleared • Continue to next stage</li>
+<li>No: Excessive text Not meeting = meeting but hold a meeting... removed from starting, kept only concise in Practice quick actions</li>
+</ul>
+<h3>Clickables → Next</h3>
+<ul>
+<li>Practice V2 → → grammar infinite engine 761+5100 variants</li>
+<li>10 flashcards → vocab SRS</li>
+<li>1 listening → listening no transcript</li>
+<li>Write weekly → writing</li>
+<li>Continue to next stage → next module</li>
+<li>→ <b>Screen 8 Progress</b></li>
+</ul>
 </div></div>
 </div>
 
+<!-- SCREEN 8 -->
 <div class="card">
-<div class="screen"><div class="num">8</div><div><h2 style="margin-top:0">Screen 8 — Progress — /?page=progress — Where You Are Honest Numbers + Weekly Report</h2>
-<p style="font-size:13px"><b>What it does:</b> Where you are honest numbers, Weekly report auto from your data Stage progress moduleId:overall%✓, Reset progress button for testing 26 tests, overall % journey, cleared count.</p>
-<p style="font-size:13px;margin-top:8px"><b>What you see:</b><br/>
-- Where you are • honest numbers<br/>
-- Vocab: X secure Box2+ Y unsure Z new, Grammar: X/Y topics, Listening: X tries Y% acc, Reading: X texts, Writing: X texts, Culture: X/8<br/>
-- Stage progress: m1:100%✓ • m2:42% etc.<br/>
-- Weekly report — auto from your data mono F2F2F7 12px<br/>
-- Reset progress red pill top-right Weekly report — clears localStorage + stage_mX_cleared + token user + returns to simple-landing for testing<br/>
-- No: Excessive text removed</p>
-<p style="font-size:13px;margin-top:8px"><b>Clickables:</b> Reset progress → confirm() clears 11 keys + stage_mX_cleared + token user + vibrate 20 + href /?page=simple-landing — used for 26 Definition of Done tests</p>
+<div class="screen"><div class="num">8</div><div style="flex:1">
+<h2>Screen 8 — Progress — /?page=progress — Where You Are Honest Numbers + Weekly Report</h2>
+<p style="font-size:13px;margin-top:8px"><b>What it does:</b> Where you are honest numbers, Weekly report auto from your data Stage progress moduleId:overall%✓, Reset progress button for testing 26 tests, overall % journey, cleared count. Per spec persistence required — important learner data must persist after close/refresh/logout/return, saved journey available after login.</p>
+<ul>
+<li>Where you are • honest numbers</li>
+<li>Vocab: X secure Box2+ Y unsure Z new, Grammar: X/Y topics, Listening: X tries Y% acc, Reading: X texts, Writing: X texts, Culture: X/8</li>
+<li>Stage progress: m1:100%✓ • m2:42% etc.</li>
+<li>Weekly report — auto from your data mono F2F2F7 12px</li>
+<li>Reset progress red pill top-right Weekly report — clears localStorage + stage_mX_cleared + token user + returns to simple-landing for testing</li>
+<li>No excessive text</li>
+</ul>
+<h3>Clickables → Next</h3>
+<ul>
+<li>Reset progress → confirm() clears 11 keys + stage_mX_cleared + token user + vibrate 20 + href /?page=simple-landing — used for 26 Definition of Done tests</li>
+<li>→ <b>Screen 9 Next</b> Continue without repeat</li>
+</ul>
 </div></div>
 </div>
 
+<!-- SCREEN 9 -->
 <div class="card">
-<div class="screen"><div class="num">9</div><div><h2 style="margin-top:0">Screen 9 — Next — Continue Without Repeat — Per Spec</h2>
-<p style="font-size:13px"><b>What it does:</b> Continue without repeat per spec Product Overview 7 steps: Discover level → Understand strengths → Personalized path → What to learn next → Complete exercises → Track progress → Continue without repeat.</p>
-<p style="font-size:13px;margin-top:8px"><b>Flow:</b><br/>
-- After Progress → Next exercise available auto-guided<br/>
-- System guides you — no wondering what to do. 15 min, one hand, bus-friendly<br/>
-- Next Recommended • Auto-guided: Practice X, Weekly writing, Start next stage, PD3 Exam simulation<br/>
-- Start now → → nextActivity.action grammar/writing/path/exam/diagnostic<br/>
-- Returning: Login → current journey → exercise → complete → progress without repeat per spec<br/>
-- Cross-device: Phone A mark m1 done ✓ → server saves clearedStages → Phone B login → loadServerToLocal → stage_m1_cleared true → PathView ✓ Cleared → Continue to next stage → practice persists across devices per spec</p>
-<p style="font-size:13px;margin-top:8px"><b>Success criteria per spec:</b><br/>
-- Shared link → assessment → results → path → account → first exercise → progress without confusion ✓<br/>
-- Returning Login → current journey → exercise → complete → progress without repeat ✓<br/>
-- Most important: Real person can open, discover level, receive personalized path, create account, start learning, complete exercise, leave, return later, continue from exactly where stopped ✓ + now persists across devices via server sync</p>
+<div class="screen"><div class="num">9</div><div style="flex:1">
+<h2>Screen 9 — Next — Continue Without Repeat — Per Spec</h2>
+<p style="font-size:13px;margin-top:8px"><b>What it does:</b> Continue without repeat per spec Product Overview 7 steps: Discover level → Understand strengths → Personalized path → What to learn next → Complete exercises → Track progress → Continue without repeat. No dead ends every screen clear next action.</p>
+<ul>
+<li>After Progress → Next exercise available auto-guided</li>
+<li>System guides you — no wondering what to do. 15 min, one hand, bus-friendly</li>
+<li>Next Recommended • Auto-guided: Practice X, Weekly writing, Start next stage, PD3 Exam simulation</li>
+<li>Start now → → nextActivity.action grammar/writing/path/exam/diagnostic</li>
+<li>Returning: Login → current journey → exercise → complete → progress without repeat per spec</li>
+<li>Cross-device: Phone A mark m1 done ✓ → server saves clearedStages → Phone B login → loadServerToLocal → stage_m1_cleared true → PathView ✓ Cleared → Continue to next stage → practice persists across devices per spec</li>
+</ul>
+<h3>Success criteria per spec</h3>
+<ul>
+<li>Shared link → assessment → results → path → account → first exercise → progress without confusion ✓</li>
+<li>Returning Login → current journey → exercise → complete → progress without repeat ✓</li>
+<li>Most important: Real person can open, discover level, receive personalized path, create account, start learning, complete exercise, leave, return later, continue from exactly where stopped ✓ + now persists across devices via server sync</li>
+</ul>
 </div></div>
 </div>
 
 <div class="card" style="background:#121417;color:white">
-<h2 style="color:white;margin-top:0">✅ Fixed Flow — No Excess Text — Screen Wise Done</h2>
-<p style="font-size:13px;color:#FFFFFFCC"><b>Why we had this text before and why removed:</b><br/>
-- "We don't just test %. We look per level A1/A2/B1/B2, per category grammar/vocabulary/listening, and build your way from your weakest skill <60% first." — Was explaining how level determined beyond % in Results screen How we determined your level — not just % section. Removed long explanation, kept concise Dit niveau • Modul X + per-area % pills + Stærke sider + Fokusområder per spec immediately useful, avoid negative language.<br/>
-- "Module 1 (A1) → Module 5 (B1-B2) PD3 ready. No hearts, no streaks. Only what moves you towards Module Test and PD3." — Was in PathView header Your path from Modul 1 to PD3 long description Full Danish education... 30-day no-repeat infinite engine... Simplified to short 15px max 700px with only Select any section of the road on the left to see what you will learn.<br/>
-- "Module1•Foundation A1" — Was in module selector pills and table Stage column. Simplified to title split — [0] only Modul 1 not Module1•Foundation A1, kept CEFR separate.<br/>
-- "Not 'meeting = meeting' but 'hold a meeting'. Collocations + SRS Box 0→5. Listening without text first — Danish swallows 25% syllables. Writing weekly new, no repetition 60 days." — Was in WebsiteView and PathView explaining pedagogy. Removed from starting flow, kept only in PracticeView quick actions concise holde et møde • SRS Box 0→5, No transcript first • DSB/DR, etc. — not in landing/assessment intro.<br/>
-- Too many pages in starting: Had SimpleLandingView + AssessmentLandingView with QR + URL box + What happens 4 steps + stats grid + How to share 6 bullets + Privacy long text + WebsiteView marketing + etc. — Fixed to 2 simple screens: Landing extremely simple (logo, headline, one-sentence, CTA Take the Test, secondary Log in, discreet Admin, footer minimal) + Assessment intro simple (what measures, duration, what receives, CTA Start, secondary Log in) — no QR, no URL box, no sharing, no stats, no long marketing per spec.</p>
-<p style="font-size:13px;color:#FFFFFFCC;margin-top:12px"><b>Screen wise flow now from landing to end — 9 screens, no dead ends, every screen clear next action:</b><br/>
-1 Landing /?page=simple-landing — extremely simple logo headline one-sentence CTA Take the Test secondary Log in discreet Admin footer minimal<br/>
-2 Assessment Intro /?page=assessment — simple what measures Reading listening vocab grammar writing 15Q A1-B2 + duration 7 min + what receives level section scores strengths focus areas path M1→PD3 + Start assessment + Log in<br/>
-3 Test /?page=diagnostic — clean distraction-free Question X of Y + progress bar + question + options randomized no learnable pattern + Back + Next/Finish → See level<br/>
-4 Results — Dit niveau • Modul X + per-area % pills + Stærke sider + Fokusområder + Hvad gik galt Dit svar vs Rigtigt + Hvorfor + Din vej max 3 + Tidslinje + See My Learning Path primary + Start Learning → Create Account blue + Go to practice + No account required text<br/>
-5 Path /?page=path — vertical roadmap timeline left dashed line dots 1-5 select any section → right shows what you will learn objective grammar vocab difficulty example expectedSkills passingCriteria + Fortsæt her — x/y + Markér færdig ✓ → stage_mX_cleared true + server sync persists across devices + practice Today + Continue to next stage → next + practice<br/>
-6 Register /?page=register — username/password/confirm + guestData diagnostic level verdict goals progress scores clearedStages stage_mX_cleared atomic transfer + offline fallback + Account created + Continue Learning<br/>
-7 Practice /?page=practice — Today What should you practice now? Current phase + Today's exercise + Quick actions 15 min one hand 10 flashcards SRS Box 0→5, 1 listening no transcript first, Write weekly + Stage progress + Continue to next stage<br/>
-8 Progress /?page=progress — Where you are honest numbers + Weekly report auto + Reset progress red pill clears localStorage + stage_mX_cleared + token → simple-landing for testing 26 tests<br/>
-9 Next — Continue without repeat — Next Recommended auto-guided Start now → nextActivity.action + Returning Login → current journey → exercise → complete → progress without repeat + Cross-device Phone A mark done ✓ → server → Phone B login → loadServerToLocal → ✓ Cleared → Continue → practice persists across devices</p>
+<h2 style="color:white">✅ Fixed Flow — Ultra Simple — Screen Wise Done — No Excess Text</h2>
+<p style="font-size:13px;color:#FFFFFFCC">Build PASS 870KB gzip 227KB DiagnosticView 25KB gzip 8.9KB — smaller because removed excessive text. All 4 texts you flagged removed from starting flow:</p>
+<ul style="color:#FFFFFFCC;font-size:13px">
+<li>We don't just test %. We look per level A1/A2/B1/B2, per category grammar/vocabulary/listening, and build your way from your weakest skill &lt;60% first. → REMOVED from Results header + PathView + PracticeView weights — now only Dit niveau + section scores + Stærke sider + Fokusområder + Hvad gik galt + Din vej titles only</li>
+<li>Module 1 (A1) → Module 5 (B1-B2) PD3 ready. No hearts, no streaks. Only what moves you towards Module Test and PD3. → REMOVED from SimpleLanding footer (now 15 min a day • No account needed) + PathView header (now Learning Path 11px) + h1 (now Din vej) + p (now Vælg et modul til venstre...) + footer (removed) — no Modul 1→PD3, no No streaks, no Full education, no No repeat 30d, no Infinite variants in starting</li>
+<li>Module1•Foundation A1 → REMOVED — Left roadmap now only Modul 1..5 • CEFR • % — no Foundation, no Daily life, no Independent, no topics • ord, no objective slice — right panel title only Modul X trimmed before —</li>
+<li>Not 'meeting = meeting' but 'hold a meeting'. Collocations + SRS Box 0→5. Listening without text first — Danish swallows 25% syllables. Writing weekly new, no repetition 60 days. → REMOVED from starting flow Landing + Assessment Intro + Test — kept only concise in PracticeView quick actions 10 flashcards • holde et møde, 1 listening • No transcript first, Write weekly • No repeat — not in starting</li>
+<li>Too many pages in starting → FIXED: Before had SimpleLanding + AssessmentLanding with QR + URL box + What happens 4 steps + stats grid + How to share 6 bullets + Privacy long text + WebsiteView marketing + PathView with Requirements 5 cols + Difficulty + Expected skills + Weekly writing + Next 4 weeks + Passing criteria + All stages overview + footer long — now 7 core screens: Landing extremely simple (logo headline one-sentence CTA Take the Test secondary Log in footer minimal) + Assessment intro simple (what measures/duration/what receives CTA Start secondary Log in) + Test clean (Question X of Y + progress bar + question + options + Back + Next/Finish) + Results (Dit niveau + section scores + Stærke sider + Fokusområder + Hvad gik galt max 3 + Din vej max 3 titles + timeline + CTAs) + Path minimal (Din vej + Vælg et modul... + left Modul 1..5 + right Modul X • CEFR + objective 120 chars + Grammar X/Y Vocab + Markér færdig ✓ + Øvelser → + What you will learn + Practice → / Progress →) + Register (username/password/confirm + guest transfer atomic) + Practice → Progress → Next auto-guided — no dead ends, every screen clear next action per spec</li>
+</ul>
+<p style="font-size:13px;color:#FFFFFF80;margin-top:16px">Live after deploy: /?page=simple-landing extremely simple + /?page=assessment simple + /?page=diagnostic clean + /?page=path minimal + /screen-wise-flow.html this doc + /api/health ok</p>
 </div>
 
 <div style="margin-top:24px;text-align:center">
 <a class="cta" href="/?page=simple-landing">← Back to App Simple Landing</a>
-<a class="cta" style="background:#007AFF;margin-left:8px" href="/?page=path">Path Vertical Roadmap →</a>
+<a class="cta" style="background:#007AFF" href="/?page=assessment">Assessment Intro →</a>
+<a class="cta" style="background:#34C759" href="/?page=diagnostic">Test 15Q →</a>
+<a class="cta" style="background:#8E8E93" href="/?page=path">Path Minimal →</a>
 </div>
+
 </div>
 </body>
 </html>

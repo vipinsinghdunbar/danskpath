@@ -6,7 +6,6 @@ export default function SimpleLandingView({ setActive }) {
     <div className="min-h-screen bg-[#FFFBF5] flex flex-col">
       <div className="h-[env(safe-area-inset-top,0px)] bg-[#FFFBF5]" />
       
-      {/* Header - discreet admin per spec */}
       <div className="px-6 pt-6 flex justify-between items-center max-w-[480px] mx-auto w-full">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-black text-white grid place-items-center font-bold text-[14px]">D</div>
@@ -15,7 +14,6 @@ export default function SimpleLandingView({ setActive }) {
         <button onClick={()=>setActive('login')} className="text-[11px] text-[#8E8E93] hover:text-black">Admin</button>
       </div>
 
-      {/* Main - extremely simple per spec: only logo/name, short headline, one-sentence, primary CTA Take the Test, secondary Already have account? Log in, discreet Admin, no long marketing */}
       <div className="flex-1 flex flex-col justify-center px-6 max-w-[480px] mx-auto w-full">
         <div className="py-16">
           <h1 className="text-[40px] font-[700] tracking-tight leading-[0.9] font-[Outfit]">
@@ -35,10 +33,10 @@ export default function SimpleLandingView({ setActive }) {
             
             {hasAssessment ? (
               <button 
-                onClick={()=>setActive('practice')}
+                onClick={()=>setActive('path')}
                 className="w-full mt-3 bg-white border border-black/10 py-3.5 rounded-full text-[15px] font-[600] active:scale-[0.98] transition-all"
               >
-                Continue learning → {localStorage.getItem('dansk_level') || ''}
+                Continue learning →
               </button>
             ) : null}
 
@@ -59,9 +57,9 @@ export default function SimpleLandingView({ setActive }) {
 
       <div className="h-[env(safe-area-inset-bottom,0px)] bg-[#FFFBF5]" />
       
-      <div className="px-6 pb-6 max-w-[480px] mx-auto w-full">
+      <div className="px-6 pb-8 max-w-[480px] mx-auto w-full">
         <div className="text-[11px] text-[#8E8E93] text-center">
-          Modul 1 → PD3 • A1 to B2 • No streaks • 15 min a day
+          15 min a day • No account needed
         </div>
       </div>
     </div>

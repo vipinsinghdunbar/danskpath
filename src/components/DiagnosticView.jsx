@@ -142,11 +142,11 @@ export default function DiagnosticView({ setActive }) {
               {path.slice(0,3).map((p,i)=>(
                 <div key={i} className="flex gap-2">
                   <div className="w-6 h-6 rounded-full bg-black text-white grid place-items-center text-[10px] font-bold shrink-0">{i+1}</div>
-                  <div className="text-[13px]"><b>{p.title}</b> • <span className="text-[#8E8E93]">{p.why?.slice(0,60)}</span></div>
+                  <div className="text-[13px] font-[600]">{p.title}</div>
                 </div>
               ))}
             </div>
-            <div className="mt-3 text-[12px] bg-black text-white rounded-[12px] p-3">Estimeret: {timeline.text} • {timeline.weekly||'3-4 dage/uge er nok'}</div>
+            <div className="mt-3 text-[12px] bg-black text-white rounded-[12px] p-3">{timeline.text}</div>
           </div>
 
           <div className="mt-6 space-y-3">
