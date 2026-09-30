@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DanskPath — All Possible Cases — Flow Charts Start to End — User & Admin Seamless Navigation</title>
+<style>
+*{box-sizing:border-box}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:#FFFBF5;color:#121417;padding:20px;max-width:1100px;margin:0 auto;line-height:1.6}
+h1{font-size:36px;font-weight:900;letter-spacing:-0.04em;line-height:0.85;margin:0}
+h2{font-size:22px;font-weight:800;margin-top:48px;letter-spacing:-0.02em;border-bottom:3px solid #121417;padding-bottom:10px}
+h3{font-size:14px;font-weight:800;margin-top:24px;text-transform:uppercase;letter-spacing:0.1em;color:#8E8E93}
+.pill{display:inline-flex;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:#121417;color:white;margin-right:6px;margin-bottom:6px}
+.pill.blue{background:#007AFF}
+.pill.green{background:#34C759}
+.pill.orange{background:#FF9500}
+.pill.red{background:#FF3B30}
+.pill.gray{background:#8E8E93}
+.card{background:white;border-radius:24px;padding:24px;border:1px solid #E8E0D6;margin-top:16px;box-shadow:0 4px 24px rgba(0,0,0,0.04)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.step{background:#121417;color:white;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:700;display:inline-flex;align-items:center;gap:6px}
+.step.blue{background:#007AFF}
+.step.green{background:#34C759}
+.step.orange{background:#FF9500}
+.step.white{background:white;color:#121417;border:1px solid #E8E0D6}
+.step.gray{background:#F2F2F7;color:#3C3C43;border:1px solid transparent}
+.arrow{color:#8E8E93;font-weight:900;font-size:14px}
+.grid{display:grid;gap:16px}
+.grid2{grid-template-columns:1fr 1fr}
+@media(max-width:800px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#8E8E93;border-bottom:1px solid #E8E0D6;padding:8px 6px}
+td{border-bottom:1px solid #F2F2F7;padding:10px 6px;vertical-align:top}
+.mono{font-family:ui-monospace,monospace;font-size:11px;background:#F2F2F7;padding:12px;border-radius:12px;white-space:pre-wrap;margin-top:10px;line-height:1.5}
+.chart{background:#121417;color:white;border-radius:20px;padding:20px;margin-top:12px;font-family:ui-monospace,monospace;font-size:12px;line-height:1.7;white-space:pre;overflow:auto}
+.cta{display:inline-flex;background:#121417;color:white;padding:10px 18px;border-radius:999px;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px;margin-right:8px}
+ul{margin:8px 0 0 18px;padding:0;font-size:13px}
+li{margin-top:6px}
+.old{background:#FF3B30/8;border:1px solid #FF3B30/20;border-radius:12px;padding:12px;margin-top:8px;font-size:12px}
+.new{background:#34C759/8;border:1px solid #34C759/20;border-radius:12px;padding:12px;margin-top:8px;font-size:12px}
+</style>
+</head>
+<body>
+
+<h1>All Possible Cases<br/>Flow Charts Start → End<br/>User & Admin Seamless Navigation</h1>
+<div style="margin-top:16px">
+<span class="pill">One Homepage Only: / = SimpleLanding</span>
+<span class="pill blue">Guest → Learner → Practice Loop</span>
+<span class="pill green">Admin Separate</span>
+<span class="pill orange">No Product/Public for Learner</span>
+<span class="pill gray">No Dead Ends</span>
+</div>
+
+<p style="margin-top:16px;font-size:14px;color:#3C3C43CC">You asked: tell me flow of all possible case and how can we structure them in a seamless order so the user and the admin has easy to navigate. Give me flow chart of each case from starting to end. Below is complete audit of every entry point, role, and edge case, with seamless order recommendation — basic person can open, discover level, receive path, create account, start learning, complete exercise, leave, return later, continue from exactly where stopped — plus admin separate.</p>
+
+<h2>0. Roles & Homepage Definition — Fix Confusion</h2>
+<div class="card">
+<h3>Roles</h3>
+<table>
+<tr><th>Role</th><th>How identified</th><th>Storage</th><th>Nav</th></tr>
+<tr><td><b>Guest</b> — no account, no diagnostic</td><td>!localStorage.token && !localStorage.diagnostic</td><td>None</td><td>No Sidebar/BottomNav on Landing/Assessment/Test — only after Path/Practice</td></tr>
+<tr><td><b>Guest with Diagnostic</b> — has done test, no account</td><td>!token && diagnostic exists</td><td>dansk_diagnostic, dansk_level, dansk_verdict, dansk_user_seed</td><td>SimpleLanding shows Continue learning → Path</td></tr>
+<tr><td><b>Learner</b> — registered, no diagnostic yet</td><td>token exists && !diagnostic</td><td>token, user</td><td>After login → Assessment Intro (find level)</td></tr>
+<tr><td><b>Learner with Diagnostic</b> — has level</td><td>token && diagnostic</td><td>token, user, diagnostic, level, verdict</td><td>Login → Practice Today (continue journey) — per spec Returning Login → current journey → exercise → complete → progress without repeat</td></tr>
+<tr><td><b>Learner with Progress</b> — has cleared stages</td><td>token && diagnostic && stage_mX_cleared</td><td>token, user, diagnostic, progress, stage_mX_cleared, scores</td><td>Path shows ✓ Cleared, Continue → next, Practice shows next module</td></tr>
+<tr><td><b>Admin</b> — Vipin/vipin123</td><td>isAdmin() true</td><td>token role admin</td><td>Sidebar shows PRODUCT — Admin only + LEARN, can access Website, Architecture Map, Roadmap, Share QR, etc — learner redirected to SimpleLanding for those routes</td></tr>
+</table>
+
+<h3>Homepage — ONE Only</h3>
+<div class="old"><b>Before (confusing):</b> Multiple homepages — WebsiteView (Danish that sticks after work and kids + What is DanskPath? A workbook... + 6 cards + How it works 5 steps + Full Danish education Modul 1→5 + footer Assessment Architecture Share QR) + LandingPage + SimpleLandingView + AssessmentLandingView + Product/Public side nav with Website Public, Assessment Shareable, Architecture Map Interactive, Roadmap 0→Launch Live, Share QR — user didn't know which is homepage, Product/Public for any login, app or website?</div>
+<div class="new"><b>Now (seamless):</b> <b>SimpleLandingView at / and /?page=simple-landing is ONE homepage</b> — extremely simple per spec: logo D DanskPath + headline Find your Danish level 40px + one-sentence Take a short assessment and get a learning path built around your needs. + primary CTA Take the Test black pill + secondary Continue learning → if hasAssessment / Already have account? Log in + discreet Admin 11px + footer 15 min a day • No account needed — NO Product/Public, NO Modul 1→PD3, NO No streaks, NO feature grids. WebsiteView is marketing/about, only accessible via /?page=website for admin, learner redirected to SimpleLanding. Default case in App.jsx returns SimpleLandingView, not WebsiteView. So basic person stays on app, never sees architectural map, roadmap, zero to launch, share QR.</div>
+
+<div class="mono">App.jsx seamless logic:
+- if pathname === '/' return 'simple-landing' (ONE homepage)
+- if isAdmin() && active === 'website' → WebsiteView, else → SimpleLandingView
+- if isAdmin() && active in [architecture, roadmap, share, flow, levels, motivation, screenshots, audit, connect] → dev page, else → SimpleLandingView
+- if diag && isLoggedIn → 'practice' (continue journey) — per spec Returning Login → current journey
+- if diag && !isLoggedIn → 'path' (preview decide to start learning)
+- if isLoggedIn && !diag → 'assessment' (find level)
+- showNav = !isWebsite && !isSimpleLanding && !isAssessmentLanding && !isPublicLegal && !isTrial && !isLogin && !isRegister && !isWelcome && !isDiagnostic && !isAdminView
+  → Sidebar/BottomNav hidden on Landing/Assessment/Test/Login/Register, shown only on Path/Practice/Progress for learner — and simplified to Today/My Path/Progress/Level Test only, no PRODUCT/LIBRARY/SYSTEM
+</div>
+</div>
+
+<h2>1. Guest — All Possible Cases — Start to End</h2>
+
+<div class="card">
+<h3>Case G1 — Happy Path — Guest Discovers Level → Path → Account → First Exercise → Progress (Per Spec Success Criteria)</h3>
+<div class="flow">
+<span class="step">1 Landing /</span><span class="arrow">→</span>
+<span class="step blue">Take the Test</span><span class="arrow">→</span>
+<span class="step">2 Assessment Intro /assessment</span><span class="arrow">→</span>
+<span class="step blue">Start assessment → 7 min</span><span class="arrow">→</span>
+<span class="step">3 Test /diagnostic 15Q</span><span class="arrow">→</span>
+<span class="step">Question X of Y + progress bar + options + Back + Next/Finish</span><span class="arrow">→</span>
+<span class="step green">4 Results Dit niveau • Modul X + section scores + Stærke sider + Fokusområder + Hvad gik galt + Din vej + timeline</span><span class="arrow">→</span>
+<span class="step blue">See My Learning Path →</span><span class="arrow">→</span>
+<span class="step">5 Path /path Din vej + Vælg et modul + left Modul 1..5 + right Modul X + objective + Grammar/Vocab + Exercises in this module 1-4 + Markér færdig ✓ + Øvelser →</span><span class="arrow">→</span>
+<span class="step blue">Start Learning → Create Account</span><span class="arrow">→</span>
+<span class="step">6 Register /register username/password/confirm + guestData diagnostic level verdict atomic transfer</span><span class="arrow">→</span>
+<span class="step green">Account created • Your assessment saved</span><span class="arrow">→</span>
+<span class="step blue">Continue Learning →</span><span class="arrow">→</span>
+<span class="step">7 Practice /practice Hej, klar til at øve? + Din vej er klar + nextAction + Min vej + Test igen + weekly writing</span><span class="arrow">→</span>
+<span class="step">Practice V2 → grammar infinite engine</span><span class="arrow">→</span>
+<span class="step">8 Progress /progress Where you are honest numbers + Weekly report + Stage progress m1:100%✓</span><span class="arrow">→</span>
+<span class="step green">Next Recommended auto-guided Start now → next module — no dead ends</span>
+</div>
+<div class="chart">G1 Flow Chart (Mermaid style text):
+graph TD
+  A[/ = SimpleLanding] -->|Take the Test| B[/assessment = Assessment Intro]
+  B -->|Start assessment 7 min| C[/diagnostic = Test 15Q]
+  C -->|Question X of Y + Next/Finish| D[Results: Dit niveau Modul X + scores + strengths/focus + Hvad gik galt + Din vej]
+  D -->|See My Learning Path| E[/path = Path Din vej + Modul 1..5 + exercises per module]
+  E -->|Start Learning Create Account| F[/register = Register + guestData atomic transfer]
+  F -->|Account created| G[/practice = Practice Today]
+  G -->|Practice V2 / flashcards / listening / writing| H[/progress = Progress Where you are + Weekly report]
+  H -->|Next Recommended Start now| G
+  D -->|Go to practice| G
+  D -->|Start Learning Create Account| F
+</div>
+<h3>What makes it seamless?</h3>
+<ul>
+<li>ONE homepage only / = SimpleLanding — no Product/Public confusion</li>
+<li>No Sidebar/BottomNav on Landing/Assessment/Test — Test=only test clean distraction-free per spec — no learning path module progression explanations before drill</li>
+<li>Every screen clear next action — Landing→Assessment→Results→Path→Account→Dashboard→Exercise→Progress→Next — no dead ends per spec</li>
+<li>Results immediately useful level + section scores + strengths separately from focus areas, avoid negative language per spec</li>
+<li>Path shows exercises per module Module 3,4,5 what exercises will be — not just Grammar X/Y</li>
+<li>Guest data transferable no loss on close/refresh/logout — diagnostic saved in localStorage + user_seed + verdict, transferred atomic on register POST /api/auth/register with guestData</li>
+<li>Persistence required — important learner data persists after close/refresh/logout/return, saved journey available after login + server sync via progressSync.js markStageClearedServer() + loadServerToLocal() + syncLocalToServer() for cross-device</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Case G2 — Guest with Account — Already have account? Log in</h3>
+<div class="flow">
+<span class="step">1 Landing /</span><span class="arrow">→</span>
+<span class="step white">Already have account? Log in</span><span class="arrow">→</span>
+<span class="step">Login /login</span><span class="arrow">→</span>
+<span class="step gray">If no diagnostic → 2 Assessment Intro</span><span class="arrow">→</span>
+<span class="step gray">If diagnostic → 7 Practice Today (continue journey)</span>
+</div>
+<div class="chart">G2:
+A[/] -->|Already have account? Log in| B[/login]
+B -->|token exists && !diagnostic| C[/assessment]
+B -->|token && diagnostic| D[/practice continue journey]
+</div>
+</div>
+
+<div class="card">
+<h3>Case G3 — Shared Link — Direct to Assessment (Per Spec Shared link→assessment→results→path→account→first exercise→progress without confusion)</h3>
+<div class="flow">
+<span class="step">Shared Link /?page=assessment or /assessment</span><span class="arrow">→</span>
+<span class="step">2 Assessment Intro</span><span class="arrow">→</span>
+<span class="step">3 Test 15Q</span><span class="arrow">→</span>
+<span class="step">4 Results</span><span class="arrow">→</span>
+<span class="step">5 Path</span><span class="arrow">→</span>
+<span class="step">6 Register</span><span class="arrow">→</span>
+<span class="step">7 Practice</span>
+</div>
+<div class="mono">AssessmentLandingView now simple: What we measure Reading listening vocab grammar writing 15Q + Duration 7 min One question at a time Progress bar + What you receive Your level section scores strengths focus areas personalized path + Start assessment → 7 min + No account needed to start • Results stay on device — no Works on iPhone, no QR code 280px, no Shareable URL box, no What happens 4 steps, no stats grid, no How to share 6 bullets, no Privacy long text — was too many pages in starting, now ultra simple</div>
+</div>
+
+<div class="card">
+<h3>Case G4 — Direct to Diagnostic /?page=diagnostic</h3>
+<div class="flow">
+<span class="step">Direct /?page=diagnostic</span><span class="arrow">→</span>
+<span class="step">3 Test 15Q</span><span class="arrow">→</span>
+<span class="step">4 Results</span><span class="arrow">→</span>
+<span class="step">5 Path</span>
+</div>
+</div>
+
+<div class="card">
+<h3>Case G5 — Guest Tries to Access Path / Practice / Progress Without Diagnostic — Should Not Fail</h3>
+<table>
+<tr><th>Route</th><th>Before (confusing)</th><th>Now (seamless)</th></tr>
+<tr><td>/?page=path without diagnostic</td><td>Showed Modul 1→5 Full education No repeat Vertical Roadmap + Requirements 5 cols + Difficulty + Expected skills + Weekly writing + Next 4 weeks + Passing criteria + All stages overview + footer M1→PD3 full education No repeat 30d Infinite variants — too much, plus architectural map, roadmap, zero to launch, share QR should not come up</td><td>Path minimal Din vej + Vælg et modul... + left Modul 1..5 + right Modul X + objective + Grammar/Vocab + Exercises in this module + Practice → / Progress → — if no diagnostic, shows Modul 1 with 0% and CTA Øvelser → → practice which shows Find your level → diagnostic — no dead end, stays on app</td></tr>
+<tr><td>/?page=practice without diagnostic</td><td>Showed What should you practice now? + No streaks. No hearts. Just what moves you toward Modultest and PD3. + System weights weakest skill <60% + loops back to path and level test — doesn't make sense</td><td>Practice Hej, klar til at øve? + Start med at finde dit niveau. + nextAction Find your level 7 min Personalized path + action Take level test → diagnostic — no No streaks No hearts, no weakest skill <60%, no loop — clear next action</td></tr>
+<tr><td>/?page=progress without diagnostic</td><td>Showed Where you are honest numbers but empty</td><td>Progress Where you are + Overview Level Ikke testet Take test + Secure words 0 + Grammar 0 + Stage 1→5 progress 0% + Next step Go to recommended → diagnostic — no dead end</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h3>Case G6 — Guest Closes Browser Mid-Test / After Diagnostic — Return Later</h3>
+<div class="flow">
+<span class="step">Diagnostic in progress — close browser</span><span class="arrow">→</span>
+<span class="step gray">Currently answers in state not persisted until finish — could persist to localStorage to resume (TODO)</span><span class="arrow">→</span>
+<span class="step">Return / → SimpleLanding shows Continue learning → if diagnostic exists</span><span class="arrow">→</span>
+<span class="step">Path shows previous level + progress</span><span class="arrow">→</span>
+<span class="step">Practice continues</span>
+</div>
+<div class="mono">Persistence: diagnostic saved in localStorage dansk_diagnostic + dansk_level + dansk_verdict + dansk_user_seed on finish. If guest closes after finish, return / → SimpleLanding hasAssessment true → Continue learning → Modul X → Path → Practice — saved journey available per spec. If closes mid-test, answers not yet saved — improvement: persist answers to localStorage during test to allow resume.</div>
+</div>
+
+<h2>2. Learner — All Possible Cases — Registered User</h2>
+
+<div class="card">
+<h3>Case L1 — New Learner, No Diagnostic, Logs In</h3>
+<div class="flow">
+<span class="step">Login /login</span><span class="arrow">→</span>
+<span class="step">If !diagnostic → Assessment Intro /assessment</span><span class="arrow">→</span>
+<span class="step">Test 15Q</span><span class="arrow">→</span>
+<span class="step">Results</span><span class="arrow">→</span>
+<span class="step">Path</span><span class="arrow">→</span>
+<span class="step">Practice Today</span>
+</div>
+<div class="chart">L1:
+A[/login] --> B{diagnostic?}
+B -->|No| C[/assessment]
+C --> D[/diagnostic]
+D --> E[Results]
+E --> F[/path]
+F --> G[/practice]
+</div>
+</div>
+
+<div class="card">
+<h3>Case L2 — Learner With Diagnostic, No Progress — Returning Login → Current Journey (Per Spec)</h3>
+<div class="flow">
+<span class="step">Login /login</span><span class="arrow">→</span>
+<span class="step green">If diagnostic && isLoggedIn → Practice Today (continue journey) — per spec Returning Login → current journey → exercise → complete → progress without repeat</span><span class="arrow">→</span>
+<span class="step">Practice Today Hej, klar til at øve? Din vej er klar. Ét skridt ad gangen. + nextAction for current module</span><span class="arrow">→</span>
+<span class="step">Path My Path shows current module active + Fortsæt her — x/y emner + Markér færdig ✓ + Øvelser →</span><span class="arrow">→</span>
+<span class="step">Progress Where you are</span>
+</div>
+<div class="chart">L2 (Most important per spec):
+A[/login] -->|token && diagnostic| B[/practice]
+B -->|Today what to practice now?| C[Exercise V2 / collocations / listening / writing]
+C -->|Complete| D[/progress Where you are + Weekly report + Stage progress m1:100%✓]
+D -->|Next Recommended Start now| B
+</div>
+</div>
+
+<div class="card">
+<h3>Case L3 — Learner With Progress — m1 Cleared → m2 → m3 → m4 → m5 → PD3</h3>
+<div class="flow">
+<span class="step">Practice Today</span><span class="arrow">→</span>
+<span class="step">Module progress m1:100%✓ • m2:42% • m3:0%</span><span class="arrow">→</span>
+<span class="step">Path left Modul 1 ✓ Cleared, Modul 2 active 42%, Modul 3 locked F2F2F7</span><span class="arrow">→</span>
+<span class="step">Right Modul 2 • A1-A2 + objective + Grammar 1/5 + Vocab 400 ord + Exercises in this module 1-4 + Markér færdig ✓ + Øvelser →</span><span class="arrow">→</span>
+<span class="step blue">Markér færdig ✓ → stage_m2_cleared true + progress grammar true + markStageClearedServer() → server sync persists across devices + refresh + tap practice → Practice Today m3</span><span class="arrow">→</span>
+<span class="step green">Continue to next stage → next module active + Practice Today m3</span>
+</div>
+<div class="chart">L3 Loop:
+A[/practice] --> B[/path]
+B -->|Select Modul 2| C[Detail Modul 2 + exercises]
+C -->|Markér færdig ✓| D[stage_m2_cleared true + server sync]
+D -->|Continue →| E[/practice Today m3]
+E -->|Complete m3| B
+...
+B -->|m5 cleared| F[PD3 Exam simulation]
+</div>
+<h3>What makes Path seamless now?</h3>
+<ul>
+<li>Before: Path showed architectural map, roadmap, zero to launch, share QR — should not come up, should stay on app. Show map tells what is module 1 but doesn't say anything about module 3,4,5 and what exercises will be. Practice just moves in group A path, through A path and level test, loops back.</li>
+<li>Now: Path ultra minimal Din vej + Vælg et modul... + left Modul 1..5 • CEFR • % only (no Module1•Foundation A1) + right Modul X • CEFR + objective 120 chars + Grammar X/Y Vocab + Exercises in this module 1 Practice grammar • sentenceLen, 2 10 flashcards • ord count, 3 1 listening • alphabet/DSB/borgerservice, 4 Write • 30-50/60-80/80-120/120-200 ord per moduleId + Markér færdig ✓ → stage_mX_cleared true + server sync + Practice Today + Continue → next — every clickable delivers what it should, stays on app, no architectural map, no roadmap, no zero to launch, no share QR.</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>Case L4 — Learner Wants to Retake Level Test</h3>
+<div class="flow">
+<span class="step">Path My Path</span><span class="arrow">→</span>
+<span class="step">Or Practice → Test igen 7 min 15 spørgsmål</span><span class="arrow">→</span>
+<span class="step">Diagnostic 15Q retake</span><span class="arrow">→</span>
+<span class="step">New Results + New Path</span><span class="arrow">→</span>
+<span class="step">Practice Today updated</span>
+</div>
+</div>
+
+<div class="card">
+<h3>Case L5 — Learner Resets Progress</h3>
+<div class="flow">
+<span class="step">Progress /progress → Reset progress red pill top-right</span><span class="arrow">→</span>
+<span class="step">confirm() clears localStorage dansk_progress, dansk_path, dansk_scores, dansk_srs, dansk_seen, dansk_level, dansk_diagnostic, dansk_verdict, dansk_user_seed, dansk_welcomed, danskpath_token, danskpath_user, stage_m1..m5_cleared</span><span class="arrow">→</span>
+<span class="step">window.location.href='/?page=simple-landing' — back to homepage</span><span class="arrow">→</span>
+<span class="step">Guest state — can retake test — used for 26 Definition of Done tests</span>
+</div>
+<div class="mono">For learner, reset should keep account? Currently clears token too for testing. For production learner, reset should clear progress but keep account — TODO: separate Reset progress (keep account) vs Reset everything (testing).</div>
+</div>
+
+<div class="card">
+<h3>Case L6 — Learner Logs Out</h3>
+<div class="flow">
+<span class="step">Settings → Log out</span><span class="arrow">→</span>
+<span class="step">localStorage token removed, user removed, diagnostic kept? (currently kept for guest with diagnostic case)</span><span class="arrow">→</span>
+<span class="step">Return / → SimpleLanding shows Continue learning → if diagnostic exists, or Take the Test if not</span>
+</div>
+</div>
+
+<div class="card">
+<h3>Case L7 — Cross-Device Persistence — Fortsæt her Persists Across Devices (Per Spec)</h3>
+<div class="flow">
+<span class="step">Phone A: Path → Markér færdig ✓ Modul 1</span><span class="arrow">→</span>
+<span class="step">localStorage stage_m1_cleared true + progress grammar true + markStageClearedServer() → POST /api/progress/stage/m1/clear → server saves clearedStages</span><span class="arrow">→</span>
+<span class="step">Phone B: Login → loadServerToLocal() → stage_m1_cleared true → Path shows Modul 1 ✓ Cleared → Continue to next stage → Practice Today m2 persists across devices</span>
+</div>
+<div class="chart">L7 Cross-device:
+PhoneA[/path Markér færdig ✓ m1] -->|markStageClearedServer| Server[POST /api/progress/stage/m1/clear]
+Server -->|clearedStages: [m1]| DB
+PhoneB[/login] -->|loadServerToLocal| DB
+DB -->|stage_m1_cleared true| PhoneBPath[/path Modul 1 ✓ Cleared]
+PhoneBPath -->|Continue →| PhoneBPractice[/practice m2]
+</div>
+<div class="mono">server.js 5 endpoints: GET /api/progress, POST /api/progress, POST /api/progress/stage/:moduleId/clear, POST /api/progress/stage/:moduleId/unclear, POST /api/progress/sync authMiddleware merge union. progressSync.js offline-first sync lib fetchServerProgress, markStageClearedServer, loadServerToLocal, syncLocalToServer. Build PASS 855KB gzip 224KB.</div>
+</div>
+
+<div class="card">
+<h3>Case L8 — Offline Fallback</h3>
+<div class="flow">
+<span class="step">Offline → Practice with localStorage</span><span class="arrow">→</span>
+<span class="step">Register POST /api/auth/register fails → offline fallback local_token local_id role learner</span><span class="arrow">→</span>
+<span class="step">Later online → syncLocalToServer() merges local → server</span>
+</div>
+</div>
+
+<div class="card">
+<h3>Case L9 — Learner Tries to Access Admin Pages Without Admin Role</h3>
+<div class="flow">
+<span class="step">/?page=admin without admin token</span><span class="arrow">→</span>
+<span class="step">LoginView</span><span class="arrow">→</span>
+<span class="step">If login not admin → simple-landing</span>
+</div>
+<div class="flow">
+<span class="step">/?page=website /?page=architecture /?page=roadmap /?page=share /?page=flow /?page=levels /?page=motivation /?page=screenshots /?page=audit without admin</span><span class="arrow">→</span>
+<span class="step">SimpleLandingView (ONE homepage) — stays on app, no architectural map, no roadmap, no share QR for learner</span>
+</div>
+</div>
+
+<h2>3. Admin — All Possible Cases — Separate Flow</h2>
+
+<div class="card">
+<h3>Case A1 — Admin Happy Path — Login → Dashboard → User List → User Detail</h3>
+<div class="flow">
+<span class="step">1 Landing / → SimpleLanding</span><span class="arrow">→</span>
+<span class="step">Discreet Admin 11px top-right</span><span class="arrow">→</span>
+<span class="step">Login /login Vipin/vipin123</span><span class="arrow">→</span>
+<span class="step green">Admin Dashboard /admin users/active/assessments stats</span><span class="arrow">→</span>
+<span class="step">User List</span><span class="arrow">→</span>
+<span class="step">User Detail with assessment/path/progress/activity</span>
+</div>
+<div class="chart">A1:
+A[/ simple-landing] -->|Admin 11px| B[/login Vipin/vipin123]
+B -->|isAdmin true| C[/admin Dashboard users/active/assessments]
+C --> D[User List]
+D --> E[User Detail: assessment/path/progress/activity]
+</div>
+</div>
+
+<div class="card">
+<h3>Case A2 — Admin Access to Dev Pages — Website, Architecture Map, Roadmap, Share QR</h3>
+<div class="flow">
+<span class="step">Admin Login</span><span class="arrow">→</span>
+<span class="step">Sidebar PRODUCT — Admin only: Website Public, Assessment Shareable, Architecture Map Dev, Roadmap Dev, Share QR Dev + LEARN</span><span class="arrow">→</span>
+<span class="step">WebsiteView /?page=website Danish that sticks after work and kids + What is DanskPath? + 6 cards + How it works 5 steps + Full Danish education Modul 1→5 + Sample + Ready to find your level? — marketing</span><span class="arrow">→</span>
+<span class="step">Architecture Map /?page=architecture Interactive with motion arrows + live public URL + Scan QR → /?page=assessment, Open website, Start assessment 20Q adaptive, VariationEngine 5,100+ variants, Verdict strengths ≥75% weaknesses <60%, Path Personal M1→5 timeline, Practice Today 15min SRS Box 0→5, Progress Weekly no streaks retest, PWA Add to Home Screen → iPhone app</span><span class="arrow">→</span>
+<span class="step">Roadmap 0→Launch /?page=roadmap MVP Core Curriculum 100% DONE Question Bank 24→15 adaptive no blank Variation Engine 5,100+ variants ≤3 dup Stage Engine M1→M5 200→1354 vocab Verdict Engine per-skill profile SRS Box 0→5 30-day no-repeat Tests 15/15 PASS</span><span class="arrow">→</span>
+<span class="step">Share QR /?page=share Shareable URL + QR Code 280px + stats 7 min / 20 Q / M1→5 + How to share 6 bullets + Privacy</span>
+</div>
+<div class="mono">For learner, these routes redirect to SimpleLandingView (ONE homepage) — stays on app, no architectural map, no roadmap, no zero to launch, no share QR. For admin, they are accessible via Sidebar PRODUCT — Admin only. This fixes user confusion: Why we have on side assessment, architectural map and everything? Why for any login? I need just basic person to access this.</div>
+</div>
+
+<div class="card">
+<h3>Case A3 — Admin Logs Out</h3>
+<div class="flow">
+<span class="step">Admin Dashboard → Log out</span><span class="arrow">→</span>
+<span class="step">Token removed → SimpleLandingView /</span>
+</div>
+</div>
+
+<h2>4. Edge / Error Cases — No Dead Ends</h2>
+<div class="card">
+<table>
+<tr><th>Case</th><th>What happens</th><th>Seamless Fix</th></tr>
+<tr><td>E1 Invalid login</td><td>Login fails, error message</td><td>Show error + clear next action Try again / Continue as guest → assessment</td></tr>
+<tr><td>E2 Register existing username</td><td>POST /api/auth/register 409</td><td>Show error Username taken + Log in instead</td></tr>
+<tr><td>E3 Close browser mid-test</td><td>Answers in state not persisted until finish</td><td>TODO: persist answers to localStorage during test to allow resume Question X of Y + Back + Next — no loss on close/refresh per spec persistence required</td></tr>
+<tr><td>E4 Server down</td><td>POST /api/progress fails, POST /api/auth/register fails</td><td>Offline fallback local_token local_id role learner + localStorage progress, later syncLocalToServer() merges — Fortsæt her persists across devices when back online</td></tr>
+<tr><td>E5 Deep link unknown ?page=unknown</td><td>Default case</td><td>Now returns SimpleLandingView (ONE homepage) — not WebsiteView — stays on app, no dead end</td></tr>
+<tr><td>E6 Guest tries to access /?page=admin</td><td>Should not see admin dashboard</td><td>Returns LoginView if !isAdmin, else AdminDashboardView</td></tr>
+<tr><td>E7 Learner tries to access /?page=website etc without admin</td><td>Before showed marketing + architecture map etc — confusing</td><td>Now returns SimpleLandingView — stays on app, no architectural map, no roadmap, no share QR for learner — per your feedback</td></tr>
+</table>
+</div>
+
+<h2>5. Seamless Order Recommendation — How to Structure So User and Admin Easy to Navigate</h2>
+<div class="card" style="background:#121417;color:white">
+<h3 style="color:#FFFFFF80">For Guest / Learner — Linear Funnel — No Branching to Dev Tools</h3>
+<p style="font-size:13px;color:#FFFFFFCC"><b>ONE homepage only: / = SimpleLandingView</b> — extremely simple per spec: logo D DanskPath + headline Find your Danish level 40px + one-sentence Take a short assessment and get a learning path built around your needs. + primary CTA Take the Test black pill + secondary Continue learning → if hasAssessment / Already have account? Log in + discreet Admin 11px + footer 15 min a day • No account needed — NO Product/Public, NO Modul 1→PD3, NO No streaks, NO feature grids, NO Website • Assessment • iPhone App, NO No streaks • No hearts • Just work.</p>
+<p style="font-size:13px;color:#FFFFFFCC;margin-top:12px"><b>Seamless order:</b></p>
+<div class="flow" style="margin-top:12px">
+<span class="step white">1 Landing / SimpleLanding</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">2 Assessment Intro /assessment What we measure / Duration / What you receive + Start assessment → 7 min</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">3 Test /diagnostic Question X of Y + progress bar + question + options + Back + Next/Finish → See level — Test=only test clean distraction-free, no learning path, no excessive text, randomized answers</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">4 Results Dit niveau • Modul X + section scores + Stærke sider + Fokusområder + Hvad gik galt max 3 + Din vej max 3 titles + timeline + See My Learning Path black + Start Learning Create Account blue + Go to practice white — immediately useful per spec</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">5 Path /path Din vej + Vælg et modul til venstre... + left Modul 1..5 • CEFR • % + right Modul X • CEFR + objective 120 chars + Grammar X/Y Vocab + What you will learn + Exercises in this module 1-4 per moduleId + Markér færdig ✓ → stage_mX_cleared + server sync + Øvelser → + Practice → / Progress → — no architectural map, no roadmap, no zero to launch, no share QR, no Module1•Foundation A1, no Module 1 (A1) → Module 5 (B1-B2) PD3 ready, no Not meeting = meeting...</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">6 Register /register optional username/password/confirm + guestData diagnostic level verdict atomic transfer + Account created + Continue Learning — per spec guest assessment transfer must be atomic, user must not repeat assessment</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">7 Practice /practice Hej, klar til at øve? Din vej er klar. Ét skridt ad gangen. + nextAction + Min vej + Test igen + weekly writing — no No streaks No hearts Just what moves, no System weights weakest skill <60% — Today's exercise for current phase Modul X, not loop back to path and level test</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">8 Progress /progress Where you are honest numbers + Weekly report auto + Stage progress m1:100%✓ + Reset progress + Next Recommended auto-guided Start now → next module — no Progress • No streaks • Just work</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step green">9 Next Loop Practice → Progress → Next — no dead ends every screen clear next action per spec — 15 min one hand bus-friendly</span>
+</div>
+
+<p style="font-size:13px;color:#FFFFFF80;margin-top:20px"><b>Navigation for learner — minimal — stays on app:</b></p>
+<ul style="font-size:13px;color:#FFFFFFCC">
+<li><b>Sidebar (desktop lg:flex):</b> For learner (isAdmin false) only LEARN section Today 15 min, My Path M1→5, Progress Weekly, Level Test 7 min — 4 items only — no PRODUCT Website Public Assessment Shareable Architecture Map Interactive Roadmap 0→Launch Live Share QR QR code, no LIBRARY M1→PD3 Grammar Words Listening Speaking Reading Writing Pronounce Culture Exam, no SYSTEM Levels M1→5 Flow Motivation Status, no 3 experiences Website • Assessment • iPhone App, no Architecture WEBSITE → ASSESSMENT → APP Same design system Shared account system Admin isolated, no No streaks • No hearts • Just work, footer 15 min a day • No account needed — simple.</li>
+<li><b>BottomNav (mobile lg:hidden):</b> For learner only Today, Path, Progress 3 items + More ••• — no Grammar Words Listen, no More sheet with STUDY Home Level Test Progress Motivation Levels Flow Share + LIBRARY Speaking Reading Writing Pronunciation Culture Exam Gallery Status — which showed architectural map, roadmap, zero to launch, share QR that should not come up.</li>
+<li><b>MoreSheet (mobile):</b> For learner only LEARN Home Find your level, Today What to practice, My Path Modul 1→5, Progress Weekly report, Level Test 7 min — 5 items — no Motivation No streaks, no Levels M1→PD3, no Flow How it works, no Share Invite friend, no Speaking Reading Writing Pronunciation Culture Exam Gallery Status — stays on app.</li>
+<li><b>No dead ends:</b> Every major screen must have clear next action Landing→Assessment→Results→Path→Account→Dashboard→Exercise→Progress→Next per spec — persistence required — important learner data must persist after close/refresh/logout/return, saved journey available after login + server sync for cross-device.</li>
+</ul>
+
+<h3 style="color:#FFFFFF80;margin-top:24px">For Admin — Separate Flow — Dev Tools Only for Admin</h3>
+<p style="font-size:13px;color:#FFFFFFCC"><b>Admin login:</b> SimpleLanding discreet Admin 11px top-right → Login Vipin/vipin123 → Admin Dashboard /admin users/active/assessments stats → User List → User Detail with assessment/path/progress/activity — per MVP Scope Admin separate login, dashboard users/active/assessments, user list/detail with assessment/path/progress/activity.</p>
+<p style="font-size:13px;color:#FFFFFFCC"><b>Admin nav:</b> Sidebar shows PRODUCT — Admin only: Website Public, Assessment Shareable, Architecture Map Dev, Roadmap Dev, Share QR Dev + LEARN: Today, Path, Level Test, Progress — admin can access WebsiteView (Danish that sticks...), Architecture Map Interactive with motion arrows + live public URL, Roadmap 0→Launch, Share QR, Flow, Levels, Motivation, Screenshots, Audit, Connect, etc — learner redirected to SimpleLandingView for those routes — stays on app, no architectural map, no roadmap, no zero to launch, no share QR for learner — fixes your feedback "Why we have on side assessment, architectural map and everything? Why for any login? I need just basic person to access this."</p>
+
+<h3 style="color:#FFFFFF80;margin-top:24px">Seamless Order Visual — All Cases Combined</h3>
+<div class="chart">All Cases Seamless Order (Mermaid):
+graph TD
+  subgraph Guest
+    G0[/ = SimpleLanding ONE homepage] -->|Take the Test| G1[/assessment]
+    G1 -->|Start 7 min| G2[/diagnostic]
+    G2 --> G3[Results]
+    G3 -->|See My Learning Path| G4[/path]
+    G3 -->|Create Account| G5[/register]
+    G5 --> G6[/practice]
+    G3 -->|Go to practice| G6
+    G4 -->|Markér færdig ✓ + server sync| G6
+    G4 -->|Øvelser| G6
+    G6 --> G7[/progress]
+    G7 -->|Next Start now| G6
+  end
+
+  subgraph Learner Returning
+    L0[/login] -->|!diagnostic| G1
+    L0 -->|diagnostic| G6
+    G6 --> G7
+  end
+
+  subgraph Guest With Diagnostic
+    GD0[/ simple-landing Continue learning] --> G4
+  end
+
+  subgraph Admin
+    A0[/ simple-landing Admin] --> A1[/login Vipin]
+    A1 --> A2[/admin Dashboard]
+    A2 --> A3[User List]
+    A3 --> A4[User Detail]
+    A1 -->|Sidebar PRODUCT Admin only| A5[/website /architecture /roadmap /share /flow /levels /motivation /screenshots /audit]
+    A5 -.->|Learner tries| G0
+  end
+
+  subgraph Edge No Dead Ends
+    E0[/?page=path without diag] --> G6
+    E1[/?page=practice without diag] --> G1
+    E2[/?page=progress without diag] --> G1
+    E3[/?page=unknown] --> G0
+    E4[/?page=admin without admin] --> G0
+    E5[/?page=website without admin] --> G0
+  end
+
+  style G0 fill:#121417,stroke:#121417,color:#fff
+  style G3 fill:#34C759,stroke:#34C759,color:#fff
+  style G6 fill:#007AFF,stroke:#007AFF,color:#fff
+  style A2 fill:#FF9500,stroke:#FF9500,color:#fff
+</div>
+</div>
+
+<h2>6. What Was Fixed in This Commit 6de3f38 — Try Again as Single Person</h2>
+<div class="card">
+<table>
+<tr><th>Where</th><th>Before (your observation)</th><th>Now (seamless)</th></tr>
+<tr><td>Homepage /</td><td>Multiple homepages — WebsiteView Danish that sticks after work and kids + What is DanskPath? A workbook... + 6 cards + How it works 5 steps + Full Danish education Modul 1→5 + footer Assessment Architecture Share QR + LandingPage + SimpleLandingView + Product/Public side nav — which one is homepage? Start e-learning, YouKnow Module 1 and 5, what is that? Remove Dansk path on your tailored path. I will language mystery from MD</td><td>ONE homepage SimpleLandingView at / — Find your Danish level + Take a short assessment... + Take the Test + Continue learning → + Already have account? Log in + footer 15 min a day • No account needed — no Product/Public, no Modul 1→PD3, no No streaks, no Website • Assessment • iPhone App. WebsiteView hidden for learner, only admin sees it. Default case returns SimpleLandingView.</td></tr>
+<tr><td>Sidebar</td><td>Product, Public — Website Public, Assessment Shareable, Architecture Map Interactive, Roadmap 0→Launch Live, Share QR QR code + iPhone App — Learn + Library M1→PD3 + System + 3 experiences + No streaks • No hearts • Just work — for any login, basic person confused</td><td>For learner only LEARN Today My Path Progress Level Test — no PRODUCT, no LIBRARY, no SYSTEM, no 3 experiences, no No streaks • No hearts • Just work, footer 15 min a day • No account needed. Admin only sees PRODUCT — Admin only.</td></tr>
+<tr><td>BottomNav / More</td><td>Today Path Grammar Words Listen + More Home Level Test Progress Motivation Levels Flow Share + Library Speaking Reading Writing Pronunciation Culture Exam Gallery Status — architectural map, roadmap, zero to launch, share QR should not come up, should stay on app</td><td>Today Path Progress 3 items only + More Home Find your level Today What to practice My Path Modul 1→5 Progress Weekly report Level Test 7 min — no Motivation No streaks, no Levels, no Flow, no Share, no Speaking Reading Writing Pronunciation Culture Exam Gallery Status — stays on app.</td></tr>
+<tr><td>Assessment Intro</td><td>Two texts, too narrow, simple easy text needed, Don't say work on iPhone, Start assessment in seven minutes</td><td>What we measure 15 questions + Duration 7 min One question at a time Progress bar + What you receive Your level section scores strengths focus areas personalized path + Start assessment → 7 min + No account needed to start • Results stay on device — no Works on iPhone, no QR, no URL box, no What happens 4 steps, no stats grid, no How to share 6 bullets, no Privacy long text — simple easy text 480px max-w iPhone-first.</td></tr>
+<tr><td>Test</td><td>Next, wrong, correct, alphabetic, select — looks good per you</td><td>Kept clean Test=only test Question X of Y + progress bar + question + options + Back + Next/Finish + feedback ✓ Correct / ✗ Not correct — rule + Why — randomized Fisher-Yates no learnable pattern.</td></tr>
+<tr><td>Results</td><td>Module ground, module 1 A1, your rights, problems, evaluation looks good, culture vocabulary 0% etc, 4 months to P3, 15 min a day, 4 days a week</td><td>Kept Dit niveau • Modul X + level + correct/total + section scores + Stærke sider + Fokusområder + Hvad gik galt max 3 + Din vej max 3 titles + timeline + See My Learning Path black + Start Learning Create Account blue + Go to practice white — immediately useful, no We don't just test % long text.</td></tr>
+<tr><td>Path</td><td>Not good because shows architectural map, roadmap, zero to launch, share QR, should stay on app. Show map tells what is module 1 but doesn't say anything about Module 3,4,5 and what exercises will be and practice if we start practice now, it says exercises, just moves in group A path, through A path and level test, loops back, doesn't make sense</td><td>Minimal Din vej + Vælg et modul... + left Modul 1..5 • CEFR • % + right Modul X • CEFR + objective 120 chars + Grammar X/Y Vocab + What you will learn + Exercises in this module 1 Practice grammar • sentenceLen, 2 10 flashcards • ord count, 3 1 listening • alphabet/DSB/borgerservice, 4 Write • 30-50/60-80/80-120/120-200 ord per moduleId + Markér færdig ✓ → stage_mX_cleared + server sync + Øvelser → + Practice → / Progress → — no architectural map, no roadmap, no zero to launch, no share QR, stays on app, Module 3,4,5 show exercises.</td></tr>
+<tr><td>Practice</td><td>It says exercises, just moves in group A path, through A path and level test, loops back, doesn't make sense, back button working but not nice</td><td>Hej, klar til at øve? Din vej er klar. Ét skridt ad gangen. + nextAction + Min vej + Test igen + weekly writing — main action current module exercise, not diagnostic loop, no No streaks No hearts Just what moves, no System weights weakest skill <60%, back via history pushState stays on app.</td></tr>
+<tr><td>Progress</td><td>Where you are honest numbers</td><td>Progress (removed • No streaks • Just work) + Where you are honest numbers + Overview Level + Secure words + Grammar + Stage 1→5 progress + Skills + Verdict beyond % + Next step + What works for you? + Weekly report auto + Reset progress — honest numbers.</td></tr>
+</table>
+</div>
+
+<h2>7. Live Links After Deploy</h2>
+<div class="card">
+<div class="flow">
+<a class="cta" href="/?page=simple-landing">1 Landing / = Homepage ONE only</a>
+<a class="cta" style="background:#007AFF" href="/?page=assessment">2 Assessment Intro simple no Works on iPhone</a>
+<a class="cta" style="background:#34C759" href="/?page=diagnostic">3 Test 15Q clean</a>
+<a class="cta" style="background:#8E8E93" href="/?page=path">5 Path minimal + exercises per module</a>
+<a class="cta" style="background:#FF9500" href="/?page=practice">7 Practice Today</a>
+<a class="cta" style="background:#121417" href="/?page=progress">8 Progress</a>
+<a class="cta" style="background:#007AFF" href="/ux-audit-structured.html">UX Audit Structured</a>
+<a class="cta" style="background:#34C759" href="/screen-wise-flow.html">Screen Wise Flow</a>
+<a class="cta" style="background:#121417" href="/flow-all-cases.html">This Doc All Cases Flow Charts</a>
+</div>
+<div class="mono">Build PASS 855KB gzip 224KB DiagnosticView 25KB — smaller because removed excessive text.
+Live after deploy 6de3f38:
+- / = SimpleLandingView ONE homepage extremely simple logo headline one-sentence CTA Take the Test secondary Log in discreet Admin footer 15 min a day • No account needed — no Product/Public, no Modul 1→PD3, no No streaks
+- /?page=assessment simple What we measure / Duration / What you receive + Start assessment → 7 min + No account needed to start • Results stay on device — no Works on iPhone, no QR, no URL box, no What happens 4 steps, no stats grid, no How to share 6 bullets, no Privacy long text
+- /?page=diagnostic clean Test=only test Question X of Y + progress bar + question + options + Back + Next/Finish + feedback ✓ Correct / ✗ Not correct — rule + Why — randomized no learnable pattern
+- /?page=path minimal Din vej + Vælg et modul... + left Modul 1..5 • CEFR • % + right Modul X • CEFR + objective 120 chars + Grammar X/Y Vocab + What you will learn + Exercises in this module 1-4 per moduleId Module 3,4,5 what exercises will be + Markér færdig ✓ → stage_mX_cleared + server sync + Øvelser → + Practice → / Progress → — no architectural map, no roadmap, no zero to launch, no share QR, stays on app
+- /?page=practice Hej, klar til at øve? Din vej er klar. Ét skridt ad gangen. + nextAction + Min vej + Test igen + weekly writing — no No streaks No hearts Just what moves, no System weights weakest skill <60%
+- Sidebar for learner only LEARN Today My Path Progress Level Test — no PRODUCT Website Public Assessment Shareable Architecture Map Interactive Roadmap 0→Launch Live Share QR QR code, no LIBRARY M1→PD3, no SYSTEM Levels Flow Motivation Status, no 3 experiences Website • Assessment • iPhone App, no No streaks • No hearts • Just work — fixes Why we have on side assessment, architectural map and everything? Why for any login? I need just basic person
+- BottomNav for learner only Today Path Progress + More Home Find your level Today What to practice My Path Modul 1→5 Progress Weekly report Level Test 7 min — no Motivation No streaks, no Levels M1→PD3, no Flow How it works, no Share Invite friend, no Speaking Reading Writing Pronunciation Culture Exam Gallery Status — stays on app
+- App.jsx for non-admin website/architecture/roadmap/share/flow/levels/motivation/screenshots/audit/connect all redirect to SimpleLandingView — ONE homepage only, basic person stays on app, no architectural map, no roadmap, no zero to launch, no share QR for learner — admin only sees them via Sidebar PRODUCT — Admin only
+- /ux-audit-structured.html 37KB structured for coding team + /screen-wise-flow.html 33KB screen wise what it does landing to end + /flow-all-cases.html this doc all possible cases flow charts start to end
+- /api/health ok + server.js 5 endpoints progress sync cross-device Phone A mark done ✓ → server → Phone B login → loadServerToLocal → ✓ Cleared → Continue → practice persists
+</div>
+</div>
+
+</body>
+</html>
