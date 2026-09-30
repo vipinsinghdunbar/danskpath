@@ -6,7 +6,7 @@ export default function SimpleLandingView({ setActive }) {
     <div className="min-h-screen bg-[#FFFBF5] flex flex-col">
       <div className="h-[env(safe-area-inset-top,0px)] bg-[#FFFBF5]" />
       
-      {/* Header - discreet admin */}
+      {/* Header - discreet admin per spec */}
       <div className="px-6 pt-6 flex justify-between items-center max-w-[480px] mx-auto w-full">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-black text-white grid place-items-center font-bold text-[14px]">D</div>
@@ -15,13 +15,13 @@ export default function SimpleLandingView({ setActive }) {
         <button onClick={()=>setActive('login')} className="text-[11px] text-[#8E8E93] hover:text-black">Admin</button>
       </div>
 
-      {/* Main - extremely simple per spec */}
+      {/* Main - extremely simple per spec: only logo/name, short headline, one-sentence, primary CTA Take the Test, secondary Already have account? Log in, discreet Admin, no long marketing */}
       <div className="flex-1 flex flex-col justify-center px-6 max-w-[480px] mx-auto w-full">
-        <div className="py-12">
+        <div className="py-16">
           <h1 className="text-[40px] font-[700] tracking-tight leading-[0.9] font-[Outfit]">
             Find your<br/>Danish level
           </h1>
-          <p className="mt-4 text-[18px] leading-[1.4] text-[#3C3C43]/70">
+          <p className="mt-4 text-[17px] leading-[1.4] text-[#3C3C43]/70">
             Take a short assessment and get a learning path built around your needs.
           </p>
 
@@ -54,16 +54,6 @@ export default function SimpleLandingView({ setActive }) {
               )}
             </div>
           </div>
-
-          {/* Minimal info per spec - not long marketing */}
-          <div className="mt-16 pt-8 border-t border-black/5">
-            <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">How it works</div>
-            <div className="mt-4 space-y-3 text-[14px] leading-[1.5] text-[#3C3C43]/70">
-              <div className="flex gap-3"><span className="font-[600] text-black">1.</span><span>7-min assessment of reading, listening, vocabulary, grammar, writing</span></div>
-              <div className="flex gap-3"><span className="font-[600] text-black">2.</span><span>See your level, strengths, and focus areas</span></div>
-              <div className="flex gap-3"><span className="font-[600] text-black">3.</span><span>Get a personalized path from Modul 1 to PD3</span></div>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -71,7 +61,7 @@ export default function SimpleLandingView({ setActive }) {
       
       <div className="px-6 pb-6 max-w-[480px] mx-auto w-full">
         <div className="text-[11px] text-[#8E8E93] text-center">
-          Modul 1 → PD3 • A1 to B2 • Full education • 15 min a day • No streaks
+          Modul 1 → PD3 • A1 to B2 • No streaks • 15 min a day
         </div>
       </div>
     </div>

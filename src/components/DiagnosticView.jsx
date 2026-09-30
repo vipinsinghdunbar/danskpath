@@ -1,60 +1,39 @@
 import { useState, useEffect } from 'react';
-import { goals as allGoals, saveGoals, getGoals } from '../lib/goals';
 import { generateQuestionSet } from '../lib/variationEngine';
 import { calculateVerdict } from '../lib/verdictEngine';
-import { getStageById } from '../lib/stageEngine';
 
 const baseQuestions = [
-  // M1 Foundation — A1 — 3-6 words, alphabet, SVO, en/et, nutid, tal
-  { id: 'q0a', category: "grammar", type: "Alfabet", level: "A1", q: "Hvor mange vokaler har dansk? (a e i o u æ ø å)", options: ["9 vokaler","5 vokaler","7 vokaler"], a: 0, why: "Dansk har 9 vokaler inkl æ ø å. Modul 1 starter her — alfabet og udtale.", rule: "Alfabet", skill: "Alfabet", difficulty: "easy" },
-  { id: 'q0b', category: "grammar", type: "SVO", level: "A1", q: "Vælg korrekt SVO: ___", options: ["Jeg hedder Ali","Hedder jeg Ali","Jeg Ali hedder"], a: 0, why: "M1: S-V-O altid i hovedsætning. Jeg (S) hedder (V) Ali (O). Basis før V2.", rule: "SVO", skill: "SVO", difficulty: "easy" },
-  { id: 'q0c', category: "grammar", type: "Køn", level: "A1", q: "___ hus (køn)", options: ["et hus","en hus","huset en"], a: 0, why: "M1: en/et køn. et hus, en bil. Ingen regel — skal læres. 200 ord.", rule: "Køn", skill: "en/et", difficulty: "easy" },
-  { id: 'q0d', category: "vocab", type: "Tal", level: "A1", q: "Hvad er 'tyve'?", options: ["20","12","2"], a: 0, why: "M1: tal 0-100. tyve=20, tredive=30. Basis for pris, tid, adresse.", rule: "Tal", skill: "Tal", difficulty: "easy" },
-  { id: 'q0e', category: "grammar", type: "Nutid", level: "A1", q: "Jeg ___ i Aarhus (bo)", options: ["bor","boer","bo"], a: 0, why: "M1: nutid -r. at bo → bor. Jeg bor, du bor, vi bor — ingen bøjning efter person.", rule: "Nutid", skill: "Nutid", difficulty: "easy" },
-  // M2 Daily — A1-A2 — 6-9 words V2 inversion datid
-  { id: 'q1', category: "grammar", type: "V2", level: "A2", q: "Vælg korrekt: ___ arbejder jeg hjemme.", options: ["I dag","I dag jeg","I dag er jeg"], a: 0, why: "V2: tid først → inversion. 'I dag arbejder jeg'. På engelsk: 'Today I work' (ingen inversion). På dansk altid inversion.", rule: "V2", skill: "V2 inversion", difficulty: "easy" },
-  { id: 'q2', category: "grammar", type: "Ledsætning", level: "B1", q: "Jeg ved, at han ___ kommer.", options: ["ikke","kommer ikke","ikke kommer"], a: 2, why: "Ledsætning: centraladverbial (ikke, aldrig, også) FØR verbet. Hovedsætning: 'Han kommer ikke'. Ledsætning: '...at han ikke kommer'.", rule: "Ledsætning", skill: "Ledsætning", difficulty: "medium" },
-  { id: 'q3', category: "grammar", type: "Sin", level: "B1", q: "Hun elsker ___ mand.", options: ["sin","hendes","hans"], a: 0, why: "Sin = tilbage til subjektet (hendes egen mand). 'Hendes mand' = en anden kvindes mand. Kæmpe betydningsforskel i børnehave.", rule: "Sin/sit", skill: "Refleksiv", difficulty: "medium" },
-  { id: 'q4', category: "grammar", type: "Ligge/lægge", level: "A2", q: "Bogen ___ på bordet.", options: ["ligger","lægger","sidder"], a: 0, why: "Ligge = tilstand (bogen er der). Lægge = handling (jeg lægger bogen). Som engelsk lie vs lay.", rule: "Ligge/lægge", skill: "Verbum", difficulty: "easy" },
-  { id: 'q5', category: "grammar", type: "Præposition", level: "A2", q: "Jeg har boet her ___ 3 år.", options: ["i","på","om"], a: 0, why: "'I' + tid = varighed. 'På' bruges til dage: på mandag. 'Om' = fremtid: om 3 dage.", rule: "Præpositioner", skill: "Præposition", difficulty: "easy" },
-  { id: 'q6', category: "vocab", type: "Kollokationer", level: "B1", q: "Hvad betyder 'holde et møde'?", options: ["To have a meeting","To leave a meeting","To cancel a meeting"], a: 0, why: "Kollokation: holde et møde = have a meeting. Ikke bare 'møde' men hele frasen. Du taler i kollokationer, ikke enkeltord.", rule: "Kollokationer", skill: "Kollokationer", difficulty: "medium" },
-  { id: 'q7', category: "vocab", type: "Partikelverb", level: "B1", q: "At 'slå op' betyder:", options: ["To look up a word / break up","To close","To open"], a: 0, why: "Partikelverber: slå op = look up in dictionary. Afhænger af partikel. Fast med præposition.", rule: "Partikelverber", skill: "Partikelverb", difficulty: "medium" },
-  { id: 'q8', category: "listening", type: "Reduktion", level: "B1", q: "Hvad betyder reduktionen 'd'er'?", options: ["det er","der er","det var"], a: 0, why: "Dansk sluger: det er → d'er. Skal du → skaddu. Det er derfor lytning er svært — 25% stavelser sluges.", rule: "Reduktion", skill: "Lytte reduktion", difficulty: "medium" },
-  { id: 'q9', category: "culture", type: "Samfund", level: "B1", q: "Hvor mange medlemmer i Folketinget?", options: ["179","150","200"], a: 0, why: "PD3 Delprøve 1: 179 medlemmer. Grundlovsdag 5. juni. Testes i medborgerskab.", rule: "Samfund", skill: "Samfund", difficulty: "easy" },
-  { id: 'q10', category: "culture", type: "Arbejdsmarked", level: "B1", q: "Hvad er 'flexicurity'?", options: ["Let at fyre + dagpenge + aktiv indsats","Kun lav skat","Kun høj løn"], a: 0, why: "Dansk arbejdsmarkedsmodel: let at fyre, let at få nyt job, dagpenge imellem. PD3 nøglebegreb.", rule: "Arbejdsmarked", skill: "Kultur", difficulty: "medium" },
-  { id: 'q11', category: "grammar", type: "Relativ", level: "B1", q: "Det er manden, ___ bor ved siden af.", options: ["der","som","hvis"], a: 0, why: "Der = subjekt i relativsætning. Som kan også, men der er mest præcis for subjekt. B1-B2 krav.", rule: "Relativ", skill: "Relativsætning", difficulty: "medium" },
-  { id: 'q12', category: "grammar", type: "Modalpartikel", level: "B2", q: "Det er ___ klart, at vi skal hjælpe. (fælles viden)", options: ["jo","da","vel"], a: 0, why: "Jo = som du ved, fælles viden. Vel = bekræftelse (ikke sandt?), da = overraskelse. B2: nuancer der koster i PD3 skrivning.", rule: "Modalpartikler", skill: "Modalpartikel", difficulty: "hard" },
-  { id: 'q13', category: "vocab", type: "Kollokationer", level: "B1", q: "At 'tage stilling til' betyder:", options: ["To take a stance / consider","To stand up","To take a chair"], a: 0, why: "Kollokation: tage stilling til = take stance. Ikke ordret. Kræves i debat-tekst B1.", rule: "Kollokationer", skill: "Kollokationer", difficulty: "medium" },
-  { id: 'q14', category: "reading", type: "Sammenhæng", level: "B1", q: "PD3 gapped text tester:", options: ["Sammenhæng og bindeord","Kun stavning","Kun udtale"], a: 0, why: "Gapped text: indsæt sætninger der skaber sammenhæng. Tester logik og bindeord: derfor, selvom, mens.", rule: "PD3 format", skill: "Læsning", difficulty: "medium" },
-  { id: 'q15', category: "writing", type: "Skrivning", level: "B1", q: "PD3 Delprøve 4 kræver:", options: ["150-200 ord med indledning, argumenter, konklusion","10 ord","Kun sms"], a: 0, why: "PD3 skrivning: 150-200 ord, struktur, V2, bindeord. Uden struktur under 5.", rule: "Skrivning", skill: "Skrivning", difficulty: "easy" },
-  { id: 'q16', category: "grammar", type: "V2", level: "A2", q: "På mandag ___ hun nyt job.", options: ["starter","hun starter","er hun starter"], a: 0, why: "V2 igen, ny variation: På mandag = front → inversion starter hun. Samme regel, andre ord — forhindrer memorering.", rule: "V2", skill: "V2 inversion", difficulty: "easy" },
-  { id: 'q17', category: "grammar", type: "Flertal", level: "A2", q: "To ___ er på bordet.", options: ["bøger","bog","bøgene"], a: 0, why: "Flertal: en bog → to bøger. Uregelmæssig. A2 kerne.", rule: "Flertal", skill: "Flertal", difficulty: "easy" },
-  { id: 'q18', category: "listening", type: "Reduktion", level: "B1", q: "I talesprog: 'skaddu med?' kommer fra:", options: ["skal du med?","skal det med?","skulle du med?"], a: 0, why: "Reduktion: skal du → skaddu. Høres som ét ord. Derfor lytning er hård selvom du læser B1.", rule: "Reduktion", skill: "Lytte reduktion", difficulty: "medium" },
-  { id: 'q19', category: "vocab", type: "Kollokationer", level: "B1", q: "At 'holde fyraften' betyder:", options: ["To finish work for the day","To hold a party","To be fired"], a: 0, why: "Kollokation arbejde: holde fyraften = finish. Vigtig i kaffepause-snak.", rule: "Kollokationer", skill: "Kollokationer", difficulty: "medium" },
-  { id: 'q20', category: "grammar", type: "Bindeord", level: "B1", q: "___ det regner, går vi en tur.", options: ["Selvom","Derfor","Fordi"], a: 0, why: "Selvom = although (kontrast). Derfor = therefore (konsekvens). Fordi = because (årsag). Bindeord skaber sammenhæng i PD3.", rule: "Bindeord", skill: "Bindeord", difficulty: "medium" },
+  { id: 'q0a', category: "grammar", type: "Alfabet", level: "A1", q: "Hvor mange vokaler har dansk? (a e i o u æ ø å)", options: ["9 vokaler","5 vokaler","7 vokaler"], a: 0, why: "Dansk har 9 vokaler inkl æ ø å.", rule: "Alfabet", skill: "Alfabet" },
+  { id: 'q0b', category: "grammar", type: "SVO", level: "A1", q: "Vælg korrekt SVO:", options: ["Jeg hedder Ali","Hedder jeg Ali","Jeg Ali hedder"], a: 0, why: "S-V-O altid i hovedsætning.", rule: "SVO", skill: "SVO" },
+  { id: 'q0c', category: "grammar", type: "Køn", level: "A1", q: "___ hus", options: ["et hus","en hus","huset en"], a: 0, why: "et hus, en bil.", rule: "Køn", skill: "en/et" },
+  { id: 'q0d', category: "vocab", type: "Tal", level: "A1", q: "Hvad er 'tyve'?", options: ["20","12","2"], a: 0, why: "tyve=20.", rule: "Tal", skill: "Tal" },
+  { id: 'q0e', category: "grammar", type: "Nutid", level: "A1", q: "Jeg ___ i Aarhus (bo)", options: ["bor","boer","bo"], a: 0, why: "nutid -r. at bo → bor.", rule: "Nutid", skill: "Nutid" },
+  { id: 'q1', category: "grammar", type: "V2", level: "A2", q: "Vælg korrekt: ___ arbejder jeg hjemme.", options: ["I dag","I dag jeg","I dag er jeg"], a: 0, why: "V2: tid først → inversion.", rule: "V2", skill: "V2" },
+  { id: 'q2', category: "grammar", type: "Ledsætning", level: "B1", q: "Jeg ved, at han ___ kommer.", options: ["ikke","kommer ikke","ikke kommer"], a: 2, why: "Ledsætning: ikke FØR verbet.", rule: "Ledsætning", skill: "Ledsætning" },
+  { id: 'q3', category: "grammar", type: "Sin", level: "B1", q: "Hun elsker ___ mand.", options: ["sin","hendes","hans"], a: 0, why: "Sin = egen mand.", rule: "Sin/sit", skill: "Refleksiv" },
+  { id: 'q4', category: "grammar", type: "Ligge/lægge", level: "A2", q: "Bogen ___ på bordet.", options: ["ligger","lægger","sidder"], a: 0, why: "Ligge = tilstand.", rule: "Ligge/lægge", skill: "Verbum" },
+  { id: 'q5', category: "grammar", type: "Præposition", level: "A2", q: "Jeg har boet her ___ 3 år.", options: ["i","på","om"], a: 0, why: "'I' + tid = varighed.", rule: "Præpositioner", skill: "Præposition" },
+  { id: 'q6', category: "vocab", type: "Kollokationer", level: "B1", q: "Hvad betyder 'holde et møde'?", options: ["To have a meeting","To leave a meeting","To cancel"], a: 0, why: "holde et møde = have a meeting.", rule: "Kollokationer", skill: "Kollokationer" },
+  { id: 'q7', category: "vocab", type: "Partikelverb", level: "B1", q: "At 'slå op' betyder:", options: ["To look up / break up","To close","To open"], a: 0, why: "slå op = look up.", rule: "Partikelverber", skill: "Partikelverb" },
+  { id: 'q8', category: "listening", type: "Reduktion", level: "B1", q: "Hvad betyder 'd'er'?", options: ["det er","der er","det var"], a: 0, why: "det er → d'er.", rule: "Reduktion", skill: "Lytte" },
+  { id: 'q9', category: "culture", type: "Samfund", level: "B1", q: "Hvor mange medlemmer i Folketinget?", options: ["179","150","200"], a: 0, why: "179 medlemmer.", rule: "Samfund", skill: "Samfund" },
+  { id: 'q10', category: "culture", type: "Arbejdsmarked", level: "B1", q: "Hvad er 'flexicurity'?", options: ["Let at fyre + dagpenge + aktiv indsats","Kun lav skat","Kun høj løn"], a: 0, why: "Dansk model.", rule: "Arbejdsmarked", skill: "Kultur" },
+  { id: 'q11', category: "grammar", type: "Relativ", level: "B1", q: "Det er manden, ___ bor ved siden af.", options: ["der","som","hvis"], a: 0, why: "Der = subjekt.", rule: "Relativ", skill: "Relativ" },
+  { id: 'q12', category: "grammar", type: "Modalpartikel", level: "B2", q: "Det er ___ klart, at vi skal hjælpe. (fælles viden)", options: ["jo","da","vel"], a: 0, why: "Jo = fælles viden.", rule: "Modalpartikler", skill: "Modalpartikel" },
+  { id: 'q13', category: "vocab", type: "Kollokationer", level: "B1", q: "At 'tage stilling til' betyder:", options: ["To take a stance","To stand up","To take a chair"], a: 0, why: "tage stilling til = stance.", rule: "Kollokationer", skill: "Kollokationer" },
+  { id: 'q14', category: "reading", type: "Sammenhæng", level: "B1", q: "PD3 gapped text tester:", options: ["Sammenhæng og bindeord","Kun stavning","Kun udtale"], a: 0, why: "Sammenhæng og bindeord.", rule: "PD3 format", skill: "Læsning" },
+  { id: 'q15', category: "writing", type: "Skrivning", level: "B1", q: "PD3 Delprøve 4 kræver:", options: ["150-200 ord med indledning, argumenter, konklusion","10 ord","Kun sms"], a: 0, why: "150-200 ord struktur.", rule: "Skrivning", skill: "Skrivning" },
 ];
-
-function Dots({ current, total }) {
-  return (
-    <div className="flex gap-1 items-center">
-      {Array.from({ length: total }).map((_, i) => {
-        const active = i < current;
-        return <div key={i} className={active ? "w-2.5 h-2.5 rounded-full bg-black transition-all" : "w-2.5 h-2.5 rounded-full bg-black/15 transition-all"} />;
-      })}
-    </div>
-  );
-}
 
 function hashStr(str){ let h=0; for(let i=0;i<str.length;i++){ h=((h<<5)-h)+str.charCodeAt(i); h=h&h; } return Math.abs(h); }
 
 export default function DiagnosticView({ setActive }) {
   const [userSeed] = useState(()=> localStorage.getItem('dansk_user_seed') || ("u_"+Math.random().toString(36).slice(2,8)+"_"+Date.now()));
-  const [questions, setQuestions] = useState(()=> {
+  const [questions] = useState(()=> {
     const seed = userSeed;
     const varied = generateQuestionSet(seed, 5);
     const shuffled = [...baseQuestions].sort(()=> 0.5 - (hashStr(seed) % 100)/100).slice(0,15);
-    const mixed = shuffled.map((q,i)=> i<5 && varied[i] ? { ...q, q: varied[i].q || q.q, options: varied[i].options || q.options, variation: varied[i].variation } : q);
-    return mixed;
+    return shuffled.map((q,i)=> i<5 && varied[i] ? { ...q, q: varied[i].q || q.q, options: varied[i].options || q.options } : q);
   });
   const [idx, setIdx] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -62,16 +41,11 @@ export default function DiagnosticView({ setActive }) {
   const [qStart, setQStart] = useState(Date.now());
   const [showResult, setShowResult] = useState(false);
   const [verdict, setVerdict] = useState(null);
-  const [selectedGoals, setSelectedGoals] = useState(()=> {
-    try { return JSON.parse(localStorage.getItem('dansk_goals')||'[]'); } catch { return []; }
-  });
-  const [goalsStep, setGoalsStep] = useState(false);
 
   useEffect(()=>{ localStorage.setItem('dansk_user_seed', userSeed); },[userSeed]);
   useEffect(()=>{ setQStart(Date.now()); },[idx]);
 
   const currentQ = questions[idx];
-  const answered = Object.keys(answers).length;
   const total = questions.length;
 
   const handleAnswer = (optIdx) => {
@@ -98,191 +72,129 @@ export default function DiagnosticView({ setActive }) {
 
   const prevQ = () => { if(idx>0) setIdx(i=>i-1); };
 
-  const toggleGoal = (id) => {
-    if(navigator.vibrate) navigator.vibrate(10);
-    setSelectedGoals(prev=>{
-      if(prev.includes(id)) return prev.filter(x=>x!==id);
-      if(prev.length>=3) return [...prev.slice(1), id];
-      return [...prev, id];
-    });
-  };
-
-  const handleSaveGoals = () => {
-    saveGoals(selectedGoals);
-    setGoalsStep(false);
-    if(navigator.vibrate) navigator.vibrate(20);
-  };
-
   if(showResult && verdict) {
+    const strengths = (verdict.strengths||[]).map(s=> typeof s==='string' ? { category: s, pct: 80 } : s);
+    const weaknesses = (verdict.weaknesses||[]).map(w=> typeof w==='string' ? { category: w, pct: 50, types: [] } : w);
+    const borderline = (verdict.borderline||[]).map(b=> typeof b==='string' ? { category: b, pct: 65 } : b);
+    const typeWeak = verdict.typeWeaknesses||[];
+    const path = verdict.recommendedPath || verdict.path || [];
+    const timeline = typeof verdict.timeline === 'string' ? { text: verdict.timeline, months: '?', breakdown: verdict.timeline } : verdict.timeline || { text: '3-6 months', months: 4, breakdown: '' };
+    const categoryPct = verdict.categoryPct||{};
+    const wrongDetails = verdict.wrongDetails || [];
+
     return (
-      <div className="min-h-screen bg-[#F2F2F7] pb-[120px]">
-        <div className="max-w-[800px] mx-auto px-5 lg:px-8 pt-8">
-          <div className="bg-white rounded-[32px] p-8 shadow-sm border border-black/5">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="inline-flex text-[11px] font-[700] tracking-widest uppercase bg-black text-white px-3 py-1.5 rounded-full">Result {verdict.pct}% {verdict.total} questions</div>
-                <h1 className="mt-4 text-[34px] font-[700] tracking-tight leading-[0.95]">Your Danish —<br/>beyond %</h1>
-                <div className="mt-3 text-[17px] leading-[1.4] text-[#3C3C43]/70 max-w-[560px]">Not just 80% — we show what kind of 80%. Two learners can both score 80% but need different paths. Your path is built from your weakest skill less than 60% first.</div>
-              </div>
-              <div className="bg-black text-white rounded-[24px] px-6 py-5 text-center min-w-[140px]">
-                <div className="text-[36px] font-[700] tracking-tight leading-none">{verdict.pct}%</div>
-                <div className="mt-2 text-[12px] font-[600] bg-white/15 rounded-full px-3 py-1">{verdict.level}</div>
-                <div className="mt-2 text-[11px] text-white/60">{verdict.correct}/{verdict.total} avg {verdict.timeAvg}s</div>
-              </div>
-            </div>
-
-            <div className="mt-8 bg-[#F2F2F7] rounded-[20px] p-5">
-              <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">How we determined your level — not just %</div>
-              <div className="mt-3 grid grid-cols-2 lg:grid-cols-4 gap-3">
-                {Object.entries(verdict.levelPct||{}).map(([lvl,pct])=>(
-                  <div key={lvl} className="bg-white rounded-[12px] p-3 border border-black/5"><div className="text-[11px] font-[700] uppercase">{lvl}</div><div className="text-[18px] font-[700]">{pct}%</div></div>
-                ))}
-              </div>
-              <div className="mt-3 text-[13px] leading-[1.4] text-[#3C3C43]/70">Level requires lower levels at least 70% to advance. Eg if A1 is 40% you stay Modul 1 even if overall 80% guessed. {verdict.consistency && verdict.consistency.consistent===false ? <span className="text-[#FF3B30] font-[600]"> Inconsistent pattern: easy {verdict.consistency.easyPct}% vs hard {verdict.consistency.hardPct}% — suggests guessing.</span> : null}</div>
-            </div>
-
-            <div className="mt-6 grid lg:grid-cols-3 gap-3">
-              <div className="bg-[#34C759]/10 rounded-[20px] p-5 border border-[#34C759]/20">
-                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#34C759]">Strengths 75%+</div>
-                <div className="mt-3 space-y-2">
-                  {verdict.strengths.length ? verdict.strengths.map(s=><div key={s} className="text-[14px] font-[600]">✓ {s}</div>) : <div className="text-[13px] text-[#8E8E93]">No strength yet 75%+ — keep practicing.</div>}
+      <div className="min-h-screen bg-[#FFFBF5] pb-[120px]">
+        <div className="max-w-[600px] mx-auto px-5 pt-6">
+          {/* Simple result header per spec — level + section scores immediately useful, avoid % on top */}
+          <div className="bg-white rounded-[24px] p-6 border border-black/5">
+            <div className="text-[11px] font-[700] tracking-widest uppercase bg-black text-white px-3 py-1.5 rounded-full inline-flex">Dit niveau • {verdict.level}</div>
+            <h1 className="mt-4 text-[28px] font-[700] tracking-tight leading-[0.95]">{verdict.level}</h1>
+            <div className="mt-2 text-[14px] text-[#3C3C43]/70">{verdict.correct}/{verdict.total} rigtige • {Math.round(verdict.timePerQ||15)}s per spørgsmål</div>
+            
+            {/* Section scores — per spec immediately useful */}
+            <div className="mt-6 grid grid-cols-2 gap-2">
+              {Object.entries(categoryPct).map(([cat,pct])=>(
+                <div key={cat} className="bg-[#F2F2F7] rounded-[12px] p-3 flex justify-between items-center">
+                  <span className="text-[12px] font-[600] capitalize">{cat}</span>
+                  <span className={`text-[13px] font-[700] px-2 py-1 rounded-full ${pct>=75?'bg-[#34C759]/15 text-[#34C759]':pct<60?'bg-[#FF9500]/15 text-[#FF9500]':'bg-white'}`}>{pct}%</span>
                 </div>
-                <div className="mt-3 text-[11px] text-[#8E8E93]">Keep these strong — don't over-practice.</div>
-              </div>
-              <div className="bg-[#FF9500]/10 rounded-[20px] p-5 border border-[#FF9500]/20">
-                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#FF9500]">To improve less 60%</div>
-                <div className="mt-3 space-y-2">
-                  {verdict.weaknesses.length ? verdict.weaknesses.map(s=><div key={s} className="text-[14px] font-[600]">• {s} {verdict.typeWeaknesses && verdict.typeWeaknesses[s] ? "→ "+verdict.typeWeaknesses[s].join(', ') : ""}</div>) : <div className="text-[13px] text-[#8E8E93]">Good balance — no category less 60%.</div>}
-                </div>
-                <div className="mt-3 text-[11px] text-[#8E8E93]">We build path from these first.</div>
-              </div>
-              <div className="bg-white rounded-[20px] p-5 border border-black/5">
-                <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">Borderline 60-74% + Time</div>
-                <div className="mt-3 space-y-1">
-                  {verdict.borderline.map(s=><div key={s} className="text-[13px]">○ {s}</div>)}
-                  <div className="mt-3 text-[12px]">Avg {verdict.timeAvg}s/q — {verdict.timeFlag==='too_fast'?'Too fast, may be guessing':verdict.timeFlag==='slow'?'Slow, but careful':'Normal pace'}</div>
-                  <div className="mt-2 text-[11px] text-[#8E8E93]">{verdict.explanation}</div>
-                </div>
-              </div>
+              ))}
             </div>
-
-            <div className="mt-8">
-              <div className="text-[15px] font-[700] tracking-tight">Your personal path — built from weakest skill</div>
-              <div className="mt-4 space-y-2">
-                {verdict.path.map((p,i)=>(
-                  <div key={i} className="bg-[#F2F2F7] rounded-[16px] p-4 flex gap-3 items-start">
-                    <div className="w-7 h-7 rounded-full bg-black text-white grid place-items-center text-[11px] font-bold shrink-0">{p.step}</div>
-                    <div className="flex-1"><div className="text-[14px] font-[600] tracking-tight">{p.title} {p.priority?"• "+p.priority+" priority":""}</div><div className="text-[12px] text-[#8E8E93] mt-1">{p.why} • {p.time}</div><div className="mt-2 inline-flex text-[11px] bg-white px-2.5 py-1 rounded-full border border-black/5">{p.moduleId ? p.moduleId.toUpperCase() : ""} {p.objective ? p.objective.slice(0,60) : ""}</div></div>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-4 bg-black text-white rounded-[20px] p-5"><div className="text-[11px] font-[700] tracking-widest uppercase text-white/60">Timeline • Why this path?</div><div className="mt-2 text-[14px] leading-[1.5]">Estimated: {verdict.timeline} — base from your level + 0.5 month per weakness. Why this path? Your assessment shows {verdict.weaknesses.join(', ')||'mixed'} less 60%. We focus V2 first because 80% of B1 errors are V2.</div></div>
-            </div>
-
-            {goalsStep ? (
-              <div className="mt-8 bg-[#F2F2F7] rounded-[24px] p-6">
-                <div className="text-[15px] font-[700] tracking-tight">🎯 Your why — pick up to 3 goals</div>
-                <div className="text-[13px] text-[#8E8E93] mt-2 leading-[1.4]">We adapt recommendation to your goal.</div>
-                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {allGoals.map(g=>{
-                    const sel = selectedGoals.includes(g.id);
-                    return (
-                      <button key={g.id} onClick={()=>toggleGoal(g.id)} className={sel ? "text-left p-4 rounded-[16px] border bg-black text-white border-black" : "text-left p-4 rounded-[16px] border bg-white border-black/5"}>
-                        <div className="flex items-start justify-between gap-2"><div className="text-[14px] font-[600]">{g.icon} {g.label}</div><div className={sel ? "w-6 h-6 rounded-full grid place-items-center text-[11px] bg-white text-black" : "w-6 h-6 rounded-full grid place-items-center text-[11px] bg-[#F2F2F7]"}>{sel?'✓':''}</div></div>
-                        <div className={sel ? "text-[11px] mt-1 leading-[1.3] text-white/70" : "text-[11px] mt-1 leading-[1.3] text-[#8E8E93]"}>{g.desc}</div>
-                      </button>
-                    );
-                  })}
-                </div>
-                <div className="mt-5 flex gap-2"><button onClick={handleSaveGoals} disabled={selectedGoals.length===0} className="flex-1 bg-black text-white py-4 rounded-full text-[15px] font-[600] disabled:opacity-40">Save {selectedGoals.length} goals → Practice</button><button onClick={()=>setGoalsStep(false)} className="px-5 py-4 rounded-full bg-white border border-black/10 text-[14px] font-[600]">Skip</button></div>
-              </div>
-            ) : (
-              <div className="mt-8 flex gap-3 justify-center flex-wrap"><button onClick={()=>setActive('practice')} className="bg-black text-white px-6 py-3.5 rounded-full text-[15px] font-[600]">Go to practice →</button><button onClick={()=>setActive('path')} className="bg-white border border-black/10 px-6 py-3.5 rounded-full text-[15px] font-[600]">See Stage 1-5 path</button><button onClick={()=>setGoalsStep(true)} className="bg-[#F2F2F7] px-5 py-3.5 rounded-full text-[13px] font-[600]">Edit goals ({getGoals().length||selectedGoals.length})</button></div>
-            )}
           </div>
 
-          <div className="mt-8 space-y-3">
-            <h3 className="text-[20px] font-[700] tracking-tight">Review — why answers are correct, what to do next</h3>
-            <div className="text-[13px] text-[#8E8E93]">Each answer shows rule, why your wrong choice was tempting, and which stage it belongs to. Never lost.</div>
-            {questions.map(q=>{
-              const userAns = answers[q.id];
-              const correct = userAns===q.a;
-              const stage = getStageById(q.level==='A1'?'m1':q.level==='A2'?'m2':q.level==='B1'?'m3':q.level==='B2'?'m4':'m3');
-              const cardClass = correct ? "bg-white rounded-[20px] p-5 shadow-sm border border-[#34C759]/20" : "bg-white rounded-[20px] p-5 shadow-sm border border-[#FF3B30]/20";
-              const badgeClass = correct ? "text-[11px] px-2.5 py-1 rounded-full font-[600] shrink-0 bg-[#34C759] text-white" : "text-[11px] px-2.5 py-1 rounded-full font-[600] shrink-0 bg-[#FF3B30] text-white";
-              return (
-                <div key={q.id} className={cardClass}>
-                  <div className="flex justify-between gap-3"><span className="text-[14px] font-[500] leading-tight">{q.q}</span><span className={badgeClass}>{correct?'Correct':'Wrong'}</span></div>
-                  <div className="mt-2 flex gap-2 flex-wrap"><span className="text-[11px] px-2 py-1 rounded-full bg-[#F2F2F7]">{q.category} {q.type} {q.level}</span><span className="text-[11px] px-2 py-1 rounded-full bg-black text-white">{stage ? stage.title : q.level}</span><span className="text-[11px] text-[#8E8E93]">{timePerQ[q.id]||'?'}s {q.difficulty}</span></div>
-                  <div className="mt-2 text-[12px] text-[#8E8E93]">Your answer: {q.options[userAns]} • Correct: {q.options[q.a]}</div>
-                  <div className="mt-3 text-[13px] leading-[1.4] bg-[#F2F2F7] rounded-[12px] p-3"><b>Why:</b> {q.why}<br/><b>What next:</b> Practice {q.rule} in {stage ? stage.title : 'current stage'} — {stage ? stage.objective.slice(0,100) : ''}</div>
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="bg-[#34C759]/10 rounded-[16px] p-4 border border-[#34C759]/20">
+              <div className="text-[11px] font-[700] uppercase text-[#34C759]">Stærke sider</div>
+              <div className="mt-2 space-y-1">
+                {strengths.length ? strengths.map((s,i)=><div key={i} className="text-[13px] font-[600]">✓ {s.category} {s.pct}%</div>) : <div className="text-[12px] text-[#8E8E93]">Ingen endnu — bliv ved</div>}
+              </div>
+            </div>
+            <div className="bg-[#FF9500]/10 rounded-[16px] p-4 border border-[#FF9500]/20">
+              <div className="text-[11px] font-[700] uppercase text-[#FF9500]">Fokusområder</div>
+              <div className="mt-2 space-y-1">
+                {weaknesses.length ? weaknesses.map((w,i)=><div key={i} className="text-[13px] font-[600]">• {w.category} {w.pct}%</div>) : <div className="text-[12px] text-[#8E8E93]">God balance</div>}
+              </div>
+            </div>
+          </div>
+
+          {wrongDetails.length>0 && (
+            <div className="mt-4 bg-white rounded-[16px] p-4 border border-black/5">
+              <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">Hvad gik galt</div>
+              <div className="mt-3 space-y-2">
+                {wrongDetails.slice(0,3).map((w,i)=>{
+                  const q = w.question;
+                  return (
+                    <div key={i} className="text-[12px] bg-[#F2F2F7] rounded-[10px] p-3">
+                      <div className="font-[600]">{q.q}</div>
+                      <div className="mt-1 text-[#8E8E93]">Dit svar: {q.options[w.userAnswer]} • Rigtigt: {q.options[q.a]}</div>
+                      <div className="mt-1">{q.why}</div>
+                    </div>
+                  );
+                })}
+                {wrongDetails.length>3 && <div className="text-[11px] text-[#8E8E93]">+{wrongDetails.length-3} flere fejl — se i Path</div>}
+              </div>
+            </div>
+          )}
+
+          <div className="mt-4 bg-white rounded-[16px] p-4 border border-black/5">
+            <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">Din vej</div>
+            <div className="mt-3 space-y-2">
+              {path.slice(0,3).map((p,i)=>(
+                <div key={i} className="flex gap-2">
+                  <div className="w-6 h-6 rounded-full bg-black text-white grid place-items-center text-[10px] font-bold shrink-0">{i+1}</div>
+                  <div className="text-[13px]"><b>{p.title}</b> • <span className="text-[#8E8E93]">{p.why?.slice(0,60)}</span></div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
+            <div className="mt-3 text-[12px] bg-black text-white rounded-[12px] p-3">Estimeret: {timeline.text} • {timeline.weekly||'3-4 dage/uge er nok'}</div>
+          </div>
+
+          <div className="mt-6 space-y-3">
+            <button onClick={()=>setActive('path')} className="w-full bg-black text-white py-4 rounded-full text-[16px] font-[600]">See My Learning Path →</button>
+            <button onClick={()=>setActive('register')} className="w-full bg-[#007AFF] text-white py-3.5 rounded-full text-[15px] font-[600]">Start Learning → Create Account</button>
+            <button onClick={()=>setActive('practice')} className="w-full bg-white border border-black/10 py-3 rounded-full text-[14px] font-[600]">Go to practice →</button>
+            <div className="text-center text-[11px] text-[#8E8E93]">No account required to see results • Create account to save journey</div>
           </div>
         </div>
       </div>
     );
   }
 
+  // Clean distraction-free Test=only test per spec — no learning path, no excessive text
   return (
-    <div className="min-h-screen bg-[#F2F2F7] pb-[120px]">
-      <div className="max-w-[760px] mx-auto px-5 lg:px-8 pt-6">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="text-[13px] font-[600] tracking-tight">Question {idx+1} of {total}</div>
-            <Dots current={idx+1} total={total} />
-          </div>
-          <div className="text-[11px] font-[600] px-3 py-1.5 rounded-full bg-white border border-black/5 shadow-sm">{currentQ.category} {currentQ.type} {currentQ.level} {currentQ.difficulty}</div>
+    <div className="min-h-screen bg-[#FFFBF5] pb-[100px]">
+      <div className="max-w-[480px] mx-auto px-5 pt-6">
+        <div className="flex items-center justify-between">
+          <div className="text-[13px] font-[600]">Question {idx+1} of {total}</div>
+          <div className="text-[11px] text-[#8E8E93]">{Object.keys(answers).length}/{total} answered</div>
         </div>
+        <div className="mt-3 h-1.5 bg-white rounded-full overflow-hidden border border-black/5"><div className="h-full bg-black rounded-full transition-all duration-500" style={{ width: ((idx+1)/total*100) + "%" }} /></div>
 
-        <div className="mt-3 h-2 bg-white rounded-full overflow-hidden border border-black/5 shadow-sm"><div className="h-full bg-black rounded-full transition-all duration-500" style={{ width: ((idx+1)/total*100) + "%" }} /></div>
-        <div className="mt-2 flex justify-between text-[11px] text-[#8E8E93]"><span>{((idx+1)/total*100).toFixed(0) + "% " + answered + " answered"}</span><span>{timePerQ[currentQ.id] ? timePerQ[currentQ.id]+"s" : ""}</span></div>
-
-        <div className="mt-8 bg-white rounded-[32px] p-7 shadow-sm border border-black/5">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-[11px] font-[700] tracking-widest uppercase bg-black text-white px-3 py-1.5 rounded-full">{currentQ.category}</span>
-            <span className="text-[11px] font-[600] px-2.5 py-1 rounded-full bg-[#F2F2F7]">{currentQ.skill}</span>
-            <span className="text-[11px] text-[#8E8E93]">{currentQ.rule} {currentQ.difficulty}</span>
-          </div>
-
-          <h2 className="text-[24px] font-[700] tracking-tight leading-tight">{currentQ.q}</h2>
-          <div className="mt-2 text-[13px] text-[#8E8E93]">Expected action: Choose correct option. After choosing you get why, not just correct/wrong. You are never lost — next step always obvious.</div>
-
-          {currentQ.variation ? <div className="mt-3 inline-flex text-[11px] bg-[#007AFF]/10 text-[#007AFF] px-3 py-1 rounded-full">Variation: {currentQ.variation.name||'Anna'} {currentQ.variation.place||'København'} Seed {userSeed.slice(0,6)} different learners different sentences</div> : null}
+        <div className="mt-8 bg-white rounded-[24px] p-6 border border-black/5">
+          <h2 className="text-[20px] font-[700] leading-tight">{currentQ.q}</h2>
 
           <div className="mt-6 space-y-2">
             {currentQ.options.map((opt,oi)=>{
               const isSelected = answers[currentQ.id]===oi;
-              const btnClass = isSelected ? "w-full text-left px-6 py-4 rounded-full border text-[17px] font-[500] flex justify-between items-center bg-black text-white border-black" : "w-full text-left px-6 py-4 rounded-full border text-[17px] font-[500] flex justify-between items-center bg-[#F2F2F7] border-transparent";
-              const dotClass = isSelected ? "w-7 h-7 rounded-full grid place-items-center text-[12px] bg-white text-black" : "w-7 h-7 rounded-full grid place-items-center text-[12px] bg-white border border-black/10";
               return (
-                <button key={oi} onClick={()=>handleAnswer(oi)} className={btnClass}>
-                  <span>{opt}</span><span className={dotClass}>{isSelected?'✓':''}</span>
+                <button key={oi} onClick={()=>handleAnswer(oi)} className={`w-full text-left px-5 py-4 rounded-full border text-[15px] font-[500] flex justify-between items-center transition ${isSelected ? 'bg-black text-white border-black' : 'bg-[#F2F2F7] border-transparent hover:bg-white hover:border-black/10'}`}>
+                  <span>{opt}</span><span className={`w-6 h-6 rounded-full grid place-items-center text-[11px] ${isSelected ? 'bg-white text-black' : 'bg-white border border-black/10'}`}>{isSelected?'✓':''}</span>
                 </button>
               );
             })}
           </div>
 
-          {answers[currentQ.id]!==undefined ? (
-            <div className={answers[currentQ.id]===currentQ.a ? "mt-6 p-5 rounded-[20px] text-[15px] leading-[1.5] border bg-[#34C759]/10 border-[#34C759]/20" : "mt-6 p-5 rounded-[20px] text-[15px] leading-[1.5] border bg-[#FF3B30]/10 border-[#FF3B30]/20"}>
-              <div className="flex items-center gap-2"><span className={answers[currentQ.id]===currentQ.a ? "w-7 h-7 rounded-full grid place-items-center text-[12px] font-bold bg-[#34C759] text-white" : "w-7 h-7 rounded-full grid place-items-center text-[12px] font-bold bg-[#FF3B30] text-white"}>{answers[currentQ.id]===currentQ.a?'✓':'✗'}</span><b>{answers[currentQ.id]===currentQ.a?'Correct':'Not correct, but important learning'} — {currentQ.rule}</b></div>
-              <div className="mt-3">{currentQ.why}</div>
-              <div className="mt-4 bg-white rounded-[12px] p-3 text-[13px] border border-black/5"><b>What next:</b> {answers[currentQ.id]===currentQ.a?'Great, keep going — this is '+currentQ.skill+' in '+currentQ.level+'.':'Practice '+currentQ.skill+' — this is Stage '+(currentQ.level==='A2'?'2':currentQ.level==='B1'?'3':'4')+' bottleneck. 80% of B1 errors are V2, so this matters.'} Next question will be {idx+1<total-1?questions[idx+1].type:'result'} {idx+1<total-1?questions[idx+1].level:'final'}.</div>
+          {answers[currentQ.id]!==undefined && (
+            <div className={`mt-5 p-4 rounded-[16px] text-[13px] leading-[1.4] border ${answers[currentQ.id]===currentQ.a ? 'bg-[#34C759]/10 border-[#34C759]/20' : 'bg-[#FF3B30]/10 border-[#FF3B30]/20'}`}>
+              <div className="font-[700]">{answers[currentQ.id]===currentQ.a?'✓ Correct':'✗ Not correct'} — {currentQ.rule}</div>
+              <div className="mt-2">{currentQ.why}</div>
             </div>
-          ) : null}
+          )}
 
-          <div className="mt-8 flex gap-3">
-            <button onClick={prevQ} disabled={idx===0} className="px-5 py-3.5 rounded-full bg-[#F2F2F7] text-[14px] font-[600] disabled:opacity-40">← Back</button>
-            <button onClick={nextQ} disabled={answers[currentQ.id]===undefined} className="flex-1 bg-black text-white py-4 rounded-full text-[17px] font-[600] shadow-lg disabled:opacity-40"> {idx===total-1?'Finish and see level beyond % →':'Next Q '+(idx+2)+' of '+total+' →'} </button>
+          <div className="mt-6 flex gap-2">
+            <button onClick={prevQ} disabled={idx===0} className="px-4 py-3 rounded-full bg-[#F2F2F7] text-[13px] font-[600] disabled:opacity-40">← Back</button>
+            <button onClick={nextQ} disabled={answers[currentQ.id]===undefined} className="flex-1 bg-black text-white py-3.5 rounded-full text-[15px] font-[600] disabled:opacity-40">{idx===total-1?'Finish → See level':'Next →'}</button>
           </div>
-
-          <div className="mt-4 text-[11px] text-[#8E8E93] text-center">Interactive, not questionnaire • You always know where you are • Variation prevents memorisation • Different learners get different sentences for same skill</div>
-        </div>
-
-        <div className="mt-6 bg-black text-white rounded-[24px] p-5">
-          <div className="text-[11px] font-[700] tracking-widest uppercase text-white/60">Principle: explanation before drill, English first</div>
-          <div className="mt-2 text-[14px] leading-[1.5] text-white/90">Each question shows where Danish differs from English. You already know V2 in English (Never have I...). In Danish you do it always. That's the bridge. After test we show not just %, but per-category less 60% weakness, 75%+ strength, consistency, time — and build path from weakest.</div>
         </div>
       </div>
     </div>
