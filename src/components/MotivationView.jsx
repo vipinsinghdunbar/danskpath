@@ -36,10 +36,10 @@ export default function MotivationView({ setActive }) {
       <div className="max-w-[1100px] mx-auto px-5 lg:px-8 pt-8">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 rounded-full bg-black text-white grid place-items-center text-[12px] font-bold">D</div>
-          <span className="text-[13px] font-[600]">Motivation • No streaks • Honest</span>
+          <span className="text-[13px] font-[600]">Motivation</span>
         </div>
         <h1 className="ios-large-title">What keeps you<br/>coming back?</h1>
-        <p className="mt-3 text-[17px] leading-[1.4] tracking-tight text-[#3C3C43]/70 max-w-[640px]">No hearts. No streaks. But: can you write to your landlord without being misunderstood? Do you understand DSB announcements? Are you closer to PD3 than last week?</p>
+        <p className="mt-3 text-[17px] leading-[1.4] tracking-tight text-[#3C3C43]/70 max-w-[640px]">Can you write to your landlord without being misunderstood? Do you understand DSB announcements? Are you closer to PD3 than last week?</p>
 
         {/* Goals — iOS card */}
         <div className="mt-8 bg-white rounded-[32px] p-6 shadow-sm border border-black/5">

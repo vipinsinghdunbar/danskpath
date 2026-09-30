@@ -203,9 +203,14 @@ export default function App() {
           handleSetActive(id);
         }} />;
       // === THREE MAIN EXPERIENCES ===
+      // For basic person, website/marketing is NOT homepage — redirect to simple-landing (homepage is SimpleLandingView at /)
+      // Only admin can see Website, Architecture, Roadmap, Share QR, etc — learner should stay on app
       case 'website':
       case 'home':
-        return <WebsiteView setActive={handleSetActive} />;
+      case 'landing':
+        // If admin, show WebsiteView, else redirect to simple-landing (ONE homepage only)
+        if (isAdmin()) return <WebsiteView setActive={handleSetActive} />;
+        return <SimpleLandingView setActive={handleSetActive} />;
       case 'assessment':
       case 'assessment-landing':
         return <AssessmentLandingView setActive={handleSetActive} />;
@@ -213,7 +218,20 @@ export default function App() {
       case 'arch':
       case 'map':
       case 'flowchart':
-        return <ArchitectureMapView setActive={handleSetActive} />;
+      case 'flow':
+      case 'levels':
+      case 'motivation':
+      case 'screenshots':
+      case 'audit':
+        // Dev/internal pages — only admin, learner stays on app
+        if (isAdmin()) {
+          if (['architecture','arch','map','flowchart','flow'].includes(active)) return <ArchitectureMapView setActive={handleSetActive} />;
+          if (['levels'].includes(active)) return <LevelExplainerView setActive={handleSetActive} />;
+          if (['motivation'].includes(active)) return <MotivationView setActive={handleSetActive} />;
+          if (['screenshots'].includes(active)) return <ScreenshotsView setActive={handleSetActive} />;
+          if (['audit'].includes(active)) return <AuditView setActive={handleSetActive} />;
+        }
+        return <SimpleLandingView setActive={handleSetActive} />;
       case 'privacy':
       case 'privatliv':
         return <PrivacyView setActive={handleSetActive} />;
@@ -221,17 +239,13 @@ export default function App() {
       case 'vilkar':
         return <TermsView setActive={handleSetActive} />;
       case 'security':
-      case 'audit':
       case 'launch':
         return <SecurityView setActive={handleSetActive} />;
       case 'roadmap':
       case 'road':
       case 'plan':
-        return <RoadmapView setActive={handleSetActive} />;
-      
-      // Legacy landing (keep for internal)
-      case 'landing':
-        return <LandingPage setActive={handleSetActive} />;
+        if (isAdmin()) return <RoadmapView setActive={handleSetActive} />;
+        return <SimpleLandingView setActive={handleSetActive} />;
       
       // Auth & Admin - per spec: simple register with guest transfer
       case 'register': return <RegisterView setActive={handleSetActive} />;
@@ -239,8 +253,10 @@ export default function App() {
       case 'simple-landing': return <SimpleLandingView setActive={handleSetActive} />;
       case 'admin': return isLoggedIn() && isAdmin() ? <AdminDashboardView setActive={handleSetActive} /> : <LoginView onLoggedIn={handleLoggedIn} setActive={handleSetActive} />;
       
-      // Share / QR
-      case 'share': return <ShareTrialView setActive={handleSetActive} />;
+      // Share / QR — only admin, learner stays on app
+      case 'share':
+        if (isAdmin()) return <ShareTrialView setActive={handleSetActive} />;
+        return <SimpleLandingView setActive={handleSetActive} />;
       case 'share-qr': return <AssessmentLandingView setActive={handleSetActive} />;
       
       // Full iPhone App — Learning Experience
@@ -260,21 +276,35 @@ export default function App() {
       case 'culture': return <CultureView />;
       case 'exam': return <ExamView />;
       
-      // Internal / Docs
-      case 'connect': return <ConnectView />;
-      case 'screenshots': return <ScreenshotsView setActive={handleSetActive} />;
-      case 'repetition': return <RepetitionExplainer />;
-      case 'flow': return <FlowView setActive={handleSetActive} />;
-      case 'levels': return <LevelExplainerView setActive={handleSetActive} />;
-      case 'motivation': return <MotivationView setActive={handleSetActive} />;
-      case 'audit': return <AuditView />;
+      // Internal / Docs — only admin for learner, else redirect to simple-landing (ONE homepage only)
+      case 'connect': 
+        if (isAdmin()) return <ConnectView />;
+        return <SimpleLandingView setActive={handleSetActive} />;
+      case 'screenshots': 
+        if (isAdmin()) return <ScreenshotsView setActive={handleSetActive} />;
+        return <SimpleLandingView setActive={handleSetActive} />;
+      case 'repetition': 
+        if (isAdmin()) return <RepetitionExplainer />;
+        return <SimpleLandingView setActive={handleSetActive} />;
+      case 'flow': 
+        if (isAdmin()) return <FlowView setActive={handleSetActive} />;
+        return <SimpleLandingView setActive={handleSetActive} />;
+      case 'levels': 
+        if (isAdmin()) return <LevelExplainerView setActive={handleSetActive} />;
+        return <SimpleLandingView setActive={handleSetActive} />;
+      case 'motivation': 
+        if (isAdmin()) return <MotivationView setActive={handleSetActive} />;
+        return <SimpleLandingView setActive={handleSetActive} />;
+      case 'audit': 
+        if (isAdmin()) return <AuditView />;
+        return <SimpleLandingView setActive={handleSetActive} />;
       case 'original': return (
         <div className="h-screen">
           <div className="p-2 bg-black text-white text-[12px] flex justify-between"><span>Original standalone — 761 items, no repeat 14 days</span><button onClick={()=>handleSetActive('website')} className="px-3 py-1 rounded-full bg-white text-black">← Back</button></div>
           <iframe src="/danskpath-standalone.html" className="w-full h-[calc(100vh-40px)] border-0" title="Original" />
         </div>
       );
-      default: return <WebsiteView setActive={handleSetActive} />;
+      default: return <SimpleLandingView setActive={handleSetActive} />;
     }
   };
 

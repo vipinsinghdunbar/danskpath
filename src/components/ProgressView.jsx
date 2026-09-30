@@ -27,7 +27,7 @@ export default function ProgressView({ setActive }) {
   return (
     <div className="min-h-screen bg-[#F2F2F7] pb-[120px]">
       <div className="max-w-[1100px] mx-auto px-5 lg:px-8 pt-8">
-        <div className="flex items-center gap-2 mb-3"><div className="w-8 h-8 rounded-full bg-black text-white grid place-items-center text-[12px] font-bold">◍</div><span className="text-[13px] font-[600]">Progress • No streaks • Just work</span></div>
+        <div className="flex items-center gap-2 mb-3"><div className="w-8 h-8 rounded-full bg-black text-white grid place-items-center text-[12px] font-bold">◍</div><span className="text-[13px] font-[600]">Progress</span></div>
         <h1 className="ios-large-title">Where you are —<br/>honest numbers</h1>
         <p className="mt-3 text-[17px] leading-[1.4] text-[#8E8E93] max-w-[600px]">No leaderboard. No comparison. Only your journey from Stage 1 to Stage 5, with evidence to progress. Each stage requires passing criteria, not just %.</p>
 
