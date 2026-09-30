@@ -278,7 +278,7 @@ export default function ArchitectureMapView({ setActive }) {
               <div><b className="text-[#FF3B30]">❌ MISSING 4 nodes (future):</b> Postgres encrypted, Redis rate limit persistence, Sentry error monitoring, Domain danskpath.app permanent — toggle Show Future</div>
               <div><b>🔜 NEXT 1 node:</b> Capacitor iOS+Android native appId dk.danskpath.app — npx cap add ios android</div>
               <div><b>Next Plan Today:</b> Fix broken links explicit routes (done), RoadmapView (done), QUALITY_STANDARDS + TESTING_FRAMEWORK (done), ErrorBoundary (done), build+test links, deploy secure+tunnel+QR, present new working links</div>
-              <div><b>This Week:</b> Buy domain, deploy Render permanent, set JWT_SECRET, fix /api/trials public→admin, password complexity+reset+2FA, Postgres, Plausible, support FAQ, Lighthouse >90</div>
+              <div><b>This Week:</b> Buy domain, deploy Render permanent, set JWT_SECRET, fix /api/trials public→admin, password complexity+reset+2FA, Postgres, Plausible, support FAQ, Lighthouse &gt;90</div>
             </div>
           </div>
 
