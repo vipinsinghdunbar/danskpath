@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { stages, getAllStagesProgress, getStageById, markStageCleared } from '../lib/stageEngine';
 import { getGoals } from '../lib/goals';
 import { getWeeklyWriting } from '../lib/writingEngine';
+import { markStageClearedServer } from '../lib/progressSync';
 
 function getProgress() {
   try { return JSON.parse(localStorage.getItem('dansk_progress')||'{}'); } catch { return {}; }
@@ -50,9 +51,13 @@ export default function RoadmapView({ setActive }) {
     setActive(id); 
   };
 
-  const markDone = () => {
+  const markDone = async () => {
     if(navigator.vibrate) navigator.vibrate(20);
     markStageCleared(activeModule);
+    try {
+      const stage = getStageById(activeModule);
+      await markStageClearedServer(activeModule, stage?.grammarRequirements||[]);
+    } catch {}
     setProgresses(getAllStagesProgress());
     setTimeout(()=>tap('practice'), 300);
   };

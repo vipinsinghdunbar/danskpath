@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { stages, getAllStagesProgress, getStageById } from '../lib/stageEngine';
 import { getWeeklyWriting, getUpcomingWriting } from '../lib/writingEngine';
+import { markStageClearedServer } from '../lib/progressSync';
 
 export default function PathView({ setActive }) {
   const [progresses, setProgresses] = useState([]);
@@ -29,9 +30,9 @@ export default function PathView({ setActive }) {
     setActive(id); 
   };
 
-  const markDone = () => {
+  const markDone = async () => {
     if(navigator.vibrate) navigator.vibrate(20);
-    // Mark stage cleared — sets localStorage stage_mX_cleared true + progress overall 100%
+    // Mark stage cleared — sets localStorage stage_mX_cleared true + progress overall 100% + sync to server for cross-device persistence
     const key = `stage_${activeModule}_cleared`;
     localStorage.setItem(key, 'true');
     // Also set dansk_progress to reflect completion
@@ -41,6 +42,10 @@ export default function PathView({ setActive }) {
         progress[`grammar_${t}`] = true;
       });
       localStorage.setItem('dansk_progress', JSON.stringify(progress));
+    } catch {}
+    // Sync to server — Fortsæt her persists across devices
+    try {
+      await markStageClearedServer(activeModule, activeStage.grammarRequirements);
     } catch {}
     // Refresh progresses
     setProgresses(getAllStagesProgress());

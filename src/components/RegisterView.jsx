@@ -37,7 +37,7 @@ export default function RegisterView({ setActive }) {
           name: username, 
           email: username, 
           password,
-          // Transfer guest data
+          // Transfer guest data including Fortsæt her progress sync for cross-device persistence
           guestData: {
             diagnostic: localStorage.getItem('dansk_diagnostic'),
             level: localStorage.getItem('dansk_level'),
@@ -45,7 +45,14 @@ export default function RegisterView({ setActive }) {
             goals: localStorage.getItem('dansk_goals'),
             progress: localStorage.getItem('dansk_progress'),
             scores: localStorage.getItem('dansk_scores'),
-            userSeed: localStorage.getItem('dansk_user_seed')
+            userSeed: localStorage.getItem('dansk_user_seed'),
+            // NEW: Fortsæt her cleared stages persist across devices
+            clearedStages: JSON.stringify(Object.fromEntries(['m1','m2','m3','m4','m5'].map(m=>[`stage_${m}_cleared`, localStorage.getItem(`stage_${m}_cleared`)||'false']).filter(([,v])=>v==='true'))),
+            stage_m1_cleared: localStorage.getItem('stage_m1_cleared'),
+            stage_m2_cleared: localStorage.getItem('stage_m2_cleared'),
+            stage_m3_cleared: localStorage.getItem('stage_m3_cleared'),
+            stage_m4_cleared: localStorage.getItem('stage_m4_cleared'),
+            stage_m5_cleared: localStorage.getItem('stage_m5_cleared')
           }
         })
       });

@@ -45,6 +45,7 @@ import EphemeralBanner from './components/EphemeralBanner';
 import BrandLogo from './components/BrandLogo';
 import { isLoggedIn, isAdmin, getUser, fetchMe } from './lib/auth';
 import { isTrialLink } from './lib/api';
+import { loadServerToLocal, syncLocalToServer } from './lib/progressSync';
 
 export default function App() {
   const [active, setActive] = useState(()=>{
@@ -111,10 +112,20 @@ export default function App() {
       }).catch(()=>{});
     }
 
-    // Check auth
+    // Check auth + sync progress for cross-device persistence (Fortsæt her)
     if(isLoggedIn()) {
-      fetchMe().then(u=>{
-        if(u) setUser(u);
+      fetchMe().then(async u=>{
+        if(u) {
+          setUser(u);
+          // Load server progress → local (for cross-device persistence)
+          try {
+            await loadServerToLocal();
+            console.log('✅ Progress loaded from server → local (cross-device)');
+            // Then sync local → server (merge)
+            await syncLocalToServer();
+            console.log('✅ Progress synced local → server');
+          } catch {}
+        }
         setAuthChecked(true);
       }).catch(()=>setAuthChecked(true));
     } else {
@@ -165,9 +176,17 @@ export default function App() {
     window.history.pushState({}, '', url.toString());
   };
 
-  const handleLoggedIn = (u) => {
+  const handleLoggedIn = async (u) => {
     setUser(u);
-    setActive('admin');
+    // Sync progress on login for cross-device persistence
+    try {
+      await loadServerToLocal();
+      await syncLocalToServer();
+      console.log('✅ Progress synced on login — Fortsæt her persists across devices');
+    } catch {}
+    // If admin, go to admin, else practice
+    if(u && u.role==='admin') setActive('admin');
+    else setActive('practice');
   };
 
   // Trial link — completely separate experience, no nav (legacy ?friend=true)

@@ -285,6 +285,23 @@ app.post('/api/auth/register', rateLimit({ max: 10, windowMs: 15*60*1000, keyPre
     return res.status(400).json({ error: 'Username already exists' });
   }
   
+  // Parse guest progress including Fortsæt her cleared stages
+  let guestProgress = {};
+  let guestScores = {};
+  let clearedStages = {};
+  try {
+    if(guestData?.progress) guestProgress = JSON.parse(guestData.progress);
+    if(guestData?.scores) guestScores = JSON.parse(guestData.scores);
+    // Check for cleared stages in guestData
+    if(guestData?.clearedStages) clearedStages = JSON.parse(guestData.clearedStages);
+    // Also parse from progress if it contains stage clear flags
+    Object.keys(guestData || {}).forEach(k=>{
+      if(k.startsWith('stage_') && k.endsWith('_cleared')) {
+        clearedStages[k] = guestData[k];
+      }
+    });
+  } catch {}
+  
   const newUser = {
     id: uuidv4(),
     name: identifier,
@@ -299,15 +316,25 @@ app.post('/api/auth/register', rateLimit({ max: 10, windowMs: 15*60*1000, keyPre
     guestLevel: guestData?.level || null,
     guestVerdict: guestData?.verdict ? JSON.parse(guestData.verdict) : null,
     guestGoals: guestData?.goals ? JSON.parse(guestData.goals) : [],
-    guestProgress: guestData?.progress ? JSON.parse(guestData.progress) : {},
-    guestScores: guestData?.scores ? JSON.parse(guestData.scores) : {}
+    guestProgress: guestProgress,
+    guestScores: guestScores,
+    // NEW: Fortsæt her progress sync — persist cleared stages + progress across devices
+    progress: {
+      ...guestProgress,
+      clearedStages: clearedStages,
+      lastSyncedAt: new Date().toISOString(),
+      overall: 0
+    },
+    scores: guestScores,
+    clearedStages: clearedStages,
+    lastActiveAt: new Date().toISOString()
   };
   
   db.users.push(newUser);
   writeDB(db);
   
   const token = jwt.sign({ id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
-  res.json({ ok: true, token, user: { id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role, level: newUser.guestLevel } });
+  res.json({ ok: true, token, user: { id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role, level: newUser.guestLevel, progress: newUser.progress, clearedStages: newUser.clearedStages } });
 });
 
 app.post('/api/auth/login', rateLimit({ max: 10, windowMs: 15*60*1000, keyPrefix: 'login' }), (req, res) => {
@@ -325,15 +352,45 @@ app.post('/api/auth/login', rateLimit({ max: 10, windowMs: 15*60*1000, keyPrefix
   const valid = bcrypt.compareSync(password, user.passwordHash);
   if (!valid) return res.status(401).json({ error: 'Wrong password' });
   
+  // Update last active
+  user.lastActiveAt = new Date().toISOString();
+  writeDB(db);
+  
   const token = jwt.sign({ id: user.id, name: user.name, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
-  res.json({ ok: true, token, user: { id: user.id, name: user.name, email: user.email, role: user.role, goals: user.goals } });
+  res.json({ ok: true, token, user: { 
+    id: user.id, 
+    name: user.name, 
+    email: user.email, 
+    role: user.role, 
+    goals: user.goals,
+    level: user.guestLevel || user.level,
+    progress: user.progress || user.guestProgress || {},
+    scores: user.scores || user.guestScores || {},
+    clearedStages: user.clearedStages || user.progress?.clearedStages || {},
+    diagnostic: user.guestDiagnostic,
+    verdict: user.guestVerdict
+  }});
 });
 
 app.get('/api/auth/me', authMiddleware, (req, res) => {
   const db = readDB();
   const user = db.users.find(u => u.id === req.user.id);
   if (!user) return res.status(404).json({ error: 'User not found' });
-  res.json({ ok: true, user: { id: user.id, name: user.name, email: user.email, role: user.role, goals: user.goals, danishStartDate: user.danishStartDate } });
+  res.json({ ok: true, user: { 
+    id: user.id, 
+    name: user.name, 
+    email: user.email, 
+    role: user.role, 
+    goals: user.goals, 
+    danishStartDate: user.danishStartDate,
+    level: user.guestLevel || user.level,
+    progress: user.progress || user.guestProgress || {},
+    scores: user.scores || user.guestScores || {},
+    clearedStages: user.clearedStages || user.progress?.clearedStages || {},
+    diagnostic: user.guestDiagnostic,
+    verdict: user.guestVerdict,
+    lastActiveAt: user.lastActiveAt
+  }});
 });
 
 app.post('/api/auth/change-password', authMiddleware, (req, res) => {
@@ -345,6 +402,182 @@ app.post('/api/auth/change-password', authMiddleware, (req, res) => {
   user.passwordHash = bcrypt.hashSync(newPassword, 10);
   writeDB(db);
   res.json({ ok: true });
+});
+
+// ========== PROGRESS SYNC — Fortsæt her + Markér færdig ✓ persists across devices ==========
+app.get('/api/progress', authMiddleware, (req, res) => {
+  const db = readDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  
+  res.json({
+    ok: true,
+    progress: user.progress || user.guestProgress || {},
+    scores: user.scores || user.guestScores || {},
+    clearedStages: user.clearedStages || user.progress?.clearedStages || {},
+    level: user.guestLevel || user.level,
+    diagnostic: user.guestDiagnostic,
+    verdict: user.guestVerdict,
+    lastSyncedAt: user.progress?.lastSyncedAt || user.lastActiveAt
+  });
+});
+
+app.post('/api/progress', authMiddleware, (req, res) => {
+  const { progress, scores, clearedStages, level } = req.body;
+  const db = readDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  
+  // Merge progress — keep existing + new, server wins for cleared stages (persist across devices)
+  if(progress) {
+    user.progress = {
+      ...(user.progress || {}),
+      ...(user.guestProgress || {}),
+      ...progress,
+      clearedStages: {
+        ...(user.clearedStages || {}),
+        ...(user.progress?.clearedStages || {}),
+        ...(clearedStages || {}),
+        ...(progress.clearedStages || {})
+      },
+      lastSyncedAt: new Date().toISOString()
+    };
+  }
+  if(scores) {
+    user.scores = { ...(user.scores || {}), ...(user.guestScores || {}), ...scores };
+  }
+  if(clearedStages) {
+    user.clearedStages = {
+      ...(user.clearedStages || {}),
+      ...(user.progress?.clearedStages || {}),
+      ...clearedStages
+    };
+    // Also sync to progress.clearedStages
+    if(user.progress) {
+      user.progress.clearedStages = { ...(user.progress.clearedStages || {}), ...clearedStages };
+    }
+  }
+  if(level) {
+    user.level = level;
+    user.guestLevel = level;
+  }
+  user.lastActiveAt = new Date().toISOString();
+  
+  writeDB(db);
+  
+  res.json({
+    ok: true,
+    progress: user.progress,
+    scores: user.scores,
+    clearedStages: user.clearedStages,
+    lastSyncedAt: user.progress.lastSyncedAt
+  });
+});
+
+app.post('/api/progress/stage/:moduleId/clear', authMiddleware, (req, res) => {
+  const { moduleId } = req.params; // m1, m2, m3, m4, m5
+  const { grammarDone } = req.body;
+  
+  if(!['m1','m2','m3','m4','m5'].includes(moduleId)) {
+    return res.status(400).json({ error: 'Invalid moduleId, must be m1-m5' });
+  }
+  
+  const db = readDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  
+  // Mark stage cleared — Fortsæt her + Markér færdig ✓ persists across devices
+  const clearedKey = `stage_${moduleId}_cleared`;
+  if(!user.clearedStages) user.clearedStages = {};
+  user.clearedStages[clearedKey] = 'true';
+  
+  if(!user.progress) user.progress = {};
+  if(!user.progress.clearedStages) user.progress.clearedStages = {};
+  user.progress.clearedStages[clearedKey] = 'true';
+  user.progress.lastSyncedAt = new Date().toISOString();
+  
+  // Also mark grammar topics as done
+  if(grammarDone && Array.isArray(grammarDone)) {
+    grammarDone.forEach(t=>{
+      user.progress[`grammar_${t}`] = true;
+    });
+  }
+  
+  // Calculate overall progress
+  const totalStages = 5;
+  const clearedCount = Object.keys(user.clearedStages).filter(k=>k.endsWith('_cleared') && user.clearedStages[k]==='true').length;
+  user.progress.overall = Math.round((clearedCount / totalStages) * 100);
+  user.lastActiveAt = new Date().toISOString();
+  
+  writeDB(db);
+  
+  console.log(`✅ Progress sync: user ${user.name} cleared ${moduleId} → ${clearedCount}/${totalStages} = ${user.progress.overall}%`);
+  
+  res.json({
+    ok: true,
+    moduleId,
+    cleared: true,
+    clearedStages: user.clearedStages,
+    progress: user.progress,
+    overall: user.progress.overall,
+    message: `Stage ${moduleId} marked done ✓ — persists across devices`
+  });
+});
+
+app.post('/api/progress/stage/:moduleId/unclear', authMiddleware, (req, res) => {
+  const { moduleId } = req.params;
+  const db = readDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  
+  const clearedKey = `stage_${moduleId}_cleared`;
+  if(user.clearedStages) delete user.clearedStages[clearedKey];
+  if(user.progress?.clearedStages) delete user.progress.clearedStages[clearedKey];
+  if(user.progress) user.progress.lastSyncedAt = new Date().toISOString();
+  user.lastActiveAt = new Date().toISOString();
+  writeDB(db);
+  
+  res.json({ ok: true, moduleId, cleared: false, clearedStages: user.clearedStages || {} });
+});
+
+app.post('/api/progress/sync', authMiddleware, (req, res) => {
+  const { progress, scores, clearedStages, level, diagnostic, verdict } = req.body;
+  const db = readDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  
+  // Full sync from client localStorage to server — merge, server keeps cleared stages
+  const serverCleared = user.clearedStages || user.progress?.clearedStages || {};
+  const clientCleared = clearedStages || progress?.clearedStages || {};
+  
+  // Merge: server cleared + client cleared (union) — once cleared, stays cleared across devices
+  const mergedCleared = { ...serverCleared, ...clientCleared };
+  
+  user.progress = {
+    ...(user.progress || {}),
+    ...(user.guestProgress || {}),
+    ...(progress || {}),
+    clearedStages: mergedCleared,
+    lastSyncedAt: new Date().toISOString()
+  };
+  user.scores = { ...(user.scores || {}), ...(user.guestScores || {}), ...(scores || {}) };
+  user.clearedStages = mergedCleared;
+  if(level) { user.level = level; user.guestLevel = level; }
+  if(diagnostic) user.guestDiagnostic = diagnostic;
+  if(verdict) user.guestVerdict = verdict;
+  user.lastActiveAt = new Date().toISOString();
+  
+  writeDB(db);
+  
+  res.json({
+    ok: true,
+    progress: user.progress,
+    scores: user.scores,
+    clearedStages: user.clearedStages,
+    level: user.level,
+    lastSyncedAt: user.progress.lastSyncedAt,
+    message: 'Progress synced — persists across devices'
+  });
 });
 
 // ========== REFERRALS ==========
