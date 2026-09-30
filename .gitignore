@@ -47,3 +47,7 @@ danish-platform-db.json
 RENDER_DEPLOY_STEP_BY_STEP.md
 danskpath-dist-netlify*.zip
 public/_redirects
+
+# Playwright
+test-results/
+playwright-report/
