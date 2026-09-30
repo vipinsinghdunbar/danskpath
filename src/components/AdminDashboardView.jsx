@@ -106,6 +106,8 @@ export default function AdminDashboardView({ setActive }) {
     } catch(e) { alert('Failed: '+e.message); }
   };
 
+  const [activeTab, setActiveTab] = useState('users'); // users | dev
+
   const handleLogout = () => { logout(); window.location.href = '/'; };
 
   const filteredUsers = users.filter(u => {
@@ -113,6 +115,24 @@ export default function AdminDashboardView({ setActive }) {
     const f = filter.toLowerCase();
     return u.name.toLowerCase().includes(f) || u.email.toLowerCase().includes(f) || (u.level||'').toLowerCase().includes(f);
   });
+
+  const devTools = [
+    { id: 'website', label: 'Website', desc: 'Marketing — Danish that sticks after work and kids', icon: '◐', route: 'website' },
+    { id: 'assessment', label: 'Assessment Landing', desc: 'Shareable assessment intro — what we measure / duration / what you receive', icon: '◑', route: 'assessment' },
+    { id: 'diagnostic', label: 'Diagnostic Test', desc: 'Test 15Q — Question X of Y + progress bar', icon: '📝', route: 'diagnostic' },
+    { id: 'path', label: 'Path Roadmap', desc: 'Din vej + Modul 1..5 + exercises per module', icon: '◍', route: 'path' },
+    { id: 'practice', label: 'Practice Today', desc: 'Hej, klar til at øve? + nextAction', icon: '✦', route: 'practice' },
+    { id: 'progress', label: 'Progress', desc: 'Where you are honest numbers + Weekly report', icon: '◎', route: 'progress' },
+    { id: 'architecture', label: 'Architecture Map', desc: 'Interactive with motion arrows + live public URL', icon: '🗺️', route: 'architecture' },
+    { id: 'roadmap', label: 'Roadmap 0→Launch', desc: 'MVP Core Curriculum 100% DONE', icon: '🛣️', route: 'roadmap' },
+    { id: 'share', label: 'Share QR', desc: 'Shareable URL + QR Code 280px + stats', icon: '↗', route: 'share' },
+    { id: 'flow', label: 'Flow', desc: 'How it works architecture', icon: '🗺️', route: 'flow' },
+    { id: 'levels', label: 'Levels M1→5', desc: 'How hard each stage', icon: '🎯', route: 'levels' },
+    { id: 'motivation', label: 'Motivation', desc: 'What keeps you coming back', icon: '💡', route: 'motivation' },
+    { id: 'screenshots', label: 'Gallery', desc: 'All pages screenshots', icon: '🖼️', route: 'screenshots' },
+    { id: 'audit', label: 'Status Audit', desc: 'Honest status', icon: '✓', route: 'audit' },
+    { id: 'simple-landing', label: 'Simple Landing', desc: 'ONE homepage only — Find your Danish level', icon: '🏠', route: 'simple-landing' },
+  ];
 
   if (selectedUser) {
     const u = selectedUser;
@@ -211,15 +231,42 @@ export default function AdminDashboardView({ setActive }) {
           </div>
         </div>
 
-        <div className="mt-6 bg-white rounded-[24px] p-5 border border-black/5 flex gap-3">
-          <input value={filter} onChange={e=>setFilter(e.target.value)} placeholder="Search name, email, level..." className="flex-1 bg-[#F2F2F7] rounded-full px-4 py-2.5 text-[13px] outline-none" />
-          <button onClick={loadAll} className="bg-black text-white px-5 py-2.5 rounded-full text-[13px] font-[600]">Refresh</button>
-          <button onClick={()=>setActive('assessment')} className="bg-white border border-black/10 px-4 py-2.5 rounded-full text-[13px] font-[600]">Test link →</button>
+        <div className="mt-6 flex gap-2">
+          <button onClick={()=>setActiveTab('users')} className={`px-5 py-2.5 rounded-full text-[13px] font-[600] ${activeTab==='users'?'bg-black text-white':'bg-white border border-black/10'}`}>Accounts • {users.length} — Control Everything</button>
+          <button onClick={()=>setActiveTab('dev')} className={`px-5 py-2.5 rounded-full text-[13px] font-[600] ${activeTab==='dev'?'bg-black text-white':'bg-white border border-black/10'}`}>Dev Tools — Admin Only Tab — See How It Works</button>
+          <button onClick={()=>setActive('assessment')} className="ml-auto bg-[#007AFF] text-white px-4 py-2.5 rounded-full text-[13px] font-[600]">Test link →</button>
         </div>
 
-        <div className="mt-6 bg-white rounded-[24px] p-6 border border-black/5">
-          <div className="text-[15px] font-[700]">Accounts • {filteredUsers.length} / {users.length}</div>
-          <div className="text-[12px] text-[#8E8E93] mt-1">Admin can look at each one's progress, update them if needed and revoke them too — per your idea. Accounts created after assessment only appears after taking test and knowing path.</div>
+        {activeTab==='dev' ? (
+          <div className="mt-6 bg-white rounded-[24px] p-6 border border-black/5">
+            <div className="text-[15px] font-[700]">Dev Tools — Admin Only Tab — Don't Remove, Keep for Admin to See How It Works</div>
+            <div className="text-[12px] text-[#8E8E93] mt-1">You said: dont remove them but out them only for admin in a tab so we can see how it is working — per your request. These are internal pages: Website, Architecture Map, Roadmap, Share QR, Flow, Levels, Motivation, Gallery, Audit, etc. For learner they redirect to SimpleLanding ONE homepage and stay on app. For admin they are accessible here in this tab + via Sidebar PRODUCT — Admin only.</div>
+            <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+              {devTools.map(tool=>(
+                <button key={tool.id} onClick={()=>setActive(tool.route)} className="text-left bg-[#F2F2F7] hover:bg-black hover:text-white rounded-[16px] p-4 border border-transparent hover:border-black transition group">
+                  <div className="flex items-center gap-2">
+                    <span className="w-8 h-8 rounded-full bg-white group-hover:bg-white/20 grid place-items-center text-[14px]">{tool.icon}</span>
+                    <span className="text-[13px] font-[700]">{tool.label}</span>
+                  </div>
+                  <div className="mt-2 text-[11px] leading-[1.4] opacity-70">{tool.desc}</div>
+                  <div className="mt-3 text-[11px] font-[600]">Open {tool.route} →</div>
+                </button>
+              ))}
+            </div>
+            <div className="mt-6 bg-black text-white rounded-[16px] p-4 text-[11px] leading-[1.5]">
+              <b>How it works for admin:</b> Sidebar for admin shows PRODUCT — Admin only with Website Public, Assessment Shareable, Architecture Map Dev, Roadmap Dev, Share QR Dev + LEARN. This tab also shows all dev tools. For learner (non-admin), all these routes redirect to SimpleLandingView ONE homepage — stays on app, no architectural map, no roadmap, no zero to launch, no share QR — per your feedback Why we have on side assessment, architectural map and everything? Why for any login? I need just basic person — fixed. But kept for admin in this tab so you can see how it is working — per your request dont remove them but out them only for admin in a tab.
+            </div>
+          </div>
+        ) : (
+          <>
+          <div className="mt-6 bg-white rounded-[24px] p-5 border border-black/5 flex gap-3">
+            <input value={filter} onChange={e=>setFilter(e.target.value)} placeholder="Search name, email, level..." className="flex-1 bg-[#F2F2F7] rounded-full px-4 py-2.5 text-[13px] outline-none" />
+            <button onClick={loadAll} className="bg-black text-white px-5 py-2.5 rounded-full text-[13px] font-[600]">Refresh</button>
+          </div>
+
+          <div className="mt-6 bg-white rounded-[24px] p-6 border border-black/5">
+            <div className="text-[15px] font-[700]">Accounts • {filteredUsers.length} / {users.length}</div>
+            <div className="text-[12px] text-[#8E8E93] mt-1">Admin can look at each one's progress, update them if needed and revoke them too — per your idea. Accounts created after assessment only appears after taking test and knowing path.</div>
           
           {loading ? <div className="mt-4 text-[13px] text-[#8E8E93]">Loading...</div> : filteredUsers.length===0 ? <div className="mt-4 text-[13px] text-[#8E8E93]">No accounts yet. Share assessment link: {window.location.origin}/?page=assessment — anyone can access link do test, get assessment and know path, can drop or create quick account and start path which he was assessed for.</div> : (
             <div className="mt-4 overflow-x-auto">
@@ -250,6 +297,8 @@ export default function AdminDashboardView({ setActive }) {
         <div className="mt-6 text-[11px] text-[#8E8E93] text-center">
           Shareable link for anyone: <b>{window.location.origin}/?page=assessment</b> → Test → Assessment + Path → Quick account → Start assessed path • Admin: Vipin / vipin123 • Users: {users.length} • Build 855KB
         </div>
+        </>
+        )}
       </div>
     </div>
   );
