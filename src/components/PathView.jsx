@@ -151,6 +151,20 @@ export default function PathView({ setActive }) {
               <div className="mt-5">
                 <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">What you will learn</div>
                 <div className="mt-2 text-[13px] leading-[1.5] text-[#3C3C43]/80">{activeStage.difficulty.sentenceLen} • {activeStage.difficulty.grammar.slice(0,80)}...</div>
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {activeStage.grammarRequirements.slice(0,4).map(g=><span key={g} className="text-[11px] bg-[#F2F2F7] px-2.5 py-1 rounded-full">{g}</span>)}
+                  {activeStage.grammarRequirements.length>4 && <span className="text-[11px] text-[#8E8E93]">+{activeStage.grammarRequirements.length-4} more</span>}
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">Exercises in this module</div>
+                <div className="mt-2 space-y-2">
+                  <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-black text-white grid place-items-center text-[10px]">1</span> Practice {activeStage.grammarRequirements[0] || 'grammar'} • {activeStage.difficulty.sentenceLen.split(':')[0] || '6-9 words'}</div>
+                  <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] grid place-items-center text-[10px]">2</span> 10 flashcards • {activeStage.vocabRequirements.count} ord • {activeStage.vocabRequirements.type.split(' ')[0] || 'daily'}</div>
+                  <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] grid place-items-center text-[10px]">3</span> 1 listening • {activeStage.moduleId==='m1' ? 'alphabet dictation' : activeStage.moduleId==='m2' ? 'DSB announcement' : 'borgerservice phone'}</div>
+                  <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] grid place-items-center text-[10px]">4</span> Write • {activeStage.moduleId==='m1' ? '30-50 ord my family' : activeStage.moduleId==='m2' ? '60-80 ord sick message' : activeStage.moduleId==='m3' ? '80-120 ord email landlord' : '120-200 ord debate'}</div>
+                </div>
               </div>
             </div>
 

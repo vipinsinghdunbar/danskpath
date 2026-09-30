@@ -11,7 +11,6 @@ export default function AssessmentLandingView({ setActive }) {
         <button onClick={()=>setActive('login')} className="text-[11px] text-[#8E8E93] hover:text-black">Log in</button>
       </div>
 
-      {/* Per spec: Assessment intro must explain what measures/duration/what learner receives after — simple, not QR/sharing */}
       <div className="flex-1 flex flex-col justify-center px-6 max-w-[480px] mx-auto w-full">
         <div className="py-10">
           <div className="inline-flex text-[11px] font-[700] tracking-widest uppercase bg-black text-white px-3 py-1.5 rounded-full">Assessment • 7 min</div>
@@ -21,17 +20,17 @@ export default function AssessmentLandingView({ setActive }) {
           <div className="mt-6 space-y-5">
             <div>
               <div className="text-[12px] font-[700] tracking-widest uppercase text-[#8E8E93]">What we measure</div>
-              <div className="mt-2 text-[15px] leading-[1.5] text-[#3C3C43]/80">Reading, listening, vocabulary, grammar, writing — 15 questions across A1 to B2</div>
+              <div className="mt-2 text-[15px] leading-[1.5] text-[#3C3C43]/80">Reading, listening, vocabulary, grammar, writing — 15 questions</div>
             </div>
             
             <div>
               <div className="text-[12px] font-[700] tracking-widest uppercase text-[#8E8E93]">Duration</div>
-              <div className="mt-2 text-[15px] leading-[1.5] text-[#3C3C43]/80">7 minutes • One question at a time • Progress bar • No account needed</div>
+              <div className="mt-2 text-[15px] leading-[1.5] text-[#3C3C43]/80">7 minutes • One question at a time • Progress bar</div>
             </div>
             
             <div>
-              <div className="text-[12px] font-[700] tracking-widest uppercase text-[#8E8E93]">What you receive after</div>
-              <div className="mt-2 text-[15px] leading-[1.5] text-[#3C3C43]/80">Your level (Modul 1-5), section scores, strengths, focus areas, and a personalized path from Modul 1 to PD3</div>
+              <div className="text-[12px] font-[700] tracking-widest uppercase text-[#8E8E93]">What you receive</div>
+              <div className="mt-2 text-[15px] leading-[1.5] text-[#3C3C43]/80">Your level, section scores, strengths, focus areas, and a personalized path</div>
             </div>
           </div>
 
@@ -51,7 +50,7 @@ export default function AssessmentLandingView({ setActive }) {
           </div>
 
           <div className="mt-8 text-[11px] text-[#8E8E93] leading-[1.4] text-center">
-            No account needed to start • Works on iPhone • Your results stay on your device
+            No account needed to start • Your results stay on your device
           </div>
         </div>
       </div>
