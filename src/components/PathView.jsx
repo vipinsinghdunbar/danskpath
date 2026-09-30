@@ -158,12 +158,66 @@ export default function PathView({ setActive }) {
               </div>
 
               <div className="mt-5">
-                <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">Exercises in this module</div>
+                <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">What you will learn in this module — {activeStage.cefl}</div>
+                <div className="mt-2 text-[13px] leading-[1.5] bg-[#F2F2F7] rounded-[12px] p-3">
+                  <div><b>Objective:</b> {activeStage.objective}</div>
+                  <div className="mt-2"><b>Grammar:</b> {activeStage.grammarRequirements.join(', ')}</div>
+                  <div className="mt-1"><b>Vocab:</b> {activeStage.vocabRequirements.count} ord • {activeStage.vocabRequirements.type} • {activeStage.vocabRequirements.mastery}% mastery</div>
+                  <div className="mt-1"><b>Sentence:</b> {activeStage.difficulty.sentenceLen}</div>
+                  <div className="mt-1 text-[11px] text-[#8E8E93]"><b>Diff from prev:</b> {activeStage.difficulty.diffFromPrev}</div>
+                </div>
+              </div>
+
+              <div className="mt-5">
+                <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">Exercises in this module — stays on app, no architectural map</div>
                 <div className="mt-2 space-y-2">
-                  <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-black text-white grid place-items-center text-[10px]">1</span> Practice {activeStage.grammarRequirements[0] || 'grammar'} • {activeStage.difficulty.sentenceLen.split(':')[0] || '6-9 words'}</div>
-                  <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] grid place-items-center text-[10px]">2</span> 10 flashcards • {activeStage.vocabRequirements.count} ord • {activeStage.vocabRequirements.type.split(' ')[0] || 'daily'}</div>
-                  <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] grid place-items-center text-[10px]">3</span> 1 listening • {activeStage.moduleId==='m1' ? 'alphabet dictation' : activeStage.moduleId==='m2' ? 'DSB announcement' : 'borgerservice phone'}</div>
-                  <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] grid place-items-center text-[10px]">4</span> Write • {activeStage.moduleId==='m1' ? '30-50 ord my family' : activeStage.moduleId==='m2' ? '60-80 ord sick message' : activeStage.moduleId==='m3' ? '80-120 ord email landlord' : '120-200 ord debate'}</div>
+                  {activeStage.moduleId==='m1' && (
+                    <>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-black text-white grid place-items-center text-[10px] shrink-0">1</span><div><b>Grammatik:</b> Alfabet æøå, SVO (Jeg hedder Ali), nutid -r, en/et • 3-6 ord sætninger • Example: Jeg hedder Anna. Jeg er 32 år.</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">2</span><div><b>Ord • 200 ord:</b> family, home, time, daily routine • 10 flashcards • Box 0→5 SRS • receptive 200, active 100</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">3</span><div><b>Lyt • A1:</b> Alphabet dictation, numbers, slow clear speech • No reductions • Signs Åben/Lukket</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">4</span><div><b>Skriv • 30-50 ord:</b> My family, my flat • S-V-O only, present -r, en/et • Introduce yourself 30 sec</div></div>
+                    </>
+                  )}
+                  {activeStage.moduleId==='m2' && (
+                    <>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-black text-white grid place-items-center text-[10px] shrink-0">1</span><div><b>Grammatik:</b> V2 inversion I dag arbejder jeg hjemme, past -ede arbejdede, flertal biler/huse, en/et + definite -en/-et, fordi • 6-9 ord: I dag arbejder jeg hjemme, fordi jeg er syg.</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">2</span><div><b>Ord • 400 ord:</b> work, transport, shopping, health • collocations holde fri, tage bussen, holde møde • Box SRS</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">3</span><div><b>Lyt • A1-A2:</b> Monologue slow, DSB announcement delay, telephone slow with transcript first • DSB</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">4</span><div><b>Skriv • 60-80 ord:</b> Sick message, invitation, delay • V2 + fordi, past -ede • Explain delay 1 min</div></div>
+                    </>
+                  )}
+                  {activeStage.moduleId==='m3' && (
+                    <>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#007AFF]/10 rounded-[12px] p-3 border border-[#007AFF]/20"><span className="w-6 h-6 rounded-full bg-[#007AFF] text-white grid place-items-center text-[10px] shrink-0">1</span><div><b>Grammatik M3 Independent A2-B1:</b> Subordinate at han ikke kommer (ikke FØR verbet), har/er perfect Jeg har boet her i 3 år, reflexive glæde sig, prepositions vente på • 9-14 ord: Jeg ved, at håndværkeren ikke kommer i morgen, fordi han er syg. • Biggest shift: main → subordinate flips word order</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">2</span><div><b>Ord • 700 ord:</b> housing, health, community, work • collocations vente på, glæde sig til, tage stilling til • 700 ord B1 independent</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">3</span><div><b>Lyt • B1 telephone:</b> Borgerservice without transcript first, DR slow news, 25% reductions d'er, skaddu • No transcript first</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">4</span><div><b>Skriv • 80-120 ord:</b> Email landlord about craftsman, message doctor, community garden post • subordinate at/fordi/hvis, skal + infinitive • Explain why late 2 min</div></div>
+                    </>
+                  )}
+                  {activeStage.moduleId==='m4' && (
+                    <>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#FF9500]/10 rounded-[12px] p-3 border border-[#FF9500]/20"><span className="w-6 h-6 rounded-full bg-[#FF9500] text-white grid place-items-center text-[10px] shrink-0">1</span><div><b>Grammatik M4 Fluent B1:</b> Strong verbs drikke/drak/drukket vowel shift, sin/hans distinction critical Anna henter sin søn vs hendes søn, selvom/hvis/når/da, den/det pronoun • 12-18 ord: Selvom skoene kun er to uger gamle, er de allerede i stykker, derfor vil jeg gerne have pengene tilbage. • From regular to strong verbs</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">2</span><div><b>Ord • 1000 ord:</b> complaint, job, debate, transport • strong verbs i-a-u families, debate connectors fordele, ulemper, på den ene side</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">3</span><div><b>Lyt • B1:</b> DR news normal speed, multi-speaker, podcast slow, reductions 25% • DR + multi-speaker</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">4</span><div><b>Skriv • 120-150 ord:</b> Complain broken shoes, job application, debate bike vs bus • fordele/ulemper, på den ene side/på den anden side, derfor, selvom • Job interview 3 min</div></div>
+                    </>
+                  )}
+                  {activeStage.moduleId==='m5' && (
+                    <>
+                      <div className="flex gap-2 items-start text-[13px] bg-black text-white rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-white text-black grid place-items-center text-[10px] shrink-0">1</span><div><b>Grammatik M5 PD3 ready B1-B2:</b> All 17 topics combined 2-3 rules at once, Passive bliver + past participle, relative der/som, modal particles jo/da/vel shared knowledge • 15-25 ord: Det er jo klart, at selvom man har boet her i tre år, har man ikke nødvendigvis forstået, hvorfor danskerne deler æren med teamet. • From 1 rule to 2-3 combined • No new grammar, only exam format + time pressure</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">2</span><div><b>Ord • 1354 active, 3000-4000 receptive:</b> argumentation bæredygtig, for det første, derudover, til sidst, fællesskab • collocations that work in speech</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">3</span><div><b>Lyt • B2:</b> DR podcast normal speed, fast telephone, multi-speaker debate, all reductions • Podcast speed • PD3 mundtlig picture description 2 min + discussion 4 min with jo/da/vel</div></div>
+                      <div className="flex gap-2 items-start text-[13px] bg-[#F2F2F7] rounded-[12px] p-3"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] border border-black/10 grid place-items-center text-[10px] shrink-0">4</span><div><b>Skriv • 150-200 ord PD3:</b> PD3 structure indledning, 2 argumenter, konklusion, for det første/derudover/til sidst, jo/da • Culture: Folketing 179, flexicurity, jantelov • Exam PD3 6 parts • 150-200 ord</div></div>
+                    </>
+                  )}
+                  {/* Fallback for unknown */}
+                  {!['m1','m2','m3','m4','m5'].includes(activeStage.moduleId) && (
+                    <>
+                      <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-black text-white grid place-items-center text-[10px]">1</span> Practice {activeStage.grammarRequirements[0] || 'grammar'} • {activeStage.difficulty.sentenceLen.split(':')[0] || '6-9 words'}</div>
+                      <div className="flex gap-2 items-center text-[13px]"><span className="w-6 h-6 rounded-full bg-[#F2F2F7] grid place-items-center text-[10px]">2</span> 10 flashcards • {activeStage.vocabRequirements.count} ord • {activeStage.vocabRequirements.type.split(' ')[0] || 'daily'}</div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

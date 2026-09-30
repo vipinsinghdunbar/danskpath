@@ -70,7 +70,14 @@ export default function DiagnosticView({ setActive }) {
     }
   };
 
-  const prevQ = () => { if(idx>0) setIdx(i=>i-1); };
+  const prevQ = () => { 
+    if(idx>0) setIdx(i=>i-1); 
+    else {
+      // At first question, back goes to assessment intro — nice back behavior, stays on app
+      if(navigator.vibrate) navigator.vibrate(10);
+      setActive('assessment');
+    }
+  };
 
   if(showResult && verdict) {
     const strengths = (verdict.strengths||[]).map(s=> typeof s==='string' ? { category: s, pct: 80 } : s);

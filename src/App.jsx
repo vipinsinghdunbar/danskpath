@@ -280,23 +280,8 @@ export default function App() {
       case 'connect': 
         if (isAdmin()) return <ConnectView />;
         return <SimpleLandingView setActive={handleSetActive} />;
-      case 'screenshots': 
-        if (isAdmin()) return <ScreenshotsView setActive={handleSetActive} />;
-        return <SimpleLandingView setActive={handleSetActive} />;
       case 'repetition': 
         if (isAdmin()) return <RepetitionExplainer />;
-        return <SimpleLandingView setActive={handleSetActive} />;
-      case 'flow': 
-        if (isAdmin()) return <FlowView setActive={handleSetActive} />;
-        return <SimpleLandingView setActive={handleSetActive} />;
-      case 'levels': 
-        if (isAdmin()) return <LevelExplainerView setActive={handleSetActive} />;
-        return <SimpleLandingView setActive={handleSetActive} />;
-      case 'motivation': 
-        if (isAdmin()) return <MotivationView setActive={handleSetActive} />;
-        return <SimpleLandingView setActive={handleSetActive} />;
-      case 'audit': 
-        if (isAdmin()) return <AuditView />;
         return <SimpleLandingView setActive={handleSetActive} />;
       case 'original': return (
         <div className="h-screen">

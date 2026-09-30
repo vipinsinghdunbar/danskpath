@@ -18,6 +18,18 @@ export default function PracticeView({ setActive }) {
     const modProgress = getModuleProgress(levelId);
     const weekly = getWeeklyWriting(levelId);
 
+    // Map weakness category to actual exercise — fixes loop bug: practice should NOT go to path, should go to exercise
+    const mapCategoryToExercise = (cat) => {
+      const c = (cat||'').toLowerCase();
+      if (c.includes('grammar') || c.includes('grammatik') || c.includes('v2') || c.includes('ledsætning') || c.includes('sin') || c.includes('verbum') || c.includes('præposition') || c.includes('relativ') || c.includes('modal') || c.includes('køn') || c.includes('svo') || c.includes('nutid') || c.includes('alfabet')) return 'grammar';
+      if (c.includes('vocab') || c.includes('ord') || c.includes('kollokation') || c.includes('partikel')) return 'vocab';
+      if (c.includes('listening') || c.includes('lytte') || c.includes('reduktion') || c.includes('dsb') || c.includes('dr')) return 'listening';
+      if (c.includes('reading') || c.includes('læsning') || c.includes('sammenhæng')) return 'reading';
+      if (c.includes('writing') || c.includes('skrivning')) return 'writing';
+      if (c.includes('culture') || c.includes('samfund') || c.includes('kultur') || c.includes('arbejdsmarked')) return 'culture';
+      return 'grammar';
+    };
+
     let nextAction = null;
     if(!diagnosticDone) {
       nextAction = {
@@ -29,13 +41,14 @@ export default function PracticeView({ setActive }) {
         icon: "◷"
       };
     } else if (verdict && verdict.weaknesses && verdict.weaknesses.length > 0) {
-      const weakCat = typeof verdict.weaknesses[0] === 'string' ? verdict.weaknesses[0] : verdict.weaknesses[0].category || 'Fokus';
+      const weakCatRaw = typeof verdict.weaknesses[0] === 'string' ? verdict.weaknesses[0] : verdict.weaknesses[0].category || 'Fokus';
+      const exerciseTarget = mapCategoryToExercise(weakCatRaw);
       nextAction = {
-        title: `Fokus: ${weakCat}`,
+        title: `Fokus: ${weakCatRaw}`,
         subtitle: "Det der giver mest fremgang",
-        desc: `Din test viste at ${weakCat.toLowerCase()} kan forbedres. Vi starter her.`,
-        action: "Øv nu",
-        target: "path",
+        desc: `Din test viste at ${weakCatRaw.toLowerCase()} kan forbedres. Vi starter direkte med øvelse — ikke path loop.`,
+        action: exerciseTarget==='grammar' ? "Øv grammatik →" : exerciseTarget==='vocab' ? "Øv ord →" : exerciseTarget==='listening' ? "Lyt nu →" : exerciseTarget==='reading' ? "Læs nu →" : exerciseTarget==='writing' ? "Skriv nu →" : "Øv nu →",
+        target: exerciseTarget,
         icon: "✦"
       };
     } else {
@@ -43,8 +56,8 @@ export default function PracticeView({ setActive }) {
         title: weekly.title,
         subtitle: `${weekly.words} ord • Denne uge`,
         desc: weekly.prompt.slice(0, 80) + "...",
-        action: "Skriv nu",
-        target: "path",
+        action: "Skriv nu →",
+        target: "writing",
         icon: "✍️"
       };
     }
@@ -144,23 +157,55 @@ export default function PracticeView({ setActive }) {
         )}
 
         <div className="mt-6">
-          <div className="text-[11px] font-[700] tracking-[0.08em] uppercase text-[#8E8E93] mb-3 px-1">Hurtig adgang</div>
+          <div className="text-[11px] font-[700] tracking-[0.08em] uppercase text-[#8E8E93] mb-3 px-1">Hurtig adgang — Øvelser direkte, ingen loop</div>
           <div className="grid grid-cols-2 gap-3">
             <button onClick={()=>handleTap('path')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all group relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
               <div className="relative">
                 <div className="w-10 h-10 rounded-[12px] bg-[#121417] text-white grid place-items-center text-[16px] shadow-[0_2px_8px_rgba(18,20,23,0.12)]">◍</div>
                 <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Min vej</div>
-                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">Se næste skridt</div>
+                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">Din vej M1→PD3 • Hvad du lærer</div>
               </div>
             </button>
             
-            <button onClick={()=>handleTap('assessment')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all group relative overflow-hidden">
+            <button onClick={()=>handleTap('grammar')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all group relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
               <div className="relative">
+                <div className="w-10 h-10 rounded-[12px] bg-[#007AFF] text-white grid place-items-center text-[16px]">✦</div>
+                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Grammatik</div>
+                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">Direkte øvelse • Ingen loop</div>
+              </div>
+            </button>
+
+            <button onClick={()=>handleTap('vocab')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all">
+              <div className="relative">
+                <div className="w-10 h-10 rounded-[12px] bg-white border border-[#E8E0D6] grid place-items-center text-[16px]">📝</div>
+                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Ord • SRS</div>
+                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">200→1354 ord • Box 0→5</div>
+              </div>
+            </button>
+
+            <button onClick={()=>handleTap('listening')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all">
+              <div className="relative">
+                <div className="w-10 h-10 rounded-[12px] bg-white border border-[#E8E0D6] grid place-items-center text-[16px]">🎧</div>
+                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Lyt</div>
+                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">A2 B1 B2 • Ingen transcript først</div>
+              </div>
+            </button>
+
+            <button onClick={()=>handleTap('writing')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all">
+              <div className="relative">
+                <div className="w-10 h-10 rounded-[12px] bg-white border border-[#E8E0D6] grid place-items-center text-[16px]">✍️</div>
+                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Skriv</div>
+                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">30→200 ord • Denne uge</div>
+              </div>
+            </button>
+
+            <button onClick={()=>handleTap('progress')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all">
+              <div className="relative">
                 <div className="w-10 h-10 rounded-[12px] bg-white border border-[#E8E0D6] grid place-items-center text-[16px]">◎</div>
-                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Test igen</div>
-                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">7 min • 15 spørgsmål</div>
+                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Progress</div>
+                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">Honest numbers • Næste skridt</div>
               </div>
             </button>
           </div>
