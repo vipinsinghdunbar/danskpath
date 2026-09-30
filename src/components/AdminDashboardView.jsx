@@ -1,113 +1,182 @@
 import { useState, useEffect } from 'react';
-import { getAdminTrials, getAdminStats, createReferral, getReferrals } from '../lib/api';
 import { getUser, logout } from '../lib/auth';
 
 export default function AdminDashboardView({ setActive }) {
   const [user] = useState(()=>getUser());
+  const [users, setUsers] = useState([]);
   const [trials, setTrials] = useState([]);
   const [stats, setStats] = useState(null);
-  const [referrals, setReferrals] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [newLink, setNewLink] = useState(null);
-  const [selectedTrial, setSelectedTrial] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [editLevel, setEditLevel] = useState('');
+  const [filter, setFilter] = useState('');
 
-  useEffect(()=>{
-    loadAll();
-  },[]);
+  useEffect(()=>{ loadAll(); },[]);
+
+  const getToken = ()=> localStorage.getItem('danskpath_token');
 
   const loadAll = async () => {
     setLoading(true);
     try {
-      const [trialsData, statsData, refsData] = await Promise.all([
-        getAdminTrials().catch(()=>({ trials: [] })),
-        getAdminStats().catch(()=>({})),
-        getReferrals().catch(()=>({ referrals: [] }))
+      const token = getToken();
+      const headers = { Authorization: `Bearer ${token}` };
+      const [usersRes, trialsRes, statsRes] = await Promise.all([
+        fetch('/api/admin/users', { headers }).then(r=>r.json()).catch(()=>({ users: [] })),
+        fetch('/api/admin/trials', { headers }).then(r=>r.json()).catch(()=>({ trials: [] })),
+        fetch('/api/admin/stats', { headers }).then(r=>r.json()).catch(()=>({}))
       ]);
-      setTrials(trialsData.trials || []);
-      setStats(statsData);
-      setReferrals(refsData.referrals || []);
-    } catch(e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
+      setUsers(usersRes.users || []);
+      setTrials(usersRes.users ? [] : (trialsRes.trials || []));
+      // If users endpoint exists, use users for stats, else use trials stats
+      if (usersRes.users) {
+        const us = usersRes.users;
+        setStats({
+          totalUsers: us.length,
+          totalTrials: trialsRes.trials?.length || 0,
+          learners: us.filter(u=>u.role==='learner').length,
+          admins: us.filter(u=>u.role==='admin').length,
+          avgLevel: us.filter(u=>u.level && u.level!=='Ikke testet').length
+        });
+      } else {
+        setStats(statsRes);
+      }
+    } catch(e) { console.error(e); } finally { setLoading(false); }
   };
 
-  const handleCreateReferral = async () => {
-    const baseUrl = window.location.origin;
+  const handleSelectUser = async (u) => {
     try {
-      const data = await createReferral(baseUrl, `Referral by ${user.name} ${new Date().toLocaleDateString()}`);
-      setNewLink(data.referral);
-      loadAll();
-      if(navigator.vibrate) navigator.vibrate(20);
-      // copy to clipboard
-      navigator.clipboard?.writeText(data.referral.link);
-    } catch(e) {
-      alert('Failed: '+e.message);
+      const token = getToken();
+      const res = await fetch(`/api/admin/user/${u.id}`, { headers: { Authorization: `Bearer ${token}` } }).then(r=>r.json());
+      if (res.ok) {
+        setSelectedUser(res.user);
+        setEditLevel(res.user.level || '');
+      } else {
+        setSelectedUser(u);
+        setEditLevel(u.level || '');
+      }
+    } catch {
+      setSelectedUser(u);
+      setEditLevel(u.level || '');
     }
   };
 
-  const handleLogout = () => {
-    logout();
-    window.location.href = '/';
+  const handleUpdateUser = async () => {
+    if (!selectedUser) return;
+    try {
+      const token = getToken();
+      const res = await fetch(`/api/admin/user/${selectedUser.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ level: editLevel })
+      }).then(r=>r.json());
+      if (res.ok) {
+        alert(`Updated ${selectedUser.name} level to ${editLevel}`);
+        setSelectedUser(res.user);
+        loadAll();
+      } else alert(res.error || 'Failed');
+    } catch(e) { alert('Failed: '+e.message); }
   };
 
-  if(selectedTrial) {
-    const t = selectedTrial;
-    const a = t.assessment;
-    const f = t.feedback;
+  const handleClearProgress = async () => {
+    if (!selectedUser) return;
+    if (!confirm(`Clear progress for ${selectedUser.name}? This will reset their cleared stages.`)) return;
+    try {
+      const token = getToken();
+      const res = await fetch(`/api/admin/user/${selectedUser.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ progress: { overall: 0, clearedStages: {} }, clearedStages: {} })
+      }).then(r=>r.json());
+      if (res.ok) { alert('Progress cleared'); setSelectedUser(res.user); loadAll(); }
+    } catch(e) { alert('Failed'); }
+  };
+
+  const handleRevokeUser = async () => {
+    if (!selectedUser) return;
+    if (selectedUser.role === 'admin') { alert('Cannot revoke admin from here'); return; }
+    if (!confirm(`Revoke/delete user ${selectedUser.name} (${selectedUser.email})? This cannot be undone.`)) return;
+    try {
+      const token = getToken();
+      const res = await fetch(`/api/admin/user/${selectedUser.id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      }).then(r=>r.json());
+      if (res.ok) { alert(res.message); setSelectedUser(null); loadAll(); }
+      else alert(res.error || 'Failed');
+    } catch(e) { alert('Failed: '+e.message); }
+  };
+
+  const handleLogout = () => { logout(); window.location.href = '/'; };
+
+  const filteredUsers = users.filter(u => {
+    if (!filter) return true;
+    const f = filter.toLowerCase();
+    return u.name.toLowerCase().includes(f) || u.email.toLowerCase().includes(f) || (u.level||'').toLowerCase().includes(f);
+  });
+
+  if (selectedUser) {
+    const u = selectedUser;
+    const prog = u.progress || {};
+    const cleared = u.clearedStages || prog.clearedStages || {};
+    const diag = u.diagnostic;
+    const verdict = u.verdict;
     return (
-      <div className="min-h-screen bg-[#F2F2F7] pb-[120px]">
+      <div className="min-h-screen bg-[#FFFBF5] pb-[120px]">
         <div className="max-w-[800px] mx-auto px-5 pt-6">
-          <button onClick={()=>setSelectedTrial(null)} className="text-[14px] bg-white border border-black/10 px-4 py-2 rounded-full">← Back to dashboard</button>
-          <div className="mt-6 bg-white rounded-[32px] p-8 shadow-sm border border-black/5">
-            <div className="flex items-start justify-between">
+          <button onClick={()=>setSelectedUser(null)} className="text-[14px] bg-white border border-black/10 px-4 py-2 rounded-full">← Back to users</button>
+          
+          <div className="mt-6 bg-white rounded-[24px] p-6 border border-black/5">
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <h1 className="text-[24px] font-[700] tracking-tight">{t.name}</h1>
-                <div className="text-[13px] text-[#8E8E93] mt-1">{t.email} • Started Danish: {t.danishStartDate} • Goal: {t.goal} • {new Date(t.createdAt).toLocaleString()}</div>
-                <div className="mt-2 text-[11px] px-2.5 py-1 rounded-full bg-[#F2F2F7] inline-block">Referred by {t.invitedBy} • Code {t.code} • {t.status}</div>
+                <h1 className="text-[22px] font-[700] tracking-tight">{u.name}</h1>
+                <div className="text-[13px] text-[#8E8E93] mt-1">{u.email} • {u.role} • Created {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '—'} • Last active {u.lastActiveAt ? new Date(u.lastActiveAt).toLocaleDateString() : '—'}</div>
+                <div className="mt-3 flex gap-2">
+                  <span className="text-[11px] px-2.5 py-1 rounded-full bg-black text-white">{u.level || 'Ikke testet'}</span>
+                  <span className="text-[11px] px-2.5 py-1 rounded-full bg-[#F2F2F7]">{Object.keys(cleared).length} stages cleared • {prog.overall||0}% overall</span>
+                </div>
               </div>
-              <div className="text-right"><div className="text-[32px] font-bold">{a?.pct||'—'}%</div><div className="text-[12px] text-[#8E8E93]">{a?.level||'No assessment'}</div></div>
+              <div className="flex gap-2">
+                <button onClick={handleRevokeUser} className="bg-[#FF3B30] text-white px-4 py-2 rounded-full text-[12px] font-[600]">Revoke / Delete</button>
+              </div>
             </div>
 
-            {a && (
-              <>
-                <div className="mt-8 grid grid-cols-2 gap-3">
-                  <div className="bg-[#34C759]/10 rounded-[16px] p-4"><div className="text-[11px] font-bold uppercase text-[#34C759]">Strengths</div><div className="mt-2 text-[13px]">{a.strengths?.join(', ')||'—'}</div></div>
-                  <div className="bg-[#FF9500]/10 rounded-[16px] p-4"><div className="text-[11px] font-bold uppercase text-[#FF9500]">Weaknesses</div><div className="mt-2 text-[13px]">{a.weaknesses?.join(', ')||'—'}</div></div>
-                </div>
-                <div className="mt-6">
-                  <div className="text-[13px] font-bold">Breakdown by category</div>
-                  <div className="mt-2 grid grid-cols-2 gap-2">
-                    {Object.entries(a.breakdown||{}).map(([cat, s])=>(
-                      <div key={cat} className="bg-[#F2F2F7] rounded-full px-3 py-2 text-[12px] flex justify-between"><span>{cat}</span><span className="font-bold">{s.correct}/{s.total} • {Math.round(s.correct/s.total*100)}%</span></div>
-                    ))}
-                  </div>
-                </div>
-                <div className="mt-6">
-                  <div className="text-[13px] font-bold">Recommended path</div>
-                  <div className="mt-2 space-y-2">
-                    {(a.recommendedPath||[]).map((p,i)=>(
-                      <div key={i} className="bg-[#F2F2F7] rounded-[12px] p-3 flex gap-3"><span className="w-6 h-6 rounded-full bg-black text-white grid place-items-center text-[10px]">{p.step}</span><div><div className="text-[13px] font-[600]">{p.title}</div><div className="text-[11px] text-[#8E8E93]">{p.why} • {p.time}</div></div></div>
-                    ))}
-                  </div>
-                  <div className="mt-3 text-[12px] text-[#8E8E93]">Timeline: {a.timeline}</div>
-                </div>
-              </>
-            )}
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <div className="bg-[#F2F2F7] rounded-[16px] p-4">
+                <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">Progress</div>
+                <div className="mt-2 text-[13px] font-mono text-[11px] whitespace-pre-wrap">{JSON.stringify(prog, null, 2).slice(0,800)}</div>
+              </div>
+              <div className="bg-[#F2F2F7] rounded-[16px] p-4">
+                <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">Cleared Stages</div>
+                <div className="mt-2 text-[12px]">{Object.keys(cleared).length ? Object.entries(cleared).map(([k,v])=><div key={k} className="flex justify-between bg-white rounded-full px-3 py-1.5 mt-1"><span>{k}</span><span>{v}</span></div>) : 'None yet'}</div>
+              </div>
+            </div>
 
-            {f && (
-              <div className="mt-8 bg-black text-white rounded-[20px] p-5">
-                <div className="text-[11px] font-bold uppercase text-white/60">Feedback</div>
-                <div className="mt-2 space-y-1 text-[13px]">
-                  <div>Would use: <b>{f.wouldUse}</b></div>
-                  <div>Helpful: <b>{f.helpful}</b></div>
-                  <div>Would pay: <b>{f.wouldPay}</b></div>
-                  <div>NPS: {f.nps||'—'}</div>
-                  <div className="mt-2">What to change: {f.whatToChange||'—'}</div>
-                </div>
+            {diag && (
+              <div className="mt-6 bg-[#F2F2F7] rounded-[16px] p-4">
+                <div className="text-[11px] font-[700] uppercase text-[#8E8E93]">Diagnostic</div>
+                <div className="mt-2 text-[12px] font-mono whitespace-pre-wrap">{JSON.stringify(diag, null, 2).slice(0,1000)}</div>
               </div>
             )}
+
+            {verdict && (
+              <div className="mt-4 bg-black text-white rounded-[16px] p-4">
+                <div className="text-[11px] font-[700] uppercase text-white/60">Verdict</div>
+                <div className="mt-2 text-[12px] font-mono whitespace-pre-wrap">{JSON.stringify(verdict, null, 2).slice(0,1000)}</div>
+              </div>
+            )}
+
+            <div className="mt-6 border-t border-black/5 pt-6">
+              <div className="text-[13px] font-[700]">Update user — Admin can control everything</div>
+              <div className="mt-3 flex gap-2">
+                <input value={editLevel} onChange={e=>setEditLevel(e.target.value)} placeholder="Modul 3 (A2) etc" className="flex-1 bg-[#F2F2F7] rounded-full px-4 py-2.5 text-[13px] outline-none" />
+                <button onClick={handleUpdateUser} className="bg-black text-white px-5 py-2.5 rounded-full text-[13px] font-[600]">Update level</button>
+              </div>
+              <div className="mt-3 flex gap-2">
+                <button onClick={handleClearProgress} className="bg-white border border-black/10 px-4 py-2 rounded-full text-[12px] font-[600]">Clear progress</button>
+                <button onClick={handleRevokeUser} className="bg-[#FF3B30]/10 border border-[#FF3B30]/20 text-[#FF3B30] px-4 py-2 rounded-full text-[12px] font-[600]">Revoke / Delete user</button>
+              </div>
+              <div className="mt-3 text-[11px] text-[#8E8E93]">Admin can look at each one's progress, update them if needed and revoke them too — per your idea.</div>
+            </div>
           </div>
         </div>
       </div>
@@ -117,13 +186,12 @@ export default function AdminDashboardView({ setActive }) {
   return (
     <div className="min-h-screen bg-[#F2F2F7] pb-[120px]">
       <div className="max-w-[1100px] mx-auto px-5 lg:px-8 pt-6">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-black text-white grid place-items-center font-bold">V</div>
+            <div className="w-10 h-10 rounded-full bg-black text-white grid place-items-center font-bold">A</div>
             <div>
-              <div className="text-[17px] font-[700] tracking-tight">Vipin • Admin Dashboard</div>
-              <div className="text-[12px] text-[#8E8E93]">Control centre • {user?.email}</div>
+              <div className="text-[17px] font-[700] tracking-tight">Admin — Control Everything</div>
+              <div className="text-[12px] text-[#8E8E93]">{user?.email} • {users.length} accounts • {stats?.learners||0} learners • {stats?.admins||0} admins</div>
             </div>
           </div>
           <div className="flex gap-2">
@@ -132,78 +200,45 @@ export default function AdminDashboardView({ setActive }) {
           </div>
         </div>
 
-        {/* My Learning Journey */}
-        <div className="mt-8 bg-white rounded-[32px] p-7 shadow-sm border border-black/5">
-          <div className="text-[15px] font-[700] tracking-tight">My Danish-learning journey — Vipin</div>
-          <div className="mt-1 text-[13px] text-[#8E8E93]">Assessment → Evaluation → Personalised Path → Learning → Practice → Testing → Progress → Reassessment</div>
-          <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-3">
-            <button onClick={()=>setActive('practice')} className="bg-black text-white rounded-[20px] p-4 text-left tap-haptic"><div className="text-[12px] opacity-70">Today</div><div className="text-[15px] font-[600] mt-1">Start Learning →</div><div className="text-[11px] opacity-60 mt-1">Dagens 15 min</div></button>
-            <button onClick={()=>setActive('path')} className="bg-[#F2F2F7] rounded-[20px] p-4 text-left"><div className="text-[11px] font-bold uppercase text-[#8E8E93]">Path</div><div className="text-[14px] font-[600] mt-1">My Learning Path</div></button>
-            <button onClick={()=>setActive('diagnostic')} className="bg-[#F2F2F7] rounded-[20px] p-4 text-left"><div className="text-[11px] font-bold uppercase text-[#8E8E93]">Assessment</div><div className="text-[14px] font-[600] mt-1">Re-assess</div></button>
-            <button onClick={()=>setActive('progress')} className="bg-[#F2F2F7] rounded-[20px] p-4 text-left"><div className="text-[11px] font-bold uppercase text-[#8E8E93]">Progress</div><div className="text-[14px] font-[600] mt-1">Strengths & Timeline</div></button>
+        <div className="mt-6 bg-black text-white rounded-[24px] p-6">
+          <div className="text-[13px] font-[700]">Admin Idea — Your Idea</div>
+          <div className="mt-2 text-[13px] leading-[1.5] text-white/80">Admin account that can control everything about the accounts, look at each one's progress, update them if needed and revoke them too. Accounts created after assessment which only appears after taking test and knowing your path — to get on that path and start learning. Person creates account. Shared to anyone who can just access a link do the test, get assessment and then know the path, can drop it there or create. Quick account and start the path which he was assessed for.</div>
+          <div className="mt-3 flex gap-2 flex-wrap">
+            <span className="text-[11px] bg-white/15 px-3 py-1 rounded-full">Shareable link → Test → Assessment + Path</span>
+            <span className="text-[11px] bg-white/15 px-3 py-1 rounded-full">Quick account after path</span>
+            <span className="text-[11px] bg-white/15 px-3 py-1 rounded-full">Start assessed path</span>
+            <span className="text-[11px] bg-[#34C759] px-3 py-1 rounded-full">Admin controls all</span>
           </div>
         </div>
 
-        {/* Stats */}
-        {stats && (
-          <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white rounded-[20px] p-5 shadow-sm border border-black/5"><div className="text-[11px] font-bold uppercase text-[#8E8E93]">Total trials</div><div className="text-[28px] font-bold mt-1">{stats.totalTrials||0}</div><div className="text-[11px] text-[#8E8E93]">{stats.totalAssessments||0} assessments • {stats.totalFeedback||0} feedback</div></div>
-            <div className="bg-white rounded-[20px] p-5 shadow-sm border border-black/5"><div className="text-[11px] font-bold uppercase text-[#8E8E93]">Avg score</div><div className="text-[28px] font-bold mt-1">{stats.avgPct||0}%</div><div className="text-[11px] text-[#8E8E93]">Across all trials</div></div>
-            <div className="bg-white rounded-[20px] p-5 shadow-sm border border-black/5"><div className="text-[11px] font-bold uppercase text-[#8E8E93]">Would use</div><div className="text-[14px] font-[600] mt-1">Yes: {stats.wouldUse?.Yes||0} • Maybe: {stats.wouldUse?.Maybe||0} • No: {stats.wouldUse?.No||0}</div></div>
-            <div className="bg-white rounded-[20px] p-5 shadow-sm border border-black/5"><div className="text-[11px] font-bold uppercase text-[#8E8E93]">Would pay</div><div className="text-[14px] font-[600] mt-1">Yes: {stats.wouldPay?.Yes||0} • Maybe: {stats.wouldPay?.Maybe||0} • No: {stats.wouldPay?.No||0}</div></div>
-          </div>
-        )}
-
-        {/* Refer someone */}
-        <div className="mt-6 bg-black rounded-[32px] p-7 text-white">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="text-[15px] font-[700]">Refer someone for a trial</div>
-              <div className="text-[13px] text-white/60 mt-1 max-w-[500px]">Generates a shareable trial link. Send via WhatsApp, Messages, email, LinkedIn. Person gets evaluation only, not full platform.</div>
-            </div>
-            <button onClick={handleCreateReferral} className="bg-white text-black px-6 py-3 rounded-full text-[14px] font-[600] tap-haptic">Generate link →</button>
-          </div>
-          {newLink && (
-            <div className="mt-5 bg-white/10 rounded-[16px] p-4 border border-white/10">
-              <div className="text-[11px] font-bold uppercase text-white/60">New link generated • copied to clipboard</div>
-              <div className="mt-2 text-[14px] font-mono break-all">{newLink.link}</div>
-              <div className="mt-1 text-[11px] text-white/60">Code: {newLink.code} • Share this</div>
-            </div>
-          )}
-          {referrals.length>0 && (
-            <div className="mt-6">
-              <div className="text-[11px] font-bold uppercase text-white/60">Your referral links</div>
-              <div className="mt-3 space-y-2">
-                {referrals.slice(0,5).map(r=>(
-                  <div key={r.id} className="bg-white/10 rounded-full px-4 py-3 flex justify-between items-center text-[12px]"><span className="font-mono">{r.code} • {r.link.slice(0,40)}... • uses {r.uses}</span><button onClick={()=>{ navigator.clipboard?.writeText(r.link); alert('Copied'); }} className="bg-white text-black px-3 py-1 rounded-full text-[11px] font-bold">Copy</button></div>
-                ))}
-              </div>
-            </div>
-          )}
+        <div className="mt-6 bg-white rounded-[24px] p-5 border border-black/5 flex gap-3">
+          <input value={filter} onChange={e=>setFilter(e.target.value)} placeholder="Search name, email, level..." className="flex-1 bg-[#F2F2F7] rounded-full px-4 py-2.5 text-[13px] outline-none" />
+          <button onClick={loadAll} className="bg-black text-white px-5 py-2.5 rounded-full text-[13px] font-[600]">Refresh</button>
+          <button onClick={()=>setActive('assessment')} className="bg-white border border-black/10 px-4 py-2.5 rounded-full text-[13px] font-[600]">Test link →</button>
         </div>
 
-        {/* Trial Users Table */}
-        <div className="mt-6 bg-white rounded-[24px] p-6 shadow-sm border border-black/5">
-          <div className="flex items-center justify-between">
-            <div className="text-[15px] font-[700]">Trial Users • {trials.length}</div>
-            <button onClick={loadAll} className="text-[12px] bg-[#F2F2F7] px-3 py-1.5 rounded-full">Refresh</button>
-          </div>
-          {loading ? <div className="mt-4 text-[13px] text-[#8E8E93]">Loading...</div> : trials.length===0 ? <div className="mt-4 text-[13px] text-[#8E8E93]">No trials yet. Generate a link above and share.</div> : (
+        <div className="mt-6 bg-white rounded-[24px] p-6 border border-black/5">
+          <div className="text-[15px] font-[700]">Accounts • {filteredUsers.length} / {users.length}</div>
+          <div className="text-[12px] text-[#8E8E93] mt-1">Admin can look at each one's progress, update them if needed and revoke them too — per your idea. Accounts created after assessment only appears after taking test and knowing path.</div>
+          
+          {loading ? <div className="mt-4 text-[13px] text-[#8E8E93]">Loading...</div> : filteredUsers.length===0 ? <div className="mt-4 text-[13px] text-[#8E8E93]">No accounts yet. Share assessment link: {window.location.origin}/?page=assessment — anyone can access link do test, get assessment and know path, can drop or create quick account and start path which he was assessed for.</div> : (
             <div className="mt-4 overflow-x-auto">
               <table className="w-full text-[12px]">
-                <thead><tr className="text-[11px] font-bold uppercase text-[#8E8E93] border-b border-black/5"><th className="text-left py-2">User</th><th className="text-left">When</th><th className="text-left">Score</th><th className="text-left">Level</th><th className="text-left">Strengths</th><th className="text-left">Weaknesses</th><th className="text-left">Would use</th><th className="text-left">Would pay</th><th className="text-left">Feedback</th></tr></thead>
+                <thead><tr className="text-[10px] font-[700] uppercase text-[#8E8E93] border-b border-black/5"><th className="text-left py-2">User</th><th className="text-left">Role</th><th className="text-left">Level</th><th className="text-left">Progress</th><th className="text-left">Cleared</th><th className="text-left">Last Active</th><th className="text-left">Actions</th></tr></thead>
                 <tbody>
-                  {trials.map(t=>(
-                    <tr key={t.id} className="border-b border-black/5 hover:bg-[#F2F2F7] cursor-pointer" onClick={()=>setSelectedTrial(t)}>
-                      <td className="py-3 font-[600]">{t.name} <span className="text-[#8E8E93] font-[400]">{t.danishStartDate}</span></td>
-                      <td className="text-[#8E8E93]">{new Date(t.createdAt).toLocaleDateString()}</td>
-                      <td className="font-bold">{t.assessment?.pct||t.pct||'—'}%</td>
-                      <td className="text-[11px]">{t.assessment?.level||'—'}</td>
-                      <td className="text-[11px]">{t.assessment?.strengths?.join(', ')||'—'}</td>
-                      <td className="text-[11px]">{t.assessment?.weaknesses?.join(', ')||'—'}</td>
-                      <td><span className={`px-2 py-1 rounded-full text-[10px] font-bold ${t.feedback?.wouldUse==='Yes'?'bg-[#34C759] text-white': t.feedback?.wouldUse==='Maybe'?'bg-[#FF9500] text-white':'bg-[#F2F2F7]'}`}>{t.feedback?.wouldUse||'—'}</span></td>
-                      <td><span className={`px-2 py-1 rounded-full text-[10px] font-bold ${t.feedback?.wouldPay==='Yes'?'bg-black text-white':'bg-[#F2F2F7]'}`}>{t.feedback?.wouldPay||'—'}</span></td>
-                      <td className="max-w-[150px] truncate text-[#8E8E93]">{t.feedback?.whatToChange||'—'}</td>
+                  {filteredUsers.map(u=>(
+                    <tr key={u.id} className="border-b border-black/5 hover:bg-[#F2F2F7]">
+                      <td className="py-3"><div className="font-[600]">{u.name}</div><div className="text-[11px] text-[#8E8E93]">{u.email}</div></td>
+                      <td><span className={`px-2 py-1 rounded-full text-[10px] font-[700] ${u.role==='admin'?'bg-black text-white':'bg-[#F2F2F7]'}`}>{u.role}</span></td>
+                      <td className="font-[600]">{u.level || 'Ikke testet'}</td>
+                      <td>{u.progress?.overall||0}% • {Object.keys(u.progress||{}).length} keys</td>
+                      <td className="text-[11px]">{Object.keys(u.clearedStages||{}).length ? Object.keys(u.clearedStages).join(', ').slice(0,60) : '—'}</td>
+                      <td className="text-[11px] text-[#8E8E93]">{u.lastActiveAt ? new Date(u.lastActiveAt).toLocaleDateString() : '—'}</td>
+                      <td>
+                        <div className="flex gap-1">
+                          <button onClick={()=>handleSelectUser(u)} className="bg-black text-white px-3 py-1 rounded-full text-[11px] font-[600]">View / Update / Revoke</button>
+                        </div>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -212,7 +247,9 @@ export default function AdminDashboardView({ setActive }) {
           )}
         </div>
 
-        <div className="mt-6 text-[11px] text-[#8E8E93] text-center">Database: danish-platform-db.json • Portable • iPhone + Laptop same data • PWA ready • Auth: JWT + bcrypt</div>
+        <div className="mt-6 text-[11px] text-[#8E8E93] text-center">
+          Shareable link for anyone: <b>{window.location.origin}/?page=assessment</b> → Test → Assessment + Path → Quick account → Start assessed path • Admin: Vipin / vipin123 • Users: {users.length} • Build 855KB
+        </div>
       </div>
     </div>
   );

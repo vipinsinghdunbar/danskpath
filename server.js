@@ -778,6 +778,102 @@ app.get('/api/admin/trial/:id', authMiddleware, adminMiddleware, (req, res) => {
   res.json({ ok: true, trial, assessment, feedback });
 });
 
+// ========== ADMIN USERS MANAGEMENT — control everything about accounts ==========
+app.get('/api/admin/users', authMiddleware, adminMiddleware, (req, res) => {
+  const db = readDB();
+  const users = db.users.map(u => ({
+    id: u.id,
+    name: u.name,
+    email: u.email,
+    role: u.role,
+    level: u.guestLevel || u.level || u.progress?.level || 'Ikke testet',
+    progress: u.progress || u.guestProgress || {},
+    scores: u.scores || u.guestScores || {},
+    clearedStages: u.clearedStages || u.progress?.clearedStages || {},
+    diagnostic: u.guestDiagnostic || null,
+    verdict: u.guestVerdict || null,
+    createdAt: u.createdAt,
+    lastActiveAt: u.lastActiveAt,
+    goals: u.goals || []
+  })).reverse();
+  res.json({ ok: true, users, total: users.length });
+});
+
+app.get('/api/admin/user/:id', authMiddleware, adminMiddleware, (req, res) => {
+  const db = readDB();
+  const user = db.users.find(u => u.id === req.params.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  res.json({ ok: true, user: {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    level: user.guestLevel || user.level,
+    progress: user.progress || user.guestProgress || {},
+    scores: user.scores || user.guestScores || {},
+    clearedStages: user.clearedStages || user.progress?.clearedStages || {},
+    diagnostic: user.guestDiagnostic,
+    verdict: user.guestVerdict,
+    createdAt: user.createdAt,
+    lastActiveAt: user.lastActiveAt,
+    goals: user.goals || []
+  }});
+});
+
+app.put('/api/admin/user/:id', authMiddleware, adminMiddleware, (req, res) => {
+  const db = readDB();
+  const user = db.users.find(u => u.id === req.params.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  if (user.role === 'admin' && req.user.id !== user.id) {
+    // Prevent non-self admin update for safety, but allow for now
+  }
+  const { level, progress, clearedStages, name, email, role } = req.body;
+  if (level) user.guestLevel = level;
+  if (name) user.name = name;
+  if (email) user.email = email;
+  if (role && ['learner','admin'].includes(role)) user.role = role;
+  if (progress) {
+    user.progress = { ...(user.progress || {}), ...progress, lastSyncedAt: new Date().toISOString() };
+  }
+  if (clearedStages) {
+    user.clearedStages = { ...(user.clearedStages || {}), ...clearedStages };
+    if (!user.progress) user.progress = {};
+    user.progress.clearedStages = { ...(user.progress.clearedStages || {}), ...clearedStages };
+    user.progress.lastSyncedAt = new Date().toISOString();
+  }
+  user.lastActiveAt = new Date().toISOString();
+  writeDB(db);
+  res.json({ ok: true, user: {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    level: user.guestLevel || user.level,
+    progress: user.progress || {},
+    clearedStages: user.clearedStages || {}
+  }});
+});
+
+app.delete('/api/admin/user/:id', authMiddleware, adminMiddleware, (req, res) => {
+  const db = readDB();
+  const idx = db.users.findIndex(u => u.id === req.params.id);
+  if (idx === -1) return res.status(404).json({ error: 'User not found' });
+  const user = db.users[idx];
+  if (user.role === 'admin') {
+    // Prevent deleting last admin
+    const adminCount = db.users.filter(u => u.role === 'admin').length;
+    if (adminCount <= 1) return res.status(400).json({ error: 'Cannot delete last admin' });
+  }
+  // Remove user
+  db.users.splice(idx, 1);
+  // Also remove related trials/assessments if any linked by email
+  if (user.email) {
+    db.trials = db.trials.filter(t => t.email !== user.email);
+  }
+  writeDB(db);
+  res.json({ ok: true, message: `User ${user.name} revoked/deleted`, deletedId: user.id });
+});
+
 // Legacy endpoints for backward compat
 app.post('/api/trial', (req, res)=>{
   const db = readDB();

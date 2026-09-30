@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DanskPath — Simplified Flow — Too Many Cases? What to Remove — Final Idea</title>
+<style>
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;background:#FFFBF5;color:#121417;padding:24px;max-width:900px;margin:0 auto;line-height:1.6}
+h1{font-size:36px;font-weight:900;letter-spacing:-0.04em;line-height:0.85;margin:0}
+h2{font-size:20px;font-weight:800;margin-top:40px;letter-spacing:-0.02em;border-bottom:3px solid #121417;padding-bottom:8px}
+h3{font-size:13px;font-weight:800;margin-top:20px;text-transform:uppercase;letter-spacing:0.1em;color:#8E8E93}
+.pill{display:inline-flex;font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;padding:5px 12px;border-radius:999px;background:#121417;color:white;margin-right:6px;margin-bottom:6px}
+.pill.blue{background:#007AFF}
+.pill.green{background:#34C759}
+.pill.red{background:#FF3B30}
+.pill.gray{background:#8E8E93}
+.card{background:white;border-radius:24px;padding:24px;border:1px solid #E8E0D6;margin-top:16px;box-shadow:0 4px 24px rgba(0,0,0,0.04)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}
+.step{background:#121417;color:white;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:700}
+.step.blue{background:#007AFF}
+.step.green{background:#34C759}
+.step.white{background:white;color:#121417;border:1px solid #E8E0D6}
+.step.gray{background:#F2F2F7;color:#3C3C43}
+.arrow{color:#8E8E93;font-weight:900}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:13px}
+th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:#8E8E93;border-bottom:1px solid #E8E0D6;padding:8px 6px}
+td{border-bottom:1px solid #F2F2F7;padding:10px 6px;vertical-align:top}
+.mono{font-family:monospace;font-size:11px;background:#F2F2F7;padding:12px;border-radius:12px;white-space:pre-wrap;margin-top:10px}
+.chart{background:#121417;color:white;border-radius:20px;padding:20px;margin-top:12px;font-family:monospace;font-size:12px;line-height:1.7;white-space:pre;overflow:auto}
+.cta{display:inline-flex;background:#121417;color:white;padding:10px 18px;border-radius:999px;font-size:13px;font-weight:700;text-decoration:none;margin-top:8px;margin-right:8px}
+ul{font-size:13px;margin:8px 0 0 18px}
+li{margin-top:6px}
+.old{background:#FF3B30/8;border:1px solid #FF3B30/20;border-radius:12px;padding:12px;margin-top:8px;font-size:12px}
+.new{background:#34C759/8;border:1px solid #34C759/20;border-radius:12px;padding:12px;margin-top:8px;font-size:12px}
+</style>
+</head>
+<body>
+
+<h1>Simplified Flow — Final<br/>Too Many Cases? What to Remove</h1>
+<div style="margin-top:16px">
+<span class="pill">Your Idea: Admin Controls Everything</span>
+<span class="pill blue">Shareable Link → Test → Assessment + Path → Quick Account → Start Assessed Path</span>
+<span class="pill green">3 Core Flows Only</span>
+<span class="pill red">Remove 17 Cases</span>
+</div>
+
+<p style="margin-top:16px;font-size:14px">You said: "My idea is a admin account that can control everything about the accounts, look at each one's progress, update them if needed and revoke them too. Then accounts that are created after the assessment which only appears after taking the test and knowing your path that is to get on that path and start learning. Then the person create the account. So this can be shared to anyone who can just access a link do the test, get assessment and then know the path, can drop it there or create. Quick account and start the path which he was assessed for"</p>
+
+<h2>Do We Have Too Many Cases? — Yes — 20 Cases Before</h2>
+<div class="card">
+<p style="font-size:13px">Before we had <b>20+ cases</b> documented in flow-all-cases.html:</p>
+<table>
+<tr><th>Category</th><th>Cases</th><th>Count</th><th>Problem</th></tr>
+<tr><td>Guest</td><td>G1 Happy Path Shared link→assessment→results→path→account→first exercise→progress, G2 Guest with Account Log in, G3 Shared Link Direct to Assessment, G4 Direct to Diagnostic, G5 Guest Tries Path/Practice/Progress Without Diagnostic, G6 Close Browser Mid-Test / After Diagnostic Return Later</td><td>6</td><td>Too many entry points — /?page=path without diagnostic, /?page=practice without diagnostic, /?page=progress without diagnostic, /?page=diagnostic direct — should not be separate cases, should redirect to assessment — confuses basic person</td></tr>
+<tr><td>Learner</td><td>L1 New Learner No Diagnostic, L2 Learner With Diagnostic No Progress Returning Login→current journey, L3 Learner With Progress m1 Cleared→m2→m3→m4→m5→PD3, L4 Retake Level Test, L5 Reset Progress, L6 Logs Out, L7 Cross-Device Persistence, L8 Offline Fallback, L9 Tries Admin Pages Without Admin Role</td><td>9</td><td>L1/L3/L4/L5/L6/L8/L9 are not core — L1 is same as G1 but logged in, L3 is loop of L2, L4 retake is optional, L5 reset is dev/testing, L6 logout trivial, L8 offline fallback is technical not user flow, L9 tries admin pages is edge not flow — too many, basic person doesn't need</td></tr>
+<tr><td>Admin</td><td>A1 Admin Happy Path Login→Dashboard→User List→User Detail, A2 Admin Dev Pages Website Architecture Map Roadmap Share QR Flow Levels Motivation Screenshots Audit Connect, A3 Logs Out</td><td>3</td><td>A2 has 10+ dev pages Website Public, Assessment Shareable, Architecture Map Interactive, Roadmap 0→Launch Live, Share QR QR code, Flow, Levels M1→5, Motivation No streaks, Screenshots Gallery, Audit Status, Connect — for any login, even basic person saw Product/Public — should be admin only, not separate case for learner</td></tr>
+<tr><td>Edge</td><td>E1 Invalid login, E2 Register existing, E3 Close mid-test, E4 Server down, E5 Deep link unknown, E6 Guest tries admin, E7 Learner tries website etc without admin</td><td>7</td><td>Edge cases should be handled with no dead ends (redirect to homepage) not as separate flows — too many for coding team</td></tr>
+<tr><td><b>Total</b></td><td></td><td><b>20+ cases</b></td><td><b>Too many — basic person cannot just go inside and use it — fails single-person evaluation</b></td></tr>
+</table>
+</div>
+
+<h2>What to Remove — Keep Only 3 Core Flows — Per Your Idea</h2>
+<div class="card">
+<h3>Remove — 17 Cases</h3>
+<table>
+<tr><th>Remove</th><th>Why</th><th>What to do instead — seamless</th></tr>
+<tr><td>G4 Direct to Diagnostic /?page=diagnostic</td><td>Not a user flow — user should start from shared link assessment intro, not direct diagnostic — too narrow, two texts</td><td>Redirect /?page=diagnostic to /?page=assessment if no diagnostic in progress — keep only shared link → assessment intro → test</td></tr>
+<tr><td>G5 Guest Tries Path/Practice/Progress Without Diagnostic — separate cases</td><td>Should not be separate cases — should redirect to assessment — no dead ends per spec</td><td>If !diagnostic and tries /path /practice /progress → redirect to /assessment with message Find your level first — not separate flow</td></tr>
+<tr><td>G6 Close Browser Mid-Test</td><td>Edge not core — persistence required but not separate case</td><td>Handle via localStorage answers persist during test to allow resume — not separate flow</td></tr>
+<tr><td>L1 New Learner No Diagnostic Logs In</td><td>Same as G1 but logged in — merge</td><td>Merge into G1 — if logged in && !diagnostic → assessment intro</td></tr>
+<tr><td>L3 Learner With Progress m1 Cleared→m2→...→PD3 as separate case</td><td>Loop of L2 — not separate</td><td>Merge into L2 — Practice Today → Path → Markér færdig ✓ → next module loop — one flow, not separate case per module</td></tr>
+<tr><td>L4 Retake Level Test</td><td>Optional — not core for first-time user — can be in Progress or Path as secondary action Test igen, not separate flow</td><td>Keep as secondary button in Path / Progress, not core flow</td></tr>
+<tr><td>L5 Reset Progress</td><td>Dev/testing — 26 Definition of Done tests — not for basic person</td><td>Keep only for admin/dev, hide from learner, or keep as Reset progress red pill in Progress but not core flow</td></tr>
+<tr><td>L6 Logs Out / L8 Offline Fallback / L9 Tries Admin Pages</td><td>Trivial / technical / edge — not user flow</td><td>Logout → / simple-landing, offline fallback handled via localStorage + syncLocalToServer, tries admin pages → redirect to / — not separate cases</td></tr>
+<tr><td>A2 Admin Dev Pages 10+ pages Website Architecture Map Roadmap Share QR Flow Levels Motivation Screenshots Audit Connect as separate cases</td><td>Too many — Product/Public for any login — basic person confused — you said Why we have on side assessment, architectural map and everything? Why for any login? I need just basic person</td><td>Remove from learner nav — only admin sees PRODUCT — Admin only via isAdmin() check — learner Sidebar only LEARN Today My Path Progress Level Test, BottomNav only Today Path Progress — dev pages only accessible via direct URL for admin, learner redirected to SimpleLanding ONE homepage — stays on app</td></tr>
+<tr><td>A3 Admin Logs Out / E1-E7 Edge cases as separate flows</td><td>Trivial / handled with no dead ends</td><td>Logout → /, edge → redirect to / with clear next action — not separate flows</td></tr>
+<tr><td>WebsiteView as homepage candidate</td><td>Multiple homepages — WebsiteView Danish that sticks after work and kids + What is DanskPath? A workbook... + 6 cards + How it works 5 steps + Full Danish education Modul 1→5 — which one is homepage? Confusing if app or website</td><td>ONE homepage only / = SimpleLandingView — WebsiteView hidden for learner, only admin — fixes Which one is homepage?</td></tr>
+<tr><td>AssessmentLandingView with QR Code, Shareable URL box, What happens 4 steps, stats grid 7 min/20 Q/M1→5, How to share 6 bullets, Privacy long text, Works on iPhone + laptop • Add to Home Screen = app</td><td>Too many pages in starting — you said too narrow, simple easy text needed, Don't say work on iPhone</td><td>Now ultra simple: What we measure 15 questions + Duration 7 min One question at a time Progress bar + What you receive Your level section scores strengths focus areas personalized path + Start assessment → 7 min + No account needed to start • Results stay on device — no QR, no URL box, no What happens 4 steps, no stats grid, no How to share 6 bullets, no Privacy long text, no Works on iPhone — per your feedback</td></tr>
+</table>
+
+<div class="new"><b>Keep Only 3 Core Flows — Per Your Idea:</b>
+<ul>
+<li><b>Flow 1 — Public Shareable Link → Test → Assessment + Path → Quick Account → Start Assessed Path (Guest → Learner)</b> — Shared to anyone who can just access a link do the test, get assessment and then know the path, can drop it there or create. Quick account and start the path which he was assessed for — per your idea</li>
+<li><b>Flow 2 — Learner Returning — Login → Practice Today Continue Where Stopped</b> — Accounts created after assessment which only appears after taking test and knowing path that is to get on that path and start learning. Then person create account — per your idea</li>
+<li><b>Flow 3 — Admin — Admin account that can control everything about the accounts, look at each one's progress, update them if needed and revoke them too — per your idea</b></li>
+</ul>
+</div>
+</div>
+
+<h2>Simplified Final Flow — 3 Core Flows Only — Seamless Order</h2>
+
+<div class="card" style="background:#121417;color:white">
+<h3 style="color:#FFFFFF80">Flow 1 — Public — Shareable Link → Test → Assessment + Path → Quick Account → Start Assessed Path — Anyone Can Access Link</h3>
+<p style="font-size:13px;color:#FFFFFFCC">Per your idea: "So this can be shared to anyone who can just access a link do the test, get assessment and then know the path, can drop it there or create. Quick account and start the path which he was assessed for"</p>
+<div class="flow" style="margin-top:12px">
+<span class="step white">Shareable Link /?page=assessment or /assessment — anyone, no account needed — per spec Do NOT force account before value, guest can complete assessment and see results/strengths/path preview without account</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">Assessment Intro Find dit niveau + What we measure 15Q + Duration 7 min One question at a time Progress bar + What you receive Your level section scores strengths focus areas personalized path + Start assessment → 7 min — simple easy text, not narrow, no Works on iPhone</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">Test 15Q /diagnostic Question X of Y + progress bar + question 20px + options 15px + Back + Next/Finish → See level — Test=only test clean distraction-free, no learning path, no excessive text, randomized answers no learnable pattern — per your feedback looks good, select and do that perfect</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step green">Results Dit niveau • Modul X + level 28px + correct/total + section scores grid + Stærke sider + Fokusområder + Hvad gik galt max 3 Dit svar vs Rigtigt + Din vej max 3 titles + timeline Estimeret 4 months to P3 15 min a day 4 days a week — evaluation looks good and culture vocabulary 0% etc per your feedback — per spec Results must immediately provide useful info level + section scores + strengths separately from focus areas, avoid negative language</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">Path Preview /path Din vej + Vælg et modul til venstre for at se hvad du lærer + left Modul 1..5 • CEFR • % + right Modul X • CEFR + objective 120 chars + Grammar X/Y Vocab + What you will learn + Exercises in this module 1 Practice grammar, 2 10 flashcards, 3 1 listening, 4 Write — per your feedback Module 3,4,5 now say what exercises will be — stays on app, no architectural map, no roadmap, no zero to launch, no share QR</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step blue">CTA: Can drop it there (results stay on device, no account needed) OR Create Quick Account — Start Learning → Create Account — per your idea accounts created after assessment which only appears after taking test and knowing your path</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">Register /register Quick account username/password/confirm + guestData diagnostic level verdict goals progress scores clearedStages atomic transfer — per spec guest assessment transfer must be atomic, user must not repeat assessment — offline fallback local_token</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step green">Account created • Your assessment saved transferred checklist ✓ + Continue Learning → Practice Today for assessed path — per your idea quick account and start the path which he was assessed for</span>
+</div>
+
+<div class="chart">Flow 1 Chart:
+graph TD
+  A[Shareable Link /?page=assessment - anyone no account] --> B[Assessment Intro Find dit niveau + What we measure + Duration + What you receive + Start 7 min]
+  B --> C[Test 15Q Question X of Y + progress + options]
+  C --> D[Results Dit niveau Modul X + scores + strengths/focus + Hvad gik galt + Din vej + timeline 4 months to P3]
+  D --> E[Path Preview Din vej + Modul 1..5 + exercises per module Module 3,4,5 what exercises will be]
+  E -->|Can drop there| F[End - results stay on device]
+  E -->|Create Quick Account| G[Register Quick account + guestData atomic transfer]
+  G --> H[Practice Today for assessed path - start learning]
+  H --> I[Progress Where you are + Weekly report]
+  I -->|Next| H
+
+  style A fill:#007AFF,stroke:#007AFF,color:#fff
+  style D fill:#34C759,stroke:#34C759,color:#fff
+  style H fill:#121417,stroke:#121417,color:#fff
+</div>
+
+<h3 style="color:#FFFFFF80;margin-top:24px">Flow 2 — Learner — Accounts Created After Assessment — Login → Practice Today Continue Where Stopped</h3>
+<p style="font-size:13px;color:#FFFFFFCC">Per your idea: "Then accounts that are created after the assessment which only appears after taking the test and knowing your path that is to get on that path and start learning. Then the person create the account."</p>
+<div class="flow" style="margin-top:12px">
+<span class="step white">Login /login Already have account? Log in — basic person</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step green">If diagnostic exists → Practice Today Hej, klar til at øve? Din vej er klar. Ét skridt ad gangen. + nextAction for assessed path + Min vej + Test igen + weekly writing + Module progress overall% — per spec Returning Login → current journey → exercise → complete → progress without repeat — per your feedback practice should show Today's exercise for current phase Modul X, not loop back to path and level test</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">Practice V2 / flashcards / listening / writing — 15 min one hand — Complete → Progress Where you are + Weekly report + Stage progress m1:100%✓ → Next Recommended Start now → next module loop</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">Path My Path left Modul 1 ✓ Cleared Modul 2 active 42% + right Modul 2 + objective + Exercises in this module + Markér færdig ✓ → stage_mX_cleared true + server sync persists across devices → Continue → next → Practice Today m3 — cross-device Phone A mark done ✓ → server → Phone B login → loadServerToLocal → ✓ Cleared → Continue → practice persists</span>
+</div>
+
+<div class="chart">Flow 2 Chart:
+graph TD
+  A[/login] --> B{diagnostic?}
+  B -->|Yes| C[/practice Today - continue where stopped - assessed path]
+  B -->|No| D[/assessment - find level first]
+  D --> E[/diagnostic]
+  E --> F[Results + Path]
+  F --> C
+  C -->|Exercise| G[Complete]
+  G --> H[/progress Where you are + Weekly report]
+  H -->|Next| C
+  C -->|Path| I[/path My Path + exercises + Markér færdig ✓]
+  I -->|Markér færdig ✓ + server sync| C
+
+  style C fill:#007AFF,stroke:#007AFF,color:#fff
+  style H fill:#121417,stroke:#121417,color:#fff
+</div>
+
+<h3 style="color:#FFFFFF80;margin-top:24px">Flow 3 — Admin — Admin Account That Can Control Everything About Accounts, Look at Each One's Progress, Update Them If Needed and Revoke Them Too</h3>
+<p style="font-size:13px;color:#FFFFFFCC">Per your idea: "My idea is a admin account that can control everything about the accounts, look at each one's progress, update them if needed and revoke them too."</p>
+<div class="flow" style="margin-top:12px">
+<span class="step white">Landing / SimpleLanding discreet Admin 11px top-right</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">Login /login Vipin / vipin123 — admin credentials</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step" style="background:#FF9500">Admin Dashboard /admin — Control Everything — Your Idea: Admin account that can control everything about accounts, look at each one's progress, update them if needed and revoke them too + Shareable link → Test → Assessment + Path + Quick account + Start assessed path + Admin controls all</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">Accounts • Search name/email/level • Refresh • Test link → — list all users with id/name/email/role/level/progress overall/cleared stages/last active + View / Update / Revoke button</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step white">User Detail View — name/email/role/created/last active + level + progress overall + Progress JSON + Cleared Stages list + Diagnostic JSON + Verdict JSON + Update user Admin can control everything + input Modul 3 (A2) etc + Update level button + Clear progress button + Revoke / Delete user button + note Admin can look at each one's progress, update them if needed and revoke them too</span><span class="arrow" style="color:#FFFFFF60">→</span>
+<span class="step green">Actions: View progress — look at each one's progress, Update — update level/path/progress if needed, Revoke — delete user + related trials/assessments — per your idea admin controls everything</span>
+</div>
+
+<div class="chart">Flow 3 Chart:
+graph TD
+  A[/ simple-landing Admin 11px] --> B[/login Vipin/vipin123]
+  B --> C[/admin Dashboard - Control Everything]
+  C --> D[Accounts list - id/name/email/role/level/progress/cleared/lastActive + Search + View/Update/Revoke]
+  D --> E[User Detail - name/email/role/level/progress JSON/cleared/diagnostic/verdict + Update level + Clear progress + Revoke/Delete]
+  E -->|Update level| F[PUT /api/admin/user/:id level]
+  E -->|Clear progress| G[PUT /api/admin/user/:id progress clearedStages]
+  E -->|Revoke/Delete| H[DELETE /api/admin/user/:id - removes user + trials]
+  F --> D
+  G --> D
+  H --> D
+  C --> I[My Learning Journey Today Start Learning Path Re-assess Progress]
+  C --> J[Stats totalUsers learners admins avgLevel]
+
+  style C fill:#FF9500,stroke:#FF9500,color:#fff
+  style E fill:#121417,stroke:#121417,color:#fff
+  style H fill:#FF3B30,stroke:#FF3B30,color:#fff
+</div>
+
+<h3 style="color:#FFFFFF80;margin-top:24px">Seamless Navigation — How to Structure So User and Admin Easy to Navigate</h3>
+<ul style="font-size:13px;color:#FFFFFFCC">
+<li><b>ONE homepage only / = SimpleLanding</b> — Find your Danish level + Take a short assessment... + Take the Test — no Product/Public, no Modul 1→PD3, no No streaks, no Website • Assessment • iPhone App — fixes Which one is homepage?</li>
+<li><b>Public shareable link /?page=assessment or /assessment</b> — anyone can access link do test, get assessment and then know path, can drop it there or create quick account and start path which he was assessed for — per your idea — no account needed before value per spec guest-first journey Open→Understand→Assessment→Results→Strengths→Path→Decide→Create account→Transfer→Personalized journey</li>
+<li><b>Test=only test</b> — Question X of Y + progress bar + question + options + Back + Next/Finish — no learning path module progression explanations before drill — per your feedback looks good</li>
+<li><b>Results + Path Preview no account needed</b> — Dit niveau • Modul X + section scores + Stærke sider + Fokusområder + Hvad gik galt + Din vej + timeline + See My Learning Path black primary + Start Learning Create Account blue + Go to practice white + No account required to see results — can drop it there or create — per your idea</li>
+<li><b>Quick account after path</b> — accounts created after assessment which only appears after taking test and knowing path that is to get on that path and start learning — username/password/confirm + guestData diagnostic level verdict atomic transfer — quick account and start path which he was assessed for — per your idea — no login loop, no try demo without confusion</li>
+<li><b>Learner nav minimal stays on app</b> — Sidebar for learner only LEARN Today My Path Progress Level Test — no PRODUCT Website Public Assessment Shareable Architecture Map Interactive Roadmap 0→Launch Live Share QR QR code, no LIBRARY, no SYSTEM — BottomNav only Today Path Progress + More Home Find your level Today What to practice My Path Progress Weekly report Level Test — no Motivation No streaks, no Levels, no Flow, no Share, no Library — stays on app, no architectural map, no roadmap, no zero to launch, no share QR — fixes Why we have on side assessment, architectural map and everything? Why for any login? I need just basic person</li>
+<li><b>Admin separate — Control Everything</b> — Admin login Vipin/vipin123 → Admin Dashboard Control Everything + Accounts list with progress + User Detail with progress JSON cleared stages diagnostic verdict + Update level + Clear progress + Revoke/Delete — admin can look at each one's progress, update them if needed and revoke them too — per your idea — plus stats totalUsers learners admins avgLevel — plus My Learning Journey for admin own learning</li>
+<li><b>No dead ends every screen clear next action</b> — Landing→Assessment→Results→Path→Account→Dashboard→Exercise→Progress→Next per spec — persistence required — important learner data must persist after close/refresh/logout/return, saved journey available after login + server sync cross-device Phone A mark done ✓ → server → Phone B login → loadServerToLocal → ✓ Cleared → Continue</li>
+<li><b>Seamless order visual all cases combined</b> — Mermaid graph TD with Guest Public Flow, Learner Returning Flow, Admin Flow, Edge No Dead Ends — ONE homepage only, basic person stays on app</li>
+</ul>
+</div>
+
+<h2>What Was Removed — From 20+ Cases to 3 Core Flows</h2>
+<div class="card">
+<table>
+<tr><th>Before 20+ Cases</th><th>After 3 Core Flows</th><th>Why Remove</th></tr>
+<tr><td>G4 Direct to Diagnostic, G5 Path/Practice/Progress Without Diagnostic as separate cases, G6 Close Mid-Test, L1 New Learner No Diagnostic, L3 With Progress as separate, L4 Retake, L5 Reset Progress, L6 Logout, L8 Offline, L9 Tries Admin Pages, A2 Dev Pages 10+ Website Architecture Map Roadmap Share QR Flow Levels Motivation Screenshots Audit Connect, A3 Logout, E1-E7 Edge as separate flows, WebsiteView as homepage, AssessmentLandingView with QR Code Shareable URL box What happens 4 steps stats grid How to share 6 bullets Privacy long text Works on iPhone</td><td><b>Flow 1 Public Shareable Link → Test → Assessment + Path → Quick Account → Start Assessed Path — Anyone Can Access Link</b><br/><b>Flow 2 Learner Returning Login → Practice Today Continue Where Stopped</b><br/><b>Flow 3 Admin Control Everything View Progress Update Revoke</b></td><td>Too many pages in starting, too narrow, simple easy text needed, Don't say work on iPhone, basic person cannot just go inside and use it, fails single-person evaluation, Product/Public for any login confusing, architectural map roadmap zero to launch share QR should not come up should stay on app, Module 3,4,5 doesn't say anything about exercises, practice loops back — all fixed by keeping only 3 core flows per your idea — admin controls everything, accounts created after assessment only appears after test and knowing path, shared to anyone who can just access link do test get assessment and know path can drop or create quick account and start path which he was assessed for</td></tr>
+</table>
+</div>
+
+<h2>Live Links — After Deploy</h2>
+<div class="card">
+<div class="flow">
+<a class="cta" href="/?page=simple-landing">Homepage / = SimpleLanding ONE only</a>
+<a class="cta" style="background:#007AFF" href="/?page=assessment">Shareable Link /assessment Anyone No Account</a>
+<a class="cta" style="background:#34C759" href="/?page=diagnostic">Test 15Q</a>
+<a class="cta" style="background:#8E8E93" href="/?page=path">Path Preview + Exercises per Module</a>
+<a class="cta" style="background:#121417" href="/?page=register">Quick Account After Path</a>
+<a class="cta" style="background:#007AFF" href="/?page=practice">Practice Today Assessed Path</a>
+<a class="cta" style="background:#121417" href="/?page=progress">Progress</a>
+<a class="cta" style="background:#FF9500" href="/?page=login">Admin Login Vipin/vipin123 → Control Everything</a>
+<a class="cta" style="background:#007AFF" href="/ux-audit-structured.html">UX Audit Structured</a>
+<a class="cta" style="background:#34C759" href="/screen-wise-flow.html">Screen Wise Flow</a>
+<a class="cta" style="background:#121417" href="/flow-all-cases.html">All Cases 20+ Before</a>
+<a class="cta" style="background:#FF9500" href="/simplified-flow-final.html">This Doc Simplified 3 Flows Final</a>
+</div>
+<div class="mono">Build PASS 855KB gzip 224KB DiagnosticView 25KB — smaller because removed excessive text.
+Live after deploy 6de3f38 + admin users management endpoints:
+- GET /api/admin/users — list all users with progress
+- GET /api/admin/user/:id — detail
+- PUT /api/admin/user/:id — update level, progress, clearedStages, name, email, role — admin can update if needed
+- DELETE /api/admin/user/:id — revoke/delete user + related trials — admin can revoke too — per your idea admin controls everything
+- AdminDashboardView now: Admin — Control Everything + Your Idea text + Accounts • Search + Accounts list id/name/email/role/level/progress/cleared/lastActive + View / Update / Revoke button + User Detail with progress JSON cleared stages diagnostic verdict + Update level input + Update level button + Clear progress + Revoke/Delete + note Admin can look at each one's progress, update them if needed and revoke them too
+- SimpleLanding ONE homepage extremely simple logo headline one-sentence CTA Take the Test secondary Log in discreet Admin footer 15 min a day • No account needed — no Product/Public, no Modul 1→PD3, no No streaks
+- Assessment simple What we measure 15Q + Duration 7 min One question at a time Progress bar + What you receive Your level section scores strengths focus areas personalized path + Start assessment → 7 min + No account needed to start • Results stay on device — no Works on iPhone, no QR, no URL box, no What happens 4 steps, no stats grid, no How to share 6 bullets, no Privacy long text
+- Diagnostic clean Test=only test Question X of Y + progress bar + question + options + Back + Next/Finish + feedback ✓ Correct / ✗ Not correct — rule + Why — randomized
+- Path minimal Din vej + Vælg et modul... + left Modul 1..5 • CEFR • % + right Modul X • CEFR + objective 120 chars + Grammar X/Y Vocab + What you will learn + Exercises in this module 1-4 per moduleId Module 3,4,5 what exercises will be + Markér færdig ✓ → stage_mX_cleared + server sync + Øvelser → + Practice → / Progress → — no architectural map, no roadmap, no zero to launch, no share QR, stays on app
+- Practice Hej, klar til at øve? Din vej er klar. Ét skridt ad gangen. + nextAction + Min vej + Test igen + weekly writing — no No streaks No hearts Just what moves, no System weights weakest skill <60%
+- Sidebar for learner only LEARN Today My Path Progress Level Test — no PRODUCT Website Public Assessment Shareable Architecture Map Interactive Roadmap 0→Launch Live Share QR, no LIBRARY, no SYSTEM
+- BottomNav for learner only Today Path Progress + More Home Find your level Today What to practice My Path Progress Weekly report Level Test — no Motivation No streaks, no Levels, no Flow, no Share, no Library — stays on app
+- App.jsx for non-admin website/architecture/roadmap/share/flow/levels/motivation/screenshots/audit/connect all redirect to SimpleLandingView ONE homepage basic person stays on app no architectural map no roadmap no share QR for learner — admin only sees them via Sidebar PRODUCT — Admin only
+- /ux-audit-structured.html 37KB structured for coding team + /screen-wise-flow.html 33KB screen wise + /flow-all-cases.html 48KB all possible cases 20+ before + /simplified-flow-final.html this doc 3 core flows final per your idea
+- /api/health ok + server.js 5 endpoints progress sync cross-device + 4 new admin users management endpoints
+</div>
+</div>
+
+</body>
+</html>
