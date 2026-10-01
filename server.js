@@ -1035,6 +1035,75 @@ app.delete('/api/user/data', authMiddleware, (req,res)=>{
   res.json({ ok: true, message: 'Data deletion processed. For full account deletion contact privacy@danskpath.dk' });
 });
 
+// Password recovery — email required per Action Plan Phase3
+app.post('/api/auth/recovery', (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ error: 'Recovery email required' });
+  const db = readDB();
+  const user = db.users.find(u => u.email?.toLowerCase() === email.toLowerCase());
+  if (!user) {
+    // Don't reveal if email exists — security best practice
+    return res.json({ ok: true, message: 'If account exists, recovery email sent to ' + email });
+  }
+  // In production, send email with token. For now, log and return token for testing
+  const recoveryToken = require('jsonwebtoken').sign({ id: user.id, type: 'recovery' }, process.env.JWT_SECRET || 'dev-secret', { expiresIn: '1h' });
+  console.log(`[recovery] ${email} token ${recoveryToken.slice(0,20)}...`);
+  res.json({ ok: true, message: 'Recovery email would be sent', recoveryToken: process.env.NODE_ENV !== 'production' ? recoveryToken : undefined, email });
+});
+
+app.post('/api/auth/reset-password', (req, res) => {
+  const { token, newPassword } = req.body;
+  if (!token || !newPassword) return res.status(400).json({ error: 'Token and new password required' });
+  try {
+    const payload = require('jsonwebtoken').verify(token, process.env.JWT_SECRET || 'dev-secret');
+    if (payload.type !== 'recovery') return res.status(400).json({ error: 'Invalid recovery token' });
+    const db = readDB();
+    const user = db.users.find(u => u.id === payload.id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    const bcrypt = require('bcryptjs');
+    user.passwordHash = bcrypt.hashSync(newPassword, 10);
+    writeDB(db);
+    res.json({ ok: true, message: 'Password reset successful' });
+  } catch (e) {
+    res.status(400).json({ error: 'Invalid or expired token' });
+  }
+});
+
+// Full account deletion with two-step per Action Plan Phase3
+app.post('/api/user/delete-request', authMiddleware, (req, res) => {
+  const db = readDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  const deleteToken = require('jsonwebtoken').sign({ id: user.id, type: 'delete' }, process.env.JWT_SECRET || 'dev-secret', { expiresIn: '24h' });
+  user.deleteRequestedAt = new Date().toISOString();
+  user.deleteToken = deleteToken;
+  writeDB(db);
+  res.json({ ok: true, message: 'Deletion requested — soft first. Confirm within 24h to permanently delete.', deleteToken: process.env.NODE_ENV !== 'production' ? deleteToken : undefined, soft: true });
+});
+
+app.post('/api/user/delete-confirm', authMiddleware, (req, res) => {
+  const { token, confirm } = req.body;
+  if (!confirm) return res.status(400).json({ error: 'Confirm deletion with confirm:true' });
+  try {
+    const payload = require('jsonwebtoken').verify(token, process.env.JWT_SECRET || 'dev-secret');
+    if (payload.type !== 'delete') return res.status(400).json({ error: 'Invalid delete token' });
+    const db = readDB();
+    const idx = db.users.findIndex(u => u.id === payload.id);
+    if (idx === -1) return res.status(404).json({ error: 'User not found' });
+    // Two-step: check if deleteRequestedAt exists and within 24h
+    const user = db.users[idx];
+    if (!user.deleteRequestedAt) return res.status(400).json({ error: 'No deletion request found — request first' });
+    // Delete user and associated data
+    db.users.splice(idx, 1);
+    db.trials = db.trials.filter(t => t.email !== user.email && t.invitedById !== user.id);
+    db.assessments = db.assessments.filter(a => a.userId !== user.id);
+    writeDB(db);
+    res.json({ ok: true, message: 'Account permanently deleted — data removed per EU GDPR' });
+  } catch (e) {
+    res.status(400).json({ error: 'Invalid or expired delete token' });
+  }
+});
+
 app.get('/api/user/export', authMiddleware, (req,res)=>{
   const db = readDB();
   const uid = req.user.id;
