@@ -34,6 +34,7 @@ import ShareTrialView from './components/ShareTrialView';
 import ScreenshotsView from './components/ScreenshotsView';
 import RepetitionExplainer from './components/RepetitionExplainer';
 import FlowView from './components/FlowView';
+import SystemFlowDiagramsView from './components/SystemFlowDiagramsView';
 import LevelExplainerView from './components/LevelExplainerView';
 import MotivationView from './components/MotivationView';
 import SettingsModal from './components/SettingsModal';
@@ -276,6 +277,13 @@ export default function App() {
       case 'culture': return <CultureView />;
       case 'exam': return <ExamView />;
       
+      // Full System Flow with Motion Arrows — admin only to see whole system running
+      case 'system-flow':
+      case 'full-flow':
+      case 'flow-diagrams':
+      case 'system':
+        if (isAdmin()) return <SystemFlowDiagramsView setActive={handleSetActive} />;
+        return <SimpleLandingView setActive={handleSetActive} />;
       // Internal / Docs — only admin for learner, else redirect to simple-landing (ONE homepage only)
       case 'connect': 
         if (isAdmin()) return <ConnectView />;

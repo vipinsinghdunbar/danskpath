@@ -117,16 +117,17 @@ export default function AdminDashboardView({ setActive }) {
   });
 
   const devTools = [
+    { id: 'system-flow', label: '⭐ Full System Flow • 8 Cases • Motion Arrows', desc: 'WHOLE SYSTEM RUNNING CHECK • 8 separate flow diagrams with moving arrows • Health check API/DB/Auth/PWA • Guest/Returning/Admin/Shareable/Path/Practice/Progress/Persistence', icon: '⚡', route: 'system-flow' },
     { id: 'website', label: 'Website', desc: 'Marketing — Danish that sticks after work and kids', icon: '◐', route: 'website' },
     { id: 'assessment', label: 'Assessment Landing', desc: 'Shareable assessment intro — what we measure / duration / what you receive', icon: '◑', route: 'assessment' },
     { id: 'diagnostic', label: 'Diagnostic Test', desc: 'Test 15Q — Question X of Y + progress bar', icon: '📝', route: 'diagnostic' },
-    { id: 'path', label: 'Path Roadmap', desc: 'Din vej + Modul 1..5 + exercises per module', icon: '◍', route: 'path' },
-    { id: 'practice', label: 'Practice Today', desc: 'Hej, klar til at øve? + nextAction', icon: '✦', route: 'practice' },
+    { id: 'path', label: 'Path Roadmap', desc: 'Din vej + Modul 1..5 + exercises per module M3 M4 M5 detailed', icon: '◍', route: 'path' },
+    { id: 'practice', label: 'Practice Today', desc: 'Hej, klar til at øve? + nextAction direct no loop', icon: '✦', route: 'practice' },
     { id: 'progress', label: 'Progress', desc: 'Where you are honest numbers + Weekly report', icon: '◎', route: 'progress' },
-    { id: 'architecture', label: 'Architecture Map', desc: 'Interactive with motion arrows + live public URL', icon: '🗺️', route: 'architecture' },
+    { id: 'architecture', label: 'Architecture Map', desc: 'Interactive with motion arrows + live public URL 24 nodes', icon: '🗺️', route: 'architecture' },
     { id: 'roadmap', label: 'Roadmap 0→Launch', desc: 'MVP Core Curriculum 100% DONE', icon: '🛣️', route: 'roadmap' },
     { id: 'share', label: 'Share QR', desc: 'Shareable URL + QR Code 280px + stats', icon: '↗', route: 'share' },
-    { id: 'flow', label: 'Flow', desc: 'How it works architecture', icon: '🗺️', route: 'flow' },
+    { id: 'flow', label: 'Flow', desc: 'How it works architecture old', icon: '🗺️', route: 'flow' },
     { id: 'levels', label: 'Levels M1→5', desc: 'How hard each stage', icon: '🎯', route: 'levels' },
     { id: 'motivation', label: 'Motivation', desc: 'What keeps you coming back', icon: '💡', route: 'motivation' },
     { id: 'screenshots', label: 'Gallery', desc: 'All pages screenshots', icon: '🖼️', route: 'screenshots' },
