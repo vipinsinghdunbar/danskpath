@@ -23,12 +23,6 @@ function mergeProgressMonotone(local, server) {
   
   // Answers Union per table
   merged.answers = { ...(local.answers||{}), ...(server.answers||{}) };
-  // Union both ways — server may have answers local doesn't
-  Object.keys(local.answers||{}).forEach(k=>{ if(!(k in merged.answers)) merged.answers[k]=local.answers[k]; });
-  Object.keys(server.answers||{}).forEach(k=>{ if(!(k in merged.answers)) merged.answers[k]=server.answers[k]; });
-  // Actually union = all keys from both
-  merged.answers = { ...(local.answers||{}), ...(server.answers||{}) };
-  // Preserve true over false if conflict? Use max (true=1)
   Object.keys(merged.answers).forEach(k=>{
     const l = local.answers?.[k];
     const s = server.answers?.[k];
@@ -67,7 +61,6 @@ function mergeProgressMonotone(local, server) {
   
   // Admin-set kept marked per table
   merged.adminSet = { ...(local.adminSet||{}), ...(server.adminSet||{}) };
-  // If either marks admin-set, keep marked
   Object.keys(merged.adminSet).forEach(k=>{
     if (local.adminSet?.[k]==='true' || server.adminSet?.[k]==='true') merged.adminSet[k]='true';
   });
@@ -154,11 +147,9 @@ export async function unmarkStageClearedServer(moduleId) {
   }
 }
 
-// Full sync localStorage → server with monotone merge per Action Plan Phase3
 export async function syncLocalToServer() {
   if (!isLoggedIn()) return null;
   try {
-    // Fetch server first then merge per Phase3
     const serverData = await fetchServerProgress();
     const localProgress = JSON.parse(localStorage.getItem('dansk_progress')||'{}');
     const localScores = JSON.parse(localStorage.getItem('dansk_scores')||'{}');
@@ -188,7 +179,6 @@ export async function syncLocalToServer() {
     if (!res.ok) return null;
     const data = await res.json();
     
-    // Tell learner one line merged per Action Plan
     const mergedCount = Object.keys(mergedProgress.answers||{}).length;
     console.log(`Merged ${mergedCount} stages • ${mergedCount} answers union • word-book max • earliest completed • best scores • admin-set kept marked`);
     
@@ -215,7 +205,6 @@ export async function loadServerToLocal() {
     const serverProgress = data.progress || {};
     const mergedProgress = mergeProgressMonotone(localProgress, serverProgress);
     
-    // Only set diagnostic/verdict if local missing per Phase3 shared device rule
     const hasLocalDiagnostic = !!localStorage.getItem('dansk_diagnostic');
     
     console.log(`Merged ${Object.keys(mergedProgress.answers||{}).length} stages from server • monotone union`);

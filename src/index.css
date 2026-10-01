@@ -1,73 +1,88 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+@import './ds.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* Danish Design System — Scandinavian Premium iPhone */
-  --cream: #FFFBF5;
-  --paper: #FFF8F0;
-  --sage: #8AA99E;
-  --sage-dark: #6B8A7F;
-  --sage-light: #E3EDEA;
-  --terracotta: #D88C7A;
-  --terracotta-light: #FBE8E2;
-  --sky: #8BBEE8;
-  --sky-light: #E3EEFF;
-  --charcoal: #121417;
-  --ink: #2B2D33;
-  --line: #E8E0D6;
-  --beige: #F2E8CF;
+  /* One accent per Action Plan Phase 4 — single tint for what can be tapped and where you are */
+  --accent: #007AFF;
+  --accent-pressed: #0051D5;
+  --accent-soft: #E5F1FF;
+  --accent-bg: #F0F7FF;
+
+  /* Neutrals lean slightly blue */
+  --cream: #F8FAFC;
+  --paper: #FFFFFF;
+  --sage: #007AFF;
+  --sage-dark: #0051D5;
+  --sage-light: #E5F1FF;
+  --terracotta: #007AFF;
+  --terracotta-light: #E5F1FF;
+  --sky: #007AFF;
+  --sky-light: #E5F1FF;
+  --charcoal: #0F172A;
+  --ink: #0F172A;
+  --line: rgba(15,23,42,0.06);
+  --beige: #F1F5F9;
   --white: #FFFFFF;
 
-  --bg: var(--cream);
-  --bg-card: var(--white);
-  --bg-paper: var(--paper);
-  --ink-primary: var(--charcoal);
-  --ink-secondary: var(--ink);
-  --muted: #8E8E93;
-  --muted-2: #AEAEB2;
-  --border: var(--line);
-  --border-strong: #D6CFC3;
-  --accent: var(--sage);
-  --accent-dark: var(--sage-dark);
-  --accent-soft: var(--sage-light);
-  --accent-cta: var(--terracotta);
-  --success: #6B8A7F;
-  --warning: #D88C7A;
-  --danger: #C25C5C;
+  --bg: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-paper: #FFFFFF;
+  --ink-primary: #0F172A;
+  --ink-secondary: #334155;
+  --muted: #64748B;
+  --muted-2: #94A3B8;
+  --border: rgba(15,23,42,0.06);
+  --border-strong: rgba(15,23,42,0.10);
+  --accent-dark: #0051D5;
+  --accent-cta: #0F172A;
+  --success: #059669;
+  --warning: #D97706;
+  --danger: #DC2626;
 
+  /* Consistent radii: 12 controls/lists, 16 cards, 22 sheets */
   --radius-sm: 12px;
   --radius-md: 16px;
-  --radius-lg: 20px;
-  --radius-xl: 24px;
-  --radius-2xl: 32px;
+  --radius-lg: 16px;
+  --radius-xl: 22px;
+  --radius-2xl: 22px;
   --radius-pill: 9999px;
 
-  --shadow-sm: 0 1px 3px rgba(18,20,23,0.04), 0 1px 2px rgba(18,20,23,0.04);
-  --shadow-soft: 0 4px 16px rgba(18,20,23,0.06);
-  --shadow-md: 0 8px 32px rgba(18,20,23,0.08);
-  --shadow-lg: 0 16px 48px rgba(18,20,23,0.10);
+  /* One shadow level — only for sheets and toasts */
+  --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-soft: 0 8px 32px rgba(15,23,42,0.12), 0 2px 8px rgba(15,23,42,0.08);
+  --shadow-md: 0 8px 32px rgba(15,23,42,0.12), 0 2px 8px rgba(15,23,42,0.08);
+  --shadow-lg: 0 8px 32px rgba(15,23,42,0.12), 0 2px 8px rgba(15,23,42,0.08);
   --shadow-inner: inset 0 2px 8px rgba(0,0,0,0.04);
 
   --spring: cubic-bezier(0.16,1,0.3,1);
   --spring-snappy: cubic-bezier(0.34,1.56,0.64,1);
-  --ease-out: cubic-bezier(0.16,1,0.3,1);
+  --ease-out: cubic-bezier(0.25,0.1,0.25,1);
+
+  /* Quiet motion: 120ms press, 220ms state, 340ms screen */
+  --motion-press: 120ms;
+  --motion-state: 220ms;
+  --motion-screen: 340ms;
 }
 
 * { 
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, sans-serif; 
+  font-family: var(--font-interface, -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif); 
   -webkit-font-smoothing: antialiased; 
   -moz-osx-font-smoothing: grayscale; 
 }
+.serif, [lang="da"], .danish-content {
+  font-family: 'Fraunces', Georgia, serif;
+}
 h1,h2,h3,h4,.display { 
-  font-family: Outfit, -apple-system, BlinkMacSystemFont, 'SF Pro Display', Inter, sans-serif; 
+  font-family: var(--font-interface); 
   letter-spacing: -0.02em; 
-  font-weight: 600; 
+  font-weight: 700; 
   color: var(--charcoal);
 }
 body { 
-  background: var(--cream); 
+  background: var(--bg); 
   color: var(--ink); 
   -webkit-font-smoothing: antialiased; 
   letter-spacing: -0.01em; 
@@ -78,403 +93,76 @@ html { -webkit-tap-highlight-color: transparent; }
 /* Scrollbar hidden iOS */
 ::-webkit-scrollbar { display: none; }
 
-/* Danish Card — Cream paper with soft shadow */
+/* Danish Card — now uses consistent radii and hairlines */
 .card { 
   background: var(--white); 
-  border-radius: var(--radius-lg); 
-  box-shadow: var(--shadow-soft); 
-  border: 1px solid rgba(232,224,214,0.6);
-  transition: all 0.3s var(--spring);
+  border-radius: var(--radius-md); 
+  border: 1px solid var(--border);
+  transition: all var(--motion-state) var(--spring);
 }
 .card-hover:hover { 
-  transform: translateY(-2px); 
-  box-shadow: var(--shadow-md); 
+  border-color: var(--border-strong);
 }
 .card-press:active { 
   transform: scale(0.98); 
+  transition-duration: var(--motion-press);
 }
 
-/* Danish Paper Card */
-.card-paper {
-  background: var(--paper);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm);
-}
-
-/* Buttons — Pill, Premium iPhone */
+/* Buttons — one accent, consistent radii 12, 44px touch target */
 .btn-primary { 
   background: var(--charcoal); 
   color: white; 
   border-radius: var(--radius-pill); 
-  padding: 14px 24px; 
+  padding: 16px 24px; 
   font-weight: 600; 
-  font-size: 16px; 
+  font-size: 17px; 
   letter-spacing: -0.01em; 
-  transition: all 0.2s var(--spring); 
-  box-shadow: 0 2px 8px rgba(18,20,23,0.12);
+  transition: all var(--motion-press) var(--spring); 
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 }
-.btn-primary:hover { 
-  transform: translateY(-1px); 
-  box-shadow: var(--shadow-md); 
-  background: #1E2024; 
-}
-.btn-primary:active { 
-  transform: scale(0.97); 
-}
-
-.btn-sage { 
-  background: var(--sage); 
-  color: white; 
-  border-radius: var(--radius-pill); 
-  padding: 14px 24px; 
-  font-weight: 600; 
-  font-size: 16px; 
-  transition: all 0.2s var(--spring); 
-  box-shadow: 0 2px 8px rgba(138,169,158,0.3);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.btn-sage:hover { 
-  background: var(--sage-dark); 
-  transform: translateY(-1px); 
-  box-shadow: 0 4px 16px rgba(138,169,158,0.35); 
-}
-.btn-sage:active { transform: scale(0.97); }
-
-.btn-terracotta {
-  background: var(--terracotta);
-  color: white;
-  border-radius: var(--radius-pill);
-  padding: 14px 24px;
-  font-weight: 600;
-  font-size: 16px;
-  transition: all 0.2s var(--spring);
-  box-shadow: 0 2px 8px rgba(216,140,122,0.3);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.btn-terracotta:hover { background: #B86E5A; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(216,140,122,0.35); }
-.btn-terracotta:active { transform: scale(0.97); }
+.btn-primary:active { transform: scale(0.97); }
 
 .btn-ghost { 
   background: var(--white); 
-  border: 1px solid var(--line); 
+  border: 1px solid var(--border); 
   border-radius: var(--radius-pill); 
   padding: 12px 20px; 
   font-size: 15px; 
   font-weight: 600; 
-  transition: all 0.2s; 
+  transition: all var(--motion-state); 
   color: var(--charcoal);
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 }
-.btn-ghost:hover { background: var(--paper); border-color: var(--border-strong); }
+.btn-ghost:hover { background: var(--beige); border-color: var(--border-strong); }
 
-.btn-outline {
-  background: transparent;
-  border: 1.5px solid var(--charcoal);
-  border-radius: var(--radius-pill);
-  padding: 12px 20px;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--charcoal);
-  transition: all 0.2s var(--spring);
-}
-.btn-outline:hover { background: var(--charcoal); color: white; }
-
-/* iOS Typography — Danish */
-.ios-large-title { font-family: Outfit, sans-serif; font-size: 34px; line-height: 1.05; font-weight: 700; letter-spacing: -0.03em; color: var(--charcoal); }
-.ios-title1 { font-family: Outfit, sans-serif; font-size: 28px; line-height: 1.1; font-weight: 600; letter-spacing: -0.02em; }
-.ios-title2 { font-family: Outfit, sans-serif; font-size: 22px; line-height: 1.2; font-weight: 600; letter-spacing: -0.01em; }
+/* iOS Typography — generous space */
+.ios-large-title { font-family: var(--font-interface); font-size: 34px; line-height: 1.05; font-weight: 700; letter-spacing: -0.03em; color: var(--charcoal); }
+.ios-title1 { font-family: var(--font-interface); font-size: 28px; line-height: 1.1; font-weight: 700; letter-spacing: -0.02em; }
+.ios-title2 { font-family: var(--font-interface); font-size: 22px; line-height: 1.2; font-weight: 700; letter-spacing: -0.01em; }
 .ios-headline { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--charcoal); }
-.ios-subheadline { font-size: 15px; font-weight: 400; color: #6B6B6B; line-height: 1.4; }
-.ios-caption { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #8E8E93; }
-.ios-caption2 { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: #AEAEB2; }
 
-/* Danish Line Art Illustration */
-.danish-line-art { stroke: var(--charcoal); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; fill: none; }
-.danish-line-art-thin { stroke-width: 1; }
-.danish-line-art-bold { stroke-width: 2; }
+/* Touch targets at least 44px per spec */
+button, a { min-height: 44px; }
+button:active { transform: scale(0.97); transition-duration: var(--motion-press); }
 
-/* Pill Input — Danish */
-.input-pill {
-  background: var(--white);
-  border: 1.5px solid var(--line);
-  border-radius: var(--radius-pill);
-  padding: 14px 18px;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--charcoal);
-  transition: all 0.2s var(--spring);
-  width: 100%;
-  outline: none;
-  box-shadow: var(--shadow-inner);
-}
-.input-pill:focus {
-  border-color: var(--sage);
-  box-shadow: 0 0 0 3px rgba(138,169,158,0.15), var(--shadow-inner);
-}
-.input-pill::placeholder { color: #AEAEB2; }
+/* Focus ring visible per accessibility */
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.input-pill-outline {
-  background: transparent;
-  border: 1.5px solid var(--charcoal);
-  border-radius: var(--radius-pill);
-  padding: 14px 18px;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--charcoal);
-  transition: all 0.2s var(--spring);
-  width: 100%;
-  outline: none;
-}
-.input-pill-outline:focus {
-  border-color: var(--sage);
-  background: var(--white);
-  box-shadow: 0 0 0 3px rgba(138,169,158,0.15);
+/* Anything learner must read at least 11-12px */
+.learner-text { font-size: 12px; line-height: 1.5; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
-/* iOS Tab Bar — Danish */
-.ios-tab-bar { 
-  background: rgba(255,255,255,0.85); 
-  backdrop-filter: saturate(180%) blur(20px); 
-  -webkit-backdrop-filter: saturate(180%) blur(20px); 
-  border: 1px solid rgba(232,224,214,0.8); 
-  border-radius: 32px; 
-  box-shadow: var(--shadow-lg); 
-}
-
-/* Danish Tab Pills */
-.tab-pills { display: flex; gap: 8px; padding: 4px; background: var(--paper); border-radius: var(--radius-pill); border: 1px solid var(--line); }
-.tab-pill { 
-  padding: 8px 16px; 
-  border-radius: var(--radius-pill); 
-  font-size: 14px; 
-  font-weight: 600; 
-  color: #6B6B6B; 
-  background: transparent; 
-  border: none; 
-  cursor: pointer; 
-  transition: all 0.3s var(--spring);
-  white-space: nowrap;
-}
-.tab-pill.active { 
-  background: var(--charcoal); 
-  color: white; 
-  box-shadow: 0 2px 8px rgba(18,20,23,0.15);
-}
-.tab-pill.active-sage { background: var(--sage); color: white; box-shadow: 0 2px 8px rgba(138,169,158,0.3); }
-.tab-pill.active-blue { background: #4F6EF7; color: white; box-shadow: 0 2px 8px rgba(79,110,247,0.3); }
-
-/* Progress — Circular Danish */
-.progress-circular { position: relative; display: inline-flex; }
-.progress-circular-bg { stroke: var(--line); stroke-width: 6; fill: none; }
-.progress-circular-fill { stroke: var(--sage); stroke-width: 6; fill: none; stroke-linecap: round; transition: stroke-dashoffset 1s var(--spring); transform: rotate(-90deg); transform-origin: 50% 50%; }
-
-/* Waveform — Danish */
-.waveform { display: flex; align-items: center; gap: 3px; height: 32px; }
-.waveform-bar { width: 3px; background: var(--sage); border-radius: 999px; transition: height 0.15s ease-out; }
-.waveform-bar.active { background: #4F6EF7; }
-
-/* Vocab Chip — Danish */
-.vocab-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-pill);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--charcoal);
-  transition: all 0.2s var(--spring);
-  cursor: pointer;
-}
-.vocab-chip:hover { border-color: var(--sage); transform: translateY(-1px); box-shadow: var(--shadow-soft); }
-.vocab-chip:active { transform: scale(0.96); }
-
-/* Option Pill — Quiz Danish */
-.option-pill {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  background: var(--white);
-  border: 1.5px solid var(--line);
-  border-radius: var(--radius-md);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--charcoal);
-  cursor: pointer;
-  transition: all 0.2s var(--spring);
-  text-align: left;
-  width: 100%;
-}
-.option-pill:hover { border-color: var(--border-strong); transform: translateY(-1px); box-shadow: var(--shadow-soft); }
-.option-pill.selected { 
-  background: #4F6EF7; 
-  border-color: #4F6EF7; 
-  color: white; 
-  box-shadow: 0 4px 16px rgba(79,110,247,0.25);
-}
-.option-pill.correct { background: #E3EDEA; border-color: var(--sage); color: var(--sage-dark); }
-.option-pill-letter {
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 13px;
-  flex-shrink: 0;
-  transition: all 0.2s;
-}
-.option-pill.selected .option-pill-letter { background: white; color: #4F6EF7; border-color: white; }
-
-/* Streak Card — Danish */
-.streak-card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  padding: 14px 16px;
-  border: 1px solid var(--line);
-  box-shadow: var(--shadow-soft);
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-/* Path Node — Danish */
-.path-node {
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
-  background: var(--white);
-  border: 2px solid var(--line);
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  font-size: 14px;
-  color: #8E8E93;
-  transition: all 0.3s var(--spring);
-  position: relative;
-}
-.path-node.completed { background: var(--sage); border-color: var(--sage); color: white; }
-.path-node.active { 
-  background: #4DE8B4; 
-  border-color: #4DE8B4; 
-  color: white; 
-  box-shadow: 0 0 0 4px rgba(77,232,180,0.2), 0 4px 16px rgba(77,232,180,0.3);
-  animation: pulseSlow 2s infinite;
-}
-.path-node.locked { background: #F2F2F7; border-color: #E5E5EA; color: #AEAEB2; }
-
-/* Path Line — Danish */
-.path-line { 
-  width: 4px; 
-  background: var(--line); 
-  border-radius: 999px; 
-  transition: background 0.5s var(--spring);
-}
-.path-line.completed { background: var(--sage); }
-
-/* Focus */
-:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; border-radius: 8px; }
-
-/* Safe area — iPhone-first */
-.pb-safe { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
-.pt-safe { padding-top: env(safe-area-inset-top); }
-.min-h-dvh { min-height: 100dvh; }
-.h-dvh { height: 100dvh; }
-
-/* iPhone viewport fix — prevent web page squeezed look */
-html {
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-  overscroll-behavior: none;
-}
-
-body {
-  overscroll-behavior: none;
-  -webkit-overflow-scrolling: touch;
-  position: relative;
-}
-
-/* iPhone container — max 390px, centered, no stretched proportions */
-.iphone-container {
-  max-width: 390px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  min-height: 100dvh;
-  background: var(--cream);
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* Prevent horizontal overflow on iPhone */
-* {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* iOS input zoom prevention — 16px min */
-input, select, textarea {
-  font-size: 16px !important;
-}
-
-/* Native iOS button feel */
-button {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  user-select: none;
-  touch-action: manipulation;
-}
-
-/* Animations — Danish */
-@keyframes draw { from { stroke-dashoffset: 1000; } to { stroke-dashoffset: 0; } }
-@keyframes fadeUp { from { transform: translateY(12px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-@keyframes scaleIn { from { transform: scale(0.96); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-@keyframes pulseSlow { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-
-.animate-draw { stroke-dasharray: 1000; animation: draw 1.5s ease-out forwards; }
-.animate-fade-up { animation: fadeUp 0.4s var(--spring) forwards; }
-.animate-scale-in { animation: scaleIn 0.4s var(--spring) forwards; }
-.animate-stagger > * { opacity: 0; animation: fadeUp 0.4s var(--spring) forwards; }
-.animate-stagger > *:nth-child(1) { animation-delay: 0ms; }
-.animate-stagger > *:nth-child(2) { animation-delay: 60ms; }
-.animate-stagger > *:nth-child(3) { animation-delay: 120ms; }
-.animate-stagger > *:nth-child(4) { animation-delay: 180ms; }
-.animate-stagger > *:nth-child(5) { animation-delay: 240ms; }
-.animate-stagger > *:nth-child(6) { animation-delay: 300ms; }
-
-/* Haptic helper */
-.tap-haptic:active { transform: scale(0.97); transition: transform 0.1s; }
-
-/* Danish Grain Texture Subtle */
-.grain::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.02;
-  pointer-events: none;
-}
-
-/* Hide scrollbar */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Tap haptic */
+.tap-haptic:active { transform: scale(0.97); }

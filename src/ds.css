@@ -1,0 +1,316 @@
+/* ds.css — Design System per Action Plan Phase 4
+   Premium and easy: restraint, consistency, calm speed, one obvious thing per screen
+   Implements: one accent, one icon family, two type voices, generous space, one shadow, consistent radii, quiet motion, designed dark mode
+*/
+
+:root {
+  /* One accent — single tint for what can be tapped and where you are. Never decoration. Neutrals lean slightly blue. */
+  --accent: #007AFF; /* iOS blue — primary action */
+  --accent-pressed: #0051D5;
+  --accent-soft: #E5F1FF;
+  --accent-bg: #F0F7FF;
+
+  /* Neutrals lean slightly blue per spec */
+  --bg: #F8FAFC; /* Slight blue lean, not pure gray */
+  --bg-card: #FFFFFF;
+  --bg-secondary: #F1F5F9; /* Slight blue lean */
+  --bg-tertiary: #E2E8F0;
+  --ink: #0F172A; /* Slight blue lean charcoal */
+  --ink-secondary: #334155;
+  --muted: #64748B; /* Slight blue lean muted */
+  --muted-2: #94A3B8;
+  --border: rgba(15,23,42,0.06); /* Hairline */
+  --border-strong: rgba(15,23,42,0.10);
+
+  /* Semantic — paired with icon or word, never color alone */
+  --success: #059669;
+  --success-soft: #ECFDF5;
+  --warning: #D97706;
+  --warning-soft: #FFFBEB;
+  --error: #DC2626;
+  --error-soft: #FEF2F2;
+
+  /* Consistent radii: 12 controls/lists, 16 cards, 22 sheets */
+  --radius-control: 12px;
+  --radius-list: 12px;
+  --radius-card: 16px;
+  --radius-sheet: 22px;
+  --radius-pill: 9999px;
+
+  /* One shadow level — only for sheets and toasts. Else hairlines and background steps */
+  --shadow-sheet: 0 8px 32px rgba(15,23,42,0.12), 0 2px 8px rgba(15,23,42,0.08);
+  --shadow-toast: 0 4px 16px rgba(15,23,42,0.12);
+
+  /* Quiet motion: 120ms press, 220ms state change, 340ms screen change. Nothing loops. */
+  --motion-press: 120ms;
+  --motion-state: 220ms;
+  --motion-screen: 340ms;
+  --ease-spring: cubic-bezier(0.16,1,0.3,1);
+  --ease-out: cubic-bezier(0.25,0.1,0.25,1);
+
+  /* Generous space: 4pt grid, 16px gutters, large title then air */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --gutter: 16px;
+
+  /* Typography: Two type voices — Danish serif, interface system face */
+  --font-interface: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Inter', system-ui, sans-serif;
+  --font-danish: 'Fraunces', 'Georgia', 'Times New Roman', serif; /* Reading serif for Danish content */
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Designed dark mode — redefined tokens, not inverted light theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0F172A;
+    --bg-card: #1E293B;
+    --bg-secondary: #1E293B;
+    --bg-tertiary: #334155;
+    --ink: #F1F5F9;
+    --ink-secondary: #CBD5E1;
+    --muted: #94A3B8;
+    --muted-2: #64748B;
+    --border: rgba(241,245,249,0.08);
+    --border-strong: rgba(241,245,249,0.14);
+    --accent-soft: rgba(0,122,255,0.15);
+    --accent-bg: rgba(0,122,255,0.10);
+    --shadow-sheet: 0 8px 32px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.3);
+  }
+}
+
+/* Dark mode class for manual toggle */
+.dark {
+  --bg: #0F172A;
+  --bg-card: #1E293B;
+  --bg-secondary: #1E293B;
+  --bg-tertiary: #334155;
+  --ink: #F1F5F9;
+  --ink-secondary: #CBD5E1;
+  --muted: #94A3B8;
+  --muted-2: #64748B;
+  --border: rgba(241,245,249,0.08);
+  --border-strong: rgba(241,245,249,0.14);
+  --accent-soft: rgba(0,122,255,0.15);
+  --accent-bg: rgba(0,122,255,0.10);
+}
+
+/* Base */
+* { font-family: var(--font-interface); -webkit-font-smoothing: antialiased; }
+.serif, [lang="da"], .danish-content { font-family: var(--font-danish); }
+.interface { font-family: var(--font-interface); }
+
+/* Touch targets at least 44px per spec */
+button, a, [role="button"] { min-height: 44px; min-width: 44px; }
+button { 
+  transition: transform var(--motion-press) var(--ease-spring), 
+              background var(--motion-state) var(--ease-out),
+              box-shadow var(--motion-state) var(--ease-out);
+}
+button:active { transform: scale(0.97); }
+
+/* One primary action per screen, bottom thumb zone on phone */
+.primary-action {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-4) var(--gutter);
+  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(to top, var(--bg) 80%, transparent);
+  z-index: 20;
+}
+.primary-action button {
+  width: 100%;
+  background: var(--ink);
+  color: var(--bg-card);
+  border-radius: var(--radius-pill);
+  padding: 16px 24px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  box-shadow: var(--shadow-toast);
+}
+
+/* Reuse group, row, card, sheet, option and feedback from ds.css per spec */
+.group { margin-bottom: var(--space-6); }
+.group-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 var(--gutter);
+  margin-bottom: var(--space-2);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  min-height: 56px;
+}
+.row:last-child { border-bottom: none; }
+.row-list {
+  background: var(--bg-card);
+  border-radius: var(--radius-list);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  padding: var(--space-5);
+}
+.card-large {
+  background: var(--bg-card);
+  border-radius: var(--radius-card);
+  border: 1px solid var(--border);
+  padding: var(--space-6);
+}
+
+.sheet {
+  background: var(--bg-card);
+  border-radius: var(--radius-sheet) var(--radius-sheet) 0 0;
+  box-shadow: var(--shadow-sheet);
+  padding: var(--space-6);
+  padding-bottom: calc(var(--space-6) + env(safe-area-inset-bottom, 0px));
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--bg-secondary);
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left;
+  min-height: 56px;
+  transition: all var(--motion-state) var(--ease-out);
+}
+.option:hover { background: var(--bg-card); border-color: var(--border-strong); }
+.option.selected {
+  background: var(--ink);
+  color: var(--bg-card);
+  border-color: var(--ink);
+}
+.option.idk {
+  background: transparent;
+  border: 1px dashed var(--border-strong);
+  color: var(--muted);
+}
+
+.feedback {
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  font-size: 14px;
+  line-height: 1.5;
+  border: 1px solid;
+}
+.feedback.correct { background: var(--success-soft); border-color: rgba(5,150,105,0.2); color: var(--success); }
+.feedback.incorrect { background: var(--error-soft); border-color: rgba(220,38,38,0.15); color: var(--error); }
+.feedback.info { background: var(--accent-soft); border-color: rgba(0,122,255,0.2); color: var(--accent); }
+
+/* Focus mode — tests and exercises take whole screen, one Close button returns */
+.focus-mode {
+  min-height: 100vh;
+  background: var(--bg);
+  padding: var(--space-4) var(--gutter);
+}
+.focus-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Progressive disclosure */
+.disclosure-trigger {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  background: none;
+  border: none;
+  padding: 8px 0;
+  min-height: auto;
+  text-align: left;
+}
+.disclosure-content {
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-card);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Generous space — 4pt grid, 16px gutters, large title then air */
+.large-title {
+  font-size: 34px;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin-bottom: var(--space-4);
+}
+.title-air { margin-bottom: var(--space-8); }
+
+/* Body text contrast at least 4.5 to 1 per spec */
+.body-text { color: var(--ink-secondary); line-height: 1.5; font-size: 15px; }
+.muted-text { color: var(--muted); font-size: 13px; }
+
+/* Visible focus ring, logical tab order and ARIA labels */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Anything learner must read at least 11-12px per spec */
+.learner-readable { font-size: 12px; line-height: 1.4; min-font-size: 11px; }
+
+/* Honour reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Quiet motion — nothing loops */
+.no-loop { animation-iteration-count: 1; }
+.press-120 { transition-duration: var(--motion-press); }
+.state-220 { transition-duration: var(--motion-state); }
+.screen-340 { transition-duration: var(--motion-screen); }
+
+/* Ship checklist helpers */
+.ship-checklist {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-card);
+  font-size: 12px;
+}
+.ship-checklist .check { display: flex; gap: var(--space-2); align-items: center; }
+.ship-checklist .check.pass { color: var(--success); }
+.ship-checklist .check.fail { color: var(--error); }
+
+/* PWA polish — standalone display handled in manifest, theme-color in index.html */

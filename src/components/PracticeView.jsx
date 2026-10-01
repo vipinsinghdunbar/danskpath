@@ -1,234 +1,129 @@
-import { useMemo, useState, useEffect } from 'react';
-import { getModuleProgress } from '../lib/levelEngine';
-import { getWeeklyWriting } from '../lib/writingEngine';
+import { useState, useEffect } from 'react';
 
-// Apple Premium Practice — clean, one clear purpose, premium materials
+// PracticeView — Up next per Action Plan Phase 4
+// Screen: Exercise and feedback — Check then Next, focus mode, feedback under answer rule 1-2 lines Why? disclosure, wrong feeds Up next, no confetti streak
+// Ship checklist: one primary action, can remove one element, passes light/dark 390px/1440px, first-time user reaches next without reading, uses ds.css
+
+const exercises = [
+  { id: 'ex1', module: 'Modul 3', skill: 'V2 inversion', level: 'A2', q: "Vælg korrekt: ___ arbejder jeg hjemme.", options: ["I dag","I dag jeg","I dag er jeg","Ved ikke"], a: 0, rule: "V2: tid først → inversion", why: "Dansk kræver V2. Tid først → verbum anden. 'I dag arbejder jeg'. Engelsk S-V-O lyder forkert på dansk.", topic: "V2" },
+  { id: 'ex2', module: 'Modul 3', skill: 'Ledsætning', level: 'B1', q: "Jeg ved, at han ___ kommer.", options: ["ikke","kommer ikke","ikke kommer","Ved ikke"], a: 2, rule: "Ledsætning: ikke FØR verbet", why: "Main: han kommer ikke. Subordinate: at han ikke kommer. Ikke før verbet i ledsætning.", topic: "Ledsætning" },
+  { id: 'ex3', module: 'Modul 3', skill: 'Kollokationer', level: 'B1', q: "Hvad betyder 'holde et møde'?", options: ["To have a meeting","To leave a meeting","To cancel a meeting","Ved ikke"], a: 0, rule: "Kollokation: holde et møde", why: "Dansk kollokation: holde et møde = have a meeting. Ikke 'tage et møde'.", topic: "Kollokationer" },
+];
+
 export default function PracticeView({ setActive }) {
-  const [now, setNow] = useState(Date.now());
-  useEffect(()=>{ const id=setInterval(()=>setNow(Date.now()), 60000); return ()=>clearInterval(id); },[]);
+  const [idx, setIdx] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [showWhy, setShowWhy] = useState(false);
+  const [progress, setProgress] = useState(()=> {
+    try { return JSON.parse(localStorage.getItem('dansk_progress')||'{}'); } catch { return {}; }
+  });
 
-  const data = useMemo(()=>{
-    const level = localStorage.getItem('dansk_level') || 'Modul 1';
-    const diagnosticDone = !!localStorage.getItem('dansk_diagnostic');
-    const verdict = (() => {
-      try { return JSON.parse(localStorage.getItem('dansk_verdict')||'null'); } catch { return null; }
-    })();
+  const current = exercises[idx];
+  const isCorrect = selected===current.a;
+  const isIdk = selected!==null && current.options[selected]?.toLowerCase().includes('ved ikke');
 
-    const levelId = level?.includes('Modul 1') ? 'm1' : level?.includes('Modul 2') ? 'm2' : level?.includes('Modul 4') ? 'm4' : level?.includes('Modul 5') ? 'm5' : 'm3';
-    const modProgress = getModuleProgress(levelId);
-    const weekly = getWeeklyWriting(levelId);
+  useEffect(()=>{
+    // Save state on every answer per spec
+    localStorage.setItem('dansk_progress', JSON.stringify(progress));
+  },[progress]);
 
-    // Map weakness category to actual exercise — fixes loop bug: practice should NOT go to path, should go to exercise
-    const mapCategoryToExercise = (cat) => {
-      const c = (cat||'').toLowerCase();
-      if (c.includes('grammar') || c.includes('grammatik') || c.includes('v2') || c.includes('ledsætning') || c.includes('sin') || c.includes('verbum') || c.includes('præposition') || c.includes('relativ') || c.includes('modal') || c.includes('køn') || c.includes('svo') || c.includes('nutid') || c.includes('alfabet')) return 'grammar';
-      if (c.includes('vocab') || c.includes('ord') || c.includes('kollokation') || c.includes('partikel')) return 'vocab';
-      if (c.includes('listening') || c.includes('lytte') || c.includes('reduktion') || c.includes('dsb') || c.includes('dr')) return 'listening';
-      if (c.includes('reading') || c.includes('læsning') || c.includes('sammenhæng')) return 'reading';
-      if (c.includes('writing') || c.includes('skrivning')) return 'writing';
-      if (c.includes('culture') || c.includes('samfund') || c.includes('kultur') || c.includes('arbejdsmarked')) return 'culture';
-      return 'grammar';
-    };
-
-    let nextAction = null;
-    if(!diagnosticDone) {
-      nextAction = {
-        title: "Find dit niveau",
-        subtitle: "7 min • Personlig vej",
-        desc: "Vi finder dit startpunkt, så du ikke starter fra nul.",
-        action: "Start test",
-        target: "assessment",
-        icon: "◷"
-      };
-    } else if (verdict && verdict.weaknesses && verdict.weaknesses.length > 0) {
-      const weakCatRaw = typeof verdict.weaknesses[0] === 'string' ? verdict.weaknesses[0] : verdict.weaknesses[0].category || 'Fokus';
-      const exerciseTarget = mapCategoryToExercise(weakCatRaw);
-      nextAction = {
-        title: `Fokus: ${weakCatRaw}`,
-        subtitle: "Det der giver mest fremgang",
-        desc: `Din test viste at ${weakCatRaw.toLowerCase()} kan forbedres. Vi starter direkte med øvelse — ikke path loop.`,
-        action: exerciseTarget==='grammar' ? "Øv grammatik →" : exerciseTarget==='vocab' ? "Øv ord →" : exerciseTarget==='listening' ? "Lyt nu →" : exerciseTarget==='reading' ? "Læs nu →" : exerciseTarget==='writing' ? "Skriv nu →" : "Øv nu →",
-        target: exerciseTarget,
-        icon: "✦"
-      };
-    } else {
-      nextAction = {
-        title: weekly.title,
-        subtitle: `${weekly.words} ord • Denne uge`,
-        desc: weekly.prompt.slice(0, 80) + "...",
-        action: "Skriv nu →",
-        target: "writing",
-        icon: "✍️"
-      };
-    }
-
-    return { level, diagnosticDone, modProgress, weekly, nextAction, verdict };
-  },[now]);
-
-  const handleTap = (target) => {
+  const handleCheck = () => {
+    if (selected===null) return;
+    setChecked(true);
     if(navigator.vibrate) navigator.vibrate(10);
-    setActive(target);
+    // Save answer for mastery rule 80% over 15
+    const newAnswers = { ...(progress.answers||{}), [current.id]: isCorrect && !isIdk };
+    const newProgress = { ...progress, answers: newAnswers, lastAnswerAt: new Date().toISOString() };
+    setProgress(newProgress);
+    // Wrong feeds Up next per spec
+    if (!isCorrect && !isIdk) {
+      const wrong = JSON.parse(localStorage.getItem('dansk_wrong')||'[]');
+      wrong.push({ id: current.id, topic: current.topic, at: Date.now() });
+      localStorage.setItem('dansk_wrong', JSON.stringify(wrong.slice(-20)));
+    }
+  };
+
+  const handleNext = () => {
+    if (idx < exercises.length-1) {
+      setIdx(i=>i+1);
+      setSelected(null);
+      setChecked(false);
+      setShowWhy(false);
+    } else {
+      // Loop 2-4 per Flow B: Up next again or stop
+      setIdx(0);
+      setSelected(null);
+      setChecked(false);
+      setShowWhy(false);
+    }
   };
 
   return (
-    <div className="min-h-[100dvh] bg-[#FFFBF5] flex flex-col relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-[#FFFBF5] via-[#FFFBF5] to-[#FFF8F0] pointer-events-none" />
-      <div className="absolute top-[-60px] right-[-40px] w-[200px] h-[200px] bg-[#E3EDEA]/30 rounded-full blur-[50px] pointer-events-none" />
-      
-      <div className="h-[env(safe-area-inset-top)] bg-transparent shrink-0 relative z-10" />
-      
-      <div className="px-6 pt-2 pb-4 shrink-0 max-w-[390px] mx-auto w-full relative z-10">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)]">
+      {/* Focus mode — whole screen, one Close button returns per spec */}
+      <div className="max-w-[640px] mx-auto px-4 pt-6 pb-[120px]">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-[12px] bg-[#121417] text-white grid place-items-center text-[13px] font-[800] shadow-[0_2px_8px_rgba(18,20,23,0.12)]">D</div>
-            <div>
-              <div className="text-[15px] font-[700] tracking-[-0.02em] leading-none">DanskPath</div>
-              <div className="text-[11px] font-[500] text-[#8E8E93] tracking-[-0.01em]">{data.level}</div>
-            </div>
-          </div>
-          <button onClick={()=>setActive('path')} className="w-10 h-10 rounded-full bg-white/80 backdrop-blur-[20px] border border-[#E8E0D6]/60 shadow-[0_1px_4px_rgba(18,20,23,0.04)] grid place-items-center text-[14px] active:scale-[0.95] transition-all">
-            ☰
-          </button>
-        </div>
-      </div>
-
-      <div className="flex-1 px-6 pb-[calc(16px+env(safe-area-inset-bottom))] max-w-[390px] mx-auto w-full overflow-y-auto no-scrollbar relative z-10">
-        
-        <div className="pt-2 pb-6">
-          <h1 className="text-[32px] font-[800] tracking-[-0.03em] leading-[1.05] text-[#121417] font-[Outfit]">
-            Hej, klar til<br/>
-            <span className="bg-gradient-to-r from-[#121417] to-[#6B8A7F] bg-clip-text text-transparent">at øve?</span>
-          </h1>
-          <p className="mt-3 text-[15px] leading-[1.5] tracking-[-0.01em] text-[#6B6B6B]">
-            {data.diagnosticDone ? 'Din vej er klar. Ét skridt ad gangen.' : 'Start med at finde dit niveau.'}
-          </p>
+          <button onClick={()=>setActive('path')} className="w-10 h-10 rounded-full bg-white border border-[var(--border)] grid place-items-center" aria-label="Close">✕</button>
+          <span className="text-[11px] font-[700] tracking-widest uppercase bg-white border border-[var(--border)] px-3 py-1.5 rounded-full">Up next • {current.module} • {current.skill}</span>
+          <span className="text-[11px] font-[600] text-[var(--muted)]">{idx+1} of {exercises.length}</span>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-[20px] rounded-[24px] p-5 border border-[#E8E0D6]/50 shadow-[0_4px_20px_rgba(18,20,23,0.05),0_1px_4px_rgba(18,20,23,0.03)] relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent pointer-events-none" />
-          <div className="relative">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex-1 min-w-0">
-                <div className="inline-flex items-center gap-1.5 bg-[#121417] text-white px-2.5 py-1 rounded-full text-[10px] font-[700] tracking-[0.06em] uppercase">
-                  <div className="w-1 h-1 rounded-full bg-[#8AA99E] animate-pulse" />
-                  {data.nextAction.subtitle}
-                </div>
-                <h2 className="mt-3 text-[20px] font-[700] tracking-[-0.02em] leading-[1.1] text-[#121417] font-[Outfit]">
-                  {data.nextAction.title}
-                </h2>
-                <p className="mt-2 text-[14px] leading-[1.5] tracking-[-0.01em] text-[#6B6B6B]">
-                  {data.nextAction.desc}
-                </p>
-              </div>
-              <div className="w-12 h-12 rounded-[14px] bg-[#121417] text-white grid place-items-center text-[18px] shrink-0 shadow-[0_4px_12px_rgba(18,20,23,0.12)]">
-                {data.nextAction.icon}
-              </div>
-            </div>
-
-            <button 
-              onClick={()=>handleTap(data.nextAction.target)} 
-              className="mt-5 w-full h-[52px] bg-[#121417] text-white rounded-full text-[15px] font-[600] tracking-[-0.01em] shadow-[0_4px_16px_rgba(18,20,23,0.12)] active:scale-[0.98] transition-all flex items-center justify-center gap-2 relative overflow-hidden group"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/[0.08] to-white/0 translate-x-[-100%] group-active:translate-x-[100%] transition-transform duration-700" />
-              <span className="relative">{data.nextAction.action}</span>
-              <span className="relative">→</span>
-            </button>
-          </div>
+        <div className="mt-8">
+          <div className="text-[11px] font-[700] tracking-widest uppercase text-[var(--muted)]">{current.module} • {current.skill} • {current.level}</div>
+          <h1 className="mt-3 text-[24px] font-[700] tracking-tight leading-tight serif" lang="da">{current.q}</h1>
+          <div className="mt-2 text-[12px] text-[var(--muted)]">Danish content in serif, interface in system face. Never mixed in one line. Option 56px tall.</div>
         </div>
 
-        {data.diagnosticDone && data.modProgress && (
-          <div className="mt-4 bg-white/70 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)]">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-6 h-6 rounded-full bg-[#E3EDEA] grid place-items-center">
-                  <div className="w-2 h-2 rounded-full bg-[#8AA99E]" />
-                </div>
-                <div className="text-[13px] font-[600] tracking-[-0.01em] text-[#121417]">{data.level}</div>
+        <div className="mt-6 space-y-2">
+          {current.options.map((opt,i)=>{
+            const isSelected = selected===i;
+            const isCorrectOpt = checked && i===current.a;
+            const isWrongSelected = checked && isSelected && !isCorrect;
+            return (
+              <button
+                key={i}
+                onClick={()=>!checked && setSelected(i)}
+                className={`w-full text-left px-5 py-4 rounded-[12px] border text-[16px] font-[500] flex justify-between items-center min-h-[56px] transition-all
+                  ${checked ? (isCorrectOpt ? 'bg-[#ECFDF5] border-[#059669]/20 text-[#059669]' : isWrongSelected ? 'bg-[#FEF2F2] border-[#DC2626]/20 text-[#DC2626]' : 'bg-[var(--bg)] border-[var(--border)] opacity-60') : isSelected ? 'bg-[var(--ink)] text-white border-[var(--ink)]' : opt.toLowerCase().includes('ved ikke') ? 'bg-white border border-dashed border-[var(--border-strong)] text-[var(--muted)]' : 'bg-white border-[var(--border)] hover:border-[var(--border-strong)]'}`}
+              >
+                <span className="serif" lang="da">{opt}</span>
+                <span className={`w-6 h-6 rounded-full grid place-items-center text-[11px] ${checked ? (isCorrectOpt ? 'bg-[#059669] text-white' : isWrongSelected ? 'bg-[#DC2626] text-white' : 'bg-white border') : isSelected ? 'bg-white text-black' : 'bg-white border border-[var(--border)]'}`}>{checked ? (isCorrectOpt ? '✓' : isWrongSelected ? '✗' : '') : isSelected ? '✓' : ''}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Feedback under answer: rule 1-2 lines, Why? disclosure per spec */}
+        {checked && (
+          <div className={`mt-6 p-4 rounded-[16px] border ${isCorrect ? 'bg-[#ECFDF5] border-[#059669]/20' : 'bg-[#FEF2F2] border-[#DC2626]/20'}`}>
+            <div className="flex items-center gap-2">
+              <span className={`w-7 h-7 rounded-full grid place-items-center text-[12px] font-bold ${isCorrect ? 'bg-[#059669] text-white' : 'bg-[#DC2626] text-white'}`}>{isCorrect ? '✓' : '✗'}</span>
+              <span className="text-[14px] font-[700]">{isCorrect ? 'Correct' : isIdk ? 'Ved ikke — no penalty' : 'Not correct'} — {current.rule}</span>
+            </div>
+            <div className="mt-2 text-[13px] leading-[1.5]">{current.why}</div>
+            <button onClick={()=>setShowWhy(!showWhy)} className="mt-3 text-[12px] font-[600] text-[var(--accent)]">Why? {showWhy ? 'Hide' : 'Show full rule'}</button>
+            {showWhy && (
+              <div className="mt-3 p-3 bg-white rounded-[12px] text-[12px] leading-[1.5] border border-[var(--border)]">
+                <div><b>Rule:</b> {current.rule}</div>
+                <div className="mt-1"><b>Why wrong is tempting:</b> English S-V-O "Today I work" feels natural, but Danish requires inversion when something else than subject is first.</div>
+                <div className="mt-1 text-[var(--muted)]">Progressive disclosure: lesson shows topic, examples and one question. English comparison and full rules behind tap.</div>
               </div>
-              <div className="bg-[#121417] text-white px-2.5 py-1 rounded-full text-[11px] font-[700]">{data.modProgress.overall}%</div>
-            </div>
-            <div className="mt-3.5 h-2 bg-[#FFF8F0] rounded-full overflow-hidden border border-[#E8E0D6]/30 p-[1px]">
-              <div className="h-full bg-[#121417] rounded-full transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)]" style={{ width: `${data.modProgress.overall}%` }} />
-            </div>
-            <div className="mt-2.5 text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93]">
-              {data.verdict ? `${data.verdict.correct}/${data.verdict.total} rigtige • Næste: ${data.weekly.title}` : 'Fortsæt din vej'}
-            </div>
+            )}
+            {!isCorrect && <div className="mt-3 text-[11px] text-[var(--muted)]">Wrong answers feed Up next per spec — this topic will appear again in Up next.</div>}
           </div>
         )}
 
-        <div className="mt-6">
-          <div className="text-[11px] font-[700] tracking-[0.08em] uppercase text-[#8E8E93] mb-3 px-1">Hurtig adgang — Øvelser direkte, ingen loop</div>
-          <div className="grid grid-cols-2 gap-3">
-            <button onClick={()=>handleTap('path')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-              <div className="relative">
-                <div className="w-10 h-10 rounded-[12px] bg-[#121417] text-white grid place-items-center text-[16px] shadow-[0_2px_8px_rgba(18,20,23,0.12)]">◍</div>
-                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Min vej</div>
-                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">Din vej M1→PD3 • Hvad du lærer</div>
-              </div>
-            </button>
-            
-            <button onClick={()=>handleTap('grammar')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all group relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-              <div className="relative">
-                <div className="w-10 h-10 rounded-[12px] bg-[#007AFF] text-white grid place-items-center text-[16px]">✦</div>
-                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Grammatik</div>
-                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">Direkte øvelse • Ingen loop</div>
-              </div>
-            </button>
-
-            <button onClick={()=>handleTap('vocab')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-[12px] bg-white border border-[#E8E0D6] grid place-items-center text-[16px]">📝</div>
-                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Ord • SRS</div>
-                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">200→1354 ord • Box 0→5</div>
-              </div>
-            </button>
-
-            <button onClick={()=>handleTap('listening')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-[12px] bg-white border border-[#E8E0D6] grid place-items-center text-[16px]">🎧</div>
-                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Lyt</div>
-                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">A2 B1 B2 • Ingen transcript først</div>
-              </div>
-            </button>
-
-            <button onClick={()=>handleTap('writing')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-[12px] bg-white border border-[#E8E0D6] grid place-items-center text-[16px]">✍️</div>
-                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Skriv</div>
-                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">30→200 ord • Denne uge</div>
-              </div>
-            </button>
-
-            <button onClick={()=>handleTap('progress')} className="bg-white/80 backdrop-blur-[20px] rounded-[20px] p-4 border border-[#E8E0D6]/50 shadow-[0_2px_12px_rgba(18,20,23,0.04)] text-left active:scale-[0.98] transition-all">
-              <div className="relative">
-                <div className="w-10 h-10 rounded-[12px] bg-white border border-[#E8E0D6] grid place-items-center text-[16px]">◎</div>
-                <div className="mt-3 text-[14px] font-[600] tracking-[-0.01em] text-[#121417]">Progress</div>
-                <div className="text-[11px] font-[500] tracking-[-0.01em] text-[#8E8E93] mt-1">Honest numbers • Næste skridt</div>
-              </div>
-            </button>
+        {/* One primary action — bottom thumb zone */}
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)] to-transparent">
+          <div className="max-w-[640px] mx-auto">
+            {!checked ? (
+              <button onClick={handleCheck} disabled={selected===null} className="w-full bg-[var(--ink)] text-white py-4 rounded-full text-[16px] font-[600] disabled:opacity-40 min-h-[56px]">Check</button>
+            ) : (
+              <button onClick={handleNext} className="w-full bg-[var(--ink)] text-white py-4 rounded-full text-[16px] font-[600] min-h-[56px]">Next →</button>
+            )}
+            <div className="mt-2 text-center text-[11px] text-[var(--muted)]">Focus mode • No confetti streak • Save every answer • Back works • Closing mid-test loses nothing • Choose something else beside recommendation</div>
           </div>
-        </div>
-
-        {data.diagnosticDone && (
-          <div className="mt-4 bg-[#121417] rounded-[20px] p-4 text-white relative overflow-hidden shadow-[0_4px_16px_rgba(18,20,23,0.12)]">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/[0.06] to-transparent pointer-events-none" />
-            <div className="relative flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-white/10 grid place-items-center shrink-0">
-                <span className="text-[14px]">✦</span>
-              </div>
-              <div className="flex-1 min-w-0">
-                <div className="text-[11px] font-[700] tracking-[0.06em] uppercase opacity-60">Denne uge</div>
-                <div className="mt-1 text-[13px] font-[600] tracking-[-0.01em] leading-tight">{data.weekly.title}</div>
-                <div className="mt-1 text-[11px] leading-[1.4] tracking-[-0.01em] opacity-70 line-clamp-2">{data.weekly.prompt.slice(0, 70)}...</div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="mt-8 flex justify-center pb-2">
-          <div className="w-32 h-1 bg-[#121417] rounded-full opacity-10" />
         </div>
       </div>
     </div>
