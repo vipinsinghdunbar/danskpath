@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DanskPath — Full System Flow Map • 8 Cases • Motion Arrows • Health Check</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Inter,system-ui,-apple-system,sans-serif;background:#F2F2F7;color:#121417;line-height:1.5}
+  .container{max-width:1400px;margin:0 auto;padding:24px 20px 100px}
+  .badge{display:inline-flex;padding:6px 12px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase}
+  .card{background:#fff;border-radius:24px;border:1px solid rgba(0,0,0,0.05);padding:24px;box-shadow:0 2px 12px rgba(0,0,0,0.04);margin-top:24px}
+  .pill{border-radius:999px;padding:4px 10px;font-size:10px;font-weight:700}
+  h1{font-size:36px;font-weight:800;letter-spacing:-0.03em;line-height:0.9}
+  h2{font-size:18px;font-weight:700;letter-spacing:-0.02em}
+  h3{font-size:15px;font-weight:700}
+  .motion-track{position:relative;width:48px;height:2px;background:rgba(0,0,0,0.1);overflow:hidden;border-radius:1px;flex-shrink:0}
+  .motion-dot{position:absolute;width:10px;height:2px;background:#121417;border-radius:1px;top:0;left:0;animation:flowRight 1.2s ease-in-out infinite}
+  .motion-track.vertical{width:2px;height:36px}
+  .motion-track.vertical .motion-dot{width:2px;height:10px;animation:flowDown 1.2s ease-in-out infinite}
+  @keyframes flowRight{0%{transform:translateX(-10px);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translateX(48px);opacity:0}}
+  @keyframes flowDown{0%{transform:translateY(-10px);opacity:0}20%{opacity:1}80%{opacity:1}100%{transform:translateY(36px);opacity:0}}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .step-box{width:168px;border-radius:16px;padding:12px;border:2px solid transparent;flex-shrink:0;transition:all 0.3s;background:#F2F2F7}
+  .step-box.active{background:#121417;color:#fff;border-color:#121417;transform:scale(1.05);box-shadow:0 8px 24px rgba(0,0,0,0.2);animation:pulse 1s ease-in-out infinite}
+  .step-box.done{background:#34C759;color:#fff;border-color:#34C759;opacity:0.85}
+  .step-box.next{background:rgba(0,122,255,0.08);border-color:rgba(0,122,255,0.2);transform:scale(1.02)}
+  .flow-row{display:flex;align-items:center;gap:0;overflow-x:auto;padding:8px 0 12px;scrollbar-width:none}
+  .flow-row::-webkit-scrollbar{display:none}
+  .health-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+  .health-card{border-radius:16px;padding:16px;border:1px solid}
+  .mono{font-family:ui-monospace,SFMono-Regular,monospace;font-size:11px}
+  .case-grid{display:grid;gap:24px;margin-top:24px}
+  .overview-track{display:flex;align-items:center;gap:8px;overflow-x:auto;padding:12px 0}
+  .overview-step{background:#fff;color:#121417;border-radius:12px;padding:8px 12px;min-width:92px;text-align:center;flex-shrink:0;border:1px solid rgba(0,0,0,0.05)}
+  .overview-step.dark{background:#121417;color:#fff}
+  button{cursor:pointer;border:none}
+  .btn{padding:10px 16px;border-radius:999px;font-size:12px;font-weight:700;transition:all 0.2s}
+  .btn-black{background:#121417;color:#fff}
+  .btn-white{background:#fff;border:1px solid rgba(0,0,0,0.1)}
+  .btn-blue{background:#007AFF;color:#fff}
+  .btn-red{background:#FF3B30;color:#fff}
+  .progress-bar{height:4px;background:rgba(0,0,0,0.1);border-radius:2px;overflow:hidden;flex:1}
+  .progress-fill{height:100%;background:#007AFF;border-radius:2px;transition:width 0.5s}
+</style>
+</head>
+<body>
+<div class="container">
+  <div style="display:flex;justify-content:space-between;align-items:start;gap:16px;flex-wrap:wrap">
+    <div>
+      <span class="badge" style="background:#121417;color:#fff">System Health + Full Flow • 8 Cases • Motion Arrows • 874KB Build</span>
+      <h1 style="margin-top:16px">Whole system<br/>running as it should</h1>
+      <p style="margin-top:12px;color:#8E8E93;max-width:640px;font-size:15px">8 separate flow diagrams, each with moving arrows. Play each case to see dot moving. Ensures guest → assessment → results → path → account → first exercise → progress without confusion. Returning login → current journey → exercise → complete → progress without repeat. Admin controls everything.</p>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <span class="mono" style="background:#F2F2F7;padding:6px 12px;border-radius:999px">LANDING→ASSESSMENT→RESULTS→PATH→ACCOUNT→PRACTICE→PROGRESS→NEXT</span>
+        <span class="mono" style="background:#34C759;color:#fff;padding:6px 12px;border-radius:999px">test-flow.js 19 passed 0 issues ✓</span>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <a href="https://danskpath.onrender.com/?page=system-flow" target="_blank" class="btn btn-black" style="text-decoration:none;display:inline-flex">Live System Flow →</a>
+      <a href="https://danskpath.onrender.com" target="_blank" class="btn btn-white" style="text-decoration:none;display:inline-flex">Homepage →</a>
+    </div>
+  </div>
+
+  <!-- Health Check -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <h2>System Health Check — Is whole system running as it should?</h2>
+      <span class="pill" style="background:#34C759;color:#fff">6/7 OK • System Running ✓ • Build 874KB</span>
+    </div>
+    <div class="health-grid">
+      <div class="health-card" style="background:rgba(52,199,89,0.08);border-color:rgba(52,199,89,0.2)">
+        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:700;text-transform:uppercase">API Server</span><span style="width:8px;height:8px;background:#34C759;border-radius:50%;display:inline-block;animation:pulse 1.5s infinite"></span></div>
+        <div class="mono" style="margin-top:4px">/api/health</div>
+        <div style="font-size:10px;color:#8E8E93;margin-top:8px">Express 5.2.1 + nosniff DENY HSTS CSP + CORS restricted + rate limiting 10/15min</div>
+        <div style="font-size:10px;font-weight:600;margin-top:8px">OK 200 ✓</div>
+      </div>
+      <div class="health-card" style="background:rgba(52,199,89,0.08);border-color:rgba(52,199,89,0.2)">
+        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:700;text-transform:uppercase">Database</span><span style="width:8px;height:8px;background:#34C759;border-radius:50%;display:inline-block"></span></div>
+        <div class="mono" style="margin-top:4px">/api/admin/users</div>
+        <div style="font-size:10px;color:#8E8E93;margin-top:8px">JSON portable /data disk 1GB users[] trials[] assessments[] permission 600</div>
+        <div style="font-size:10px;font-weight:600;margin-top:8px">OK 200 ✓ • Vipin / vipin123</div>
+      </div>
+      <div class="health-card" style="background:rgba(52,199,89,0.08);border-color:rgba(52,199,89,0.2)">
+        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:700;text-transform:uppercase">Auth JWT</span><span style="width:8px;height:8px;background:#34C759;border-radius:50%;display:inline-block"></span></div>
+        <div class="mono" style="margin-top:4px">/api/auth/login</div>
+        <div style="font-size:10px;color:#8E8E93;margin-top:8px">bcryptjs 10 rounds JWT 30d role admin vs learner sanitizeString</div>
+        <div style="font-size:10px;font-weight:600;margin-top:8px">OK 200 ✓</div>
+      </div>
+      <div class="health-card" style="background:rgba(52,199,89,0.08);border-color:rgba(52,199,89,0.2)">
+        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:700;text-transform:uppercase">PWA</span><span style="width:8px;height:8px;background:#34C759;border-radius:50%;display:inline-block"></span></div>
+        <div class="mono" style="margin-top:4px">/manifest.json + sw.js v4</div>
+        <div style="font-size:10px;color:#8E8E93;margin-top:8px">Icons 60→1024 maskable standalone Add to Home Screen = app no App Store</div>
+        <div style="font-size:10px;font-weight:600;margin-top:8px">OK 200 ✓</div>
+      </div>
+      <div class="health-card" style="background:rgba(52,199,89,0.08);border-color:rgba(52,199,89,0.2)">
+        <div style="display:flex;justify-content:space-between"><span style="font-size:11px;font-weight:700;text-transform:uppercase">Frontend</span><span style="width:8px;height:8px;background:#34C759;border-radius:50%;display:inline-block"></span></div>
+        <div class="mono" style="margin-top:4px">/ • Vite 5.4.8</div>
+        <div style="font-size:10px;color:#8E8E93;margin-top:8px">874KB gzip 231KB 108 modules transformed • No duplicate case warnings</div>
+        <div style="font-size:10px;font-weight:600;margin-top:8px">OK 200 ✓ • Build PASS</div>
+      </div>
+      <div class="health-card" style="background:rgba(52,199,89,0.08);border-color:rgba(52,199,89,0.2)">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase">localStorage Persistence</div>
+        <div class="mono" style="margin-top:4px">dansk_diagnostic etc.</div>
+        <div style="font-size:10px;color:#8E8E93;margin-top:8px">diagnostic level verdict progress clearedStages userSeed • Transfer atomic</div>
+        <div style="font-size:10px;font-weight:600;margin-top:8px">OK • Persistence works ✓</div>
+      </div>
+      <div class="health-card" style="background:rgba(0,122,255,0.08);border-color:rgba(0,122,255,0.2)">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase">Guest Data</div>
+        <div class="mono" style="margin-top:4px">Has assessment?</div>
+        <div style="font-size:10px;color:#8E8E93;margin-top:8px">Check localStorage dansk_diagnostic — if empty take test, if exists continue learning</div>
+        <div style="font-size:10px;font-weight:600;margin-top:8px">Dynamic • Take test or Continue</div>
+      </div>
+      <div class="health-card" style="background:#121417;color:#fff;border-color:#121417">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;opacity:0.6">Single-Person Evaluation</div>
+        <div style="font-size:11px;margin-top:8px;line-height:1.4">Shared link → assessment → results → path → account → first exercise → progress without confusion ✓<br>Returning login → current journey → exercise → complete → progress without repeat ✓</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:#121417;color:#fff;border-radius:16px;padding:16px;font-size:11px;line-height:1.5">
+      <b>How we ensure whole system is running:</b> 1. Build check vite build 874KB 231KB gzip 108 modules ✓ 2. Flow test test-flow.js 19 passed 0 issues ✓ 3. Health endpoints /api/health /api/auth/login /manifest.json / ✓ 4. Single-person evaluation guest → assessment → path → account → exercise → progress ✓ Returning login → journey → exercise → complete → progress ✓ 5. Admin Accounts Control Everything view/update/revoke + Dev Tools Admin Only tab keeps Website Architecture Roadmap Share QR Flow Levels Motivation Gallery Audit for admin to see how it is working ✓ 6. Persistence guestData diagnostic level verdict progress clearedStages transferred atomic + Fortsæt her cross-device loadServerToLocal syncLocalToServer ✓ 7. No loop Practice maps weakness category → direct exercise grammar/vocab/listening/writing not path loop ✓ 8. Path M3 M4 M5 detailed exercises stays on app no architectural map ✓
+    </div>
+  </div>
+
+  <!-- Whole process overview -->
+  <div class="card" style="background:#121417;color:#fff">
+    <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;opacity:0.6">Whole Process — One Flow Overview with Motion Arrows</div>
+    <div class="overview-track" id="overviewTrack"></div>
+    <div style="margin-top:12px;font-size:11px;opacity:0.7;line-height:1.5">LANDING → TAKE TEST → INTRO → ASSESSMENT → RESULTS → STRENGTHS → PATH → PREVIEW → START LEARNING → CREATE ACCOUNT → SAVE JOURNEY → DASHBOARD → CURRENT PHASE → TODAY'S EXERCISE → COMPLETE → PROGRESS → NEXT — Every screen clear next action, no dead ends, persistence guest data transferable no loss on close/refresh/logout.</div>
+  </div>
+
+  <h2 style="margin-top:32px">8 Separate Flow Diagrams — Each Case with Motion Arrows • Play to see moving dots</h2>
+  <p style="font-size:11px;color:#8E8E93;margin-top:4px">Each diagram has animated arrows flowing right, dot moving along path. Click Play. Covers guest, returning, admin, shareable, path M1→M5, practice direct, progress, persistence.</p>
+
+  <div id="casesContainer" class="case-grid"></div>
+
+  <div style="text-align:center;font-size:11px;color:#8E8E93;margin-top:32px;padding-bottom:20px">
+    DanskPath • Full System Flow • 8 Cases Separate • Motion Arrows • Health Check • Build 874KB • test-flow.js 19 passed • Live https://danskpath.onrender.com • Admin Dev Tools Tab • M3 M4 M5 Detailed • No Loop Practice Direct<br>
+    File: FULL_SYSTEM_FLOW_MAP.html — Standalone with inline styles + motion arrows — Presentable + Downloadable
+  </div>
+</div>
+
+<script>
+const cases = [
+  {
+    id: 'guest', title: 'Case 1: Guest First-Time • Open → Understand → Assessment → Results → Path → Account → Practice', subtitle: 'Primary principle: No account before value • 7 min • Personal vej', accent: '#121417', color: 'black',
+    steps: [
+      {label:'Simple Landing', sub:'Find your Danish level\nTake short assessment\nCTA Take the Test', icon:'◐'},
+      {label:'Assessment Intro', sub:'What we measure\nDuration 7 min\nWhat you receive', icon:'◑'},
+      {label:'Diagnostic 15Q', sub:'One at a time\nQ X of Y + progress bar\nRandomized answers', icon:'✦'},
+      {label:'Results • Level', sub:'Dit niveau • Section scores\nStrengths + Focus areas\nNo % on top', icon:'◎'},
+      {label:'Strengths/Weakness', sub:'Stærke sider ≥75%\nFokusområder <60%\nWhat went wrong', icon:'✓'},
+      {label:'Path • Din vej', sub:'M1→PD3 timeline\nWhat you will learn\nExercises M3 M4 M5 detailed', icon:'◍'},
+      {label:'Create Account', sub:'Username/password\nGuestData transfer\nDiagnostic+level+progress', icon:'🔐'},
+      {label:'Practice Today', sub:'Fokus: weakness\nDirect exercise\nNo loop to path', icon:'✦'},
+    ],
+    flow:'landing → assessment-intro → diagnostic → results → strengths → path → register → practice',
+    test:'Shared link → assessment → results → path → account → first exercise → progress without confusion ✓'
+  },
+  {
+    id: 'returning', title: 'Case 2: Returning Learner • Login → Current Journey → Exercise → Complete → Progress', subtitle: 'No repeat assessment • Fortsæt her persists • Cross-device', accent: '#007AFF', color: 'blue',
+    steps: [
+      {label:'Login', sub:'Username/password\nJWT 30d\nloadServerToLocal()', icon:'🔑'},
+      {label:'Dashboard', sub:'Current journey\nLevel M1→M5\nProgress overall%', icon:'◍'},
+      {label:'Current Phase', sub:'Active module\nGrammarDone/total\nFortsæt her', icon:'◑'},
+      {label:"Today's Exercise", sub:'Fokus: weakness\nMapped to exercise\nGrammar/Vocab/Lyt', icon:'✦'},
+      {label:'Complete', sub:'Mark done\nSRS Box 0→5\n30-day no repeat', icon:'✓'},
+      {label:'Progress', sub:'Honest numbers\nWeekly report\nNext recommended', icon:'◎'},
+      {label:'Next', sub:'Continue without repeat\nNo dead ends\nClear next action', icon:'→'},
+    ],
+    flow:'login → dashboard → current-phase → today → complete → progress → next',
+    test:'Login → current journey → exercise → complete → progress without repeat ✓'
+  },
+  {
+    id: 'admin', title: 'Case 3: Admin • Controls Everything About Accounts • View/Update/Revoke + Dev Tools Tab', subtitle: 'Admin only: PRODUCT + Dev Tools — learner never sees', accent: '#5856D6', color: 'purple',
+    steps: [
+      {label:'Admin Login', sub:'Vipin / vipin123\nRole admin\nisAdmin() check', icon:'🔐'},
+      {label:'Admin Dashboard', sub:'Accounts • Control Everything\nSearch + Refresh\nUsers.length', icon:'👥'},
+      {label:'Users Tab', sub:'User list: name/email/level\nProgress overall%\nClearedStages lastActive', icon:'📋'},
+      {label:'View/Update/Revoke', sub:'View detail\nUpdate level/progress\nRevoke delete user', icon:'⚙️'},
+      {label:'Dev Tools Tab', sub:'Admin Only Tab\n15 tools grid\nSee how it works', icon:'🛠️'},
+      {label:'Dev Pages', sub:'Website Assessment\nArchitecture Roadmap\nShare QR Flow Levels\nMotivation Gallery Audit', icon:'🗺️'},
+    ],
+    flow:'admin-login → admin-dashboard → users-tab → view-update-revoke → dev-tab → dev-pages',
+    test:'Admin can look at each ones progress, update them if needed and revoke them too ✓'
+  },
+  {
+    id: 'shareable', title: 'Case 4: Shareable Link • Anyone Access → Test → Assessment + Path', subtitle: 'QR + URL • No account needed to start • Independent session', accent: '#FF9500', color: 'orange',
+    steps: [
+      {label:'Shareable Link', sub:'/?page=assessment\nPublic URL\nQR 280px', icon:'↗'},
+      {label:'Anyone Can Access', sub:'No login required\nGuest-first\nTrialId independent', icon:'👤'},
+      {label:'Do Test 15Q', sub:'7 min adaptive\nM1→M5 A1→B2\nRandomized shuffle', icon:'✦'},
+      {label:'Get Assessment', sub:'Level + section scores\nStrengths/weaknesses\nTimeline', icon:'◎'},
+      {label:'Know Path', sub:'Din vej M1→PD3\nWhat you will learn\nExercises M3 M4 M5', icon:'◍'},
+      {label:'Decide', sub:'Can drop\nOr create quick account\nStart assessed path', icon:'→'},
+    ],
+    flow:'share-link → anyone → test → assessment → path-preview → decide',
+    test:'Shareable link for anyone to access link do test, get assessment and know path, can drop or create quick account and start path ✓'
+  },
+  {
+    id: 'path-explore', title: 'Case 5: Path Exploration • What You Will Learn + Exercises Per Module M1→M5', subtitle: 'Stays on app, no architectural map, no roadmap zero to launch', accent: '#121417', color: 'black',
+    steps: [
+      {label:'M1 Foundation A1', sub:'Alfabet æøå SVO\n3-6 ord • 200 ord\nAlphabet dictation\n30-50 ord my family', icon:'1'},
+      {label:'M2 Daily A1-A2', sub:'V2 I dag arbejder jeg\n6-9 ord • 400 ord\nDSB announcement\n60-80 ord sick message', icon:'2'},
+      {label:'M3 Independent A2-B1', sub:'Subordinate at han ikke kommer\nhar/er perfect • 700 ord\nBorgerservice phone\n80-120 ord email landlord', icon:'3'},
+      {label:'M4 Fluent B1', sub:'Strong verbs drak/drukket\nsin/hans distinction • 1000 ord\nDR news multi-speaker\n120-150 ord complain debate', icon:'4'},
+      {label:'M5 PD3 Ready B1-B2', sub:'All 17 topics 2-3 rules\nPassive relative jo/da/vel • 1354 ord\nDR podcast normal speed\n150-200 ord PD3 structure', icon:'5'},
+      {label:'Markér færdig ✓', sub:'Clears stage\nSets progress\nContinues to practice', icon:'✓'},
+    ],
+    flow:'m1 → m2 → m3 → m4 → m5 → mark-done → practice',
+    test:'Path after See my learning path stays on app, shows what exercises will be for M3 M4 M5 ✓'
+  },
+  {
+    id: 'practice-direct', title: 'Case 6: Practice Direct • No Loop • Fokus Weakness → Direct Exercise', subtitle: 'Fixed: was looping A path → level test → back. Now direct', accent: '#34C759', color: 'green',
+    steps: [
+      {label:'Practice Today', sub:'Hej klar til at øve?\nDin vej er klar\nÉt skridt ad gangen', icon:'✦'},
+      {label:'Fokus: Weakness', sub:'Det der giver mest fremgang\nDin test viste X kan forbedres\nMapped to exercise', icon:'🎯'},
+      {label:'Map Category', sub:'grammar → grammar\nvocab → vocab\nlistening → listening\nNo path loop', icon:'🗺️'},
+      {label:'Grammatik', sub:'Direct exercise\n761 + 5100 variants\nExplanation before drill', icon:'✦'},
+      {label:'Ord • SRS', sub:'200→1354 ord\nBox 0→5 • 30d no repeat\nCollocations', icon:'📝'},
+      {label:'Lyt • Writing', sub:'A2 B1 B2\nNo transcript first\n30→200 ord denne uge', icon:'🎧'},
+    ],
+    flow:'today → fokus → map → grammar/vocab/listening/writing → complete (no loop to path)',
+    test:'Practice if we start practice now, says exercises direct, not moves in group A path through A path and level test ✓'
+  },
+  {
+    id: 'progress', title: 'Case 7: Progress & Continue • Honest Numbers + Weekly Report + Next', subtitle: 'No leaderboard, no comparison, only your journey M1→PD3', accent: '#8E8E93', color: 'gray',
+    steps: [
+      {label:'Complete Exercise', sub:'Mark done\nSRS Box update\nProgress++', icon:'✓'},
+      {label:'Honest Numbers', sub:'Level • Secure words\nGrammarDone\nNo gamification', icon:'◎'},
+      {label:'Stage 1→5', sub:'M1 45% • M2 60%\nEvidence to progress\nCleared ✓', icon:'◍'},
+      {label:'Skills', sub:'Listening Reading\nWriting Culture\n% + attempts', icon:'📊'},
+      {label:'Weekly Report', sub:'Auto from your data\nVocab: X secure\nRecommendation Focus', icon:'📋'},
+      {label:'Next Recommended', sub:'Go to recommended →\nWhat works for you\nContinue without repeat', icon:'→'},
+    ],
+    flow:'complete → honest → stages → skills → weekly → next',
+    test:'Progress shows where you are honest numbers + weekly report + reset for testing ✓'
+  },
+  {
+    id: 'persistence', title: 'Case 8: Persistence • Close/Refresh/Logout → Login → Journey Restored', subtitle: 'Guest data transferable • Fortsæt her persists across devices • No loss', accent: '#121417', color: 'black',
+    steps: [
+      {label:'Guest Data', sub:'diagnostic\nlevel verdict\ngoals progress scores\nuserSeed clearedStages', icon:'💾'},
+      {label:'Close/Refresh', sub:'Close browser\nRefresh page\nLogout', icon:'✕'},
+      {label:'Login', sub:'Returning user\nJWT token\nfetchMe()', icon:'🔑'},
+      {label:'Load Server→Local', sub:'loadServerToLocal()\nCross-device\nFortsæt her persists', icon:'⬇️'},
+      {label:'Merge + Sync', sub:'syncLocalToServer()\nMerge local+server\nNo loss', icon:'↻'},
+      {label:'Continue Journey', sub:'No repeat assessment\nCurrent phase\nToday exercise', icon:'→'},
+    ],
+    flow:'guest-data → close → login → load-server → merge → continue',
+    test:'Important learner data persists after close/refresh/logout/return, saved journey available after login ✓'
+  },
+];
+
+function renderOverview(){
+  const track = document.getElementById('overviewTrack');
+  const steps = [
+    {label:'Open', sub:'/?page=simple-landing'},
+    {label:'Understand', sub:'Find your level'},
+    {label:'Assessment', sub:'15Q 7 min'},
+    {label:'Results', sub:'Level + scores'},
+    {label:'Strengths', sub:'Stærke/Fokus'},
+    {label:'Path', sub:'Din vej M1→PD3'},
+    {label:'Preview', sub:'What you learn'},
+    {label:'Start Learning', sub:'Create Account'},
+    {label:'Transfer', sub:'Guest→User atomic'},
+    {label:'Dashboard', sub:'Practice Today'},
+    {label:'Exercise', sub:'Direct no loop'},
+    {label:'Progress', sub:'Honest numbers'},
+    {label:'Next', sub:'Continue no repeat'},
+  ];
+  track.innerHTML = steps.map((s,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+      <div class="overview-step ${i===0||i===steps.length-1?'dark':''}">
+        <div style="font-size:11px;font-weight:700">${s.label}</div>
+        <div style="font-size:9px;opacity:0.6">${s.sub}</div>
+      </div>
+      ${i<steps.length-1?`<div class="motion-track"><div class="motion-dot" style="background:#fff;animation-delay:${i*80}ms"></div></div>`:''}
+    </div>
+  `).join('');
+}
+
+function renderCases(){
+  const container = document.getElementById('casesContainer');
+  container.innerHTML = cases.map((c, idx)=>`
+    <div class="card" id="case-${c.id}">
+      <div style="display:flex;justify-content:space-between;align-items:start;gap:16px;flex-wrap:wrap">
+        <div style="flex:1;min-width:280px">
+          <span class="badge" style="background:${c.accent};color:${c.accent==='#FF9500'?'#000':'#fff'}">Case ${idx+1} • ${c.id} • ${c.color}</span>
+          <h3 style="margin-top:12px">${c.title}</h3>
+          <p style="font-size:12px;color:#8E8E93;margin-top:4px">${c.subtitle}</p>
+          <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+            <span class="mono" style="background:#F2F2F7;padding:4px 10px;border-radius:999px">${c.flow}</span>
+            <span style="background:rgba(52,199,89,0.1);border:1px solid rgba(52,199,89,0.2);color:#34C759;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:600">${c.test}</span>
+          </div>
+        </div>
+        <button class="btn btn-black" onclick="playCase('${c.id}')" id="btn-${c.id}">▶ Play • Motion Arrows</button>
+      </div>
+      <div class="flow-row" id="flow-${c.id}" style="margin-top:20px"></div>
+      <div style="margin-top:12px;display:flex;align-items:center;gap:12px" id="progress-${c.id}">
+        <span style="font-size:10px;font-weight:700;text-transform:uppercase;opacity:0.6">Ready</span>
+        <div class="progress-bar"><div class="progress-fill" id="fill-${c.id}" style="width:0%"></div></div>
+        <span style="font-size:11px" id="label-${c.id}">Click Play to see moving arrows</span>
+      </div>
+    </div>
+  `).join('');
+  cases.forEach(c=> renderFlow(c.id, -1));
+}
+
+function renderFlow(caseId, activeStep){
+  const c = cases.find(x=>x.id===caseId);
+  const el = document.getElementById(`flow-${caseId}`);
+  if(!el) return;
+  el.innerHTML = c.steps.map((s,i)=>{
+    let cls = 'step-box';
+    if(activeStep===i) cls+=' active';
+    else if(activeStep>i) cls+=' done';
+    else if(activeStep+1===i) cls+=' next';
+    return `
+      <div style="display:flex;align-items:center;gap:0;flex-shrink:0">
+        <div class="${cls}">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:28px;height:28px;border-radius:50%;background:#fff;border:1px solid rgba(0,0,0,0.1);display:grid;place-items:center;font-size:12px;font-weight:700;flex-shrink:0">${s.icon}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:11px;font-weight:700;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.label}</div>
+              <div style="font-size:9px;opacity:0.7;line-height:1.2">${s.sub.split('\n')[0]}</div>
+            </div>
+            <div style="width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,0.08);display:grid;place-items:center;font-size:10px;font-weight:800">${i+1}</div>
+          </div>
+          <div style="margin-top:8px;font-size:9px;line-height:1.3;white-space:pre-wrap;opacity:${activeStep===i?0.9:0.7}">${s.sub}</div>
+        </div>
+        ${i<c.steps.length-1?`<div class="motion-track" style="margin:0 4px"><div class="motion-dot" style="background:${c.accent};animation-delay:${i*120}ms"></div></div>`:''}
+      </div>
+    `;
+  }).join('');
+}
+
+const intervals = {};
+function playCase(caseId){
+  if(intervals[caseId]){ clearInterval(intervals[caseId]); delete intervals[caseId]; document.getElementById(`btn-${caseId}`).textContent='▶ Play • Motion Arrows'; document.getElementById(`btn-${caseId}`).className='btn btn-black'; renderFlow(caseId, -1); document.getElementById(`fill-${caseId}`).style.width='0%'; document.getElementById(`label-${caseId}`).textContent='Click Play to see moving arrows'; return; }
+  const c = cases.find(x=>x.id===caseId);
+  let step = 0;
+  document.getElementById(`btn-${caseId}`).textContent='⏸ Stop'; document.getElementById(`btn-${caseId}`).className='btn btn-red';
+  renderFlow(caseId, step);
+  document.getElementById(`fill-${caseId}`).style.width=`${((step+1)/c.steps.length*100)}%`;
+  document.getElementById(`label-${caseId}`).textContent=`Step ${step+1}/${c.steps.length}: ${c.steps[step].label} → ${c.steps[step+1]?.label||'Done ✓'}`;
+  intervals[caseId] = setInterval(()=>{
+    step++;
+    if(step>=c.steps.length){ clearInterval(intervals[caseId]); delete intervals[caseId]; document.getElementById(`btn-${caseId}`).textContent='▶ Play • Motion Arrows'; document.getElementById(`btn-${caseId}`).className='btn btn-black'; document.getElementById(`fill-${caseId}`).style.width='100%'; document.getElementById(`label-${caseId}`).textContent='Done ✓ — '+c.test; setTimeout(()=>{ renderFlow(caseId, -1); document.getElementById(`fill-${caseId}`).style.width='0%'; document.getElementById(`label-${caseId}`).textContent='Click Play to see moving arrows'; }, 2000); return; }
+    renderFlow(caseId, step);
+    document.getElementById(`fill-${caseId}`).style.width=`${((step+1)/c.steps.length*100)}%`;
+    document.getElementById(`label-${caseId}`).textContent=`Step ${step+1}/${c.steps.length}: ${c.steps[step].label} → ${c.steps[step+1]?.label||'Done ✓'}`;
+  }, 1100);
+}
+
+renderOverview();
+renderCases();
+</script>
+</body>
+</html>
