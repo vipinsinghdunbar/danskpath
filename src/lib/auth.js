@@ -27,8 +27,10 @@ export function isAdmin() {
 }
 
 export function logout() {
-  localStorage.removeItem(TOKEN_KEY);
-  localStorage.removeItem(USER_KEY);
+  const keysToClear = [TOKEN_KEY, USER_KEY, 'dansk_diagnostic','dansk_verdict','dansk_level','dansk_progress','dansk_scores','dansk_path','dansk_srs','dansk_seen','dansk_user_seed','dansk_goals','dansk_welcomed','danskpath_user','danskpath_token'];
+  ['m1','m2','m3','m4','m5'].forEach(m=> keysToClear.push(`stage_${m}_cleared`));
+  keysToClear.forEach(k => { try { localStorage.removeItem(k); } catch {} });
+  try { Object.keys(localStorage).forEach(k => { if (k.startsWith('dansk_')) localStorage.removeItem(k); }); } catch {}
 }
 
 export async function login(emailOrName, password) {

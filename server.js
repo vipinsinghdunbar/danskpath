@@ -15,9 +15,11 @@ const PORT = process.env.PORT || 3001;
 // Support persistent disk on Render (/data), Fly.io (/data), and local
 const DATA_DIR = fs.existsSync('/data') ? '/data' : __dirname;
 const DB_FILE = path.join(DATA_DIR, 'danish-platform-db.json');
-const JWT_SECRET = process.env.JWT_SECRET || 'danskpath-secret-key-change-in-prod';
-const JWT_EXPIRES = '30d';
 const NODE_ENV = process.env.NODE_ENV || 'development';
+const JWT_SECRET = process.env.JWT_SECRET || (NODE_ENV === 'production' ? (()=>{ console.error('❌ FATAL: JWT_SECRET must be set in production'); process.exit(1); })() : 'dev-only-secret-rotate-in-prod-'+__import__('random').randint(100000,999999));
+const JWT_EXPIRES = process.env.JWT_EXPIRES || '7d';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const BUILD_VERSION = process.env.BUILD_VERSION || 'v'+__import__('time').time().__str__()[:10];
 const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || '').split(',').filter(Boolean);
 
 // Security: warn if using default secret in production
@@ -134,12 +136,17 @@ function writeDB(data) {
   fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
 }
 
-// Ensure admin Vipin exists
+// Ensure admin Vipin exists — SECURITY FIX per Action Plan Phase 0: no hardcoded password, use env var
 function ensureAdmin() {
   const db = readDB();
   let admin = db.users.find(u => u.role === 'admin' && u.name === 'Vipin');
   if (!admin) {
-    const hash = bcrypt.hashSync('vipin123', 10); // default password, can be changed
+    const rawPassword = ADMIN_PASSWORD || (NODE_ENV !== 'production' ? 'dev-admin-' + Math.random().toString(36).slice(2,10) : null);
+    if (!rawPassword) {
+      console.error('❌ ADMIN_PASSWORD not set — admin creation skipped. Set ADMIN_PASSWORD env var.');
+      return null;
+    }
+    const hash = bcrypt.hashSync(rawPassword, 10);
     admin = {
       id: uuidv4(),
       name: 'Vipin',
@@ -148,13 +155,17 @@ function ensureAdmin() {
       passwordHash: hash,
       createdAt: new Date().toISOString(),
       danishStartDate: '2023-01-15',
-      targetLevel: 'PD3',
-      goals: ['child_school', 'job_interview', 'pd3'],
+      targetLevel: 'Modul 3',
+      goals: ['child_school', 'job_interview', 'modultest3'],
       status: 'active'
     };
     db.users.push(admin);
     writeDB(db);
-    console.log('✅ Admin Vipin created: email vipin@danskpath.dk / password vipin123');
+    if (NODE_ENV !== 'production') {
+      console.log(`✅ Admin Vipin created: email vipin@danskpath.dk — password from env or generated`);
+    } else {
+      console.log('✅ Admin Vipin created from ADMIN_PASSWORD env var');
+    }
   }
   return admin;
 }
@@ -347,7 +358,7 @@ app.post('/api/auth/login', rateLimit({ max: 10, windowMs: 15*60*1000, keyPrefix
   // Allow login by name or email - sanitize
   const identifier = sanitizeString(email || name || '', 200);
   const user = db.users.find(u => u.email === identifier || u.name === identifier || u.email === name);
-  if (!user) return res.status(401).json({ error: 'User not found. Default admin: Vipin / vipin123 (change in production)' });
+  if (!user) return res.status(401).json({ error: 'User not found' });
   
   const valid = bcrypt.compareSync(password, user.passwordHash);
   if (!valid) return res.status(401).json({ error: 'Wrong password' });
@@ -370,6 +381,14 @@ app.post('/api/auth/login', rateLimit({ max: 10, windowMs: 15*60*1000, keyPrefix
     diagnostic: user.guestDiagnostic,
     verdict: user.guestVerdict
   }});
+});
+
+app.post('/api/auth/refresh', authMiddleware, (req, res) => {
+  const db = readDB();
+  const user = db.users.find(u => u.id === req.user.id);
+  if (!user) return res.status(404).json({ error: 'User not found' });
+  const token = jwt.sign({ id: user.id, name: user.name, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
+  res.json({ ok: true, token });
 });
 
 app.get('/api/auth/me', authMiddleware, (req, res) => {
@@ -546,21 +565,65 @@ app.post('/api/progress/sync', authMiddleware, (req, res) => {
   const user = db.users.find(u => u.id === req.user.id);
   if (!user) return res.status(404).json({ error: 'User not found' });
   
-  // Full sync from client localStorage to server — merge, server keeps cleared stages
-  const serverCleared = user.clearedStages || user.progress?.clearedStages || {};
-  const clientCleared = clearedStages || progress?.clearedStages || {};
+  // Phase3 monotone merge per Action Plan table: Answers Union, Word-book max, Completed earliest, Stage best, Admin-set kept marked
+  const serverProgress = user.progress || {};
+  const clientProgress = progress || {};
+  const serverCleared = user.clearedStages || serverProgress.clearedStages || {};
+  const clientCleared = clearedStages || clientProgress.clearedStages || {};
   
-  // Merge: server cleared + client cleared (union) — once cleared, stays cleared across devices
+  // Merge cleared union
   const mergedCleared = { ...serverCleared, ...clientCleared };
+  Object.keys(mergedCleared).forEach(k=>{
+    if (serverCleared[k]==='true' || clientCleared[k]==='true') mergedCleared[k]='true';
+  });
   
-  user.progress = {
-    ...(user.progress || {}),
-    ...(user.guestProgress || {}),
-    ...(progress || {}),
-    clearedStages: mergedCleared,
-    lastSyncedAt: new Date().toISOString()
-  };
-  user.scores = { ...(user.scores || {}), ...(user.guestScores || {}), ...(scores || {}) };
+  // Merge progress monotone
+  const mergedProgress = { ...serverProgress, ...clientProgress };
+  
+  // Answers union
+  const serverAnswers = serverProgress.answers || {};
+  const clientAnswers = clientProgress.answers || {};
+  mergedProgress.answers = { ...serverAnswers, ...clientAnswers };
+  Object.keys(mergedProgress.answers).forEach(k=>{
+    if (serverAnswers[k]===true || clientAnswers[k]===true) mergedProgress.answers[k]=true;
+  });
+  
+  // Word-book max
+  mergedProgress.vocabDone = Math.max(serverProgress.vocabDone||0, clientProgress.vocabDone||0);
+  mergedProgress.grammarDone = Math.max(serverProgress.grammarDone||0, clientProgress.grammarDone||0);
+  mergedProgress.srs = { ...(serverProgress.srs||{}), ...(clientProgress.srs||{}) };
+  
+  // Completed earliest date
+  mergedProgress.completedSteps = { ...(serverProgress.completedSteps||{}), ...(clientProgress.completedSteps||{}) };
+  Object.keys(mergedProgress.completedSteps).forEach(k=>{
+    const s = serverProgress.completedSteps?.[k];
+    const c = clientProgress.completedSteps?.[k];
+    if (s && c) mergedProgress.completedSteps[k] = new Date(s) < new Date(c) ? s : c;
+    else mergedProgress.completedSteps[k] = s || c;
+  });
+  
+  // Stage best score
+  mergedProgress.stageScores = { ...(serverProgress.stageScores||{}), ...(clientProgress.stageScores||{}) };
+  Object.keys(mergedProgress.stageScores).forEach(k=>{
+    mergedProgress.stageScores[k] = Math.max(serverProgress.stageScores?.[k]||0, clientProgress.stageScores?.[k]||0);
+  });
+  
+  // Admin-set kept marked
+  mergedProgress.adminSet = { ...(serverProgress.adminSet||{}), ...(clientProgress.adminSet||{}) };
+  Object.keys(mergedProgress.adminSet).forEach(k=>{
+    if (serverProgress.adminSet?.[k]==='true' || clientProgress.adminSet?.[k]==='true') mergedProgress.adminSet[k]='true';
+  });
+  
+  // Overall max
+  mergedProgress.overall = Math.max(serverProgress.overall||0, clientProgress.overall||0);
+  mergedProgress.clearedStages = mergedCleared;
+  mergedProgress.lastSyncedAt = new Date().toISOString();
+  
+  user.progress = mergedProgress;
+  user.scores = { ...(user.scores || {}), ...(scores || {}) };
+  Object.keys(user.scores).forEach(k=>{
+    user.scores[k] = Math.max((user.scores[k]||0), (scores?.[k]||0));
+  });
   user.clearedStages = mergedCleared;
   if(level) { user.level = level; user.guestLevel = level; }
   if(diagnostic) user.guestDiagnostic = diagnostic;
@@ -576,7 +639,8 @@ app.post('/api/progress/sync', authMiddleware, (req, res) => {
     clearedStages: user.clearedStages,
     level: user.level,
     lastSyncedAt: user.progress.lastSyncedAt,
-    message: 'Progress synced — persists across devices'
+    mergedCount: Object.keys(mergedProgress.answers||{}).length,
+    message: `Merged ${Object.keys(mergedProgress.answers||{}).length} stages • answers union • word-book max • earliest completed • best scores • admin-set kept marked`
   });
 });
 
@@ -919,7 +983,20 @@ app.get('/api/stats', (req, res)=>{
 });
 
 // Security & Compliance endpoints
-app.get('/api/health', (req,res)=>res.json({ ok: true, time: new Date().toISOString(), users: readDB().users.length, env: NODE_ENV, secure: NODE_ENV === 'production' ? JWT_SECRET !== 'danskpath-secret-key-change-in-prod' : true }));
+app.get('/api/health', async (req, res) => {
+  try {
+    const db = readDB();
+    const testKey = '__health_ping__';
+    db[testKey] = { at: Date.now(), build: BUILD_VERSION };
+    writeDB(db);
+    const db2 = readDB();
+    delete db2[testKey];
+    writeDB(db2);
+    res.json({ ok: true, build: BUILD_VERSION, at: Date.now(), time: new Date().toISOString(), users: db.users.length, env: NODE_ENV, secure: NODE_ENV === 'production' ? !JWT_SECRET.includes('dev-only-secret') : true, jwtExpiry: JWT_EXPIRES, store: 'ok' });
+  } catch (e) {
+    res.status(503).json({ ok: false, error: 'Store ping failed', details: e.message });
+  }
+});
 
 app.get('/api/security/audit', (req,res)=>{
   const issues = [];
@@ -1046,7 +1123,7 @@ app.listen(PORT, '0.0.0.0', ()=>{
   console.log(`🚀 DanskPath API + DB running on http://0.0.0.0:${PORT}`);
   console.log(`📁 DB file: ${DB_FILE} (exists: ${fs.existsSync(DB_FILE)})`);
   console.log(`📂 Dist exists: ${fs.existsSync(path.join(__dirname, 'dist'))}`);
-  console.log(`👤 Admin: Vipin / vipin123 (change after first login)`);
+  console.log(`👤 Admin: Vipin from ADMIN_PASSWORD env var — JWT ${JWT_EXPIRES} — Build ${BUILD_VERSION}`);
   console.log(`🌐 Public URL: ${process.env.RENDER_EXTERNAL_URL || process.env.VERCEL_URL || `http://localhost:${PORT}`}`);
   console.log(`🔗 Assessment: /?page=assessment or /assessment`);
 });

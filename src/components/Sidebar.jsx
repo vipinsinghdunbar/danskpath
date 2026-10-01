@@ -5,7 +5,7 @@ const learnerSections = [
   {
     title: "LEARN",
     items: [
-      { id: "practice", label: "Today", meta: "15 min", icon: "✦" },
+      { id: "practice", label: "Up next", meta: "15 min", icon: "✦" },
       { id: "path", label: "My Path", meta: "M1→5", icon: "◍" },
       { id: "progress", label: "Progress", meta: "Weekly", icon: "◎" },
       { id: "diagnostic", label: "Level Test", meta: "7 min", icon: "◑" },
@@ -15,7 +15,7 @@ const learnerSections = [
 
 const adminSections = [
   {
-    title: "PRODUCT — Admin only",
+    title: "PRODUCT (admin only) — Admin only",
     items: [
       { id: "website", label: "Website", meta: "Public", icon: "◐" },
       { id: "assessment", label: "Assessment", meta: "Shareable", icon: "◑" },
@@ -27,7 +27,7 @@ const adminSections = [
   {
     title: "LEARN",
     items: [
-      { id: "practice", label: "Today", meta: "15 min", icon: "✦" },
+      { id: "practice", label: "Up next", meta: "15 min", icon: "✦" },
       { id: "path", label: "Path", meta: "M1→5", icon: "◍" },
       { id: "diagnostic", label: "Level Test", meta: "7 min", icon: "◑" },
       { id: "progress", label: "Progress", meta: "Weekly", icon: "◎" },

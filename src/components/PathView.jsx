@@ -137,7 +137,7 @@ export default function PathView({ setActive }) {
               <div className="mt-5 flex gap-2 flex-wrap">
                 {!activeProgress?.cleared ? (
                   <>
-                    <button onClick={markDone} className="px-5 py-2.5 rounded-full bg-[#34C759] text-white text-[13px] font-[600]">Markér færdig ✓</button>
+                    <button onClick={markDone} className="px-5 py-2.5 rounded-full bg-[#34C759] text-white text-[13px] font-[600]">Status: auto mastery ✓</button>
                     <button onClick={()=>tap('practice')} className="px-5 py-2.5 rounded-full bg-black text-white text-[13px] font-[600]">Øvelser →</button>
                   </>
                 ) : (

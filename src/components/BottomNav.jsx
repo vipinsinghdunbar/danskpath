@@ -1,6 +1,6 @@
 export default function BottomNav({ active, setActive }) {
   const primary = [
-    { id: "practice", label: "Today", icon: "◐" },
+    { id: "practice", label: "Up next", icon: "◐" },
     { id: "path", label: "Path", icon: "◍" },
     { id: "progress", label: "Progress", icon: "◎" },
   ];
@@ -43,7 +43,7 @@ export function MoreSheet({ active, setActive, onClose }) {
   const sections = [
     { title: "LEARN", items: [
       { id: "simple-landing", label: "Home", desc: "Find your level", icon: "🏠" },
-      { id: "practice", label: "Today", desc: "What to practice", icon: "✦" },
+      { id: "practice", label: "Up next", desc: "What to practice", icon: "✦" },
       { id: "path", label: "My Path", desc: "Modul 1→5", icon: "◍" },
       { id: "progress", label: "Progress", desc: "Weekly report", icon: "📊" },
       { id: "diagnostic", label: "Level Test", desc: "7 min", icon: "📝" },

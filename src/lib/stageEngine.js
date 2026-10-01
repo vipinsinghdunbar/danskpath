@@ -210,22 +210,33 @@ export function getStageProgress(stageId) {
     const scores = JSON.parse(localStorage.getItem('dansk_scores')||'{}');
     const srs = JSON.parse(localStorage.getItem('dansk_srs')||'{}');
     const stage = getStageById(stageId);
-    if(!stage) return { overall: 0, cleared: false, grammarDone: 0, grammarTotal: 0, grammarPct: 0 };
+    if(!stage) return { overall: 0, cleared: false, mastery: false, grammarDone: 0, grammarTotal: 0, grammarPct: 0 };
     
-    // Check manually cleared via Markér færdig ✓ button
-    const manuallyCleared = localStorage.getItem(`stage_${stage.moduleId}_cleared`) === 'true';
+    // Per Action Plan Phase2: Remove manual Markér færdig, stages clear on mastery rule 80% over 15 answers
+    // Check admin-set progress — store as admin-set and show that way
+    const isAdminSet = progress.adminSet && progress.adminSet[`stage_${stage.moduleId}_cleared`] === 'true';
+    const manuallyClearedLegacy = localStorage.getItem(`stage_${stage.moduleId}_cleared`) === 'true';
     
-    const grammarDone = stage.grammarRequirements.filter(t=>progress[`grammar_${t}`] || path[`grammar_${t}`] || scores[`grammar_${t}`]).length;
+    const grammarDone = stage.grammarRequirements.filter(t=>progress[`grammar_${t}`] || path[`grammar_${t}`] || scores[`grammar_${t}`] || progress[`grammar_${t}_done`]).length;
     const grammarTotal = stage.grammarRequirements.length;
     const grammarPct = grammarTotal ? Math.round(grammarDone / grammarTotal * 100) : 0;
     
-    // Overall avg from multiple sources
+    // Mastery rule: at least 80% over at least 15 recent answers per Action Plan
+    const answers = progress.answers || {};
+    const recentAnswers = Object.entries(answers).slice(-15);
+    const recentCorrect = recentAnswers.filter(([_, correct]) => correct === true).length;
+    const recentTotal = recentAnswers.length;
+    const recentPct = recentTotal ? Math.round(recentCorrect / recentTotal * 100) : 0;
+    const mastery = recentTotal >= 15 && recentPct >= 80;
+    
+    // Overall avg from multiple sources with mastery
     const vocabDone = Object.keys(srs).length;
     const vocabPct = Math.min(100, Math.round(vocabDone / stage.vocabRequirements.count * 100));
-    const overall = Math.round((grammarPct + vocabPct) / 2);
+    const overallBase = Math.round((grammarPct + vocabPct + (recentPct||0)) / 3);
+    const overall = isAdminSet ? 100 : mastery ? 100 : overallBase;
     
-    // Cleared lenient 50%/60% per spec + manually cleared
-    const cleared = manuallyCleared || grammarPct >= 50 || overall >= 60 || grammarPct >= stage.passingCriteria.grammar;
+    // Cleared if mastery OR admin-set OR legacy manual (for migration) OR grammarPct >= passing
+    const cleared = isAdminSet || manuallyClearedLegacy || mastery || grammarPct >= stage.passingCriteria.grammar || overall >= 80;
     
     return {
       stage,
@@ -234,12 +245,18 @@ export function getStageProgress(stageId) {
       grammarPct,
       vocabDone,
       vocabPct,
-      overall: manuallyCleared ? 100 : overall,
+      recentCorrect,
+      recentTotal,
+      recentPct,
+      mastery,
+      isAdminSet,
+      overall,
       cleared,
-      manuallyCleared
+      clearedBy: isAdminSet ? 'admin-set' : mastery ? 'mastery 80% over 15' : manuallyClearedLegacy ? 'legacy manual' : grammarPct >= stage.passingCriteria.grammar ? 'grammar mastery' : 'in progress',
+      manuallyCleared: isAdminSet || manuallyClearedLegacy
     };
   } catch {
-    return { overall: 0, cleared: false, grammarDone: 0, grammarTotal: 0, grammarPct: 0 };
+    return { overall: 0, cleared: false, mastery: false, grammarDone: 0, grammarTotal: 0, grammarPct: 0 };
   }
 }
 
@@ -281,3 +298,5 @@ export function resetProgress() {
 export function isStageCleared(moduleId) {
   return localStorage.getItem(`stage_${moduleId}_cleared`) === 'true' || getStageProgress(moduleId).cleared;
 }
+
+// Mastery rule: 80% over 15 answers per Action Plan Phase2

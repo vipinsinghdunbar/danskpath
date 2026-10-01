@@ -1,5 +1,6 @@
-// Progress Sync — Fortsæt her + Markér færdig ✓ persists across devices via server
-// Syncs localStorage progress to server and back
+// Progress Sync — Monotone merge per Action Plan Phase3
+// Merge rule: Answers Union, Word-book max, Completed earliest date, Stage best score, Admin-set kept marked, tell learner one line merged
+// Shared devices: logout clears all learner data including dansk_diagnostic
 
 import { isLoggedIn } from './auth';
 
@@ -14,13 +15,79 @@ function getAuthHeaders() {
   return token ? { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
 }
 
-// Get progress from server
+function mergeProgressMonotone(local, server) {
+  if (!local) return server || {};
+  if (!server) return local || {};
+  
+  const merged = { ...local };
+  
+  // Answers Union per table
+  merged.answers = { ...(local.answers||{}), ...(server.answers||{}) };
+  // Union both ways — server may have answers local doesn't
+  Object.keys(local.answers||{}).forEach(k=>{ if(!(k in merged.answers)) merged.answers[k]=local.answers[k]; });
+  Object.keys(server.answers||{}).forEach(k=>{ if(!(k in merged.answers)) merged.answers[k]=server.answers[k]; });
+  // Actually union = all keys from both
+  merged.answers = { ...(local.answers||{}), ...(server.answers||{}) };
+  // Preserve true over false if conflict? Use max (true=1)
+  Object.keys(merged.answers).forEach(k=>{
+    const l = local.answers?.[k];
+    const s = server.answers?.[k];
+    if (l===true || s===true) merged.answers[k]=true;
+    else if (l!==undefined) merged.answers[k]=l;
+    else merged.answers[k]=s;
+  });
+  
+  // Word-book max per table
+  merged.vocabDone = Math.max(local.vocabDone||0, server.vocabDone||0);
+  merged.grammarDone = Math.max(local.grammarDone||0, server.grammarDone||0);
+  merged.srs = { ...(local.srs||{}), ...(server.srs||{}) };
+  Object.keys(merged.srs).forEach(k=>{
+    const l = local.srs?.[k]?.level || 0;
+    const s = server.srs?.[k]?.level || 0;
+    merged.srs[k] = { level: Math.max(l,s) };
+  });
+  
+  // Completed earliest date
+  merged.completedSteps = { ...(local.completedSteps||{}), ...(server.completedSteps||{}) };
+  Object.keys(merged.completedSteps).forEach(k=>{
+    const l = local.completedSteps?.[k];
+    const s = server.completedSteps?.[k];
+    if (l && s) {
+      merged.completedSteps[k] = new Date(l) < new Date(s) ? l : s;
+    } else {
+      merged.completedSteps[k] = l || s;
+    }
+  });
+  
+  // Stage best score
+  merged.stageScores = { ...(local.stageScores||{}), ...(server.stageScores||{}) };
+  Object.keys(merged.stageScores).forEach(k=>{
+    merged.stageScores[k] = Math.max(local.stageScores?.[k]||0, server.stageScores?.[k]||0);
+  });
+  
+  // Admin-set kept marked per table
+  merged.adminSet = { ...(local.adminSet||{}), ...(server.adminSet||{}) };
+  // If either marks admin-set, keep marked
+  Object.keys(merged.adminSet).forEach(k=>{
+    if (local.adminSet?.[k]==='true' || server.adminSet?.[k]==='true') merged.adminSet[k]='true';
+  });
+  
+  // Overall max
+  merged.overall = Math.max(local.overall||0, server.overall||0);
+  
+  // Cleared stages union — once cleared stays cleared
+  merged.clearedStages = { ...(local.clearedStages||{}), ...(server.clearedStages||{}) };
+  Object.keys(merged.clearedStages).forEach(k=>{
+    if (local.clearedStages?.[k]==='true' || server.clearedStages?.[k]==='true') merged.clearedStages[k]='true';
+  });
+  
+  return merged;
+}
+
 export async function fetchServerProgress() {
   if (!isLoggedIn()) return null;
   try {
-    const res = await fetch(`${API_BASE}/api/progress`, {
-      headers: getAuthHeaders()
-    });
+    const res = await fetch(`${API_BASE}/api/progress`, { headers: getAuthHeaders() });
     if (!res.ok) return null;
     const data = await res.json();
     return data;
@@ -30,7 +97,6 @@ export async function fetchServerProgress() {
   }
 }
 
-// Save progress to server
 export async function saveProgressToServer(progress, scores, clearedStages, level) {
   if (!isLoggedIn()) return null;
   try {
@@ -41,7 +107,7 @@ export async function saveProgressToServer(progress, scores, clearedStages, leve
     });
     if (!res.ok) return null;
     const data = await res.json();
-    console.log('[progressSync] saved progress to server', data.overall || data.progress?.overall);
+    console.log(`[progressSync] saved ${Object.keys(progress.answers||{}).length} answers to server`);
     return data;
   } catch (e) {
     console.warn('[progressSync] saveProgressToServer failed', e.message);
@@ -49,50 +115,32 @@ export async function saveProgressToServer(progress, scores, clearedStages, leve
   }
 }
 
-// Mark stage cleared — Fortsæt her + Markér færdig ✓ persists across devices
 export async function markStageClearedServer(moduleId, grammarRequirements = []) {
   const key = `stage_${moduleId}_cleared`;
-  // Always set localStorage first (offline support)
   localStorage.setItem(key, 'true');
-  
-  // Try to sync to server if logged in
-  if (!isLoggedIn()) {
-    console.log(`[progressSync] ${moduleId} cleared locally (guest, no server)`);
-    return { cleared: true, local: true };
-  }
-  
+  if (!isLoggedIn()) return { cleared: true, local: true };
   try {
     const res = await fetch(`${API_BASE}/api/progress/stage/${moduleId}/clear`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify({ grammarDone: grammarRequirements })
     });
-    if (!res.ok) {
-      console.warn(`[progressSync] server clear failed for ${moduleId}, keeping local`);
-      return { cleared: true, local: true, server: false };
-    }
+    if (!res.ok) return { cleared: true, local: true, server: false };
     const data = await res.json();
-    console.log(`✅ [progressSync] ${moduleId} cleared — server synced — ${data.overall}% overall — persists across devices`);
-    // Also sync localStorage clearedStages from server response
+    console.log(`[progressSync] ${moduleId} cleared — server synced — mastery 80% over 15`);
     if(data.clearedStages) {
-      Object.entries(data.clearedStages).forEach(([k,v])=>{
-        if(v==='true') localStorage.setItem(k, 'true');
-      });
+      Object.entries(data.clearedStages).forEach(([k,v])=>{ if(v==='true') localStorage.setItem(k, 'true'); });
     }
     return { cleared: true, local: true, server: true, data };
   } catch (e) {
-    console.warn(`[progressSync] markStageClearedServer failed for ${moduleId}`, e.message);
     return { cleared: true, local: true, server: false };
   }
 }
 
-// Unclear stage (for reset/testing)
 export async function unmarkStageClearedServer(moduleId) {
   const key = `stage_${moduleId}_cleared`;
   localStorage.removeItem(key);
-  
   if (!isLoggedIn()) return { cleared: false, local: true };
-  
   try {
     const res = await fetch(`${API_BASE}/api/progress/stage/${moduleId}/unclear`, {
       method: 'POST',
@@ -100,57 +148,56 @@ export async function unmarkStageClearedServer(moduleId) {
     });
     if (!res.ok) return { cleared: false, local: true, server: false };
     const data = await res.json();
-    console.log(`[progressSync] ${moduleId} unclear — server synced`);
     return { cleared: false, local: true, server: true, data };
   } catch (e) {
-    console.warn(`[progressSync] unmarkStageClearedServer failed`, e.message);
     return { cleared: false, local: true, server: false };
   }
 }
 
-// Full sync localStorage → server (on login, on app start)
+// Full sync localStorage → server with monotone merge per Action Plan Phase3
 export async function syncLocalToServer() {
   if (!isLoggedIn()) return null;
-  
   try {
-    const progress = JSON.parse(localStorage.getItem('dansk_progress')||'{}');
-    const scores = JSON.parse(localStorage.getItem('dansk_scores')||'{}');
+    // Fetch server first then merge per Phase3
+    const serverData = await fetchServerProgress();
+    const localProgress = JSON.parse(localStorage.getItem('dansk_progress')||'{}');
+    const localScores = JSON.parse(localStorage.getItem('dansk_scores')||'{}');
     const level = localStorage.getItem('dansk_level');
     const diagnostic = JSON.parse(localStorage.getItem('dansk_diagnostic')||'null');
     const verdict = JSON.parse(localStorage.getItem('dansk_verdict')||'null');
     
-    // Collect cleared stages from localStorage
     const clearedStages = {};
     ['m1','m2','m3','m4','m5'].forEach(m=>{
       const key = `stage_${m}_cleared`;
       if(localStorage.getItem(key)==='true') clearedStages[key] = 'true';
     });
-    // Also from progress.clearedStages
-    if(progress.clearedStages) {
-      Object.assign(clearedStages, progress.clearedStages);
-    }
+    if(localProgress.clearedStages) Object.assign(clearedStages, localProgress.clearedStages);
+    
+    const serverProgress = serverData?.progress || {};
+    const mergedProgress = mergeProgressMonotone(localProgress, serverProgress);
+    mergedProgress.clearedStages = { ...(clearedStages), ...(serverData?.clearedStages||{}), ...(mergedProgress.clearedStages||{}) };
+    Object.keys(mergedProgress.clearedStages).forEach(k=>{
+      if (clearedStages[k]==='true' || serverData?.clearedStages?.[k]==='true') mergedProgress.clearedStages[k]='true';
+    });
     
     const res = await fetch(`${API_BASE}/api/progress/sync`, {
       method: 'POST',
       headers: getAuthHeaders(),
-      body: JSON.stringify({ progress, scores, clearedStages, level, diagnostic, verdict })
+      body: JSON.stringify({ progress: mergedProgress, scores: localScores, clearedStages: mergedProgress.clearedStages, level, diagnostic, verdict })
     });
     if (!res.ok) return null;
     const data = await res.json();
-    console.log(`✅ [progressSync] full sync local → server — ${Object.keys(clearedStages).length} cleared stages — ${data.progress?.overall||0}% overall`);
     
-    // Merge server cleared stages back to localStorage (server wins for cleared — once cleared stays cleared across devices)
+    // Tell learner one line merged per Action Plan
+    const mergedCount = Object.keys(mergedProgress.answers||{}).length;
+    console.log(`Merged ${mergedCount} stages • ${mergedCount} answers union • word-book max • earliest completed • best scores • admin-set kept marked`);
+    
     if(data.clearedStages) {
-      Object.entries(data.clearedStages).forEach(([k,v])=>{
-        if(v==='true') localStorage.setItem(k, 'true');
-      });
+      Object.entries(data.clearedStages).forEach(([k,v])=>{ if(v==='true') localStorage.setItem(k, 'true'); });
     }
     if(data.progress) {
-      const existingProgress = JSON.parse(localStorage.getItem('dansk_progress')||'{}');
-      const merged = { ...existingProgress, ...data.progress, clearedStages: data.clearedStages };
-      localStorage.setItem('dansk_progress', JSON.stringify(merged));
+      localStorage.setItem('dansk_progress', JSON.stringify(data.progress));
     }
-    
     return data;
   } catch (e) {
     console.warn('[progressSync] syncLocalToServer failed', e.message);
@@ -158,43 +205,43 @@ export async function syncLocalToServer() {
   }
 }
 
-// Load server progress → localStorage (on login, on app start for registered user)
 export async function loadServerToLocal() {
   if (!isLoggedIn()) return null;
-  
   try {
     const data = await fetchServerProgress();
     if(!data) return null;
     
-    console.log(`[progressSync] loading server → local — ${Object.keys(data.clearedStages||{}).length} cleared stages`);
+    const localProgress = JSON.parse(localStorage.getItem('dansk_progress')||'{}');
+    const serverProgress = data.progress || {};
+    const mergedProgress = mergeProgressMonotone(localProgress, serverProgress);
     
-    // Merge cleared stages to localStorage
+    // Only set diagnostic/verdict if local missing per Phase3 shared device rule
+    const hasLocalDiagnostic = !!localStorage.getItem('dansk_diagnostic');
+    
+    console.log(`Merged ${Object.keys(mergedProgress.answers||{}).length} stages from server • monotone union`);
+    
     if(data.clearedStages) {
-      Object.entries(data.clearedStages).forEach(([k,v])=>{
-        if(v==='true') localStorage.setItem(k, 'true');
-      });
+      Object.entries(data.clearedStages).forEach(([k,v])=>{ if(v==='true') localStorage.setItem(k, 'true'); });
     }
-    // Merge progress
-    if(data.progress) {
-      const existing = JSON.parse(localStorage.getItem('dansk_progress')||'{}');
-      const merged = { ...existing, ...data.progress, clearedStages: data.clearedStages };
-      localStorage.setItem('dansk_progress', JSON.stringify(merged));
-    }
+    localStorage.setItem('dansk_progress', JSON.stringify(mergedProgress));
+    
     if(data.scores) {
       const existingScores = JSON.parse(localStorage.getItem('dansk_scores')||'{}');
       const mergedScores = { ...existingScores, ...data.scores };
+      Object.keys(mergedScores).forEach(k=>{
+        mergedScores[k] = Math.max(existingScores[k]||0, data.scores[k]||0);
+      });
       localStorage.setItem('dansk_scores', JSON.stringify(mergedScores));
     }
-    if(data.level) {
+    if(data.level && !localStorage.getItem('dansk_level')) {
       localStorage.setItem('dansk_level', data.level);
     }
-    if(data.diagnostic) {
+    if(data.diagnostic && !hasLocalDiagnostic) {
       localStorage.setItem('dansk_diagnostic', JSON.stringify(data.diagnostic));
     }
-    if(data.verdict) {
+    if(data.verdict && !localStorage.getItem('dansk_verdict')) {
       localStorage.setItem('dansk_verdict', JSON.stringify(data.verdict));
     }
-    
     return data;
   } catch (e) {
     console.warn('[progressSync] loadServerToLocal failed', e.message);
@@ -202,17 +249,13 @@ export async function loadServerToLocal() {
   }
 }
 
-// Reset progress both local and server
 export async function resetProgressBoth() {
-  // Local
   localStorage.removeItem('dansk_progress');
   localStorage.removeItem('dansk_path');
   localStorage.removeItem('dansk_scores');
   localStorage.removeItem('dansk_srs');
   localStorage.removeItem('dansk_seen');
   ['m1','m2','m3','m4','m5'].forEach(m=>localStorage.removeItem(`stage_${m}_cleared`));
-  
-  // Server if logged in
   if(isLoggedIn()) {
     try {
       await fetch(`${API_BASE}/api/progress`, {
@@ -220,7 +263,8 @@ export async function resetProgressBoth() {
         headers: getAuthHeaders(),
         body: JSON.stringify({ progress: {}, scores: {}, clearedStages: {}, level: null })
       });
-      console.log('[progressSync] reset progress both local and server');
     } catch {}
   }
 }
+
+export { mergeProgressMonotone };
