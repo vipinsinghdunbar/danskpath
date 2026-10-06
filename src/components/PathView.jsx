@@ -93,15 +93,16 @@ export default function PathView({ setActive }) {
           {/* Right — Up next card per spec */}
           <div className="space-y-4">
             <div className="bg-[var(--ink)] text-white rounded-[16px] p-5">
-              <div className="text-[11px] font-[700] tracking-widest uppercase text-white/60">Up next • With reason</div>
+              <div className="text-[11px] font-[700] tracking-widest uppercase text-white/60">Up next • With reason • Worksheet</div>
               <div className="mt-3">
                 <div className="text-[18px] font-[700]">Start with V2 inversion</div>
-                <div className="mt-2 text-[13px] leading-[1.4] text-white/70">Your answers showed word order after 'fordi' needs work. This is Modul 3 core — time first → inversion. 5-min check, 80% over 15 answers to clear.</div>
+                <div className="mt-2 text-[13px] leading-[1.4] text-white/70">Your answers showed word order after 'fordi' needs work. This is Modul 3 core — time first → inversion. 5-min check, 80% over 15 answers to clear. Download worksheet on current topic and evaluate with answer key + explanation.</div>
                 <button onClick={()=>setActive('practice')} className="mt-4 w-full bg-white text-black py-3 rounded-full text-[14px] font-[600]">Up next → 5-min check</button>
                 <div className="mt-3 flex gap-2">
+                  <button onClick={()=>{ localStorage.setItem('dansk_current_topic','v2'); setActive('worksheet'); }} className="flex-1 bg-white/10 hover:bg-white/15 rounded-full py-2 text-[11px] font-[600] border border-white/10">Download worksheet ↓ V2</button>
                   <button onClick={()=>setActive('practice')} className="text-[11px] px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/15">Choose something else</button>
-                  <span className="text-[11px] text-white/50">Two columns from 1180px • No dead ends</span>
                 </div>
+                <div className="mt-2 text-[11px] text-white/50">Two columns from 1180px • No dead ends • Worksheet download + evaluate</div>
               </div>
             </div>
 

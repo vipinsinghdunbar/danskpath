@@ -8,6 +8,7 @@ import WelcomeView from './components/WelcomeView';
 import AssessmentLandingView from './components/AssessmentLandingView';
 import ArchitectureMapView from './components/ArchitectureMapView';
 import PracticeView from './components/PracticeView';
+import WorksheetView from './components/WorksheetView';
 import PrivacyView from './components/PrivacyView';
 import TermsView from './components/TermsView';
 import SecurityView from './components/SecurityView';
@@ -262,6 +263,7 @@ export default function App() {
       
       // Full iPhone App — Learning Experience
       case 'practice': return <PracticeView setActive={handleSetActive} />;
+      case 'worksheet': return <WorksheetView setActive={handleSetActive} topicId={new URLSearchParams(window.location.search).get('topic') || localStorage.getItem('dansk_current_topic') || 'v2'} />;
       case 'path': return <PathView setActive={handleSetActive} />;
       case 'diagnostic': return <Suspense fallback={<div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>}><DiagnosticView setActive={handleSetActive} /></Suspense>;
       case 'progress': return <ProgressView setActive={handleSetActive} />;

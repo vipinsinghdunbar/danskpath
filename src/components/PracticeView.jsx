@@ -114,6 +114,16 @@ export default function PracticeView({ setActive }) {
           </div>
         )}
 
+        {/* Worksheet download + evaluate per user request */}
+        <div className="mt-8 bg-white rounded-[16px] border border-[var(--border)] p-4">
+          <div className="text-[11px] font-[700] tracking-widest uppercase text-[var(--muted)]">Worksheet • Current topic: {current.topic}</div>
+          <div className="mt-2 text-[13px] leading-[1.4]">Download worksheet on {current.topic} ({current.skill}) with 12 exercises, answer key and explanations. Evaluate online or print for offline practice.</div>
+          <div className="mt-3 flex gap-2">
+            <button onClick={()=>{ localStorage.setItem('dansk_current_topic', current.topic.toLowerCase()); setActive('worksheet'); }} className="flex-1 bg-[var(--ink)] text-white py-3 rounded-full text-[13px] font-[600]">Download worksheet • {current.topic} ↓</button>
+            <button onClick={()=>{ localStorage.setItem('dansk_current_topic', current.topic.toLowerCase()); setActive('worksheet'); }} className="px-4 py-3 rounded-full bg-white border border-[var(--border)] text-[12px] font-[600]">Evaluate →</button>
+          </div>
+        </div>
+
         {/* One primary action — bottom thumb zone */}
         <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)] to-transparent">
           <div className="max-w-[640px] mx-auto">
@@ -122,7 +132,7 @@ export default function PracticeView({ setActive }) {
             ) : (
               <button onClick={handleNext} className="w-full bg-[var(--ink)] text-white py-4 rounded-full text-[16px] font-[600] min-h-[56px]">Next →</button>
             )}
-            <div className="mt-2 text-center text-[11px] text-[var(--muted)]">Focus mode • No confetti streak • Save every answer • Back works • Closing mid-test loses nothing • Choose something else beside recommendation</div>
+            <div className="mt-2 text-center text-[11px] text-[var(--muted)]">Focus mode • No confetti streak • Save every answer • Back works • Closing mid-test loses nothing • Worksheet download + evaluate • Choose something else beside recommendation</div>
           </div>
         </div>
       </div>
