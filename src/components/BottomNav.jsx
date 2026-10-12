@@ -1,14 +1,14 @@
 import { HomeIcon, PathIcon, PracticeIcon, ProgressIcon, BookIcon } from '../lib/icons.jsx';
 
 // BottomNav — Premium and easy per Action Plan Phase 4
-// Phone first 390px full-width 16px gutters bottom tab bar translucent material four areas: Path, Practice, Conversation, Progress
+// Phone first 390px full-width 16px gutters bottom tab bar translucent material five areas: Path, Practice, Workbook, Progress, More
 // Touch targets at least 44px, respect safe-area insets on iPhone, reuse ds.css, one icon family no emoji, consistent radii 12/16/22, quiet motion 120/220/340
 
 export default function BottomNav({ active, setActive }) {
   const primary = [
     { id: "path", label: "Path", Icon: PathIcon },
     { id: "practice", label: "Up next", Icon: PracticeIcon },
-    { id: "speaking", label: "Conversation", Icon: BookIcon },
+    { id: "workbook", label: "Workbook", Icon: BookIcon },
     { id: "progress", label: "Progress", Icon: ProgressIcon },
   ];
 
