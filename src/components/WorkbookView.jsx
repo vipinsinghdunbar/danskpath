@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { BookIcon, SettingsIcon, CheckIcon } from '../lib/icons';
+import { curriculumData, getExercisesForSelection } from '../data/curriculum';
 
 // WorkbookView — Exercise workbooks with PDF export
-// Auto-generates exercises based on current module + difficulty
+// Uses real CEFR-aligned curriculum exercises
 // Users can practice online and download for offline use
 // PDF includes: vocabulary lists, grammar exercises, reading, writing, answer keys
 
@@ -18,14 +19,8 @@ export default function WorkbookView({ setActive }) {
   const [includeAnswerKey, setIncludeAnswerKey] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  // Module content mapping
-  const moduleContent = {
-    1: { name: 'Modul 1', level: 'A1', topics: ['Greetings', 'Numbers', 'Pronouns', 'Present tense'] },
-    2: { name: 'Modul 2', level: 'A2', topics: ['Past tense', 'Family', 'Daily routines', 'Adjectives'] },
-    3: { name: 'Modul 3', level: 'B1', topics: ['Complex sentences', 'Conditional', 'Passive voice', 'Narrative'] },
-    4: { name: 'Modul 4', level: 'B2', topics: ['Subjunctive', 'Academic vocabulary', 'Business language', 'Advanced structures'] },
-    5: { name: 'Modul 5', level: 'B2+', topics: ['PD3 prep', 'Debate language', 'Professional writing', 'Literature'] },
-  };
+  // Use curriculum data as module content
+  const moduleContent = curriculumData;
 
   const workbookTypes = [
     { id: 'complete', label: 'Complete Workbook', desc: 'Vocab + Grammar + Reading + Writing + Listening', items: 5 },
@@ -41,26 +36,9 @@ export default function WorkbookView({ setActive }) {
     { id: 'hard', label: 'Hard', desc: 'Challenging, advanced combinations' },
   ];
 
-  // Generate sample exercises based on module + difficulty
+  // Get real exercises from curriculum
   const generateExercises = () => {
-    const exercises = [];
-    const topics = moduleContent[currentModule]?.topics || [];
-
-    for (let i = 0; i < exerciseCount; i++) {
-      const topic = topics[i % topics.length];
-      const types = ['choice', 'fill-blank', 'write', 'match'];
-      const type = types[Math.floor(Math.random() * types.length)];
-
-      exercises.push({
-        id: i + 1,
-        type,
-        topic,
-        question: `Exercise ${i + 1}: [${type}] about ${topic}`,
-        difficulty,
-      });
-    }
-
-    return exercises;
+    return getExercisesForSelection(currentModule, workbookType, difficulty, exerciseCount);
   };
 
   // Export to PDF
@@ -130,16 +108,18 @@ export default function WorkbookView({ setActive }) {
         pdf.text('Vocabulary', margin, yPosition);
 
         yPosition += 12;
-        pdf.setFontSize(10);
+        pdf.setFontSize(9);
         pdf.setFont(undefined, 'normal');
-        const topics = moduleContent[currentModule].topics;
-        topics.forEach((topic, idx) => {
-          yPosition += lineHeight;
+
+        const vocab = moduleContent[currentModule]?.vocab || [];
+        vocab.forEach((word, idx) => {
+          yPosition += lineHeight * 1.2;
           if (yPosition > pageHeight - 20) {
             pdf.addPage();
             yPosition = 20;
           }
-          pdf.text(`• ${topic}`, margin + 5, yPosition);
+          const text = `${word.danish} — ${word.english} (${word.category})`;
+          pdf.text(text, margin + 5, yPosition);
         });
       }
 
@@ -160,16 +140,39 @@ export default function WorkbookView({ setActive }) {
 
       const exercises = generateExercises();
       exercises.slice(0, 20).forEach((ex, idx) => {
-        yPosition += lineHeight;
-        if (yPosition > pageHeight - 20) {
+        yPosition += lineHeight * 1.5;
+        if (yPosition > pageHeight - 30) {
           pdf.addPage();
           yPosition = 20;
         }
 
-        const text = `${idx + 1}. [${ex.type.toUpperCase()}] ${ex.topic}`;
-        const wrapped = pdf.splitTextToSize(text, contentWidth - 10);
-        pdf.text(wrapped, margin + 5, yPosition);
-        yPosition += wrapped.length > 1 ? lineHeight * wrapped.length : lineHeight;
+        // Exercise number and type
+        const headerText = `${idx + 1}. [${ex.type.toUpperCase()}] ${ex.section || ''}`;
+        pdf.setFont(undefined, 'bold');
+        pdf.setFontSize(9);
+        pdf.text(headerText, margin + 5, yPosition);
+
+        // Question
+        yPosition += lineHeight;
+        pdf.setFont(undefined, 'normal');
+        pdf.setFontSize(9);
+        const questionWrapped = pdf.splitTextToSize(ex.question, contentWidth - 20);
+        pdf.text(questionWrapped, margin + 10, yPosition);
+        yPosition += questionWrapped.length * lineHeight;
+
+        // Options if multiple choice
+        if (ex.options && ex.options.length > 0) {
+          yPosition += lineHeight * 0.5;
+          pdf.setFontSize(8);
+          ex.options.forEach(opt => {
+            yPosition += lineHeight * 0.8;
+            if (yPosition > pageHeight - 20) {
+              pdf.addPage();
+              yPosition = 20;
+            }
+            pdf.text(`○ ${opt}`, margin + 15, yPosition);
+          });
+        }
       });
 
       // Answer key
@@ -189,12 +192,26 @@ export default function WorkbookView({ setActive }) {
         pdf.setFont(undefined, 'normal');
 
         exercises.slice(0, 20).forEach((ex, idx) => {
-          yPosition += lineHeight;
-          if (yPosition > pageHeight - 20) {
+          yPosition += lineHeight * 1.8;
+          if (yPosition > pageHeight - 40) {
             pdf.addPage();
             yPosition = 20;
           }
-          pdf.text(`${idx + 1}. [Sample answer for ${ex.topic}]`, margin + 5, yPosition);
+
+          // Answer label
+          pdf.setFont(undefined, 'bold');
+          pdf.setFontSize(9);
+          pdf.text(`${idx + 1}. Answer: ${ex.answer || '[See explanation]'}`, margin + 5, yPosition);
+
+          // Explanation
+          if (ex.explanation) {
+            yPosition += lineHeight;
+            pdf.setFont(undefined, 'normal');
+            pdf.setFontSize(8);
+            const explWrapped = pdf.splitTextToSize(`Explanation: ${ex.explanation}`, contentWidth - 20);
+            pdf.text(explWrapped, margin + 10, yPosition);
+            yPosition += explWrapped.length * lineHeight * 0.8;
+          }
         });
       }
 
