@@ -33,7 +33,7 @@ const baseQuestions = [
 
 function hashStr(str){ let h=0; for(let i=0;i<str.length;i++){ h=((h<<5)-h)+str.charCodeAt(i); h=h&h; } return Math.abs(h); }
 
-export default function DiagnosticView({ setActive }) {
+export default function DiagnosticView({ onComplete }) {
   const [userSeed] = useState(()=> localStorage.getItem('dansk_user_seed') || ("u_"+Math.random().toString(36).slice(2,8)+"_"+Date.now()));
   const [questions] = useState(()=> {
     const core = baseQuestions.filter(q=>!q.stretch);
@@ -138,7 +138,7 @@ export default function DiagnosticView({ setActive }) {
         {/* Focus mode — one Close button returns per spec */}
         <div className="max-w-[600px] mx-auto px-4 pt-6 pb-[100px]">
           <div className="flex items-center justify-between">
-            <button onClick={()=>setActive('simple-landing')} className="w-10 h-10 rounded-full bg-white border border-[var(--border)] grid place-items-center">✕</button>
+            <button onClick={()=>window.history.back()} className="w-10 h-10 rounded-full bg-white border border-[var(--border)] grid place-items-center">✕</button>
             <span className="text-[11px] font-[700] tracking-widest uppercase bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">Result • Starting point with range</span>
           </div>
 
@@ -183,11 +183,7 @@ export default function DiagnosticView({ setActive }) {
           {/* One primary action — bottom thumb zone */}
           <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[var(--bg)] to-transparent">
             <div className="max-w-[600px] mx-auto flex gap-2">
-              <button onClick={()=>setActive('path')} className="flex-1 bg-[var(--ink)] text-white py-4 rounded-full text-[16px] font-[600]">See My Learning Path →</button>
-            </div>
-            <div className="max-w-[600px] mx-auto mt-2 flex gap-2">
-              <button onClick={()=>setActive('register')} className="flex-1 bg-white border border-[var(--border)] py-3 rounded-full text-[14px] font-[600]">Save Progress</button>
-              <button onClick={()=>setActive('practice')} className="flex-1 bg-white border border-[var(--border)] py-3 rounded-full text-[14px] font-[600]">Up next →</button>
+              <button onClick={onComplete} className="flex-1 bg-[var(--ink)] text-white py-4 rounded-full text-[16px] font-[600]">See My Learning Path →</button>
             </div>
           </div>
         </div>
@@ -200,8 +196,8 @@ export default function DiagnosticView({ setActive }) {
       {/* Focus mode — whole screen, one Close button returns */}
       <div className="max-w-[600px] mx-auto w-full px-4 pt-6 pb-[100px] flex-1 flex flex-col">
         <div className="flex items-center justify-between">
-          <button onClick={()=>setActive('assessment')} className="w-10 h-10 rounded-full bg-white border border-[var(--border)] grid place-items-center" aria-label="Close">✕</button>
-          <span className="text-[11px] font-[700] tracking-widest uppercase text-[var(--muted)]">Question {idx+1} of {total} • Modul 3 Focus</span>
+          <button onClick={()=>{setIdx(0); setAnswers({});}} className="w-10 h-10 rounded-full bg-white border border-[var(--border)] grid place-items-center" aria-label="Reset">✕</button>
+          <span className="text-[11px] font-[700] tracking-widest uppercase text-[var(--muted)]">Question {idx+1} of {total} • Danish Assessment</span>
           <span className="text-[11px] font-[600] px-2.5 py-1 rounded-full bg-white border border-[var(--border)]">{currentQ.category} • {currentQ.level}</span>
         </div>
 
