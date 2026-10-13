@@ -20,7 +20,11 @@ export default function SimpleLandingView({ setActive }) {
         </div>
         <div className="flex items-center gap-2">
           <button onClick={()=>setActive('login')} className="text-[13px] font-[600] px-4 py-2 rounded-full bg-white border border-[var(--border)] hover:border-[var(--border-strong)] transition-colors">Log in</button>
-          {showAdmin && <button onClick={()=>setActive('admin')} className="text-[11px] font-[600] px-3 py-1.5 rounded-full bg-[var(--ink)] text-white">Admin</button>}
+          {showAdmin ? (
+            <button onClick={()=>setActive('admin')} className="text-[11px] font-[600] px-3 py-1.5 rounded-full bg-[var(--ink)] text-white">Admin</button>
+          ) : (
+            <button onClick={()=>setActive('admin-login')} className="text-[10px] font-[600] px-2 py-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 transition-colors">Admin</button>
+          )}
         </div>
       </header>
 

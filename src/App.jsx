@@ -1,7 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import Sidebar from './components/Sidebar';
-import BottomNav, { MoreSheet } from './components/BottomNav';
 import LandingPage from './components/LandingPage';
+import AdminLogin from './components/AdminLogin';
 import SimpleLandingView from './components/SimpleLandingView';
 import WebsiteView from './components/WebsiteView';
 import WelcomeView from './components/WelcomeView';
@@ -43,7 +43,6 @@ import SettingsModal from './components/SettingsModal';
 import LoginView from './components/LoginView';
 import AdminDashboardView from './components/AdminDashboardView';
 import TrialFlowView from './components/TrialFlowView';
-import PWAInstallBanner from './components/PWAInstallBanner';
 import EphemeralBanner from './components/EphemeralBanner';
 import BrandLogo from './components/BrandLogo';
 import { isLoggedIn, isAdmin, getUser, fetchMe } from './lib/auth';
@@ -75,6 +74,7 @@ export default function App() {
     if (pathname.includes('/path')) return 'path';
     if (pathname.includes('/progress')) return 'progress';
     if (pathname.includes('/login')) return 'login';
+    if (pathname.includes('/admin-login')) return 'admin-login';
     if (pathname.includes('/admin')) return 'admin';
     if (pathname.includes('/share')) return 'share';
     if (isTrialLink()) return 'trial';
@@ -103,7 +103,6 @@ export default function App() {
   });
 
   const [settingsOpen, setSettingsOpen] = useState(false);
-  const [moreOpen, setMoreOpen] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const [user, setUser] = useState(()=>getUser());
 
@@ -149,16 +148,10 @@ export default function App() {
   },[]);
 
   const handleSetActive = (id) => {
-    if(id==='more') {
-      setMoreOpen(true);
-      return;
-    }
-    
     // Map old landing to website
     if (id === 'landing') id = 'website';
-    
+
     setActive(id);
-    setMoreOpen(false);
     window.scrollTo(0,0);
     
     // Update URL without reload
@@ -253,8 +246,9 @@ export default function App() {
       // Auth & Admin - per spec: simple register with guest transfer
       case 'register': return <RegisterView setActive={handleSetActive} />;
       case 'login': return <LoginView onLoggedIn={handleLoggedIn} setActive={handleSetActive} />;
+      case 'admin-login': return <AdminLogin onLoginSuccess={handleLoggedIn} setActive={handleSetActive} />;
       case 'simple-landing': return <SimpleLandingView setActive={handleSetActive} />;
-      case 'admin': return isLoggedIn() && isAdmin() ? <AdminDashboardView setActive={handleSetActive} /> : <LoginView onLoggedIn={handleLoggedIn} setActive={handleSetActive} />;
+      case 'admin': return isLoggedIn() && isAdmin() ? <AdminDashboardView setActive={handleSetActive} /> : <AdminLogin setActive={handleSetActive} />;
       
       // Share / QR — only admin, learner stays on app
       case 'share':
@@ -305,21 +299,21 @@ export default function App() {
     }
   };
 
-  // Navigation visibility logic per spec: Guest = Home only, Learner = Home My Path Progress Profile, Admin separate
+  // Navigation visibility logic for web (no bottom nav): Show sidebar for learning experience only
   const isWebsite = active === 'website' || active === 'home' || active === 'landing';
   const isSimpleLanding = active === 'simple-landing';
   const isAssessmentLanding = active === 'assessment' || active === 'assessment-landing' || active === 'share' || active === 'share-qr';
   const isPublicLegal = active === 'privacy' || active === 'terms' || active === 'security' || active === 'architecture' || active === 'roadmap';
   const isTrial = active === 'trial';
   const isLogin = active === 'login';
+  const isAdminLogin = active === 'admin-login';
   const isRegister = active === 'register';
   const isWelcome = active === 'welcome';
   const isDiagnostic = active === 'diagnostic';
   const isAdminView = active === 'admin';
-  
-  // Show nav only for full iPhone app (learning experience) — NOT during onboarding, assessment, or auth per spec
-  // Guest: Home only, Learner: Home My Path Progress Profile, Admin separate
-  const showNav = !isWebsite && !isSimpleLanding && !isAssessmentLanding && !isPublicLegal && !isTrial && !isLogin && !isRegister && !isWelcome && !isDiagnostic && !isAdminView;
+
+  // Show sidebar only for learning experience — NOT during onboarding, assessment, auth, or admin pages
+  const showSidebar = !isWebsite && !isSimpleLanding && !isAssessmentLanding && !isPublicLegal && !isTrial && !isLogin && !isAdminLogin && !isRegister && !isWelcome && !isDiagnostic && !isAdminView;
 
   if(!authChecked) {
     return <div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>;
@@ -327,39 +321,16 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-    <div className="min-h-screen flex flex-col bg-[#F2F2F7] text-black">
+    <div className="min-h-screen flex flex-col bg-white text-gray-900">
       <EphemeralBanner />
       <div className="flex-1 flex min-h-0">
-      {showNav && !isAdminView && <Sidebar active={active} setActive={handleSetActive} onSettings={()=>setSettingsOpen(true)} />}
-      <div className="flex-1 min-w-0 overflow-hidden">
-        {/* Top bar for app (iPhone) — only show in learning experience */}
-        {showNav && (
-          <div className="sticky top-0 z-20 bg-white/80 backdrop-blur-2xl border-b border-black/5 lg:hidden">
-            <div className="h-[56px] px-5 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-black text-white grid place-items-center text-[11px] font-bold">D</div>
-                <span className="text-[14px] font-[700] tracking-tight">DanskPath</span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#F2F2F7] border border-black/5">M1→PD3</span>
-                {user && <span className="text-[10px] px-2 py-1 rounded-full bg-black text-white">{user.name}</span>}
-              </div>
-              <div className="flex gap-2">
-                {isLoggedIn() && isAdmin() && <button onClick={()=>handleSetActive('admin')} className="text-[11px] font-[600] bg-black text-white px-3 py-1.5 rounded-full">Admin</button>}
-                <button onClick={()=>handleSetActive('website')} className="text-[11px] font-[600] bg-[#F2F2F7] px-3 py-1.5 rounded-full">Home</button>
-              </div>
-            </div>
-          </div>
-        )}
-        {render()}
+        {showSidebar && <Sidebar active={active} setActive={handleSetActive} onSettings={()=>setSettingsOpen(true)} />}
+        <div className="flex-1 min-w-0 overflow-auto">
+          {render()}
+        </div>
       </div>
-      {showNav && !isAdminView && <BottomNav active={active} setActive={handleSetActive} onSettings={()=>setSettingsOpen(true)} />}
-      <MoreSheet active={moreOpen ? 'more' : ''} setActive={handleSetActive} onClose={()=>setMoreOpen(false)} />
-      {moreOpen && <div className="lg:hidden fixed inset-0 z-30" onClick={()=>setMoreOpen(false)} />}
       <SettingsModal open={settingsOpen} onClose={()=>setSettingsOpen(false)} />
-      
-      {/* PWA Install Banner — shows on all experiences if not installed */}
-      <PWAInstallBanner />
       </div>
-    </div>
     </ErrorBoundary>
   );
 }

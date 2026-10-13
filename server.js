@@ -383,6 +383,49 @@ app.post('/api/auth/login', rateLimit({ max: 10, windowMs: 15*60*1000, keyPrefix
   }});
 });
 
+app.post('/api/auth/admin-login', rateLimit({ max: 5, windowMs: 15*60*1000, keyPrefix: 'admin-login' }), (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password required' });
+  }
+
+  // Simple hardcoded admin check for beta phase
+  // In production, load from env or database
+  const ADMIN_USER = 'admin';
+  const ADMIN_PASS = 'vipin123'; // Change this after first login!
+
+  if (username !== ADMIN_USER || password !== ADMIN_PASS) {
+    return res.status(401).json({ error: 'Invalid credentials' });
+  }
+
+  // Ensure admin user exists in database
+  const db = readDB();
+  let admin = db.users.find(u => u.role === 'admin' && u.name === 'admin');
+
+  if (!admin) {
+    admin = {
+      id: uuidv4(),
+      name: 'admin',
+      email: 'admin@danskpath.local',
+      passwordHash: bcrypt.hashSync(ADMIN_PASS, 10),
+      role: 'admin',
+      createdAt: new Date().toISOString(),
+      lastActiveAt: new Date().toISOString(),
+      goals: []
+    };
+    db.users.push(admin);
+    writeDB(db);
+  } else {
+    // Update last active
+    admin.lastActiveAt = new Date().toISOString();
+    writeDB(db);
+  }
+
+  const token = jwt.sign({ id: admin.id, name: admin.name, email: admin.email, role: admin.role }, JWT_SECRET, { expiresIn: JWT_EXPIRES });
+  res.json({ ok: true, token, user: { id: admin.id, name: admin.name, email: admin.email, role: admin.role } });
+});
+
 app.post('/api/auth/refresh', authMiddleware, (req, res) => {
   const db = readDB();
   const user = db.users.find(u => u.id === req.user.id);
