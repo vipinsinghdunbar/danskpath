@@ -44,7 +44,7 @@ class DanskBridge {
         modul5: { danskLevel: 'B2+', standardCEFR: 'B2-C1' },
         pd3: { danskLevel: 'PD3', standardCEFR: 'C1' },
       },
-      /dansk: {
+      dansk: {
         'da-foundation': 'A1',
         'da-elementary': 'A2',
         'da-intermediate': 'B1',
