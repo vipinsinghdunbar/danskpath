@@ -175,17 +175,25 @@ export const curriculumData = {
           { id: 15, type: 'fill-blank', question: 'Den dokumentation, som ___ analyseret, ___ vigtig for projektet.', answer: 'blev / var', explanation: 'Relative clause with passive' },
         ],
       },
-      grammar: {
+      vocab: {
         easy: [
-          { id: 1, type: 'choice', question: 'Hvad betyder "selvom"?', options: ['Because', 'Although', 'Therefore', 'However'], answer: 'Although', explanation: 'Selvom = although' },
+          { id: 1, type: 'choice', question: 'Hvad betyder "selvom"?', options: ['Because', 'Although', 'Therefore', 'However'], answer: 'Although', explanation: 'Selvom = although/even though' },
         ],
         medium: [
-          { id: 2, type: 'write', question: 'Skriv 3 ord med "ville" (would).', answer: '[varies]', explanation: 'Conditional modal practice' },
+          { id: 2, type: 'write', question: 'Skriv ord med "selvom" og "imidlertid".', answer: '[varies]', explanation: 'Discourse marker practice' },
+          { id: 3, type: 'fill-blank', question: 'Han ville gå ud, ___ det var regn udenfor.', answer: 'selvom', explanation: 'Although it was raining outside' },
+        ],
+        hard: [
+          { id: 4, type: 'choice', question: 'Hvilket ord passer? "Projektet var vanskeligt, ___ han fuldførte det."', options: ['fordi', 'selvom', 'hvis', 'da'], answer: 'selvom', explanation: 'Although marks contrast despite difficulty' },
+          { id: 5, type: 'write', question: 'Lav 2 sætninger med "selvom" og "fordi" kombineret.', answer: '[varies]', explanation: 'Complex sentence construction' },
         ],
       },
       reading: {
+        easy: [
+          { id: 1, type: 'choice', question: 'Læs: "Selvom vejret var dårligt, gik de ud. Fordi de ville bevæge sig." Hvorfor gik de ud?', options: ['Fordi vejret var godt', 'Fordi de ville bevæge sig', 'Fordi det var sol', 'Fordi det var morgen'], answer: 'Fordi de ville bevæge sig', explanation: 'Reading comprehension with complex sentences' },
+        ],
         medium: [
-          { id: 1, type: 'write', question: 'Læs en B1-tekst og svar på spørgsmål.', answer: '[varies]', explanation: 'Intermediate reading comprehension' },
+          { id: 2, type: 'write', question: 'Læs en B1-tekst og svar på spørgsmål.', answer: '[varies]', explanation: 'Intermediate reading comprehension' },
         ],
       },
       writing: {
@@ -225,10 +233,18 @@ export const curriculumData = {
         medium: [
           { id: 1, type: 'write', question: 'Skriv 5 akademiske ord på dansk.', answer: '[varies - påstand, argument, konklusion, etc.]', explanation: 'Academic vocabulary practice' },
         ],
+        hard: [
+          { id: 2, type: 'choice', question: 'Hvad betyder "påstand"?', options: ['Question', 'Claim/Statement', 'Answer', 'Explanation'], answer: 'Claim/Statement', explanation: 'Påstand is an academic term meaning a claim or thesis' },
+          { id: 3, type: 'fill-blank', question: 'Hendes ___ er velargumenteret og overbevisende.', answer: 'påstand', explanation: 'Her claim/thesis is well-argued and convincing' },
+          { id: 4, type: 'choice', question: 'Hvilket ord passer her? "___ disse resultater viser..."', options: ['Således', 'Dermed', 'Til gengæld', 'Selvom'], answer: 'Således', explanation: 'Således means "thus" and introduces consequences' },
+        ],
       },
       reading: {
+        easy: [
+          { id: 1, type: 'choice', question: 'Læs: "Mødet var meget vigtigt for hele projektet. Vi diskuterede strategi og gjorde en plan." Hvad var mødet vigtig for?', options: ['En enkelt person', 'Hele projektet', 'En rapport', 'En email'], answer: 'Hele projektet', explanation: 'Direct comprehension from text' },
+        ],
         hard: [
-          { id: 1, type: 'write', question: 'Læs en B2 Business email og svar på spørgsmål på dansk.', answer: '[varies]', explanation: 'Professional reading comprehension' },
+          { id: 2, type: 'write', question: 'Læs en B2 Business email og svar på spørgsmål på dansk.', answer: '[varies]', explanation: 'Professional reading comprehension' },
         ],
       },
       writing: {
