@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import V2InversionLesson from './lessons/V2InversionLesson';
 import PrepositionsLesson from './lessons/PrepositionsLesson';
 import ListeningLesson from './lessons/ListeningLesson';
+import VerbSystemLesson from './lessons/VerbSystemLesson';
 
 // Lesson System — interactive lessons with explanation + exercises
 // Each lesson: ~30-40 min, balanced grammar/vocab/listening, mixed exercise types
@@ -38,6 +39,17 @@ const LESSON_TEMPLATES = [
     difficulty: 'A2',
     component: ListeningLesson,
     prerequisite: 'v2-inversion', // Unlocks after V2 Inversion
+    unlockScore: 70 // Requires 70% or higher
+  },
+  {
+    id: 'verb-system',
+    title: 'Verb System — Present vs. Past',
+    category: 'grammar',
+    description: 'Master regular and strong verbs, modals, and auxiliary verbs in Danish.',
+    duration: '35 min',
+    difficulty: 'A2',
+    component: VerbSystemLesson,
+    prerequisite: 'prepositions', // Unlocks after Prepositions
     unlockScore: 70 // Requires 70% or higher
   }
 ];
