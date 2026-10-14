@@ -3,6 +3,7 @@ import ErrorBoundary from './components/ErrorBoundary';
 import EphemeralBanner from './components/EphemeralBanner';
 import WebAppShell from './components/WebAppShell';
 import WebDashboard from './components/WebDashboard';
+import HomePage from './components/HomePage';
 import './styles/web-design-system.css';
 
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
@@ -11,9 +12,11 @@ const ProgressDashboard = lazy(()=>import('./components/ProgressDashboard'));
 const LessonView = lazy(()=>import('./components/LessonView'));
 
 export default function App() {
-  // MVP with history: Check if user has completed assessment
+  // Check if user has completed assessment: home -> assessment -> dashboard
   const [page, setPage] = useState(()=>{
     const diagnostic = localStorage.getItem('dansk_diagnostic');
+    const hasVisitedBefore = localStorage.getItem('dansk_visited');
+    if (!hasVisitedBefore) return 'home';
     return diagnostic ? 'dashboard' : 'assessment';
   });
 
@@ -69,6 +72,11 @@ export default function App() {
     setPage('dashboard');
   };
 
+  const handleStartAssessment = () => {
+    localStorage.setItem('dansk_visited', 'true');
+    setPage('assessment');
+  };
+
   if(!authChecked) {
     return <div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>;
   }
@@ -78,6 +86,9 @@ export default function App() {
       <div className="min-h-screen flex flex-col bg-white text-gray-900">
         <EphemeralBanner />
         <div className="flex-1 overflow-auto">
+          {page === 'home' && (
+            <HomePage onStartAssessment={handleStartAssessment} />
+          )}
           {page === 'assessment' && (
             <Suspense fallback={<div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>}>
               <DiagnosticView onComplete={handleAssessmentComplete} />
