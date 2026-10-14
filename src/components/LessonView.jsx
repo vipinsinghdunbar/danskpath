@@ -5,6 +5,7 @@ import ListeningLesson from './lessons/ListeningLesson';
 import VerbSystemLesson from './lessons/VerbSystemLesson';
 import RealWorldListeningLesson from './lessons/RealWorldListeningLesson';
 import ReadingComprehensionLesson from './lessons/ReadingComprehensionLesson';
+import GrammarDeepDiveLesson from './lessons/GrammarDeepDiveLesson';
 
 // Lesson System — interactive lessons with explanation + exercises
 // Each lesson: ~30-40 min, balanced grammar/vocab/listening, mixed exercise types
@@ -74,6 +75,17 @@ const LESSON_TEMPLATES = [
     difficulty: 'A2',
     component: ReadingComprehensionLesson,
     prerequisite: 'real-world-listening', // Unlocks after Real-world Listening
+    unlockScore: 70 // Requires 70% or higher
+  },
+  {
+    id: 'grammar-deep-dive',
+    title: 'Grammar Deep-dive — Advanced Tenses & Conditionals',
+    category: 'grammar',
+    description: 'Master conditional tenses, hypotheticals, and complex sentence structures in Danish.',
+    duration: '40 min',
+    difficulty: 'B1',
+    component: GrammarDeepDiveLesson,
+    prerequisite: 'reading-comprehension', // Unlocks after Reading Comprehension
     unlockScore: 70 // Requires 70% or higher
   }
 ];
