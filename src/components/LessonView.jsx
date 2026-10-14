@@ -7,6 +7,7 @@ import RealWorldListeningLesson from './lessons/RealWorldListeningLesson';
 import ReadingComprehensionLesson from './lessons/ReadingComprehensionLesson';
 import GrammarDeepDiveLesson from './lessons/GrammarDeepDiveLesson';
 import VocabularyCultureLesson from './lessons/VocabularyCultureLesson';
+import SpeakingPracticeLesson from './lessons/SpeakingPracticeLesson';
 
 // Lesson System — interactive lessons with explanation + exercises
 // Each lesson: ~30-40 min, balanced grammar/vocab/listening, mixed exercise types
@@ -98,6 +99,17 @@ const LESSON_TEMPLATES = [
     difficulty: 'B1',
     component: VocabularyCultureLesson,
     prerequisite: 'grammar-deep-dive', // Unlocks after Grammar Deep-dive
+    unlockScore: 70 // Requires 70% or higher
+  },
+  {
+    id: 'speaking-practice',
+    title: 'Speaking Practice — Conversational Fluency',
+    category: 'speaking',
+    description: 'Master natural speech patterns, dialogue flow, and confident speaking across everyday scenarios.',
+    duration: '40 min',
+    difficulty: 'B1',
+    component: SpeakingPracticeLesson,
+    prerequisite: 'vocabulary-culture', // Unlocks after Vocabulary & Culture
     unlockScore: 70 // Requires 70% or higher
   }
 ];
