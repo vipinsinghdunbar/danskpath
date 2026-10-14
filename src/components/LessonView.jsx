@@ -6,6 +6,7 @@ import VerbSystemLesson from './lessons/VerbSystemLesson';
 import RealWorldListeningLesson from './lessons/RealWorldListeningLesson';
 import ReadingComprehensionLesson from './lessons/ReadingComprehensionLesson';
 import GrammarDeepDiveLesson from './lessons/GrammarDeepDiveLesson';
+import VocabularyCultureLesson from './lessons/VocabularyCultureLesson';
 
 // Lesson System — interactive lessons with explanation + exercises
 // Each lesson: ~30-40 min, balanced grammar/vocab/listening, mixed exercise types
@@ -86,6 +87,17 @@ const LESSON_TEMPLATES = [
     difficulty: 'B1',
     component: GrammarDeepDiveLesson,
     prerequisite: 'reading-comprehension', // Unlocks after Reading Comprehension
+    unlockScore: 70 // Requires 70% or higher
+  },
+  {
+    id: 'vocabulary-culture',
+    title: 'Vocabulary & Culture — Idioms, Slang & Values',
+    category: 'vocabulary',
+    description: 'Learn Danish idioms, slang, and cultural expressions. Understand values like hygge, janteloven, and direct communication.',
+    duration: '40 min',
+    difficulty: 'B1',
+    component: VocabularyCultureLesson,
+    prerequisite: 'grammar-deep-dive', // Unlocks after Grammar Deep-dive
     unlockScore: 70 // Requires 70% or higher
   }
 ];
