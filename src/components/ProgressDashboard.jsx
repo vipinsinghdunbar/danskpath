@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 
-export default function ProgressDashboard({ onRetake, onViewRoadmap }) {
+export default function ProgressDashboard({ onRetake, onViewRoadmap, onBackFromLessons }) {
   const [selectedAssessment, setSelectedAssessment] = useState(null);
 
   // Get current and historical assessment data

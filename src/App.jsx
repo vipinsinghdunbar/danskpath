@@ -4,6 +4,7 @@ import EphemeralBanner from './components/EphemeralBanner';
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
 const LearningRoadmapView = lazy(()=>import('./components/LearningRoadmapView'));
 const ProgressDashboard = lazy(()=>import('./components/ProgressDashboard'));
+const LessonView = lazy(()=>import('./components/LessonView'));
 
 export default function App() {
   // MVP with history: Check if user has completed assessment
@@ -56,6 +57,14 @@ export default function App() {
     setPage('roadmap');
   };
 
+  const handleStartLessons = () => {
+    setPage('lessons');
+  };
+
+  const handleBackToDashboard = () => {
+    setPage('dashboard');
+  };
+
   if(!authChecked) {
     return <div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>;
   }
@@ -77,7 +86,12 @@ export default function App() {
           )}
           {page === 'roadmap' && (
             <Suspense fallback={<div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>}>
-              <LearningRoadmapView onRetake={handleRetakeAssessment} />
+              <LearningRoadmapView onRetake={handleRetakeAssessment} onStartLessons={handleStartLessons} />
+            </Suspense>
+          )}
+          {page === 'lessons' && (
+            <Suspense fallback={<div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>}>
+              <LessonView onBackToDashboard={handleBackToDashboard} />
             </Suspense>
           )}
         </div>

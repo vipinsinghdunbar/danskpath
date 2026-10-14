@@ -34,11 +34,21 @@ const baseQuestions = [
 function hashStr(str){ let h=0; for(let i=0;i<str.length;i++){ h=((h<<5)-h)+str.charCodeAt(i); h=h&h; } return Math.abs(h); }
 
 export default function DiagnosticView({ onComplete }) {
-  const [userSeed] = useState(()=> localStorage.getItem('dansk_user_seed') || ("u_"+Math.random().toString(36).slice(2,8)+"_"+Date.now()));
+  const [userSeed] = useState(()=> {
+    const stored = localStorage.getItem('dansk_user_seed');
+    if (stored) return stored;
+    const generated = "u_"+Math.random().toString(36).slice(2,8)+"_"+Date.now();
+    localStorage.setItem('dansk_user_seed', generated);
+    return generated;
+  });
+
   const [questions] = useState(()=> {
+    // Get the seed synchronously from localStorage to avoid timing issues
+    const seed = localStorage.getItem('dansk_user_seed') || ("u_"+Math.random().toString(36).slice(2,8)+"_"+Date.now());
     const core = baseQuestions.filter(q=>!q.stretch);
     const stretch = baseQuestions.filter(q=>q.stretch);
-    const shuffledCore = [...core].sort(()=> 0.5 - (hashStr(userSeed) % 100)/100).slice(0,12);
+    const h = hashStr(seed);
+    const shuffledCore = [...core].sort(()=> 0.5 - (h % 100)/100).slice(0,12);
     return [...shuffledCore, ...stretch.slice(0,3)];
   });
   const [idx, setIdx] = useState(()=>{
@@ -77,6 +87,15 @@ export default function DiagnosticView({ onComplete }) {
   const currentQ = questions[idx];
   const total = questions.length;
 
+  // Safety: don't render question screen if questions not loaded
+  if (!currentQ && !showResult) {
+    return (
+      <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)] grid place-items-center">
+        <div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin"></div>
+      </div>
+    );
+  }
+
   const handleAnswer = (optIdx) => {
     setAnswers(prev=>({...prev, [currentQ.id]: optIdx}));
     if(navigator.vibrate) navigator.vibrate(10);
@@ -92,6 +111,10 @@ export default function DiagnosticView({ onComplete }) {
 
   const finishTest = (finalAnswers) => {
     // Calculate without revealing mid-test
+    if (!questions || questions.length === 0) {
+      console.error('Questions not available');
+      return;
+    }
     const filtered = {};
     Object.entries(finalAnswers).forEach(([id, optIdx]) => {
       const q = questions.find(q=>q.id===id);
@@ -108,7 +131,7 @@ export default function DiagnosticView({ onComplete }) {
     const level = pct<30 ? 'Modul 1' : pct<55 ? 'Modul 2' : pct<75 ? 'Modul 3' : 'Modul 3+';
     const categoryPct = {};
     ['grammar','vocab','listening'].forEach(cat=>{
-      const catQs = questions.filter(q=>q.category===cat);
+      const catQs = questions.filter(q=>q && q.category===cat);
       const catCorrect = catQs.filter(q=> filtered[q.id]!==undefined && q.a===filtered[q.id]).length;
       categoryPct[cat] = catQs.length ? Math.round(catCorrect/catQs.length*100) : 0;
     });

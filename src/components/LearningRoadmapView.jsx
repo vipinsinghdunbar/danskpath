@@ -123,7 +123,7 @@ const FOCUS_AREAS = {
   },
 };
 
-export default function LearningRoadmapView({ onRetake }) {
+export default function LearningRoadmapView({ onRetake, onStartLessons }) {
   const [expandedModule, setExpandedModule] = useState(null);
 
   // Get assessment results from localStorage
@@ -361,10 +361,7 @@ export default function LearningRoadmapView({ onRetake }) {
         {/* Action buttons */}
         <div className="pb-6 space-y-3">
           <button
-            onClick={() => {
-              // In future: navigate to practice mode or export roadmap
-              alert('Learning path ready! In the full app, this would start your first lesson.');
-            }}
+            onClick={onStartLessons}
             className="w-full bg-[var(--ink)] text-white py-3 rounded-full font-[600] text-[16px]"
           >
             Start Learning →
