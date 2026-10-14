@@ -4,6 +4,7 @@ import PrepositionsLesson from './lessons/PrepositionsLesson';
 import ListeningLesson from './lessons/ListeningLesson';
 import VerbSystemLesson from './lessons/VerbSystemLesson';
 import RealWorldListeningLesson from './lessons/RealWorldListeningLesson';
+import ReadingComprehensionLesson from './lessons/ReadingComprehensionLesson';
 
 // Lesson System — interactive lessons with explanation + exercises
 // Each lesson: ~30-40 min, balanced grammar/vocab/listening, mixed exercise types
@@ -62,6 +63,17 @@ const LESSON_TEMPLATES = [
     difficulty: 'A2',
     component: RealWorldListeningLesson,
     prerequisite: 'verb-system', // Unlocks after Verb System
+    unlockScore: 70 // Requires 70% or higher
+  },
+  {
+    id: 'reading-comprehension',
+    title: 'Reading Comprehension',
+    category: 'reading',
+    description: 'Read authentic Danish texts: news, emails, menus, signs, forms, and everyday writing.',
+    duration: '40 min',
+    difficulty: 'A2',
+    component: ReadingComprehensionLesson,
+    prerequisite: 'real-world-listening', // Unlocks after Real-world Listening
     unlockScore: 70 // Requires 70% or higher
   }
 ];
