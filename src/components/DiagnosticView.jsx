@@ -1,294 +1,537 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import WebAppShell from './WebAppShell';
 
-// DiagnosticView — Assessment per Action Plan Phase 4
-// Screen order: Assessment first, Result second, Path third, Exercise fourth, Save progress fifth, Progress sixth, Landing last
-// Ship checklist: one primary action, can remove one element without losing meaning, passes light/dark 390px/1440px, first-time user reaches next without reading, uses ds.css
-// Must have: Focus mode one Q per screen thin progress Q 4 of 15 option 56px Danish serif I don't know no right/wrong mid-test no lookup audio options
-// Avoid: Right or wrong feedback mid-test, lookup/audio on options, verdict label, percentage as headline
-
-const baseQuestions = [
-  { id: 'q1', category: "grammar", type: "V2", level: "A2", q: "Vælg korrekt: ___ arbejder jeg hjemme.", options: ["I dag","I dag jeg","I dag er jeg","Ved ikke"], a: 0, why: "V2: tid først → inversion. 'I dag arbejder jeg'. Modul 3 core.", rule: "V2", skill: "V2 inversion", difficulty: "easy" },
-  { id: 'q2', category: "grammar", type: "Ledsætning", level: "B1", q: "Jeg ved, at han ___ kommer.", options: ["ikke","kommer ikke","ikke kommer","Ved ikke"], a: 2, why: "Ledsætning: ikke FØR verbet. Modul 3 biggest shift.", rule: "Ledsætning", skill: "Ledsætning", difficulty: "medium" },
-  { id: 'q3', category: "grammar", type: "Sin", level: "B1", q: "Hun elsker ___ mand.", options: ["sin","hendes","hans","Ved ikke"], a: 0, why: "Sin = egen mand. Modul 3 distinction.", rule: "Sin/sit", skill: "Refleksiv", difficulty: "medium" },
-  { id: 'q4', category: "grammar", type: "Ligge/lægge", level: "A2", q: "Bogen ___ på bordet.", options: ["ligger","lægger","sidder","Ved ikke"], a: 0, why: "Ligge = tilstand.", rule: "Ligge/lægge", skill: "Verbum", difficulty: "easy" },
-  { id: 'q5', category: "grammar", type: "Præposition", level: "A2", q: "Jeg har boet her ___ 3 år.", options: ["i","på","om","Ved ikke"], a: 0, why: "I + tid = varighed.", rule: "Præpositioner", skill: "Præposition", difficulty: "easy" },
-  { id: 'q16', category: "grammar", type: "V2", level: "A2", q: "På mandag ___ hun nyt job.", options: ["starter","hun starter","er hun starter","Ved ikke"], a: 0, why: "V2 variation same rule different sentences.", rule: "V2", skill: "V2 inversion", difficulty: "easy" },
-  { id: 'q17', category: "grammar", type: "Flertal", level: "A2", q: "To ___ er på bordet.", options: ["bøger","bog","bøgene","Ved ikke"], a: 0, why: "Flertal: en bog → to bøger.", rule: "Flertal", skill: "Flertal", difficulty: "easy" },
-  { id: 'q20', category: "grammar", type: "Bindeord", level: "B1", q: "___ det regner, går vi en tur.", options: ["Selvom","Derfor","Fordi","Ved ikke"], a: 0, why: "Selvom = although.", rule: "Bindeord", skill: "Bindeord", difficulty: "medium" },
-  { id: 'q0d', category: "vocab", type: "Tal", level: "A1", q: "Hvad er 'tyve'?", options: ["20","12","2","Ved ikke"], a: 0, why: "Tal 0-100 foundation.", rule: "Tal", skill: "Tal", difficulty: "easy" },
-  { id: 'q6', category: "vocab", type: "Kollokationer", level: "B1", q: "Hvad betyder 'holde et møde'?", options: ["To have a meeting","To leave a meeting","To cancel a meeting","Ved ikke"], a: 0, why: "Kollokation: holde et møde.", rule: "Kollokationer", skill: "Kollokationer", difficulty: "medium" },
-  { id: 'q7', category: "vocab", type: "Partikelverb", level: "B1", q: "At 'slå op' betyder:", options: ["To look up a word / break up","To close","To open","Ved ikke"], a: 0, why: "Partikelverber: slå op.", rule: "Partikelverber", skill: "Partikelverb", difficulty: "medium" },
-  { id: 'q13', category: "vocab", type: "Kollokationer", level: "B1", q: "At 'tage stilling til' betyder:", options: ["To take a stance / consider","To stand up","To take a chair","Ved ikke"], a: 0, why: "Kollokation: tage stilling til.", rule: "Kollokationer", skill: "Kollokationer", difficulty: "medium" },
-  { id: 'q19', category: "vocab", type: "Kollokationer", level: "B1", q: "At 'holde fyraften' betyder:", options: ["To finish work for the day","To hold a party","To be fired","Ved ikke"], a: 0, why: "Kollokation arbejde.", rule: "Kollokationer", skill: "Kollokationer", difficulty: "medium" },
-  { id: 'q18b', category: "vocab", type: "Kollokationer", level: "B1", q: "At 'vente på' betyder:", options: ["To wait for","To wait on (serve)","To avoid","Ved ikke"], a: 0, why: "Prepositions with verbs.", rule: "Kollokationer", skill: "Kollokationer", difficulty: "easy" },
-  { id: 'q8', category: "listening", type: "Reduktion", level: "B1", q: "Hvad betyder reduktionen 'd'er'? — Audio on question", options: ["det er","der er","det var","Ved ikke"], a: 0, why: "Dansk sluger: det er → d'er.", rule: "Reduktion", skill: "Lytte reduktion", difficulty: "medium" },
-  { id: 'q18', category: "listening", type: "Reduktion", level: "B1", q: "I talesprog: 'skaddu med?' kommer fra:", options: ["skal du med?","skal det med?","skulle du med?","Ved ikke"], a: 0, why: "Reduktion: skal du → skaddu.", rule: "Reduktion", skill: "Lytte reduktion", difficulty: "medium" },
-  { id: 'q8b', category: "listening", type: "Telefon", level: "B1", q: "I telefonen: 'Jeg stiller dig om' betyder:", options: ["I transfer you","I stop you","I call you","Ved ikke"], a: 0, why: "Telephone borgerservice.", rule: "Telefon", skill: "Lytte telefon", difficulty: "medium" },
-  { id: 'q8c', category: "listening", type: "DSB", level: "A2", q: "DSB: 'Toget er forsinket' betyder:", options: ["Train delayed","Train cancelled","Train on time","Ved ikke"], a: 0, why: "DSB announcement.", rule: "DSB", skill: "Lytte DSB", difficulty: "easy" },
-  { id: 'q8d', category: "listening", type: "DR", level: "B1", q: "DR slow news: 'Ifølge rapporten' betyder:", options: ["According to report","Following report","Despite report","Ved ikke"], a: 0, why: "DR slow news.", rule: "DR", skill: "Lytte DR", difficulty: "medium" },
-  { id: 'q12', category: "stretch", type: "Modalpartikel", level: "B2", q: "Det er ___ klart, at vi skal hjælpe. (fælles viden) — STRETCH PD3", options: ["jo","da","vel","Ved ikke"], a: 0, why: "STRETCH PD3: Jo = fælles viden.", rule: "Modalpartikler", skill: "Modalpartikel", difficulty: "hard", stretch: true },
-  { id: 'q14', category: "stretch", type: "Sammenhæng", level: "B1", q: "PD3 gapped text tester — STRETCH:", options: ["Sammenhæng og bindeord","Kun stavning","Kun udtale","Ved ikke"], a: 0, why: "STRETCH PD3 format: gapped text.", rule: "PD3 format", skill: "Læsning", difficulty: "medium", stretch: true },
-  { id: 'q15', category: "stretch", type: "Skrivning", level: "B1", q: "PD3 Delprøve 4 kræver — STRETCH:", options: ["150-200 ord med indledning, argumenter, konklusion","10 ord","Kun sms","Ved ikke"], a: 0, why: "STRETCH PD3: 150-200 ord.", rule: "Skrivning", skill: "Skrivning", difficulty: "medium", stretch: true },
-];
-
-function hashStr(str){ let h=0; for(let i=0;i<str.length;i++){ h=((h<<5)-h)+str.charCodeAt(i); h=h&h; } return Math.abs(h); }
+const DIAGNOSTIC_QUESTIONS = {
+  reading: [
+    {
+      id: 'r1',
+      passage: 'Mit navn er Anna og jeg bor i København. Jeg arbejder som lærer på en skole. Om weekenden holder jeg af at løbe i parken.',
+      question: 'Hvad hedder personen?',
+      options: ['Anna', 'København', 'Lærer', 'Parken'],
+      correct: 0,
+      difficulty: 'A1'
+    },
+    {
+      id: 'r2',
+      passage: 'Erik har været i Danmark i fem år. Han kommer fra Sverige og taler både dansk og svensk flydende. Han mødte sin kone på universitetet.',
+      question: 'Hvor kommer Erik fra?',
+      options: ['Danmark', 'Sverige', 'Universitetet', 'Parken'],
+      correct: 1,
+      difficulty: 'A1'
+    },
+    {
+      id: 'r3',
+      passage: 'Det er vigtigt at drikke nok vand hver dag. Vand hjælper din krop med at fungere ordentligt. De fleste mennesker bør drikke mindst to liter om dagen.',
+      question: 'Hvor meget vand bør de fleste mennesker drikke dagligt?',
+      options: ['En liter', 'Mindst to liter', 'Tre liter', 'Det siges ikke'],
+      correct: 1,
+      difficulty: 'A2'
+    },
+    {
+      id: 'r4',
+      passage: 'I Danmark har vi mange traditioner. Hver jul dekorerer vi vores huse med lys og grantræer. Sankt Hans Aften fejrer vi på midsommerdagen med båltænding og sang.',
+      question: 'Hvornår fejrer danskerne Sankt Hans Aften?',
+      options: ['Til jul', 'På påske', 'Midsommerdagen', 'Til nytår'],
+      correct: 2,
+      difficulty: 'A2'
+    },
+    {
+      id: 'r5',
+      passage: 'Klimaforandringer påvirker hele verden. Temperaturen stiger, og det betyder mere vejrkaos. Vi må bruge vedvarende energi som sol og vind for at stoppe problemet.',
+      question: 'Hvad skal vi gøre for at stoppe klimaproblemerne?',
+      options: ['Bygge flere biler', 'Bruge vedvarende energi', 'Køre mere bil', 'Intet kan gøres'],
+      correct: 1,
+      difficulty: 'B1'
+    }
+  ],
+  grammar: [
+    {
+      id: 'g1',
+      question: 'Hun _____ til skolen hver dag.',
+      options: ['går', 'gå', 'gået', 'går'],
+      correct: 0,
+      difficulty: 'A1'
+    },
+    {
+      id: 'g2',
+      question: 'Jeg har _____ dansk i fem år.',
+      options: ['lær', 'lært', 'lærer', 'lærte'],
+      correct: 1,
+      difficulty: 'A2'
+    },
+    {
+      id: 'g3',
+      question: 'Han er ikke _____.',
+      options: ['går', 'gik', 'gået', 'kommet'],
+      correct: 3,
+      difficulty: 'A2'
+    },
+    {
+      id: 'g4',
+      question: 'Hvad betyder "sin"? Hun tog sin bog med sig.',
+      options: ['hans', 'mine', 'hendes egen', 'din'],
+      correct: 2,
+      difficulty: 'A2'
+    },
+    {
+      id: 'g5',
+      question: 'I morgen _____ jeg til mødet.',
+      options: ['gå', 'gik', 'skal gå', 'gået'],
+      correct: 2,
+      difficulty: 'B1'
+    },
+    {
+      id: 'g6',
+      question: 'Ledsætningen: "Jeg tror at han kommer i morgen." Hvor er verbet i ledsætningen?',
+      options: ['Anden position (V2)', 'Sidste position (V-last)', 'Første position', 'Det er ikke klart'],
+      correct: 1,
+      difficulty: 'B1'
+    }
+  ],
+  listening: [
+    {
+      id: 'l1',
+      audio: 'data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==',
+      transcript: 'Hej, jeg hedder Anna.',
+      question: 'Hvad hedder personen?',
+      options: ['Erik', 'Anna', 'Ole', 'Maria'],
+      correct: 1,
+      difficulty: 'A1'
+    },
+    {
+      id: 'l2',
+      audio: 'data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==',
+      transcript: 'Jeg arbejder på et kontor.',
+      question: 'Hvor arbejder personen?',
+      options: ['I en butik', 'På et kontor', 'I en skole', 'I et hospital'],
+      correct: 1,
+      difficulty: 'A2'
+    },
+    {
+      id: 'l3',
+      audio: 'data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAAB9AAACABAAZGF0YQIAAAAAAA==',
+      transcript: 'Den nye lov handler om arbejdstiderne, som skal være mere fleksible.',
+      question: 'Hvad handler loven om?',
+      options: ['Løn', 'Arbejdstider', 'Ferie', 'Sygdomsdag'],
+      correct: 1,
+      difficulty: 'B1'
+    }
+  ],
+  speaking: [
+    {
+      id: 's1',
+      prompt: 'Præsenter dig selv. Sig dit navn, hvor du kommer fra, og hvad du laver.',
+      rubric: 'Klarhed, udtale, ordvalg',
+      difficulty: 'A1'
+    },
+    {
+      id: 's2',
+      prompt: 'Beskriv din typiske dag. Hvad gør du om morgenen, til frokost, og om aftenen?',
+      rubric: 'Brug af tidsubtryk, verber, ordstilling',
+      difficulty: 'A2'
+    },
+    {
+      id: 's3',
+      prompt: 'Du skal spørge en dansker om vej til stationen. Hvad siger du? Hvordan svarer de?',
+      rubric: 'Høflighed, spørgsmålsform, forståelse',
+      difficulty: 'B1'
+    }
+  ]
+};
 
 export default function DiagnosticView({ onComplete }) {
-  const [userSeed] = useState(()=> {
-    const stored = localStorage.getItem('dansk_user_seed');
-    if (stored) return stored;
-    const generated = "u_"+Math.random().toString(36).slice(2,8)+"_"+Date.now();
-    localStorage.setItem('dansk_user_seed', generated);
-    return generated;
-  });
+  const [currentCategory, setCurrentCategory] = useState(null);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [scores, setScores] = useState({});
+  const [answers, setAnswers] = useState({});
+  const [speakingRatings, setSpeakingRatings] = useState({});
+  const [testStarted, setTestStarted] = useState(false);
+  const [testComplete, setTestComplete] = useState(false);
 
-  const [questions] = useState(()=> {
-    // Get the seed synchronously from localStorage to avoid timing issues
-    const seed = localStorage.getItem('dansk_user_seed') || ("u_"+Math.random().toString(36).slice(2,8)+"_"+Date.now());
-    const core = baseQuestions.filter(q=>!q.stretch);
-    const stretch = baseQuestions.filter(q=>q.stretch);
-    const h = hashStr(seed);
-    const shuffledCore = [...core].sort(()=> 0.5 - (h % 100)/100).slice(0,12);
-    return [...shuffledCore, ...stretch.slice(0,3)];
-  });
-  const [idx, setIdx] = useState(()=>{
-    const saved = localStorage.getItem('dansk_assessment_idx');
-    const savedAnswers = localStorage.getItem('dansk_assessment_answers');
-    if (saved && savedAnswers) {
-      try {
-        const parsedIdx = parseInt(saved,10);
-        const parsedAnswers = JSON.parse(savedAnswers);
-        if (parsedIdx >=0 && parsedIdx < 15 && Object.keys(parsedAnswers).length>0) {
-          return parsedIdx;
-        }
-      } catch {}
+  const categories = ['reading', 'grammar', 'listening', 'speaking'];
+
+  const handleStartTest = () => {
+    setTestStarted(true);
+    setCurrentCategory('reading');
+  };
+
+  const handleAnswer = (questionId, answerIndex) => {
+    setAnswers(prev => ({
+      ...prev,
+      [questionId]: answerIndex
+    }));
+  };
+
+  const handleNextQuestion = () => {
+    const questions = DIAGNOSTIC_QUESTIONS[currentCategory];
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+    } else {
+      moveToNextCategory();
     }
-    return 0;
-  });
-  const [answers, setAnswers] = useState(()=>{
-    try {
-      const saved = localStorage.getItem('dansk_assessment_answers');
-      if (saved) return JSON.parse(saved);
-    } catch {}
-    return {};
-  });
-  const [showResult, setShowResult] = useState(false);
-  const [verdict, setVerdict] = useState(null);
-  const [showWhy, setShowWhy] = useState(false);
-
-  useEffect(()=>{ localStorage.setItem('dansk_user_seed', userSeed); },[userSeed]);
-  
-  // Save state on every answer per spec — never lose work, abandoned test resume
-  useEffect(()=>{
-    localStorage.setItem('dansk_assessment_idx', idx.toString());
-    localStorage.setItem('dansk_assessment_answers', JSON.stringify(answers));
-  },[idx, answers]);
-
-  const currentQ = questions[idx];
-  const total = questions.length;
-
-  // Safety: don't render question screen if questions not loaded
-  if (!currentQ && !showResult) {
-    return (
-      <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)] grid place-items-center">
-        <div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin"></div>
-      </div>
-    );
-  }
-
-  const handleAnswer = (optIdx) => {
-    setAnswers(prev=>({...prev, [currentQ.id]: optIdx}));
-    if(navigator.vibrate) navigator.vibrate(10);
-    // Auto-advance after short delay for calm speed per spec 120ms press 220ms state
-    setTimeout(()=>{
-      if(idx < total-1) {
-        setIdx(i=>i+1);
-      } else {
-        finishTest({...answers, [currentQ.id]: optIdx});
-      }
-    }, 220);
   };
 
-  const finishTest = (finalAnswers) => {
-    // Calculate without revealing mid-test
-    if (!questions || questions.length === 0) {
-      console.error('Questions not available');
-      return;
+  const moveToNextCategory = () => {
+    const currentIdx = categories.indexOf(currentCategory);
+    if (currentIdx < categories.length - 1) {
+      const nextCategory = categories[currentIdx + 1];
+      calculateCategoryScore(currentCategory);
+      setCurrentCategory(nextCategory);
+      setCurrentQuestionIndex(0);
+    } else {
+      calculateCategoryScore(currentCategory);
+      setTestComplete(true);
     }
-    const filtered = {};
-    Object.entries(finalAnswers).forEach(([id, optIdx]) => {
-      const q = questions.find(q=>q.id===id);
-      if (!q) return;
-      const isIdk = q.options[optIdx]?.toLowerCase().includes('ved ikke');
-      if (!isIdk) filtered[id] = optIdx;
-    });
-    const correct = Object.entries(filtered).filter(([id, optIdx])=>{
-      const q = questions.find(q=>q.id===id);
-      return q && q.a===optIdx;
-    }).length;
-    const totalCore = questions.filter(q=>!q.stretch).length;
-    const pct = Math.round(correct/totalCore*100);
-    const level = pct<30 ? 'Modul 1' : pct<55 ? 'Modul 2' : pct<75 ? 'Modul 3' : 'Modul 3+';
-    const categoryPct = {};
-    ['grammar','vocab','listening'].forEach(cat=>{
-      const catQs = questions.filter(q=>q && q.category===cat);
-      const catCorrect = catQs.filter(q=> filtered[q.id]!==undefined && q.a===filtered[q.id]).length;
-      categoryPct[cat] = catQs.length ? Math.round(catCorrect/catQs.length*100) : 0;
-    });
-    const strengths = Object.entries(categoryPct).filter(([_,v])=>v>=75).map(([k])=>k).slice(0,3);
-    const weaknesses = Object.entries(categoryPct).filter(([_,v])=>v<60).map(([k])=>k).slice(0,3);
-    const v = { correct, total: totalCore, pct, level, categoryPct, strengths, weaknesses, idkCount: Object.keys(finalAnswers).length - Object.keys(filtered).length };
-    setVerdict(v);
-    localStorage.setItem('dansk_level', v.level);
-    localStorage.setItem('dansk_diagnostic', JSON.stringify({ ...v, date: new Date().toISOString(), userSeed }));
-    localStorage.setItem('dansk_verdict', JSON.stringify(v));
-    // Clear abandoned test resume after finish
-    localStorage.removeItem('dansk_assessment_idx');
-    localStorage.removeItem('dansk_assessment_answers');
-    setShowResult(true);
   };
 
-  const prevQ = () => { 
-    if(idx>0) setIdx(i=>i-1); 
+  const calculateCategoryScore = (category) => {
+    const questions = DIAGNOSTIC_QUESTIONS[category];
+    const categoryAnswers = questions.filter(q => answers[q.id] !== undefined);
+    
+    if (category === 'speaking') {
+      const avgRating = Object.values(speakingRatings).reduce((a, b) => a + b, 0) / Object.keys(speakingRatings).length || 0;
+      const speakingScore = (avgRating / 5) * 100;
+      setScores(prev => ({
+        ...prev,
+        [category]: Math.round(speakingScore)
+      }));
+    } else {
+      const correct = categoryAnswers.filter(q => answers[q.id] === q.correct).length;
+      const percentage = (correct / categoryAnswers.length) * 100;
+      setScores(prev => ({
+        ...prev,
+        [category]: Math.round(percentage)
+      }));
+    }
   };
 
-  if(showResult && verdict) {
-    const startingPoint = verdict.level;
-    const rangeLow = Math.max(0, verdict.pct - 12);
-    const rangeHigh = Math.min(100, verdict.pct + 12);
+  const handleSpeakingRating = (questionId, rating) => {
+    setSpeakingRatings(prev => ({
+      ...prev,
+      [questionId]: rating
+    }));
+  };
+
+  const determineLevelFromScores = () => {
+    const avgScore = (scores.reading + scores.grammar + scores.listening + scores.speaking) / 4;
+    if (avgScore >= 80) return 'B1';
+    if (avgScore >= 65) return 'A2';
+    return 'A1';
+  };
+
+  const handleTestComplete = () => {
+    const overallLevel = determineLevelFromScores();
+    const diagnosticData = {
+      timestamp: new Date().toISOString(),
+      scores,
+      overallLevel,
+      answers
+    };
+    
+    localStorage.setItem('dansk_diagnostic', JSON.stringify({
+      scores: scores,
+      level: overallLevel,
+      timestamp: new Date().toISOString()
+    }));
+    localStorage.setItem('dansk_verdict', JSON.stringify(diagnosticData));
+    
+    onComplete();
+  };
+
+  if (!testStarted) {
     return (
-      <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)]">
-        {/* Focus mode — one Close button returns per spec */}
-        <div className="max-w-[600px] mx-auto px-4 pt-6 pb-[100px]">
-          <div className="flex items-center justify-between">
-            <button onClick={()=>window.history.back()} className="w-10 h-10 rounded-full bg-white border border-[var(--border)] grid place-items-center">✕</button>
-            <span className="text-[11px] font-[700] tracking-widest uppercase bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">Result • Starting point with range</span>
-          </div>
-
-          <div className="mt-8">
-            <div className="text-[11px] font-[700] tracking-widest uppercase text-[var(--muted)]">Your starting point • Modul 3 focus • Range not verdict</div>
-            <h1 className="mt-3 text-[32px] font-[700] tracking-tight leading-[0.95]">Your starting point:<br/>{startingPoint}</h1>
-            <p className="mt-4 text-[15px] leading-[1.5] text-[var(--ink-secondary)]">
-              Your path through Modul 3 to 5. PD3 format is stretch, clearly labelled. Diagnostic capped at Modul 3 content A2→B1 Modultest 3. Range {rangeLow}–{rangeHigh}% reflects uncertainty.
+      <WebAppShell variant="assessment">
+        <div className="max-w-2xl mx-auto p-8 py-20">
+          <div className="bg-white rounded-lg shadow-lg p-12 text-center">
+            <h1 className="text-4xl font-bold text-slate-900 mb-6">
+              Danish Diagnostic Test
+            </h1>
+            <p className="text-lg text-slate-600 mb-8 leading-relaxed">
+              This test evaluates your Danish skills across four areas: reading, grammar, listening, and speaking. It takes about 20–25 minutes and adapts to your level.
             </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <span className="text-[12px] font-[600] bg-white border border-[var(--border)] px-3 py-1.5 rounded-full">{rangeLow}–{rangeHigh}% range</span>
-              <span className="text-[12px] font-[600] bg-[var(--ink)] text-white px-3 py-1.5 rounded-full">{verdict.correct}/{verdict.total} • {verdict.idkCount} Ved ikke</span>
-              <button onClick={()=>{ setShowResult(false); setIdx(0); setAnswers({}); }} className="text-[11px] font-[600] bg-white border border-[var(--border)] px-3 py-1.5 rounded-full">Retake →</button>
+            <div className="bg-blue-50 p-6 rounded-lg mb-8 text-left">
+              <h3 className="font-semibold text-slate-900 mb-4">What you'll see:</h3>
+              <ul className="space-y-2 text-slate-700">
+                <li>✓ <strong>Reading:</strong> 5 passages with comprehension questions</li>
+                <li>✓ <strong>Grammar:</strong> 6 sentence-level exercises</li>
+                <li>✓ <strong>Listening:</strong> 3 audio clips with questions</li>
+                <li>✓ <strong>Speaking:</strong> 3 prompts (optional recording or text)</li>
+              </ul>
             </div>
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            <div className="bg-white rounded-[16px] p-4 border border-[var(--border)]">
-              <div className="text-[11px] font-[700] uppercase text-[var(--muted)]">Section scores • 5+ items each</div>
-              <div className="mt-3 space-y-2">
-                {Object.entries(verdict.categoryPct).map(([cat,pct])=>(
-                  <div key={cat} className="flex justify-between text-[13px]"><span className="font-[600] capitalize">{cat}</span><span className={`px-2 py-0.5 rounded-full font-[700] text-[12px] ${pct>=80?'bg-[#ECFDF5] text-[#059669]':pct<60?'bg-[#FFFBEB] text-[#D97706]':'bg-[var(--bg)]'}`}>{pct}%</span></div>
-                ))}
-              </div>
-            </div>
-            <div className="space-y-3">
-              <div className="bg-[#ECFDF5] rounded-[16px] p-4 border border-[#059669]/20">
-                <div className="text-[11px] font-[700] uppercase text-[#059669]">Strengths • Keep strong</div>
-                <div className="mt-2 space-y-1">
-                  {verdict.strengths.length ? verdict.strengths.map((s,i)=><div key={i} className="text-[13px] font-[600]">✓ {s}</div>) : <div className="text-[12px] text-[var(--muted)]">Keep practicing Modul 3</div>}
-                </div>
-              </div>
-              <div className="bg-[#FFFBEB] rounded-[16px] p-4 border border-[#D97706]/20">
-                <div className="text-[11px] font-[700] uppercase text-[#D97706]">Focus • Where to start</div>
-                <div className="mt-2 space-y-1">
-                  {verdict.weaknesses.length ? verdict.weaknesses.map((w,i)=><div key={i} className="text-[13px] font-[600]">• {w}</div>) : <div className="text-[12px] text-[var(--muted)]">Good balance — start Up next</div>}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* One primary action — bottom thumb zone */}
-          <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[var(--bg)] to-transparent">
-            <div className="max-w-[600px] mx-auto flex gap-2">
-              <button onClick={onComplete} className="flex-1 bg-[var(--ink)] text-white py-4 rounded-full text-[16px] font-[600]">See My Learning Path →</button>
-            </div>
+            <button
+              onClick={handleStartTest}
+              className="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all"
+            >
+              Start Test →
+            </button>
           </div>
         </div>
-      </div>
+      </WebAppShell>
     );
   }
+
+  if (testComplete) {
+    const overallLevel = determineLevelFromScores();
+    const levels = {
+      'reading': scores.reading >= 80 ? 'B1' : scores.reading >= 65 ? 'A2' : 'A1',
+      'grammar': scores.grammar >= 80 ? 'B1' : scores.grammar >= 65 ? 'A2' : 'A1',
+      'listening': scores.listening >= 80 ? 'B1' : scores.listening >= 65 ? 'A2' : 'A1',
+      'speaking': scores.speaking >= 80 ? 'B1' : scores.speaking >= 65 ? 'A2' : 'A1'
+    };
+
+    return (
+      <WebAppShell variant="assessment">
+        <div className="max-w-3xl mx-auto p-8 py-12">
+          <div className="bg-white rounded-lg shadow-lg p-12">
+            <h1 className="text-4xl font-bold text-slate-900 mb-2 text-center">
+              Your Danish Level
+            </h1>
+            <p className="text-center text-slate-600 mb-12">
+              Based on your answers across all four skills
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+              {['reading', 'grammar', 'listening', 'speaking'].map(skill => (
+                <div key={skill} className="bg-slate-50 p-6 rounded-lg text-center">
+                  <div className="text-2xl font-bold text-amber-600 mb-2">
+                    {scores[skill]}%
+                  </div>
+                  <div className="font-semibold text-slate-900 capitalize mb-2">
+                    {skill}
+                  </div>
+                  <div className="text-sm text-slate-600">
+                    Level {levels[skill]}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded mb-8">
+              <h3 className="font-bold text-slate-900 mb-3">Overall Level</h3>
+              <p className="text-2xl font-bold text-blue-600 mb-4">
+                {overallLevel} (mixed profile)
+              </p>
+              <p className="text-slate-700">
+                {overallLevel === 'B1' && 'You have solid B1 skills across the board. You can converse, read news, and understand most authentic Danish. Focus on advanced grammar and native idioms.'}
+                {overallLevel === 'A2' && 'You have A2 skills with some B1 pockets. Your reading is likely stronger than listening. Build listening comprehension and verb fluency through daily exposure.'}
+                {overallLevel === 'A1' && 'You are solidly A1. Master articles, basic verb tenses, and word order first. Increase your exposure to spoken Danish through TV and podcasts.'}
+              </p>
+            </div>
+
+            <div className="bg-amber-50 border-l-4 border-amber-600 p-6 rounded mb-8">
+              <h3 className="font-bold text-slate-900 mb-3">Recommended Learning Path</h3>
+              <ul className="space-y-2 text-slate-700">
+                {levels.listening === 'A1' && (
+                  <li>→ <strong>Start with:</strong> Listening and speaking foundations (audio drills, native speed)</li>
+                )}
+                {levels.grammar === 'A1' && (
+                  <li>→ <strong>Strengthen:</strong> Articles, basic word order, verb tenses</li>
+                )}
+                {levels.grammar === 'A2' && (
+                  <li>→ <strong>Next:</strong> Advanced grammar (subordinate clauses, perfect tense, prepositions)</li>
+                )}
+                {levels.reading === 'B1' && (
+                  <li>→ <strong>Leverage:</strong> Your reading strength — use B1 texts as input material</li>
+                )}
+              </ul>
+            </div>
+
+            <button
+              onClick={handleTestComplete}
+              className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg transform hover:scale-105 transition-all"
+            >
+              View Lessons & Dashboard →
+            </button>
+          </div>
+        </div>
+      </WebAppShell>
+    );
+  }
+
+  const question = DIAGNOSTIC_QUESTIONS[currentCategory][currentQuestionIndex];
+  const categoryCount = categories.indexOf(currentCategory) + 1;
+  const totalCategories = categories.length;
+  const questionCount = currentQuestionIndex + 1;
+  const totalQuestions = DIAGNOSTIC_QUESTIONS[currentCategory].length;
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)] flex flex-col">
-      {/* Focus mode — whole screen, one Close button returns */}
-      <div className="max-w-[600px] mx-auto w-full px-4 pt-6 pb-[100px] flex-1 flex flex-col">
-        <div className="flex items-center justify-between">
-          <button onClick={()=>{setIdx(0); setAnswers({});}} className="w-10 h-10 rounded-full bg-white border border-[var(--border)] grid place-items-center" aria-label="Reset">✕</button>
-          <span className="text-[11px] font-[700] tracking-widest uppercase text-[var(--muted)]">Question {idx+1} of {total} • Danish Assessment</span>
-          <span className="text-[11px] font-[600] px-2.5 py-1 rounded-full bg-white border border-[var(--border)]">{currentQ.category} • {currentQ.level}</span>
-        </div>
-
-        {/* Thin progress bar per spec */}
-        <div className="mt-4 h-1.5 bg-white rounded-full overflow-hidden border border-[var(--border)]">
-          <div className="h-full bg-[var(--ink)] rounded-full transition-all duration-[340ms]" style={{ width: ((idx+1)/total*100) + "%" }} />
-        </div>
-        <div className="mt-2 flex justify-between text-[11px] text-[var(--muted)]">
-          <span>{Object.keys(answers).length}/{total} answered • {Object.values(answers).filter((_,i)=>{ const q=questions[i]; return false; }).length} </span>
-          <span>{currentQ.stretch ? 'STRETCH PD3 • Clearly labelled' : 'Modul 3 • A2→B1'}</span>
-        </div>
-
-        {/* One question per screen per spec */}
-        <div className="flex-1 mt-8">
-          <div className="bg-white rounded-[16px] border border-[var(--border)] p-6">
-            <div className="flex gap-2 mb-3">
-              <span className="text-[11px] font-[700] tracking-widest uppercase bg-[var(--ink)] text-white px-3 py-1 rounded-full">{currentQ.category}</span>
-              <span className="text-[11px] px-2.5 py-1 rounded-full bg-[var(--bg)] border border-[var(--border)]">{currentQ.skill} • {currentQ.level}</span>
-              {currentQ.stretch && <span className="text-[10px] px-2 py-1 rounded-full bg-[#FFFBEB] border border-[#D97706]/20 text-[#D97706] font-[700]">STRETCH PD3</span>}
+    <WebAppShell variant="assessment">
+      <div className="max-w-3xl mx-auto p-8 py-12">
+        {/* Progress */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <div className="text-sm text-slate-600 font-semibold uppercase">
+                {currentCategory} • Question {questionCount} of {totalQuestions}
+              </div>
+              <div className="text-lg font-bold text-slate-900 mt-1">
+                {categoryCount} of {totalCategories} Skills
+              </div>
             </div>
-
-            {/* Danish content in serif per spec */}
-            <h2 className="text-[22px] font-[700] leading-tight serif" lang="da">{currentQ.q}</h2>
-            <div className="mt-2 text-[11px] text-[var(--muted)]">Sprogpolitik: audio on question, never options. Danish serif, interface system face. Never mixed in one line.</div>
-
-            {/* Option rows at least 56px tall per spec */}
-            <div className="mt-6 space-y-2">
-              {currentQ.options.map((opt,oi)=>{
-                const isSelected = answers[currentQ.id]===oi;
-                const isIdk = opt.toLowerCase().includes('ved ikke');
-                return (
-                  <button 
-                    key={oi} 
-                    onClick={()=>handleAnswer(oi)} 
-                    className={`w-full text-left px-5 py-4 rounded-[12px] border text-[16px] font-[500] flex justify-between items-center transition-all min-h-[56px] ${isSelected ? 'bg-[var(--ink)] text-white border-[var(--ink)]' : isIdk ? 'bg-white border border-dashed border-[var(--border-strong)] text-[var(--muted)]' : 'bg-[var(--bg)] border-transparent hover:bg-white hover:border-[var(--border)]'}`}
-                  >
-                    <span className={isIdk ? '' : 'serif'} lang={isIdk ? undefined : 'da'}>{opt}</span>
-                    <span className={`w-6 h-6 rounded-full grid place-items-center text-[11px] shrink-0 ${isSelected ? 'bg-white text-black' : 'bg-white border border-[var(--border)]'}`}>{isSelected?'✓':''}</span>
-                  </button>
-                );
-              })}
+            <div className="text-right">
+              <div className="text-2xl font-bold text-amber-600">
+                {Math.round((categoryCount - 1 + questionCount / totalQuestions) / totalCategories * 100)}%
+              </div>
+              <div className="text-xs text-slate-600">Complete</div>
             </div>
-
-            {/* Progressive disclosure — English comparison and full rules behind tap per spec */}
-            <div className="mt-6">
-              <button onClick={()=>setShowWhy(!showWhy)} className="text-[13px] font-[600] text-[var(--accent)]">Why? {showWhy ? 'Hide' : 'Show rule (1-2 lines)'}</button>
-              {showWhy && (
-                <div className="mt-3 p-4 bg-[var(--bg)] rounded-[12px] text-[13px] leading-[1.5]">
-                  <div className="font-[600]">{currentQ.rule} • {currentQ.skill}</div>
-                  <div className="mt-1 text-[var(--ink-secondary)]">{currentQ.why}</div>
-                  <div className="mt-2 text-[11px] text-[var(--muted)]">English: Compare to English SVO vs Danish V2. Full rules behind tap per progressive disclosure.</div>
-                </div>
-              )}
-            </div>
+          </div>
+          <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+            <div
+              className="bg-gradient-to-r from-amber-600 to-orange-600 h-full transition-all"
+              style={{
+                width: `${(categoryCount - 1 + questionCount / totalQuestions) / totalCategories * 100}%`
+              }}
+            />
           </div>
         </div>
 
-        {/* Bottom thumb zone — one primary action per spec, Back always works */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-[var(--bg)] via-[var(--bg)] to-transparent">
-          <div className="max-w-[600px] mx-auto flex gap-2">
-            <button onClick={prevQ} disabled={idx===0} className="px-5 py-4 rounded-full bg-white border border-[var(--border)] text-[14px] font-[600] disabled:opacity-40 min-h-[56px]">← Back</button>
-            <div className="flex-1 bg-white border border-[var(--border)] rounded-full px-4 py-2 flex items-center justify-between text-[12px]">
-              <span className="text-[var(--muted)]">Save every answer • Back works • Closing mid-test loses nothing</span>
-              <span className="font-[600]">{idx+1}/{total}</span>
-            </div>
+        <div className="bg-white rounded-lg shadow-lg p-10">
+          {/* Reading Section */}
+          {currentCategory === 'reading' && (
+            <>
+              <div className="bg-slate-50 p-6 rounded-lg mb-8 border-l-4 border-slate-300">
+                <p className="text-slate-800 leading-relaxed text-base">
+                  {question.passage}
+                </p>
+              </div>
+              <h3 className="font-bold text-lg text-slate-900 mb-6">
+                {question.question}
+              </h3>
+              <div className="space-y-3">
+                {question.options.map((option, idx) => (
+                  <label key={idx} className="flex items-center p-4 border-2 border-slate-200 rounded-lg cursor-pointer hover:border-amber-600 hover:bg-amber-50 transition">
+                    <input
+                      type="radio"
+                      name={question.id}
+                      checked={answers[question.id] === idx}
+                      onChange={() => handleAnswer(question.id, idx)}
+                      className="w-4 h-4 accent-amber-600"
+                    />
+                    <span className="ml-4 text-slate-800 font-medium">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Grammar Section */}
+          {currentCategory === 'grammar' && (
+            <>
+              <h3 className="font-bold text-xl text-slate-900 mb-6 text-center">
+                {question.question}
+              </h3>
+              <div className="space-y-3">
+                {question.options.map((option, idx) => (
+                  <label key={idx} className="flex items-center p-4 border-2 border-slate-200 rounded-lg cursor-pointer hover:border-amber-600 hover:bg-amber-50 transition">
+                    <input
+                      type="radio"
+                      name={question.id}
+                      checked={answers[question.id] === idx}
+                      onChange={() => handleAnswer(question.id, idx)}
+                      className="w-4 h-4 accent-amber-600"
+                    />
+                    <span className="ml-4 text-slate-800 font-medium">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Listening Section */}
+          {currentCategory === 'listening' && (
+            <>
+              <div className="bg-slate-50 p-8 rounded-lg mb-8 text-center">
+                <div className="text-5xl mb-4">🔊</div>
+                <p className="text-slate-600 text-sm mb-4">Play the audio (in production, real Danish native speech)</p>
+                <div className="bg-white p-4 rounded border border-slate-200 text-slate-800 italic">
+                  "{question.transcript}"
+                </div>
+              </div>
+              <h3 className="font-bold text-lg text-slate-900 mb-6">
+                {question.question}
+              </h3>
+              <div className="space-y-3">
+                {question.options.map((option, idx) => (
+                  <label key={idx} className="flex items-center p-4 border-2 border-slate-200 rounded-lg cursor-pointer hover:border-amber-600 hover:bg-amber-50 transition">
+                    <input
+                      type="radio"
+                      name={question.id}
+                      checked={answers[question.id] === idx}
+                      onChange={() => handleAnswer(question.id, idx)}
+                      className="w-4 h-4 accent-amber-600"
+                    />
+                    <span className="ml-4 text-slate-800 font-medium">{option}</span>
+                  </label>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Speaking Section */}
+          {currentCategory === 'speaking' && (
+            <>
+              <h3 className="font-bold text-lg text-slate-900 mb-4">
+                {question.prompt}
+              </h3>
+              <p className="text-slate-600 text-sm mb-6">
+                Answer in Danish. You can type your response or optionally record yourself.
+              </p>
+              <div className="bg-amber-50 p-6 rounded-lg mb-6 border border-amber-200">
+                <textarea
+                  placeholder="Your response in Danish (optional)..."
+                  className="w-full p-4 border border-amber-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 resize-none"
+                  rows={4}
+                  defaultValue={answers[question.id] || ''}
+                  onChange={(e) => handleAnswer(question.id, e.target.value)}
+                />
+              </div>
+              <div className="mb-8">
+                <label className="block text-slate-900 font-semibold mb-4">
+                  Rate your confidence (1–5):
+                </label>
+                <div className="flex gap-3">
+                  {[1, 2, 3, 4, 5].map(rating => (
+                    <button
+                      key={rating}
+                      onClick={() => handleSpeakingRating(question.id, rating)}
+                      className={`w-12 h-12 rounded-lg font-bold transition ${
+                        speakingRatings[question.id] === rating
+                          ? 'bg-amber-600 text-white'
+                          : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                      }`}
+                    >
+                      {rating}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Navigation */}
+          <div className="flex gap-4 mt-10">
+            {currentQuestionIndex > 0 || categoryCount > 1 ? (
+              <button
+                onClick={() => {
+                  if (currentQuestionIndex > 0) {
+                    setCurrentQuestionIndex(currentQuestionIndex - 1);
+                  }
+                }}
+                className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-lg font-semibold hover:bg-slate-50 transition"
+              >
+                ← Previous
+              </button>
+            ) : null}
+            <button
+              onClick={handleNextQuestion}
+              disabled={answers[question.id] === undefined && currentCategory !== 'speaking'}
+              className="flex-1 px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-semibold hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition"
+            >
+              {categoryCount === totalCategories && questionCount === totalQuestions ? 'See Results →' : 'Next →'}
+            </button>
           </div>
         </div>
       </div>
-    </div>
+    </WebAppShell>
   );
 }
