@@ -1,5 +1,7 @@
 import { useState, useMemo } from 'react';
 import V2InversionLesson from './lessons/V2InversionLesson';
+import PrepositionsLesson from './lessons/PrepositionsLesson';
+import ListeningLesson from './lessons/ListeningLesson';
 
 // Lesson System — interactive lessons with explanation + exercises
 // Each lesson: ~30-40 min, balanced grammar/vocab/listening, mixed exercise types
@@ -23,19 +25,19 @@ const LESSONS = [
     description: 'Master the most common prepositions and when to use each one.',
     duration: '40 min',
     difficulty: 'A2',
-    component: null,
-    unlocked: false,
+    component: PrepositionsLesson,
+    unlocked: true,
     completed: false
   },
   {
-    id: 'listening-reduction',
-    title: 'Listening — Speech Reduction',
+    id: 'listening',
+    title: 'Listening — Comprehension',
     category: 'listening',
-    description: 'Understand how Danes actually speak: swallowed syllables, reduced words, connected speech.',
-    duration: '30 min',
+    description: 'Understand natural Danish speech: question words, key phrases, and real conversations.',
+    duration: '35 min',
     difficulty: 'A2',
-    component: null,
-    unlocked: false,
+    component: ListeningLesson,
+    unlocked: true,
     completed: false
   }
 ];
