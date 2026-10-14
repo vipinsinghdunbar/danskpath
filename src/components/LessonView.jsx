@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import V2InversionLesson from './lessons/V2InversionLesson';
 import PrepositionsLesson from './lessons/PrepositionsLesson';
 import ListeningLesson from './lessons/ListeningLesson';
@@ -6,7 +6,7 @@ import ListeningLesson from './lessons/ListeningLesson';
 // Lesson System — interactive lessons with explanation + exercises
 // Each lesson: ~30-40 min, balanced grammar/vocab/listening, mixed exercise types
 
-const LESSONS = [
+const LESSON_TEMPLATES = [
   {
     id: 'v2-inversion',
     title: 'V2 Inversion — Word Order',
@@ -15,8 +15,8 @@ const LESSONS = [
     duration: '35 min',
     difficulty: 'A2',
     component: V2InversionLesson,
-    unlocked: true,
-    completed: false
+    prerequisite: null, // First lesson, no prerequisite
+    unlockScore: 0
   },
   {
     id: 'prepositions',
@@ -26,8 +26,8 @@ const LESSONS = [
     duration: '40 min',
     difficulty: 'A2',
     component: PrepositionsLesson,
-    unlocked: true,
-    completed: false
+    prerequisite: 'v2-inversion', // Unlocks after V2 Inversion
+    unlockScore: 70 // Requires 70% or higher
   },
   {
     id: 'listening',
@@ -37,8 +37,8 @@ const LESSONS = [
     duration: '35 min',
     difficulty: 'A2',
     component: ListeningLesson,
-    unlocked: true,
-    completed: false
+    prerequisite: 'v2-inversion', // Unlocks after V2 Inversion
+    unlockScore: 70 // Requires 70% or higher
   }
 ];
 
@@ -46,17 +46,61 @@ export default function LessonView({ onBackToDashboard }) {
   const [currentLessonId, setCurrentLessonId] = useState(null);
   const [lessonProgress, setLessonProgress] = useState({});
 
+  // Load lesson progress from localStorage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('dansk_lesson_progress');
+      if (stored) {
+        setLessonProgress(JSON.parse(stored));
+      }
+    } catch {
+      setLessonProgress({});
+    }
+  }, []);
+
+  // Save lesson progress to localStorage whenever it changes
+  useEffect(() => {
+    if (Object.keys(lessonProgress).length > 0) {
+      localStorage.setItem('dansk_lesson_progress', JSON.stringify(lessonProgress));
+    }
+  }, [lessonProgress]);
+
+  // Determine which lessons are unlocked based on prerequisites
+  const lessonsWithUnlockStatus = useMemo(() => {
+    return LESSON_TEMPLATES.map(lesson => {
+      let unlocked = true;
+      let lockedReason = '';
+
+      if (lesson.prerequisite) {
+        const prereqProgress = lessonProgress[lesson.prerequisite];
+        if (!prereqProgress || !prereqProgress.completed) {
+          unlocked = false;
+          const prereqLesson = LESSON_TEMPLATES.find(l => l.id === lesson.prerequisite);
+          lockedReason = `Complete "${prereqLesson.title}" first`;
+        } else if (prereqProgress.score < lesson.unlockScore) {
+          unlocked = false;
+          lockedReason = `Score ${lesson.unlockScore}%+ on prerequisite (you got ${prereqProgress.score}%)`;
+        }
+      }
+
+      return { ...lesson, unlocked, lockedReason };
+    });
+  }, [lessonProgress]);
+
   const currentLesson = useMemo(() => {
     if (!currentLessonId) return null;
-    return LESSONS.find(l => l.id === currentLessonId);
-  }, [currentLessonId]);
+    return lessonsWithUnlockStatus.find(l => l.id === currentLessonId);
+  }, [currentLessonId, lessonsWithUnlockStatus]);
 
   const handleLessonComplete = (score) => {
-    setLessonProgress(prev => ({
-      ...prev,
+    const updatedProgress = {
+      ...lessonProgress,
       [currentLessonId]: { completed: true, score, date: new Date().toISOString() }
-    }));
-    // Mark lesson as completed in state
+    };
+    setLessonProgress(updatedProgress);
+    localStorage.setItem('dansk_lesson_progress', JSON.stringify(updatedProgress));
+
+    // Return to menu after 1.5 seconds
     setTimeout(() => {
       setCurrentLessonId(null);
     }, 1500);
@@ -93,24 +137,26 @@ export default function LessonView({ onBackToDashboard }) {
         {/* Progress Overview */}
         <div className="bg-gray-50 rounded-[12px] p-4 border border-gray-200 mb-6">
           <div className="text-[11px] text-gray-600 font-[600] mb-2 uppercase tracking-widest">
-            Your Progress
+            Your Learning Progress
           </div>
           <div className="grid grid-cols-3 gap-3">
             <div className="text-center">
-              <div className="text-[24px] font-[700] text-gray-900">
+              <div className="text-[24px] font-[700] text-green-600">
                 {Object.values(lessonProgress).filter(p => p.completed).length}
               </div>
               <div className="text-[12px] text-gray-600">Completed</div>
             </div>
             <div className="text-center">
-              <div className="text-[24px] font-[700] text-gray-900">
-                {LESSONS.filter(l => l.unlocked).length}
+              <div className="text-[24px] font-[700] text-blue-600">
+                {lessonsWithUnlockStatus.filter(l => l.unlocked).length}
               </div>
-              <div className="text-[12px] text-gray-600">Available</div>
+              <div className="text-[12px] text-gray-600">Unlocked</div>
             </div>
             <div className="text-center">
               <div className="text-[24px] font-[700] text-gray-900">
-                {Math.round(Object.values(lessonProgress).reduce((sum, p) => sum + (p.score || 0), 0) / Math.max(Object.keys(lessonProgress).length, 1))}%
+                {Object.values(lessonProgress).length > 0
+                  ? Math.round(Object.values(lessonProgress).reduce((sum, p) => sum + (p.score || 0), 0) / Object.values(lessonProgress).length)
+                  : 0}%
               </div>
               <div className="text-[12px] text-gray-600">Avg Score</div>
             </div>
@@ -123,54 +169,68 @@ export default function LessonView({ onBackToDashboard }) {
             Grammar & Listening
           </h2>
           <div className="space-y-3">
-            {LESSONS.map(lesson => {
+            {lessonsWithUnlockStatus.map((lesson, idx) => {
               const progress = lessonProgress[lesson.id];
               const isCompleted = progress?.completed;
               const score = progress?.score;
 
               return (
-                <button
-                  key={lesson.id}
-                  onClick={() => {
-                    if (lesson.unlocked && lesson.component) {
-                      setCurrentLessonId(lesson.id);
-                    }
-                  }}
-                  disabled={!lesson.unlocked || !lesson.component}
-                  className={`w-full p-4 rounded-[12px] border text-left transition-all ${
-                    isCompleted
-                      ? 'bg-green-50 border-green-200'
-                      : lesson.unlocked && lesson.component
-                      ? 'bg-white border-gray-200 hover:border-gray-300 cursor-pointer'
-                      : 'bg-gray-50 border-gray-200 opacity-50 cursor-not-allowed'
-                  }`}
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1">
-                      <h3 className="text-[14px] font-[700] text-gray-900">{lesson.title}</h3>
-                      <p className="text-[12px] text-gray-600 mt-1">{lesson.description}</p>
+                <div key={lesson.id}>
+                  <button
+                    onClick={() => {
+                      if (lesson.unlocked && lesson.component) {
+                        setCurrentLessonId(lesson.id);
+                      }
+                    }}
+                    disabled={!lesson.unlocked || !lesson.component}
+                    className={`w-full p-4 rounded-[12px] border text-left transition-all ${
+                      isCompleted
+                        ? 'bg-green-50 border-green-200'
+                        : lesson.unlocked && lesson.component
+                        ? 'bg-white border-gray-200 hover:border-gray-300 cursor-pointer'
+                        : 'bg-gray-50 border-gray-200 opacity-60 cursor-not-allowed'
+                    }`}
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="text-[14px] font-[700] text-gray-900">{lesson.title}</h3>
+                          {idx + 1 <= lessonsWithUnlockStatus.length && (
+                            <span className="text-[11px] font-[600] text-gray-500">#{idx + 1}</span>
+                          )}
+                        </div>
+                        <p className="text-[12px] text-gray-600 mt-1">{lesson.description}</p>
+                      </div>
+                      {isCompleted && (
+                        <div className="ml-3 text-right">
+                          <div className="text-[14px] font-[700] text-green-700">✓</div>
+                          <div className="text-[11px] text-green-700 font-[600]">{score}%</div>
+                        </div>
+                      )}
+                      {!lesson.unlocked && (
+                        <div className="ml-3 text-[18px]">
+                          🔒
+                        </div>
+                      )}
                     </div>
-                    {isCompleted && (
-                      <div className="ml-3 text-right">
-                        <div className="text-[14px] font-[700] text-green-700">✓</div>
-                        <div className="text-[11px] text-green-700 font-[600]">{score}%</div>
-                      </div>
-                    )}
-                    {!lesson.unlocked && (
-                      <div className="ml-3 text-[12px] text-gray-500 font-[600]">
-                        🔒
-                      </div>
-                    )}
-                  </div>
 
-                  <div className="flex items-center gap-2 text-[11px] text-gray-500">
-                    <span className="px-2 py-1 bg-gray-100 rounded-full font-[600]">
-                      {lesson.difficulty}
-                    </span>
-                    <span>•</span>
-                    <span>{lesson.duration}</span>
-                  </div>
-                </button>
+                    <div className="flex items-center gap-2 text-[11px] text-gray-500">
+                      <span className="px-2 py-1 bg-gray-100 rounded-full font-[600]">
+                        {lesson.difficulty}
+                      </span>
+                      <span>•</span>
+                      <span>{lesson.duration}</span>
+                    </div>
+                  </button>
+
+                  {!lesson.unlocked && (
+                    <div className="mt-2 px-4 py-2 bg-amber-50 rounded-[8px] border border-amber-200">
+                      <p className="text-[12px] text-amber-900">
+                        <strong>Locked:</strong> {lesson.lockedReason}
+                      </p>
+                    </div>
+                  )}
+                </div>
               );
             })}
           </div>
