@@ -1,9 +1,5 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "vite",
-  "serverless": {
-    "memory": 1024,
-    "regions": ["cph1"]
-  }
+  "framework": "vite"
 }
