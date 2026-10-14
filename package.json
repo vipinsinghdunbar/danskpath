@@ -11,6 +11,7 @@
     "build:prod": "vite build && echo 'Build complete — dist ready for deployment'",
     "start": "node server.js",
     "start:prod": "NODE_ENV=production node server.js",
+    "validate": "node scripts/validate-curriculum.mjs",
     "lint": "oxlint",
     "preview": "vite preview --host 0.0.0.0 --port 4173",
     "deploy:render": "echo 'Push to GitHub → Render auto-deploys via render.yaml'",
