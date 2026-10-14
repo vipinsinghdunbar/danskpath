@@ -3,6 +3,7 @@ import V2InversionLesson from './lessons/V2InversionLesson';
 import PrepositionsLesson from './lessons/PrepositionsLesson';
 import ListeningLesson from './lessons/ListeningLesson';
 import VerbSystemLesson from './lessons/VerbSystemLesson';
+import RealWorldListeningLesson from './lessons/RealWorldListeningLesson';
 
 // Lesson System — interactive lessons with explanation + exercises
 // Each lesson: ~30-40 min, balanced grammar/vocab/listening, mixed exercise types
@@ -50,6 +51,17 @@ const LESSON_TEMPLATES = [
     difficulty: 'A2',
     component: VerbSystemLesson,
     prerequisite: 'prepositions', // Unlocks after Prepositions
+    unlockScore: 70 // Requires 70% or higher
+  },
+  {
+    id: 'real-world-listening',
+    title: 'Real-world Listening',
+    category: 'listening',
+    description: 'Understand natural-speed Danish in restaurants, shops, transit, and casual conversations.',
+    duration: '40 min',
+    difficulty: 'A2',
+    component: RealWorldListeningLesson,
+    prerequisite: 'verb-system', // Unlocks after Verb System
     unlockScore: 70 // Requires 70% or higher
   }
 ];
