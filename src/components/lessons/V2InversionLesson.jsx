@@ -13,9 +13,10 @@ export default function V2InversionLesson({ lesson, onComplete, onBack }) {
   const [quizAnswers, setQuizAnswers] = useState({});
 
   const exercises = [
+    // BASIC BUILD EXERCISES (1-4)
     {
       id: 'ex1',
-      type: 'build', // build the sentence
+      type: 'build',
       instruction: 'Rearrange the words to form a correct sentence. Remember: finite verb in position 2!',
       words: ['arbejder', 'I dag', 'hjemme', 'jeg'],
       correct: 'I dag arbejder jeg hjemme.',
@@ -24,34 +25,201 @@ export default function V2InversionLesson({ lesson, onComplete, onBack }) {
     },
     {
       id: 'ex2',
+      type: 'build',
+      instruction: 'Rearrange the words to form a correct sentence:',
+      words: ['spiser', 'morgenen', 'rugbrød', 'vi'],
+      correct: 'Morgenen spiser vi rugbrød.',
+      explanation: 'Morgenen (fronted time) → spiser (verb) → vi (subject). Time expressions trigger V2 inversion.',
+      why: 'Any fronted adverbial requires the verb to come in position 2.'
+    },
+    {
+      id: 'ex3',
+      type: 'build',
+      instruction: 'Rearrange the words to form a correct sentence:',
+      words: ['ikke', 'kan', 'jeg', 'det'],
+      correct: 'Det kan jeg ikke.',
+      explanation: 'Det (object fronted) → kan (verb) → jeg (subject) → ikke (negation at end).',
+      why: 'Even when you front the object (det), the verb still comes in position 2.'
+    },
+    {
+      id: 'ex4',
+      type: 'build',
+      instruction: 'Rearrange the words to form a correct sentence:',
+      words: ['skal', 'i morgen', 'møde', 'han', 'mig'],
+      correct: 'I morgen skal han møde mig.',
+      explanation: 'I morgen (fronted time) → skal (verb) → han (subject) → møde (infinitive) → mig (object).',
+      why: 'Modal verbs like "skal" also follow the V2 rule in position 2.'
+    },
+
+    // MCQ EXERCISES (5-10)
+    {
+      id: 'ex5',
       type: 'mcq',
       question: 'Choose the correct sentence:',
       options: [
         { text: 'I dag jeg arbejder hjemme.', correct: false, why: 'Verb should come before the subject when something is fronted.' },
-        { text: 'Jeg arbejder i dag hjemme.', correct: false, why: 'Possible, but not using the V2 inversion correctly.' },
+        { text: 'Jeg arbejder i dag hjemme.', correct: false, why: 'Possible, but this is not V2 inversion.' },
         { text: 'I dag arbejder jeg hjemme.', correct: true, why: 'Correct! V2 is maintained: fronted element (I dag) → verb (arbejder) → subject (jeg).' }
       ],
       explanation: 'V2 word order means the finite verb always comes in the second position, regardless of what comes first.'
     },
     {
-      id: 'ex3',
+      id: 'ex6',
+      type: 'mcq',
+      question: 'Which sentence has correct V2 inversion?',
+      options: [
+        { text: 'Aldrig jeg har hørt det før.', correct: false, why: 'The verb "har" should come before "jeg".' },
+        { text: 'Aldrig har jeg hørt det før.', correct: true, why: 'Correct! Aldrig → har (verb) → jeg (subject) → rest of sentence.' },
+        { text: 'Jeg aldrig har hørt det før.', correct: false, why: 'This is standard word order, not V2 inversion.' }
+      ],
+      explanation: 'Central adverbials like "aldrig" (never) trigger V2 inversion just like other fronted elements.'
+    },
+    {
+      id: 'ex7',
+      type: 'mcq',
+      question: 'Pick the correct sentence:',
+      options: [
+        { text: 'Gårdag gik vi til biografen.', correct: true, why: 'Correct! Gårdag (time) → gik (verb) → vi (subject).' },
+        { text: 'Gårdag vi gik til biografen.', correct: false, why: 'Subject comes too early; verb should be in position 2.' },
+        { text: 'Vi gik gårdag til biografen.', correct: false, why: 'No inversion; verb is in position 2 only because nothing is fronted.' }
+      ],
+      explanation: 'When you front a time expression (gårdag = yesterday), the verb must follow in position 2.'
+    },
+    {
+      id: 'ex8',
+      type: 'mcq',
+      question: 'Which is correct?',
+      options: [
+        { text: 'Kun jeg kan det.', correct: false, why: '"Kun" (only) triggers inversion, so the verb should come first, but there is no main verb here.' },
+        { text: 'Kun kan jeg det.', correct: true, why: 'Correct! Kun (fronted adverbial) → kan (verb) → jeg (subject). Modal verb "kan" in position 2.' },
+        { text: 'Jeg kun kan det.', correct: false, why: 'No inversion; "kan" is not in position 2.' }
+      ],
+      explanation: 'Restrictive adverbials like "kun" (only) trigger V2 inversion with modal verbs too.'
+    },
+    {
+      id: 'ex9',
+      type: 'mcq',
+      question: 'Select the correct version:',
+      options: [
+        { text: 'I morgen skal jeg på arbejde.', correct: true, why: 'Correct! I morgen → skal → jeg. The modal verb "skal" is in position 2.' },
+        { text: 'I morgen jeg skal på arbejde.', correct: false, why: 'Subject comes before the verb; verb should be in position 2.' },
+        { text: 'Jeg skal i morgen på arbejde.', correct: false, why: 'No inversion; standard word order.' }
+      ],
+      explanation: 'Time expressions like "i morgen" (tomorrow) always trigger V2 inversion, even with modal verbs.'
+    },
+
+    // FILL-IN-THE-BLANK EXERCISES (10-14)
+    {
+      id: 'ex10',
       type: 'fillblank',
-      instruction: 'Fill in the missing verb form:',
-      sentence: 'Aldrig _____ jeg så noget sådan.',
+      instruction: 'Fill in the missing verb:',
+      sentence: 'Aldrig _____ jeg så noget sådan før.',
       options: ['har', 'jeg har', 'ville'],
       correct: 'har',
       explanation: 'Aldrig (fronted adverbial) → verb (har) → subject (jeg). The verb "har" must come in position 2.',
       why: 'Central adverbials like "aldrig" trigger inversion. The main verb moves to position 2.'
     },
     {
-      id: 'ex4',
+      id: 'ex11',
+      type: 'fillblank',
+      instruction: 'Fill in the missing verb (present tense of "blive"):',
+      sentence: 'I dag _____ det meget koldt.',
+      options: ['bliver', 'det bliver', 'vil blive'],
+      correct: 'bliver',
+      explanation: 'I dag (fronted time) → bliver (verb) → det (subject/placeholder). Verb in position 2.',
+      why: 'Even weather/impersonal sentences follow V2 inversion.'
+    },
+    {
+      id: 'ex12',
+      type: 'fillblank',
+      instruction: 'Fill in the missing auxiliary verb:',
+      sentence: 'Kun på weekender _____ vi tid til hinanden.',
+      options: ['har', 'vi har', 'kunne'],
+      correct: 'har',
+      explanation: 'Kun på weekender (fronted adverbial phrase) → har (verb) → vi (subject).',
+      why: 'Multi-word adverbials also trigger V2 inversion.'
+    },
+    {
+      id: 'ex13',
+      type: 'fillblank',
+      instruction: 'Fill in the missing modal verb:',
+      sentence: 'Aldrig _____ vi give op på vores drømme.',
+      options: ['vil', 'vi vil', 'skulle'],
+      correct: 'vil',
+      explanation: 'Aldrig (fronted) → vil (modal verb in position 2) → vi (subject) → infinitive (give).',
+      why: 'Modal verbs follow the same V2 rule as main verbs.'
+    },
+
+    // TRANSFORMATION EXERCISES (14-20)
+    {
+      id: 'ex14',
       type: 'transformation',
       instruction: 'Transform the sentence to start with "Forrige år":',
       original: 'Jeg rejste til Danmark forrige år.',
       blanks: ['Forrige år', '___', 'jeg', 'til Danmark.'],
       correct: 'rejste',
-      explanation: 'Forrige år (fronted time expression) → verb (rejste) → subject (jeg). Past tense form of "rejse".',
+      explanation: 'Forrige år (fronted time) → rejste (verb) → jeg (subject). Past tense of "rejse".',
       why: 'Any fronted adverbial requires the verb to move to position 2, creating the inversion pattern.'
+    },
+    {
+      id: 'ex15',
+      type: 'transformation',
+      instruction: 'Transform the sentence to start with "Gårdagen":',
+      original: 'Han kom hjem fra arbejde gårdagen.',
+      blanks: ['Gårdagen', '___', 'han', 'hjem fra arbejde.'],
+      correct: 'kom',
+      explanation: 'Gårdagen (fronted time) → kom (past tense of komme) → han (subject).',
+      why: 'When you move a time expression to the front, the verb follows in position 2.'
+    },
+    {
+      id: 'ex16',
+      type: 'transformation',
+      instruction: 'Transform to start with "I dag":',
+      original: 'Vi skal mødes med venner i dag.',
+      blanks: ['I dag', '___', 'vi', 'mødes med venner.'],
+      correct: 'skal',
+      explanation: 'I dag (fronted time) → skal (modal verb in position 2) → vi (subject) → mødes (infinitive).',
+      why: 'Modal verbs in position 2 are followed by the infinitive form of the main verb.'
+    },
+    {
+      id: 'ex17',
+      type: 'transformation',
+      instruction: 'Transform to start with "Næste uge":',
+      original: 'Jeg skal begynde på det nye job næste uge.',
+      blanks: ['Næste uge', '___', 'jeg', 'begynde på det nye job.'],
+      correct: 'skal',
+      explanation: 'Næste uge (fronted time) → skal (modal verb in position 2) → jeg (subject) → begynde (infinitive).',
+      why: 'Modal verbs always come in position 2, followed by infinitives.'
+    },
+    {
+      id: 'ex18',
+      type: 'transformation',
+      instruction: 'Transform to start with "Aldrig":',
+      original: 'Jeg vil give op på mine mål.',
+      blanks: ['Aldrig', '___', 'jeg', 'give op på mine mål.'],
+      correct: 'vil',
+      explanation: 'Aldrig (fronted central adverbial) → vil (modal verb in position 2) → jeg (subject) → infinitive (give).',
+      why: 'Central adverbials trigger the same V2 inversion as time expressions.'
+    },
+    {
+      id: 'ex19',
+      type: 'transformation',
+      instruction: 'Transform to start with "Det":',
+      original: 'Jeg kan ikke forstå det.',
+      blanks: ['Det', '___', 'jeg', 'ikke forstå.'],
+      correct: 'kan',
+      explanation: 'Det (fronted object) → kan (modal verb in position 2) → jeg (subject) → ikke (negation) → forstå (infinitive).',
+      why: 'Even objects can be fronted, triggering V2 inversion.'
+    },
+    {
+      id: 'ex20',
+      type: 'transformation',
+      instruction: 'Transform to start with "Kun på weekends":',
+      original: 'Vi har tid til at være sammen kun på weekends.',
+      blanks: ['Kun på weekends', '___', 'vi', 'tid til at være sammen.'],
+      correct: 'har',
+      explanation: 'Kun på weekends (fronted adverbial phrase) → har (verb in position 2) → vi (subject) → rest of sentence.',
+      why: 'Multi-word adverbial phrases trigger the same V2 rule.'
     }
   ];
 
@@ -220,6 +388,17 @@ export default function V2InversionLesson({ lesson, onComplete, onBack }) {
               </ul>
             </div>
 
+            <div className="bg-green-50 rounded-[12px] p-4 border border-green-200 mb-6">
+              <h3 className="text-[13px] font-[700] text-green-900 mb-2">📋 Your Practice Plan</h3>
+              <div className="text-[13px] text-green-900 space-y-1">
+                <div>• <strong>Explanation:</strong> 5 minutes</div>
+                <div>• <strong>English bridge:</strong> 5 minutes</div>
+                <div>• <strong>Practice worksheet:</strong> 20 questions (15 minutes)</div>
+                <div>• <strong>Free writing:</strong> 5 minutes</div>
+                <div>• <strong>Quiz:</strong> 5 questions (5 minutes)</div>
+              </div>
+            </div>
+
             <div className="bg-blue-50 rounded-[12px] p-4 border border-blue-200 mb-6">
               <div className="text-[12px] text-gray-900">
                 <strong>Duration:</strong> {lesson.duration} · <strong>Level:</strong> {lesson.difficulty}
@@ -290,9 +469,10 @@ export default function V2InversionLesson({ lesson, onComplete, onBack }) {
         {/* EXERCISES SECTION */}
         {section === 'exercises' && (
           <div className="pb-6">
+            <h1 className="text-[24px] font-[700] mb-4">Practice Worksheet</h1>
             <div className="bg-gray-50 rounded-[12px] p-4 border border-gray-200 mb-6">
               <div className="text-[12px] text-gray-600 font-[600] mb-2 uppercase tracking-widest">
-                Exercise {exerciseIndex + 1} of {exercises.length}
+                Question {exerciseIndex + 1} of {exercises.length}
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                 <div
