@@ -7,6 +7,7 @@ import HomePage from './components/HomePage';
 import './styles/web-design-system.css';
 
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
+const PostAssessmentDashboard = lazy(()=>import('./components/PostAssessmentDashboard'));
 const LearningRoadmapView = lazy(()=>import('./components/LearningRoadmapView'));
 const ProgressDashboard = lazy(()=>import('./components/ProgressDashboard'));
 const LessonView = lazy(()=>import('./components/LessonView'));
@@ -64,7 +65,7 @@ export default function App() {
     setPage('roadmap');
   };
 
-  const handleStartLessons = () => {
+  const handleStartLessons = (lessonId) => {
     setPage('lessons');
   };
 
@@ -96,21 +97,8 @@ export default function App() {
           )}
           {page === 'dashboard' && (
             <Suspense fallback={<div className="min-h-screen bg-slate-50 grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-slate-300 border-t-amber-600 animate-spin" /></div>}>
-              <WebAppShell variant="dashboard" showSidebar={true}>
-                <WebDashboard
-                  lessons={[
-                    { id: 'v2-inversion', title: 'V2 Inversion — Word Order', category: 'grammar', description: 'Learn why the Danish verb always comes second, and how to build sentences correctly.', duration: '35 min', difficulty: 'A2' },
-                    { id: 'prepositions', title: 'Prepositions — I, På, Ved', category: 'grammar', description: 'Master the most common prepositions and when to use each one.', duration: '40 min', difficulty: 'A2' },
-                    { id: 'listening', title: 'Listening — Comprehension', category: 'listening', description: 'Understand natural Danish speech: question words, key phrases, and real conversations.', duration: '35 min', difficulty: 'A2' },
-                    { id: 'verb-system', title: 'Verb System — Present vs. Past', category: 'grammar', description: 'Master regular and strong verbs, modals, and auxiliary verbs in Danish.', duration: '35 min', difficulty: 'A2' },
-                    { id: 'real-world-listening', title: 'Real-world Listening', category: 'listening', description: 'Understand natural-speed Danish in restaurants, shops, transit, and casual conversations.', duration: '40 min', difficulty: 'A2' },
-                    { id: 'reading-comprehension', title: 'Reading Comprehension', category: 'reading', description: 'Read authentic Danish texts: news, emails, menus, signs, forms, and everyday writing.', duration: '40 min', difficulty: 'A2' },
-                    { id: 'grammar-deep-dive', title: 'Grammar Deep-dive — Advanced Tenses & Conditionals', category: 'grammar', description: 'Master conditional tenses, hypotheticals, and complex sentence structures in Danish.', duration: '40 min', difficulty: 'B1' },
-                    { id: 'vocabulary-culture', title: 'Vocabulary & Culture — Idioms, Slang & Values', category: 'vocabulary', description: 'Learn Danish idioms, slang, and cultural expressions. Understand values like hygge, janteloven, and direct communication.', duration: '40 min', difficulty: 'B1' },
-                    { id: 'speaking-practice', title: 'Speaking Practice — Dialogue & Pronunciation', category: 'speaking', description: 'Practice real conversations with native dialogue patterns, common phrases, and pronunciation guidance.', duration: '45 min', difficulty: 'B1' }
-                  ]}
-                  progress={JSON.parse(localStorage.getItem('dansk_lesson_progress') || '{}')}
-                />
+              <WebAppShell variant="dashboard" showSidebar={false}>
+                <PostAssessmentDashboard onStartLesson={handleStartLessons} />
               </WebAppShell>
             </Suspense>
           )}
