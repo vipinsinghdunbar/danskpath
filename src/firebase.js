@@ -2,16 +2,14 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// Firebase configuration
-// NOTE: In production, these should be environment variables (VITE_FIREBASE_*)
-// For now, using a public config (OK because Firebase security rules restrict data access)
+// Firebase configuration from environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyDqB7x8vK9mZ3nR2pL5qW4sT6uV7wX8yZ9",
-  authDomain: "danskpath-app.firebaseapp.com",
-  projectId: "danskpath-app",
-  storageBucket: "danskpath-app.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abcdef123456789"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
