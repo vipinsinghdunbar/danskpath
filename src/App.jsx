@@ -204,7 +204,7 @@ export default function App() {
           {page === 'lessons' && (
             <Suspense fallback={<div className="min-h-screen bg-slate-50 grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-slate-300 border-t-amber-600 animate-spin" /></div>}>
               <WebAppShell variant="lesson" showSidebar={true}>
-                <LessonView onBackToDashboard={handleBackToDashboard} resumeFromSection={resumeSection} />
+                <LessonView onBackToDashboard={handleBackToDashboard} resumeFromSection={resumeSection} userId={user?.uid} />
               </WebAppShell>
             </Suspense>
           )}

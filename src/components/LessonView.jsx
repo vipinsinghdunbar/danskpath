@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
+import { useAdaptiveDifficulty } from '../hooks/useAdaptiveDifficulty';
 import V2InversionLesson from './lessons/V2InversionLesson';
 import PrepositionsLesson from './lessons/PrepositionsLesson';
 import ListeningLesson from './lessons/ListeningLesson';
@@ -114,9 +115,20 @@ const LESSON_TEMPLATES = [
   }
 ];
 
-export default function LessonView({ onBackToDashboard }) {
+export default function LessonView({ onBackToDashboard, userId }) {
   const [currentLessonId, setCurrentLessonId] = useState(null);
   const [lessonProgress, setLessonProgress] = useState({});
+  const [initialDifficulty, setInitialDifficulty] = useState(2); // A2 level start
+  const [difficultyAdjustment, setDifficultyAdjustment] = useState(null);
+
+  // Initialize adaptive difficulty
+  const {
+    currentDifficulty,
+    mastery,
+    weakSpot,
+    recordAttempt,
+    checkDifficultyAdjustment
+  } = useAdaptiveDifficulty(userId, initialDifficulty, []);
 
   // Load lesson progress from localStorage on mount
   useEffect(() => {
@@ -164,13 +176,21 @@ export default function LessonView({ onBackToDashboard }) {
     return lessonsWithUnlockStatus.find(l => l.id === currentLessonId);
   }, [currentLessonId, lessonsWithUnlockStatus]);
 
-  const handleLessonComplete = (score) => {
+  const handleLessonComplete = async (score) => {
     const updatedProgress = {
       ...lessonProgress,
-      [currentLessonId]: { completed: true, score, date: new Date().toISOString() }
+      [currentLessonId]: { completed: true, score, date: new Date().toISOString(), difficulty: currentDifficulty }
     };
     setLessonProgress(updatedProgress);
     localStorage.setItem('dansk_lesson_progress', JSON.stringify(updatedProgress));
+
+    // Check for difficulty adjustment after lesson
+    const adjustment = await checkDifficultyAdjustment();
+    if (adjustment) {
+      setDifficultyAdjustment(adjustment);
+      // Show adjustment notification for 3 seconds
+      setTimeout(() => setDifficultyAdjustment(null), 3000);
+    }
 
     // Return to menu after 1.5 seconds
     setTimeout(() => {
@@ -178,14 +198,49 @@ export default function LessonView({ onBackToDashboard }) {
     }, 1500);
   };
 
+  const handleAttemptRecorded = async (attemptData) => {
+    try {
+      await recordAttempt(attemptData);
+    } catch (error) {
+      console.error('Failed to record attempt:', error);
+    }
+  };
+
   if (currentLesson && currentLesson.component) {
     const Component = currentLesson.component;
     return (
-      <Component
-        lesson={currentLesson}
-        onComplete={handleLessonComplete}
-        onBack={() => setCurrentLessonId(null)}
-      />
+      <>
+        {/* Difficulty Adjustment Notification */}
+        {difficultyAdjustment && (
+          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 animate-in">
+            <div className={`px-4 py-3 rounded-lg text-white text-sm font-medium ${
+              difficultyAdjustment.newDifficulty > difficultyAdjustment.oldDifficulty
+                ? 'bg-green-600'
+                : 'bg-blue-600'
+            }`}>
+              {difficultyAdjustment.newDifficulty > difficultyAdjustment.oldDifficulty
+                ? '⬆️ Sværhedsgrad øget!'
+                : '⬅️ Sværhedsgrad tilpasset'}
+              {' • '}{difficultyAdjustment.reason}
+            </div>
+          </div>
+        )}
+        {/* Weak Spot Alert */}
+        {weakSpot && (
+          <div className="fixed top-14 left-1/2 transform -translate-x-1/2 z-50 animate-in">
+            <div className="px-4 py-2 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 text-sm font-medium">
+              ⚠️ Svagt punkt opdaget: {weakSpot.errorType} ({Math.round(weakSpot.frequency * 100)}%)
+            </div>
+          </div>
+        )}
+        <Component
+          lesson={currentLesson}
+          onComplete={handleLessonComplete}
+          onBack={() => setCurrentLessonId(null)}
+          onAttemptRecorded={handleAttemptRecorded}
+          currentDifficulty={currentDifficulty}
+        />
+      </>
     );
   }
 
@@ -211,7 +266,7 @@ export default function LessonView({ onBackToDashboard }) {
           <div className="text-[11px] text-gray-600 font-[600] mb-2 uppercase tracking-widest">
             Your Learning Progress
           </div>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-4 gap-3">
             <div className="text-center">
               <div className="text-[24px] font-[700] text-green-600">
                 {Object.values(lessonProgress).filter(p => p.completed).length}
@@ -231,6 +286,12 @@ export default function LessonView({ onBackToDashboard }) {
                   : 0}%
               </div>
               <div className="text-[12px] text-gray-600">Avg Score</div>
+            </div>
+            <div className="text-center">
+              <div className="text-[24px] font-[700] text-purple-600">
+                {Math.round(mastery)}%
+              </div>
+              <div className="text-[12px] text-gray-600">Mastery</div>
             </div>
           </div>
         </div>
