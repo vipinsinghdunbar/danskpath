@@ -1,16 +1,28 @@
 import { useState } from 'react';
+import { useExerciseSubmission, AttemptFeedback, DifficultyIndicator, ConfidenceSelector } from '../AdaptiveExerciseWrapper';
 
 // Listening Lesson
 // Duration: 35 minutes
 // Structure: Explanation (5min) + Strategy (5min) + Exercises (15min) + Dictation (5min) + Quiz (5min)
 
-export default function ListeningLesson({ lesson, onComplete, onBack }) {
+export default function ListeningLesson({ lesson, onComplete, onBack, onAttemptRecorded, currentDifficulty }) {
   const [section, setSection] = useState('intro');
   const [answers, setAnswers] = useState({});
   const [feedback, setFeedback] = useState({});
   const [exerciseIndex, setExerciseIndex] = useState(0);
   const [quizIndex, setQuizIndex] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState({});
+  const [userConfidence, setUserConfidence] = useState(null);
+  const [exerciseStartTime, setExerciseStartTime] = useState(Date.now());
+
+  // Initialize adaptive submission hook
+  const handleExerciseSubmit = useExerciseSubmission(
+    onAttemptRecorded,
+    lesson?.id || 'listening',
+    `ex${exerciseIndex + 1}`,
+    'Listening',
+    currentDifficulty || 2
+  );
 
   // Listening exercises with transcripts and key phrases
   const exercises = [
@@ -345,22 +357,39 @@ export default function ListeningLesson({ lesson, onComplete, onBack }) {
     }
   ];
 
-  const handleExerciseAnswer = (answer) => {
+  const handleExerciseAnswer = async (answer) => {
     const exercise = exercises[exerciseIndex];
     let isCorrect = false;
+    let errorType = 'UDT'; // Default: unknown error
 
     if (exercise.type === 'fillblank') {
       isCorrect = answer.trim().toLowerCase().includes(exercise.correct.toLowerCase().split('/')[0].trim());
+      if (!isCorrect) errorType = 'TID'; // Listening comprehension error
     } else if (exercise.type === 'mcq') {
       isCorrect = answer === exercise.correct;
+      if (!isCorrect) errorType = 'VALG'; // Selection error
+    }
+
+    // Record attempt with adaptive tracking
+    if (onAttemptRecorded && userConfidence) {
+      await handleExerciseSubmit(answer, exercise.correct, {
+        userConfidence,
+        errorType,
+        startTime: exerciseStartTime,
+        attemptNumber: 1
+      });
     }
 
     setFeedback({
       isCorrect,
       explanation: exercise.explanation,
       strategy: exercise.strategy,
-      transcript: exercise.transcript
+      transcript: exercise.transcript,
+      weakSpot: !isCorrect ? { errorType, frequency: 1 } : null
     });
+
+    // Reset confidence for next exercise
+    setUserConfidence(null);
   };
 
   const handleQuizAnswer = (qid, answer) => {
@@ -531,8 +560,11 @@ export default function ListeningLesson({ lesson, onComplete, onBack }) {
           <div className="pb-6">
             <h1 className="text-[24px] font-[700] mb-4">Listening Practice</h1>
             <div className="bg-gray-50 rounded-[12px] p-4 border border-gray-200 mb-6">
-              <div className="text-[12px] text-gray-600 font-[600] mb-2 uppercase tracking-widest">
-                Question {exerciseIndex + 1} of {exercises.length}
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-[12px] text-gray-600 font-[600] uppercase tracking-widest">
+                  Question {exerciseIndex + 1} of {exercises.length}
+                </div>
+                <DifficultyIndicator difficulty={currentDifficulty || 2} />
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                 <div
@@ -586,21 +618,28 @@ export default function ListeningLesson({ lesson, onComplete, onBack }) {
                     </div>
                   )}
 
-                  {feedback && (
-                    <div className={`rounded-[12px] p-4 border mb-4 ${
-                      feedback.isCorrect
-                        ? 'bg-green-50 border-green-200'
-                        : 'bg-red-50 border-red-200'
-                    }`}>
-                      <p className={`text-[14px] font-[700] mb-2 ${
-                        feedback.isCorrect ? 'text-green-800' : 'text-red-800'
-                      }`}>
-                        {feedback.isCorrect ? '✓ Correct!' : '✗ Not quite right.'}
-                      </p>
-                      <p className="text-[12px] text-gray-600 mb-2"><strong>Transcript:</strong> {feedback.transcript}</p>
-                      <p className="text-[13px] text-gray-900 mb-1"><strong>Why:</strong> {feedback.explanation}</p>
-                      <p className="text-[13px] text-gray-900"><strong>Tip:</strong> {feedback.strategy}</p>
+                  {!feedback && (
+                    <div className="mb-6">
+                      <ConfidenceSelector
+                        onSelect={(level) => setUserConfidence(level)}
+                        label="How confident are you in your answer?"
+                      />
                     </div>
+                  )}
+
+                  {feedback && (
+                    <>
+                      <AttemptFeedback
+                        isCorrect={feedback.isCorrect}
+                        explanation={feedback.explanation}
+                        weakSpot={feedback.weakSpot}
+                        difficulty={currentDifficulty || 2}
+                      />
+                      <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <p className="text-[12px] text-blue-900 mb-1"><strong>Transcript:</strong> {feedback.transcript}</p>
+                        <p className="text-[12px] text-blue-900"><strong>Strategy:</strong> {feedback.strategy}</p>
+                      </div>
+                    </>
                   )}
 
                   <div className="flex gap-3">
@@ -609,6 +648,8 @@ export default function ListeningLesson({ lesson, onComplete, onBack }) {
                         onClick={() => {
                           setExerciseIndex(exerciseIndex - 1);
                           setFeedback(null);
+                          setUserConfidence(null);
+                          setExerciseStartTime(Date.now());
                         }}
                         className="flex-1 border border-gray-300 py-3 rounded-full font-[600]"
                       >
@@ -620,6 +661,8 @@ export default function ListeningLesson({ lesson, onComplete, onBack }) {
                         if (exerciseIndex < exercises.length - 1) {
                           setExerciseIndex(exerciseIndex + 1);
                           setFeedback(null);
+                          setUserConfidence(null);
+                          setExerciseStartTime(Date.now());
                         } else {
                           setSection('production');
                         }

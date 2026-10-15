@@ -1,13 +1,24 @@
 import { useState } from 'react';
+import { useExerciseSubmission, AttemptFeedback, DifficultyIndicator, ConfidenceSelector } from '../AdaptiveExerciseWrapper';
 
 // Lesson 8: Vocabulary & Culture
 // Focus: Danish idioms, slang, cultural expressions, and authentic vocabulary in cultural contexts
 // Structure: 20 exercises across sections + 5 quiz questions
 
-export default function VocabularyCultureLesson({ lesson, onComplete, onBack }) {
+export default function VocabularyCultureLesson({ lesson, onComplete, onBack, onAttemptRecorded, currentDifficulty }) {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [responses, setResponses] = useState({});
   const [showExplanation, setShowExplanation] = useState({});
+  const [userConfidence, setUserConfidence] = useState(3);
+  const [exerciseStartTime, setExerciseStartTime] = useState(null);
+
+  const handleExerciseSubmit = useExerciseSubmission(
+    onAttemptRecorded,
+    'vocabulary-culture',
+    `section${currentSectionIndex}`,
+    'Vocabulary & Culture',
+    currentDifficulty
+  );
 
   const sections = [
     {
@@ -487,12 +498,37 @@ export default function VocabularyCultureLesson({ lesson, onComplete, onBack }) 
 
   const currentSection = sections[currentSectionIndex];
 
-  const handleOptionClick = (exerciseId, optionIndex) => {
+  const handleOptionClick = async (exerciseId, optionIndex) => {
+    // Track exercise start time on first interaction
+    if (!exerciseStartTime) {
+      setExerciseStartTime(Date.now());
+    }
+
+    const currentExercise = currentSection.exercises?.find(e => e.id === exerciseId);
+    const selectedOption = currentExercise?.options[optionIndex];
+    const errorType = selectedOption?.correct ? null : 'VALG'; // VALG for selection errors
+
+    // Record attempt with adaptive tracking
+    await handleExerciseSubmit({
+      exerciseId,
+      userAnswer: selectedOption?.text || '',
+      isCorrect: selectedOption?.correct || false,
+      userConfidence,
+      errorType
+    });
+
     setResponses({ ...responses, [exerciseId]: optionIndex });
     setShowExplanation({ ...showExplanation, [exerciseId]: true });
+
+    // Reset confidence for next exercise
+    setUserConfidence(3);
+    setExerciseStartTime(null);
   };
 
   const handleNext = () => {
+    // Reset state for next section
+    setUserConfidence(3);
+    setExerciseStartTime(null);
     if (currentSectionIndex < sections.length - 1) {
       setCurrentSectionIndex(currentSectionIndex + 1);
       window.scrollTo(0, 0);
@@ -539,13 +575,16 @@ export default function VocabularyCultureLesson({ lesson, onComplete, onBack }) 
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-[600px] mx-auto px-4 py-6">
-          <button
-            onClick={onBack}
-            className="w-10 h-10 rounded-full bg-gray-100 grid place-items-center text-gray-900 font-[600] mb-4"
-            aria-label="Back"
-          >
-            ←
-          </button>
+          <div className="flex items-center justify-between mb-6">
+            <button
+              onClick={onBack}
+              className="w-10 h-10 rounded-full bg-gray-100 grid place-items-center text-gray-900 font-[600]"
+              aria-label="Back"
+            >
+              ←
+            </button>
+            <DifficultyIndicator difficulty={currentDifficulty} />
+          </div>
           <h1 className="text-[24px] font-[700] text-gray-900 mb-6">{currentSection.title}</h1>
           <div className="space-y-6">
             {currentSection.exercises.map((exercise, idx) => (
@@ -557,17 +596,20 @@ export default function VocabularyCultureLesson({ lesson, onComplete, onBack }) 
                 {exercise.instruction && (
                   <p className="text-[13px] text-gray-700 mb-3 italic">{exercise.instruction}</p>
                 )}
-                <div className="space-y-2 mb-4">
+                {responses[exercise.id] === undefined && <ConfidenceSelector value={userConfidence} onChange={setUserConfidence} />}
+
+                <div className="space-y-2 mb-4 mt-4">
                   {exercise.options.map((option, optionIdx) => (
                     <button
                       key={optionIdx}
                       onClick={() => handleOptionClick(exercise.id, optionIdx)}
+                      disabled={responses[exercise.id] !== undefined}
                       className={`w-full p-3 rounded-[8px] text-left text-[14px] font-[500] transition-all ${
                         responses[exercise.id] === optionIdx
                           ? option.correct
                             ? "bg-green-100 border-2 border-green-600 text-green-900"
                             : "bg-red-100 border-2 border-red-600 text-red-900"
-                          : "bg-white border border-gray-300 text-gray-900 hover:border-gray-400"
+                          : "bg-white border border-gray-300 text-gray-900 hover:border-gray-400 cursor-pointer"
                       }`}
                     >
                       {option.text}
@@ -575,13 +617,16 @@ export default function VocabularyCultureLesson({ lesson, onComplete, onBack }) 
                   ))}
                 </div>
                 {showExplanation[exercise.id] && responses[exercise.id] !== undefined && (
-                  <div className="bg-blue-50 rounded-[8px] p-3 border-l-4 border-blue-600">
-                    <p className="text-[13px] text-blue-900 font-[600] mb-2">Explanation:</p>
-                    <p className="text-[13px] text-blue-800 mb-2">{exercise.explanation}</p>
-                    <p className="text-[12px] text-blue-700 italic">
-                      <strong>Why:</strong> {exercise.why}
-                    </p>
-                  </div>
+                  <>
+                    <AttemptFeedback
+                      isCorrect={exercise.options[responses[exercise.id]]?.correct}
+                      feedback={exercise.options[responses[exercise.id]]?.why}
+                    />
+                    <div className="bg-blue-50 rounded-[8px] p-3 border-l-4 border-blue-600 mt-3">
+                      <p className="text-[13px] text-blue-900 font-[600] mb-2">Explanation:</p>
+                      <p className="text-[13px] text-blue-800">{exercise.explanation}</p>
+                    </div>
+                  </>
                 )}
               </div>
             ))}

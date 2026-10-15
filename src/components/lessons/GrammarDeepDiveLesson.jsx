@@ -1,12 +1,23 @@
 import { useState } from 'react';
+import { useExerciseSubmission, AttemptFeedback, DifficultyIndicator, ConfidenceSelector } from '../AdaptiveExerciseWrapper';
 
 // Lesson 7: Grammar Deep-dive — Advanced tenses, conditionals, complex sentences
 // Topics: conditional tenses, hypotheticals, complex subordination, modal nuance
 
-export default function GrammarDeepDiveLesson({ lesson, onComplete, onBack }) {
+export default function GrammarDeepDiveLesson({ lesson, onComplete, onBack, onAttemptRecorded, currentDifficulty }) {
   const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
   const [responses, setResponses] = useState({});
   const [showExplanation, setShowExplanation] = useState({});
+  const [userConfidence, setUserConfidence] = useState(3);
+  const [exerciseStartTime, setExerciseStartTime] = useState(null);
+
+  const handleExerciseSubmit = useExerciseSubmission(
+    onAttemptRecorded,
+    'grammar-deep-dive',
+    `section${currentSectionIndex}`,
+    'Grammar Deep-dive',
+    currentDifficulty
+  );
 
   const sections = [
     {
@@ -308,7 +319,23 @@ export default function GrammarDeepDiveLesson({ lesson, onComplete, onBack }) {
 
   const currentSection = sections[currentSectionIndex];
 
-  const handleExerciseResponse = (exerciseId, selectedOption) => {
+  const handleExerciseResponse = async (exerciseId, selectedOption) => {
+    // Track exercise start time on first interaction
+    if (!exerciseStartTime) {
+      setExerciseStartTime(Date.now());
+    }
+
+    const errorType = selectedOption.correct ? null : 'BØJ'; // BØJ for grammar/conjugation errors
+
+    // Record attempt with adaptive tracking
+    await handleExerciseSubmit({
+      exerciseId,
+      userAnswer: selectedOption.text,
+      isCorrect: selectedOption.correct,
+      userConfidence,
+      errorType
+    });
+
     setResponses({
       ...responses,
       [exerciseId]: selectedOption
@@ -317,9 +344,29 @@ export default function GrammarDeepDiveLesson({ lesson, onComplete, onBack }) {
       ...showExplanation,
       [exerciseId]: true
     });
+
+    // Reset confidence for next exercise
+    setUserConfidence(3);
+    setExerciseStartTime(null);
   };
 
-  const handleQuizResponse = (quizId, selectedOption) => {
+  const handleQuizResponse = async (quizId, selectedOption) => {
+    // Track quiz start time on first interaction
+    if (!exerciseStartTime) {
+      setExerciseStartTime(Date.now());
+    }
+
+    const errorType = selectedOption.correct ? null : 'BØJ';
+
+    // Record attempt with adaptive tracking
+    await handleExerciseSubmit({
+      exerciseId: quizId,
+      userAnswer: selectedOption.text,
+      isCorrect: selectedOption.correct,
+      userConfidence,
+      errorType
+    });
+
     setResponses({
       ...responses,
       [quizId]: selectedOption
@@ -328,15 +375,25 @@ export default function GrammarDeepDiveLesson({ lesson, onComplete, onBack }) {
       ...showExplanation,
       [quizId]: true
     });
+
+    // Reset confidence for next quiz item
+    setUserConfidence(3);
+    setExerciseStartTime(null);
   };
 
   const handleNext = () => {
+    // Reset state for next section
+    setUserConfidence(3);
+    setExerciseStartTime(null);
     if (currentSectionIndex < sections.length - 1) {
       setCurrentSectionIndex(currentSectionIndex + 1);
     }
   };
 
   const handleBack = () => {
+    // Reset state when going back
+    setUserConfidence(3);
+    setExerciseStartTime(null);
     if (currentSectionIndex > 0) {
       setCurrentSectionIndex(currentSectionIndex - 1);
     } else {
@@ -408,12 +465,15 @@ export default function GrammarDeepDiveLesson({ lesson, onComplete, onBack }) {
     return (
       <div className="min-h-screen bg-white">
         <div className="max-w-[600px] mx-auto px-4 py-6">
-          <button
-            onClick={handleBack}
-            className="w-10 h-10 rounded-full bg-gray-100 grid place-items-center text-gray-900 font-[600] mb-6"
-          >
-            ←
-          </button>
+          <div className="flex items-center justify-between mb-6">
+            <button
+              onClick={handleBack}
+              className="w-10 h-10 rounded-full bg-gray-100 grid place-items-center text-gray-900 font-[600]"
+            >
+              ←
+            </button>
+            <DifficultyIndicator difficulty={currentDifficulty} />
+          </div>
           <h2 className="text-[24px] font-[700] mb-6">{currentSection.title}</h2>
 
           {currentSection.exercises.map((exercise, idx) => {
@@ -436,7 +496,9 @@ export default function GrammarDeepDiveLesson({ lesson, onComplete, onBack }) {
                 )}
                 <p className="text-[14px] font-[600] text-gray-900 mb-3">{exercise.question}</p>
 
-                <div className="space-y-2 mb-4">
+                {!isAnswered && <ConfidenceSelector value={userConfidence} onChange={setUserConfidence} />}
+
+                <div className="space-y-2 mb-4 mt-4">
                   {exercise.options.map((option, optIdx) => (
                     <button
                       key={optIdx}
@@ -458,11 +520,12 @@ export default function GrammarDeepDiveLesson({ lesson, onComplete, onBack }) {
                 </div>
 
                 {isAnswered && showExplanation[exercise.id] && (
-                  <div className={`rounded-[8px] p-3 border ${response.correct ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200"}`}>
-                    <p className="text-[12px] font-[600] mb-2">{response.correct ? "✓ Correct!" : "✗ Not quite."}</p>
-                    <p className="text-[12px] text-gray-800 mb-2">{response.why}</p>
-                    <p className="text-[12px] text-gray-700 border-t border-gray-300 pt-2 mt-2">{exercise.explanation}</p>
-                  </div>
+                  <>
+                    <AttemptFeedback isCorrect={response.correct} feedback={response.why} />
+                    <div className="bg-blue-50 rounded-[8px] p-3 border border-blue-200 mt-3">
+                      <p className="text-[12px] text-gray-700">{exercise.explanation}</p>
+                    </div>
+                  </>
                 )}
               </div>
             );

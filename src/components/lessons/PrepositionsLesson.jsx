@@ -1,16 +1,28 @@
 import { useState } from 'react';
+import { useExerciseSubmission, AttemptFeedback, DifficultyIndicator, ConfidenceSelector } from '../AdaptiveExerciseWrapper';
 
 // Prepositions Lesson
 // Duration: 35 minutes
 // Structure: Explanation (5min) + English Bridge (5min) + Exercises (15min) + Production (5min) + Quiz (5min)
 
-export default function PrepositionsLesson({ lesson, onComplete, onBack }) {
+export default function PrepositionsLesson({ lesson, onComplete, onBack, onAttemptRecorded, currentDifficulty }) {
   const [section, setSection] = useState('intro');
   const [answers, setAnswers] = useState({});
   const [feedback, setFeedback] = useState({});
   const [exerciseIndex, setExerciseIndex] = useState(0);
   const [quizIndex, setQuizIndex] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState({});
+  const [userConfidence, setUserConfidence] = useState(null);
+  const [exerciseStartTime, setExerciseStartTime] = useState(Date.now());
+
+  // Initialize adaptive submission hook
+  const handleExerciseSubmit = useExerciseSubmission(
+    onAttemptRecorded,
+    lesson?.id || 'prepositions',
+    `ex${exerciseIndex + 1}`,
+    'Prepositions',
+    currentDifficulty || 2
+  );
 
   const exercises = [
     // BASIC LOCATION PREPOSITIONS (1-4)
@@ -284,23 +296,41 @@ export default function PrepositionsLesson({ lesson, onComplete, onBack }) {
     }
   ];
 
-  const handleExerciseAnswer = (answer) => {
+  const handleExerciseAnswer = async (answer) => {
     const exercise = exercises[exerciseIndex];
     let isCorrect = false;
+    let errorType = 'UDT'; // Default: unknown error
 
     if (exercise.type === 'fillblank') {
       isCorrect = answer.trim().toLowerCase() === exercise.correct.trim().toLowerCase();
+      if (!isCorrect) errorType = 'PRÆ'; // Preposition error
     } else if (exercise.type === 'mcq') {
       isCorrect = answer === exercise.correct;
+      if (!isCorrect) errorType = 'VALG'; // Selection error
     } else if (exercise.type === 'transformation') {
       isCorrect = answer.trim().toLowerCase() === exercise.correct.trim().toLowerCase();
+      if (!isCorrect) errorType = 'PRÆ'; // Preposition error
+    }
+
+    // Record attempt with adaptive tracking
+    if (onAttemptRecorded && userConfidence) {
+      await handleExerciseSubmit(answer, exercise.correct, {
+        userConfidence,
+        errorType,
+        startTime: exerciseStartTime,
+        attemptNumber: 1
+      });
     }
 
     setFeedback({
       isCorrect,
       explanation: exercise.explanation,
-      why: exercise.why
+      why: exercise.why,
+      weakSpot: !isCorrect ? { errorType, frequency: 1 } : null
     });
+
+    // Reset confidence for next exercise
+    setUserConfidence(null);
   };
 
   const handleQuizAnswer = (qid, answer) => {
@@ -477,8 +507,11 @@ export default function PrepositionsLesson({ lesson, onComplete, onBack }) {
           <div className="pb-6">
             <h1 className="text-[24px] font-[700] mb-4">Practice Worksheet</h1>
             <div className="bg-gray-50 rounded-[12px] p-4 border border-gray-200 mb-6">
-              <div className="text-[12px] text-gray-600 font-[600] mb-2 uppercase tracking-widest">
-                Question {exerciseIndex + 1} of {exercises.length}
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-[12px] text-gray-600 font-[600] uppercase tracking-widest">
+                  Question {exerciseIndex + 1} of {exercises.length}
+                </div>
+                <DifficultyIndicator difficulty={currentDifficulty || 2} />
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
                 <div
@@ -550,20 +583,29 @@ export default function PrepositionsLesson({ lesson, onComplete, onBack }) {
                     </div>
                   )}
 
-                  {feedback && (
-                    <div className={`rounded-[12px] p-4 border mb-4 ${
-                      feedback.isCorrect
-                        ? 'bg-green-50 border-green-200'
-                        : 'bg-red-50 border-red-200'
-                    }`}>
-                      <p className={`text-[14px] font-[700] mb-2 ${
-                        feedback.isCorrect ? 'text-green-800' : 'text-red-800'
-                      }`}>
-                        {feedback.isCorrect ? '✓ Correct!' : '✗ Not quite right.'}
-                      </p>
-                      <p className="text-[13px] text-gray-900 mb-2"><strong>Why:</strong> {feedback.why}</p>
-                      <p className="text-[13px] text-gray-900"><strong>Rule:</strong> {feedback.explanation}</p>
+                  {!feedback && (
+                    <div className="mb-6">
+                      <ConfidenceSelector
+                        onSelect={(level) => setUserConfidence(level)}
+                        label="How confident are you in your answer?"
+                      />
                     </div>
+                  )}
+
+                  {feedback && (
+                    <>
+                      <AttemptFeedback
+                        isCorrect={feedback.isCorrect}
+                        explanation={feedback.explanation}
+                        weakSpot={feedback.weakSpot}
+                        difficulty={currentDifficulty || 2}
+                      />
+                      {feedback.why && (
+                        <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                          <p className="text-[12px] text-blue-900"><strong>Why this rule:</strong> {feedback.why}</p>
+                        </div>
+                      )}
+                    </>
                   )}
 
                   <div className="flex gap-3">
@@ -572,6 +614,8 @@ export default function PrepositionsLesson({ lesson, onComplete, onBack }) {
                         onClick={() => {
                           setExerciseIndex(exerciseIndex - 1);
                           setFeedback(null);
+                          setUserConfidence(null);
+                          setExerciseStartTime(Date.now());
                         }}
                         className="flex-1 border border-gray-300 py-3 rounded-full font-[600]"
                       >
@@ -583,6 +627,8 @@ export default function PrepositionsLesson({ lesson, onComplete, onBack }) {
                         if (exerciseIndex < exercises.length - 1) {
                           setExerciseIndex(exerciseIndex + 1);
                           setFeedback(null);
+                          setUserConfidence(null);
+                          setExerciseStartTime(Date.now());
                         } else {
                           setSection('production');
                         }
