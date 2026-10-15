@@ -12,8 +12,25 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
+// Validate configuration
+const requiredFields = ['apiKey', 'authDomain', 'projectId', 'storageBucket', 'messagingSenderId', 'appId'];
+const missingFields = requiredFields.filter(field => !firebaseConfig[field]);
+
+if (missingFields.length > 0) {
+  console.error('❌ Firebase configuration incomplete. Missing:', missingFields);
+  console.error('Make sure .env.local exists with VITE_FIREBASE_* variables');
+  console.error('Current config:', firebaseConfig);
+}
+
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+let app;
+try {
+  app = initializeApp(firebaseConfig);
+  console.log('✓ Firebase initialized successfully');
+} catch (error) {
+  console.error('❌ Firebase initialization error:', error);
+  throw error;
+}
 
 // Initialize Firebase Authentication and get a reference to the service
 export const auth = getAuth(app);
