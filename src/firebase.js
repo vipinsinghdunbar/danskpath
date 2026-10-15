@@ -2,14 +2,14 @@ import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
-// Firebase configuration from environment variables
+// Firebase configuration - hardcoded for staging
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID
+  apiKey: 'AIzaSyAJDsnCCB0zExAZaSorg51U9_a2EFn0hyE',
+  authDomain: 'danskpath-app.firebaseapp.com',
+  projectId: 'danskpath-app',
+  storageBucket: 'danskpath-app.firebasestorage.app',
+  messagingSenderId: '366743322081',
+  appId: '1:366743322081:web:7c913f27bb242c8bf5e6a0'
 };
 
 // Log config for debugging (remove in production)
