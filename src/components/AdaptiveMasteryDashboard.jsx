@@ -6,7 +6,7 @@
 
 import { useState, useEffect } from 'react';
 import { useExerciseRecommendations, useAchievements } from '../hooks/useAdaptiveDifficulty';
-import { getUserProgressStats, analyzeWeakSpots } from '../lib/firestoreAdaptive';
+import { getUserProgressStats, analyzeWeakSpots } from '../lib/supabaseAdaptive';
 import { getDifficultyLabel } from '../lib/adaptiveDifficulty';
 
 export default function AdaptiveMasteryDashboard({ userId, currentDifficulty, mastery, attempts }) {

@@ -17,7 +17,7 @@ import {
   getRecentAttempts,
   updateUserDifficulty,
   analyzeWeakSpots
-} from '../lib/firestoreAdaptive';
+} from '../lib/supabaseAdaptive';
 
 /**
  * Hook for managing adaptive difficulty
