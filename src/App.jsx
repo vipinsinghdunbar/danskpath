@@ -1,13 +1,11 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
 import ErrorBoundary from './components/ErrorBoundary';
 import EphemeralBanner from './components/EphemeralBanner';
 import WebAppShell from './components/WebAppShell';
 import WebDashboard from './components/WebDashboard';
 import HomePage from './components/HomePage';
 import LoginView from './components/LoginView';
-import { auth, db } from './firebase';
+import { supabase } from './supabase';
 import './styles/web-design-system.css';
 
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
@@ -34,54 +32,54 @@ export default function App() {
 
   // Auth state listener
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        // User is signed in
-        setUser(firebaseUser);
+    const checkAuth = async () => {
+      try {
+        const { data: { user: supabaseUser } } = await supabase.auth.getUser();
 
-        // Fetch user profile from Firestore
-        try {
-          const userDocRef = doc(db, 'users', firebaseUser.uid);
-          const userDocSnap = await getDoc(userDocRef);
-          if (userDocSnap.exists()) {
-            const profile = userDocSnap.data();
-            setUserProfile(profile);
+        if (supabaseUser) {
+          setUser(supabaseUser);
 
-            // Determine where to route based on profile
-            if (profile.diagnosticTest) {
-              // User has completed diagnostic
-              // Check if they have in-progress lesson
-              const lessonProgress = profile.lessonProgress;
-              for (const [lessonId, progress] of Object.entries(lessonProgress)) {
-                if (progress.status === 'in-progress') {
-                  // Resume lesson from last section
-                  setResumeSection(progress.currentSection);
-                  setPage('lessons');
-                  break;
-                }
-              }
-              // No in-progress lesson, show dashboard
-              if (page !== 'lessons') {
-                setPage('dashboard');
-              }
-            } else {
-              // User hasn't done diagnostic yet
-              setPage('assessment');
+          // Fetch user profile from Supabase
+          try {
+            const { data: profile, error } = await supabase
+              .from('user_profiles')
+              .select('*')
+              .eq('id', supabaseUser.id)
+              .single();
+
+            if (error) throw error;
+
+            if (profile) {
+              setUserProfile(profile);
+
+              // Determine where to route based on profile
+              // For now, go to dashboard (later add diagnostic logic)
+              setPage('dashboard');
             }
+          } catch (err) {
+            console.error('Error fetching user profile:', err);
+            setPage('dashboard');
           }
-        } catch (err) {
-          console.error('Error fetching user profile:', err);
+        } else {
+          setUser(null);
+          setUserProfile(null);
+          setPage('login');
         }
-      } else {
-        // User is signed out
-        setUser(null);
-        setUserProfile(null);
+      } catch (err) {
+        console.error('Auth check error:', err);
         setPage('login');
       }
       setAuthChecked(true);
+    };
+
+    checkAuth();
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
+      checkAuth();
     });
 
-    return () => unsubscribe();
+    return () => subscription?.unsubscribe();
   }, []);
 
   // PWA registration
@@ -98,7 +96,7 @@ export default function App() {
 
   const handleLogout = async () => {
     try {
-      await signOut(auth);
+      await supabase.auth.signOut();
       localStorage.removeItem('dansk_user_id');
       localStorage.removeItem('dansk_user_email');
       setUser(null);
