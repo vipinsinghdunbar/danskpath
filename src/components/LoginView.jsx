@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { setDoc, doc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { supabase } from '../supabase';
 
 export default function LoginView({ onAuthSuccess }) {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -17,28 +15,33 @@ export default function LoginView({ onAuthSuccess }) {
     setLoading(true);
 
     try {
-      // Create user account
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Create user document in Firestore
-      await setDoc(doc(db, 'users', user.uid), {
+      // Create user account with Supabase
+      const { data, error: signUpError } = await supabase.auth.signUp({
         email: email,
-        displayName: displayName || email.split('@')[0],
-        createdAt: new Date().toISOString(),
-        role: 'student',
-        diagnosticTest: null,
-        lessonProgress: {},
-        preferences: {
-          theme: 'light',
-          audioAutoplay: false,
-          soundOn: true
-        },
-        lastActiveAt: new Date().toISOString()
+        password: password
       });
 
-      // Success: user created and document saved
-      localStorage.setItem('dansk_user_id', user.uid);
+      if (signUpError) throw signUpError;
+
+      const user = data.user;
+
+      // Create user profile in Supabase
+      const { error: profileError } = await supabase
+        .from('user_profiles')
+        .insert({
+          id: user.id,
+          email: email,
+          display_name: displayName || email.split('@')[0],
+          role: 'student',
+          theme: 'light',
+          audio_autoplay: false,
+          sound_on: true
+        });
+
+      if (profileError) throw profileError;
+
+      // Success: user created and profile saved
+      localStorage.setItem('dansk_user_id', user.id);
       localStorage.setItem('dansk_user_email', user.email);
       onAuthSuccess();
     } catch (err) {
@@ -54,11 +57,17 @@ export default function LoginView({ onAuthSuccess }) {
     setLoading(true);
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+
+      if (signInError) throw signInError;
+
+      const user = data.user;
 
       // Save user info to localStorage for quick access
-      localStorage.setItem('dansk_user_id', user.uid);
+      localStorage.setItem('dansk_user_id', user.id);
       localStorage.setItem('dansk_user_email', user.email);
 
       // Success
