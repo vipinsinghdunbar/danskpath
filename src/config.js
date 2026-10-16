@@ -5,8 +5,8 @@ export const FIREBASE_CONFIG = {
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN ?? 'danskpath-app.firebaseapp.com',
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID ?? 'danskpath-app',
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET ?? 'danskpath-app.firebasestorage.app',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? '366743322081',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID ?? '1:366743322081:web:7c913f27bb242c8bf5e6a0'
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID ?? '366743432081',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID ?? '1:366743432081:web:7c913f27bb242c8bf5e6a0'
 };
 
 // Validate that all required fields are present
