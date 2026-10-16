@@ -17,7 +17,7 @@ import {
   getRecentAttempts,
   updateUserDifficulty,
   analyzeWeakSpots
-} from '../lib/supabaseAdaptive';
+} from '../lib/localStorageAdaptive';
 
 /**
  * Hook for managing adaptive difficulty
