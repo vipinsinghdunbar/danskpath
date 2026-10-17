@@ -15,7 +15,6 @@ import {
 import {
   storeAttempt,
   getRecentAttempts,
-  updateUserDifficulty,
   analyzeWeakSpots
 } from '../lib/localStorageAdaptive';
 
@@ -109,9 +108,6 @@ export function useAdaptiveDifficulty(userId, initialDifficulty = 0, availableEx
       // Only adjust if different from current
       if (Math.abs(nextDiff - currentDifficulty) > 0.1) {
         setCurrentDifficulty(nextDiff);
-
-        // Update in Firestore
-        await updateUserDifficulty(userId, nextDiff);
 
         return {
           oldDifficulty: currentDifficulty,
