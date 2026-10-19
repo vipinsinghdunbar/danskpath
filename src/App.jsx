@@ -5,6 +5,10 @@ import WebAppShell from './components/WebAppShell';
 import WebDashboard from './components/WebDashboard';
 import HomePage from './components/HomePage';
 import LoginView from './components/LoginView';
+import AdminPanel from './components/AdminPanel';
+import UserLessonDashboard from './components/UserLessonDashboard';
+import LessonTaker from './components/LessonTaker';
+import ProgressAnalytics from './components/ProgressAnalytics';
 import './styles/web-design-system.css';
 
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
@@ -28,6 +32,8 @@ export default function App() {
   });
 
   const [resumeSection, setResumeSection] = useState(null);
+  const [currentLessonId, setCurrentLessonId] = useState(null);
+  const [showAdmin, setShowAdmin] = useState(false);
 
   // Auth state listener - localStorage only
   useEffect(() => {
@@ -128,6 +134,34 @@ export default function App() {
     setPage('assessment');
   };
 
+  const handleStartLesson = (lessonId) => {
+    setCurrentLessonId(lessonId);
+    setPage('lesson-taker');
+  };
+
+  const handleBackFromLesson = () => {
+    setCurrentLessonId(null);
+    setPage('user-dashboard');
+  };
+
+  const handleOpenAdmin = () => {
+    setShowAdmin(true);
+    setPage('admin');
+  };
+
+  const handleCloseAdmin = () => {
+    setShowAdmin(false);
+    setPage('user-dashboard');
+  };
+
+  const handleViewAnalytics = () => {
+    setPage('analytics');
+  };
+
+  const handleBackFromAnalytics = () => {
+    setPage('user-dashboard');
+  };
+
   if(!authChecked) {
     return <div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>;
   }
@@ -173,6 +207,25 @@ export default function App() {
                 <LessonView onBackToDashboard={handleBackToDashboard} resumeFromSection={resumeSection} userId={user?.uid} />
               </WebAppShell>
             </Suspense>
+          )}
+          {page === 'admin' && (
+            <AdminPanel onClose={handleCloseAdmin} />
+          )}
+          {page === 'user-dashboard' && (
+            <UserLessonDashboard
+              onStartLesson={handleStartLesson}
+              onOpenAdmin={handleOpenAdmin}
+              onViewAnalytics={handleViewAnalytics}
+            />
+          )}
+          {page === 'lesson-taker' && currentLessonId && (
+            <LessonTaker
+              lessonId={currentLessonId}
+              onBack={handleBackFromLesson}
+            />
+          )}
+          {page === 'analytics' && (
+            <ProgressAnalytics />
           )}
         </div>
       </div>
