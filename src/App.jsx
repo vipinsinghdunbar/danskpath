@@ -5,7 +5,6 @@ import WebAppShell from './components/WebAppShell';
 import WebDashboard from './components/WebDashboard';
 import HomePage from './components/HomePage';
 import LoginView from './components/LoginView';
-import { supabase } from './supabase';
 import './styles/web-design-system.css';
 
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
@@ -30,36 +29,17 @@ export default function App() {
 
   const [resumeSection, setResumeSection] = useState(null);
 
-  // Auth state listener
+  // Auth state listener - localStorage only
   useEffect(() => {
-    const checkAuth = async () => {
+    const checkAuth = () => {
       try {
-        const { data: { user: supabaseUser } } = await supabase.auth.getUser();
+        const userId = localStorage.getItem('dansk_user_id');
+        const userEmail = localStorage.getItem('dansk_user_email');
 
-        if (supabaseUser) {
-          setUser(supabaseUser);
-
-          // Fetch user profile from Supabase
-          try {
-            const { data: profile, error } = await supabase
-              .from('user_profiles')
-              .select('*')
-              .eq('id', supabaseUser.id)
-              .single();
-
-            if (error) throw error;
-
-            if (profile) {
-              setUserProfile(profile);
-
-              // Determine where to route based on profile
-              // For now, go to dashboard (later add diagnostic logic)
-              setPage('dashboard');
-            }
-          } catch (err) {
-            console.error('Error fetching user profile:', err);
-            setPage('dashboard');
-          }
+        if (userId && userEmail) {
+          setUser({ id: userId, email: userEmail });
+          setUserProfile({ id: userId, email: userEmail });
+          setPage('dashboard');
         } else {
           setUser(null);
           setUserProfile(null);
@@ -73,13 +53,6 @@ export default function App() {
     };
 
     checkAuth();
-
-    // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      checkAuth();
-    });
-
-    return () => subscription?.unsubscribe();
   }, []);
 
   // PWA registration
@@ -94,17 +67,12 @@ export default function App() {
     setAuthChecked(true);
   };
 
-  const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-      localStorage.removeItem('dansk_user_id');
-      localStorage.removeItem('dansk_user_email');
-      setUser(null);
-      setUserProfile(null);
-      setPage('login');
-    } catch (err) {
-      console.error('Logout error:', err);
-    }
+  const handleLogout = () => {
+    localStorage.removeItem('dansk_user_id');
+    localStorage.removeItem('dansk_user_email');
+    setUser(null);
+    setUserProfile(null);
+    setPage('login');
   };
 
   const handleAssessmentComplete = () => {

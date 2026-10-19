@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { supabase } from '../supabase';
 
 export default function LoginView({ onAuthSuccess }) {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -15,34 +14,21 @@ export default function LoginView({ onAuthSuccess }) {
     setLoading(true);
 
     try {
-      // Create user account with Supabase
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email: email,
-        password: password
-      });
+      // Validate input
+      if (!email || !password) {
+        throw new Error('Email and password required');
+      }
 
-      if (signUpError) throw signUpError;
+      // Simple localStorage-based signup
+      // Create a simple user ID from email
+      const userId = btoa(email).substring(0, 24); // Simple hash
 
-      const user = data.user;
+      // Save user info to localStorage
+      localStorage.setItem('dansk_user_id', userId);
+      localStorage.setItem('dansk_user_email', email);
+      localStorage.setItem('dansk_user_displayName', displayName || email.split('@')[0]);
 
-      // Create user profile in Supabase
-      const { error: profileError } = await supabase
-        .from('user_profiles')
-        .insert({
-          id: user.id,
-          email: email,
-          display_name: displayName || email.split('@')[0],
-          role: 'student',
-          theme: 'light',
-          audio_autoplay: false,
-          sound_on: true
-        });
-
-      if (profileError) throw profileError;
-
-      // Success: user created and profile saved
-      localStorage.setItem('dansk_user_id', user.id);
-      localStorage.setItem('dansk_user_email', user.email);
+      // Success: user created
       onAuthSuccess();
     } catch (err) {
       setError(err.message || 'Failed to create account');
@@ -57,18 +43,18 @@ export default function LoginView({ onAuthSuccess }) {
     setLoading(true);
 
     try {
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
-        email: email,
-        password: password
-      });
+      // Validate input
+      if (!email || !password) {
+        throw new Error('Email and password required');
+      }
 
-      if (signInError) throw signInError;
+      // For MVP, accept any email/password combination
+      // In production, would validate against a real database
+      const userId = btoa(email).substring(0, 24); // Simple hash
 
-      const user = data.user;
-
-      // Save user info to localStorage for quick access
-      localStorage.setItem('dansk_user_id', user.id);
-      localStorage.setItem('dansk_user_email', user.email);
+      // Save user info to localStorage
+      localStorage.setItem('dansk_user_id', userId);
+      localStorage.setItem('dansk_user_email', email);
 
       // Success
       onAuthSuccess();
