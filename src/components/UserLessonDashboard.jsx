@@ -1,7 +1,15 @@
 import { useState, useEffect } from 'react';
 import { getExercisesByCategory } from '../lib/completeGrammarExercises';
 
-export default function UserLessonDashboard({ onStartLesson, onViewAnalytics, onOpenAdmin }) {
+export default function UserLessonDashboard({
+  onStartLesson,
+  onViewAnalytics,
+  onOpenAdmin,
+  onTakeProficiencyTest,
+  onViewRecommendations,
+  onViewDailyPractice,
+  onTakeSurpriseTest
+}) {
   const [lessons, setLessons] = useState([]);
   const [userProgress, setUserProgress] = useState({});
   const [filter, setFilter] = useState('all');
@@ -50,6 +58,45 @@ export default function UserLessonDashboard({ onStartLesson, onViewAnalytics, on
               ⚙️ Admin Panel
             </button>
           )}
+        </div>
+
+        {/* Phase 3 Features Row */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <button
+            onClick={onTakeProficiencyTest}
+            className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition"
+          >
+            <p className="text-2xl mb-2">🧪</p>
+            <p className="font-semibold">Proficiency Test</p>
+            <p className="text-xs opacity-90 mt-1">Measure your level</p>
+          </button>
+
+          <button
+            onClick={onViewRecommendations}
+            className="p-4 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg hover:from-purple-600 hover:to-purple-700 transition"
+          >
+            <p className="text-2xl mb-2">⭐</p>
+            <p className="font-semibold">Recommended</p>
+            <p className="text-xs opacity-90 mt-1">Personalized lessons</p>
+          </button>
+
+          <button
+            onClick={onViewDailyPractice}
+            className="p-4 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition"
+          >
+            <p className="text-2xl mb-2">📅</p>
+            <p className="font-semibold">Daily Practice</p>
+            <p className="text-xs opacity-90 mt-1">Spaced repetition</p>
+          </button>
+
+          <button
+            onClick={onTakeSurpriseTest}
+            className="p-4 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition"
+          >
+            <p className="text-2xl mb-2">🎲</p>
+            <p className="font-semibold">Surprise Test</p>
+            <p className="text-xs opacity-90 mt-1">Pop quiz challenge</p>
+          </button>
         </div>
 
         {/* Stats Summary */}

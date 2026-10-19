@@ -9,6 +9,11 @@ import AdminPanel from './components/AdminPanel';
 import UserLessonDashboard from './components/UserLessonDashboard';
 import LessonTaker from './components/LessonTaker';
 import ProgressAnalytics from './components/ProgressAnalytics';
+import ProficiencyTest from './components/ProficiencyTest';
+import RecommendedLessons from './components/RecommendedLessons';
+import DailyPractice from './components/DailyPractice';
+import PracticeSession from './components/PracticeSession';
+import SurpriseTest from './components/SurpriseTest';
 import './styles/web-design-system.css';
 
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
@@ -34,6 +39,7 @@ export default function App() {
   const [resumeSection, setResumeSection] = useState(null);
   const [currentLessonId, setCurrentLessonId] = useState(null);
   const [showAdmin, setShowAdmin] = useState(false);
+  const [testCompleted, setTestCompleted] = useState(false);
 
   // Auth state listener - localStorage only
   useEffect(() => {
@@ -162,6 +168,31 @@ export default function App() {
     setPage('user-dashboard');
   };
 
+  const handleTakeProficiencyTest = () => {
+    setPage('proficiency-test');
+  };
+
+  const handleTestComplete = (results) => {
+    setTestCompleted(true);
+    setPage('user-dashboard');
+  };
+
+  const handleViewRecommendations = () => {
+    setPage('recommendations');
+  };
+
+  const handleViewDailyPractice = () => {
+    setPage('daily-practice');
+  };
+
+  const handleStartPracticeSession = (type) => {
+    setPage('practice-session');
+  };
+
+  const handleTakeSurpriseTest = () => {
+    setPage('surprise-test');
+  };
+
   if(!authChecked) {
     return <div className="min-h-screen bg-[#F2F2F7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>;
   }
@@ -216,6 +247,10 @@ export default function App() {
               onStartLesson={handleStartLesson}
               onOpenAdmin={handleOpenAdmin}
               onViewAnalytics={handleViewAnalytics}
+              onTakeProficiencyTest={handleTakeProficiencyTest}
+              onViewRecommendations={handleViewRecommendations}
+              onViewDailyPractice={handleViewDailyPractice}
+              onTakeSurpriseTest={handleTakeSurpriseTest}
             />
           )}
           {page === 'lesson-taker' && currentLessonId && (
@@ -226,6 +261,33 @@ export default function App() {
           )}
           {page === 'analytics' && (
             <ProgressAnalytics />
+          )}
+          {page === 'proficiency-test' && (
+            <ProficiencyTest
+              onTestComplete={handleTestComplete}
+              onBack={() => setPage('user-dashboard')}
+            />
+          )}
+          {page === 'recommendations' && (
+            <RecommendedLessons
+              onStartLesson={handleStartLesson}
+            />
+          )}
+          {page === 'daily-practice' && (
+            <DailyPractice
+              onStartPractice={handleStartPracticeSession}
+              onBack={() => setPage('user-dashboard')}
+            />
+          )}
+          {page === 'practice-session' && (
+            <PracticeSession
+              onBack={() => setPage('user-dashboard')}
+            />
+          )}
+          {page === 'surprise-test' && (
+            <SurpriseTest
+              onBack={() => setPage('user-dashboard')}
+            />
           )}
         </div>
       </div>
