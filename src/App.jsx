@@ -16,6 +16,7 @@ import PracticeSession from './components/PracticeSession';
 import SurpriseTest from './components/SurpriseTest';
 import './styles/web-design-system.css';
 
+const DailySession = lazy(()=>import('./components/DailySession'));
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
 const PostAssessmentDashboard = lazy(()=>import('./components/PostAssessmentDashboard'));
 const LearningRoadmapView = lazy(()=>import('./components/LearningRoadmapView'));
@@ -51,7 +52,12 @@ export default function App() {
         if (userId && userEmail) {
           setUser({ id: userId, email: userEmail });
           setUserProfile({ id: userId, email: userEmail });
-          setPage('dashboard');
+          // A returning learner who has been placed lands straight on today's
+          // session: this is a daily-practice tool, so the default screen is
+          // the practice itself rather than a dashboard about it. Anyone not
+          // yet placed goes to the diagnostic first so the session engine has
+          // a level to build from.
+          setPage(localStorage.getItem('dansk_diagnostic') ? 'session' : 'assessment');
         } else {
           setUser(null);
           setUserProfile(null);
@@ -110,7 +116,7 @@ export default function App() {
       // TODO: Save diagnostic to Firestore users/{userId}.diagnosticTest
     }
 
-    setPage('dashboard');
+    setPage('session');
   };
 
   const handleRetakeAssessment = () => {
@@ -288,6 +294,11 @@ export default function App() {
             <SurpriseTest
               onBack={() => setPage('user-dashboard')}
             />
+          )}
+          {page === 'session' && (
+            <Suspense fallback={<div className="min-h-screen bg-[#FCFBF7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>}>
+              <DailySession onBack={() => setPage('dashboard')} />
+            </Suspense>
           )}
         </div>
       </div>
