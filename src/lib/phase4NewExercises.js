@@ -68,7 +68,7 @@ export const phase4NewExercises = {
     { id: 'PRON_B1_002', question: 'De handler i ___ favoritbutik. Det er deres valg.', options: ['sine', 'deres', 'dem'], correct: 'deres', explanation: 'Non-reflexive: deres (their)', errorCode: 'PRON' },
     { id: 'PRON_B1_003', question: '___ møder hinanden hver dag. De er gift med ___.', options: ['De | hinanden', 'Dem | hinanden', 'De | de'], correct: 'De | hinanden', explanation: 'De = they; hinanden = each other', errorCode: 'PRON' },
     { id: 'PRON_B1_004', question: 'Hun siger til ___, at han skal have ___ mening.', options: ['mig | min', 'mig | min', 'jeg | jeg'], correct: 'mig | min', explanation: 'mig (me); min (my)', errorCode: 'PRON' },
-    { id: 'PRON_B1_005', question: 'Læreren gav klasserne ___ opgaver. De skulle løse ___ på egen hånd.', options: ['sine | dem', 'hans | dem', 'hans | sine'], correct: 'sine | dem', explanation: 'sine = teacher's own; dem = them', errorCode: 'PRON' },
+    { id: 'PRON_B1_005', question: 'Læreren gav klasserne ___ opgaver. De skulle løse ___ på egen hånd.', options: ['sine | dem', 'hans | dem', 'hans | sine'], correct: 'sine | dem', explanation: 'sine = teacher\'s own; dem = them', errorCode: 'PRON' },
   ],
 
   KONJ: [

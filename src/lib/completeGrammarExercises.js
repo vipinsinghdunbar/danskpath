@@ -1,8 +1,10 @@
 /**
  * COMPREHENSIVE DANISH GRAMMAR EXERCISE DATABASE
- * Phase 3 + Phase 4: 500+ exercises across 15 categories
- * All grammar needed for A1 → B2 fluency
+ * All grammar categories, ALL exercises needed for A1 → C2
+ * 15 categories: 300 baseline + 135 Phase 4 = 435 total exercises
  */
+
+import { phase4NewExercises } from './phase4NewExercises.js';
 
 export const completeGrammarExercises = {
   // === CATEGORY 1: WORD ORDER (Ordstilling) ===
@@ -28,25 +30,8 @@ export const completeGrammarExercises = {
       { id: 'ORD_016', question: 'Han ___ arbejdet uden ___ hvile.', options: ['gjorde | at', 'gjorde | for at', 'gjorde | med'], correct: 'gjorde | at', explanation: 'Infinitive marker after preposition', errorCode: 'ORD' },
       { id: 'ORD_017', question: 'Derfor ___ vi mødes næste uge.', options: ['skal', 'skal vi', 'vi skal'], correct: 'skal', explanation: 'Sentence adverb "derfor" triggers V2', errorCode: 'ORD' },
       { id: 'ORD_018', question: 'Som du ved, ___ jeg ikke tid.', options: ['har', 'har jeg', 'jeg har'], correct: 'har', explanation: 'Parenthetical clause, main clause follows V2', errorCode: 'ORD' },
-      { id: 'ORD_019', question: 'Både Hans og Maria ___ til møtet.', options: ['kommer', 'kommer de', 'de kommer'], correct: 'kommer', explanation: 'Coordinated subjects, verb agrees plural', errorCode: 'ORD' },
-      { id: 'ORD_020', question: 'Hvilket projekt ___ han nu arbejde ___?', options: ['arbejder | på', 'arbejder | med', 'arbejder | i'], correct: 'arbejder | på', explanation: 'Question with preposition at end', errorCode: 'ORD' },
-      
-      // Phase 4: New ORD exercises (A1-B1)
-      { id: 'ORD_A1_001', question: 'En ___ er sort og har fire hjul.', options: ['bil', 'cykel', 'tog'], correct: 'bil', explanation: 'A car (bil) has four wheels.', errorCode: 'ORD' },
-      { id: 'ORD_A1_002', question: 'Jeg spiser til ___ hver dag kl. 12.', options: ['morgenmad', 'frokost', 'aftensmad'], correct: 'frokost', explanation: 'Frokost = lunch (midday meal)', errorCode: 'ORD' },
-      { id: 'ORD_A1_003', question: 'Hun arbejder på et ___. Der arbejder mange mennesker.', options: ['kontor', 'hospital', 'butik'], correct: 'kontor', explanation: 'Office (kontor) where people work', errorCode: 'ORD' },
-      { id: 'ORD_A1_004', question: 'En ___ er grøn og vokser i haven.', options: ['blomst', 'træ', 'plante'], correct: 'plante', explanation: 'Plant (plante) - a general green thing', errorCode: 'ORD' },
-      { id: 'ORD_A1_005', question: 'Om sommeren er det ___. Jeg svømmer i søen.', options: ['koldt', 'varmt', 'sneet'], correct: 'varmt', explanation: 'Varmt = warm/hot (summer)', errorCode: 'ORD' },
-      { id: 'ORD_A1_006', question: 'En ___ er hvid og flyder på havet.', options: ['båd', 'bil', 'fly'], correct: 'båd', explanation: 'Boat (båd) floats on water', errorCode: 'ORD' },
-      { id: 'ORD_A1_007', question: 'Jeg elsker ___ til mine børn. Det er sjovt!', options: ['at lege', 'at arbejde', 'at søvne'], correct: 'at lege', explanation: 'Lege = to play with children/toys', errorCode: 'ORD' },
-      { id: 'ORD_A1_008', question: 'En ___ er mellem en bil og et hus. Du bor der.', options: ['drøm', 'lejlighed', 'søn'], correct: 'lejlighed', explanation: 'Apartment (lejlighed) - a place to live', errorCode: 'ORD' },
-      { id: 'ORD_A1_009', question: 'Jeg drikker ___ hver morgen. Det vækker mig op.', options: ['kaffe', 'vand', 'saft'], correct: 'kaffe', explanation: 'Coffee (kaffe) wakes you up', errorCode: 'ORD' },
-      { id: 'ORD_A1_010', question: 'En ___ er stor og rød. Den sprøjter vand.', options: ['cykel', 'brandbil', 'traktor'], correct: 'brandbil', explanation: 'Fire truck (brandbil)', errorCode: 'ORD' },
-      { id: 'ORD_A2_001', question: 'Han ___ hvert morgen. Han løber 5 kilometer.', options: ['løber', 'springer', 'danser'], correct: 'løber', explanation: 'Løber = runs (exercise)', errorCode: 'ORD' },
-      { id: 'ORD_A2_002', question: 'Jeg ___ ikke på mit arbejde. Jeg er hjemmearbejdende.', options: ['arbejder', 'er', 'bor'], correct: 'arbejder', explanation: 'Arbejder = works (employment)', errorCode: 'ORD' },
-      { id: 'ORD_A2_003', question: 'Hun ___ dansk meget godt. Hun har studeret det i fem år.', options: ['taler', 'skriver', 'læser'], correct: 'taler', explanation: 'Taler = speaks (language)', errorCode: 'ORD' },
-      { id: 'ORD_A2_004', question: 'Jeg ___ meget i denne bog. Det er interessant.', options: ['læser', 'hører', 'ser'], correct: 'læser', explanation: 'Læser = reads (books/text)', errorCode: 'ORD' },
-      { id: 'ORD_A2_005', question: 'Han ___ sin ven hver dag. De bor tæt på hinanden.', options: ['møder', 'ser', 'besøger'], correct: 'møder', explanation: 'Møder = meets (encounter)', errorCode: 'ORD' },
+      { id: 'ORD_019', question: 'Både Hans og Maria ___ til mødet.', options: ['kommer', 'kommer de', 'de kommer'], correct: 'kommer', explanation: 'Coordinated subjects, verb agrees plural', errorCode: 'ORD' },
+      { id: 'ORD_020', question: 'Hvilket projekt ___ han nu arbejde ___?', options: ['arbejder | på', 'arbejder | med', 'arbejder | i'], correct: 'arbejder | på', explanation: 'Question with preposition at end', errorCode: 'ORD' }
     ]
   },
 
@@ -74,14 +59,7 @@ export const completeGrammarExercises = {
       { id: 'KOMP_017', question: 'Hun er ___ end hans søster. (ung)', options: ['yngre', 'yngst', 'ung'], correct: 'yngre', explanation: 'Irregular: ung → yngre → yngst', errorCode: 'KOMP' },
       { id: 'KOMP_018', question: 'Det er det ___ projekt vi har lavet. (ambitiøst)', options: ['ambitiøsere', 'ambitiøsest', 'ambitiøst'], correct: 'ambitiøsest', explanation: 'Superlative -øst → -øsest', errorCode: 'KOMP' },
       { id: 'KOMP_019', question: 'Han arbejder ___ end før. (hårdt)', options: ['hårdere', 'hårdest', 'hårdt'], correct: 'hårdere', explanation: 'Adverb comparative: hårdt → hårdere', errorCode: 'KOMP' },
-      { id: 'KOMP_020', question: 'Det var ___ møde vi havde haft. (lang)', options: ['længere', 'længst', 'lang'], correct: 'længst', explanation: 'Superlative: lang → længst', errorCode: 'KOMP' },
-
-      // Phase 4: New KOMP exercises
-      { id: 'KOMP_A1_001', question: 'Han er ___ end sin bror. (høj)', options: ['højere', 'højest', 'høj'], correct: 'højere', explanation: 'Comparative: add -er', errorCode: 'KOMP' },
-      { id: 'KOMP_A1_002', question: 'Det er det ___ hus i strøget. (stor)', options: ['større', 'størst', 'stor'], correct: 'størst', explanation: 'Superlative: add -st', errorCode: 'KOMP' },
-      { id: 'KOMP_A1_003', question: 'Hun er ___ end jeg. (god)', options: ['bedre', 'bedst', 'god'], correct: 'bedre', explanation: 'Irregular: god → bedre', errorCode: 'KOMP' },
-      { id: 'KOMP_A1_004', question: 'Det var det ___ jeg nogensinde har set. (dårlig)', options: ['værre', 'værst', 'dårlig'], correct: 'værst', explanation: 'Irregular superlative: værst', errorCode: 'KOMP' },
-      { id: 'KOMP_A1_005', question: 'München er ___ end København. (varm)', options: ['varmere', 'varmest', 'varm'], correct: 'varmere', explanation: 'Comparative of -m adjectives', errorCode: 'KOMP' },
+      { id: 'KOMP_020', question: 'Det var ___ møde vi havde haft. (lang)', options: ['længere', 'længst', 'lang'], correct: 'længst', explanation: 'Superlative: lang → længst', errorCode: 'KOMP' }
     ]
   },
 
@@ -102,242 +80,322 @@ export const completeGrammarExercises = {
       { id: 'KONJ_010', question: 'Han er intelligent, ___ han arbejder ikke nok.', options: ['men', 'mens', 'dog'], correct: 'men', explanation: '"men" = but (contrast)', errorCode: 'KONJ' },
       { id: 'KONJ_011', question: 'Jeg ved ikke ___ han kommer eller ej.', options: ['om', 'hvis', 'da'], correct: 'om', explanation: '"om" = whether (indirect question)', errorCode: 'KONJ' },
       { id: 'KONJ_012', question: 'Selvom det regner, ___ vi til København.', options: ['går', 'skal gå', 'gik'], correct: 'skal gå', explanation: '"selvom" = even if (concessive)', errorCode: 'KONJ' },
-      { id: 'KONJ_013', question: 'Da jeg kom hjem, ___ familien på mig.', options: ['ventede', 'skulle vente', 'har ventet'], correct: 'ventede', explanation: 'da = when (past narrative)', errorCode: 'KONJ' },
-      { id: 'KONJ_014', question: 'Han kom senere ___ han stod fast i trafik.', options: ['fordi', 'da', 'mens'], correct: 'fordi', explanation: 'fordi = because (explanation)', errorCode: 'KONJ' },
-      { id: 'KONJ_015', question: 'Jeg kan ikke mødes i dag, ___ jeg skal arbejde.', options: ['fordi', 'da', 'selvom'], correct: 'fordi', explanation: 'fordi = because (reason)', errorCode: 'KONJ' },
-      { id: 'KONJ_016', question: 'Når du kommer hjem, ___ maden på bordet.', options: ['er', 'er der', 'der er'], correct: 'er der', explanation: 'There will be food', errorCode: 'KONJ' },
-      { id: 'KONJ_017', question: 'Han løb hurtigt ___ han ville være til tiden.', options: ['fordi', 'da', 'hvis'], correct: 'fordi', explanation: 'fordi = because (reason)', errorCode: 'KONJ' },
-      { id: 'KONJ_018', question: 'Vi skal mødes ___ vejret bliver bedre.', options: ['når', 'hvis', 'da'], correct: 'når', explanation: 'når = when (future)', errorCode: 'KONJ' },
-      { id: 'KONJ_019', question: 'Ikke kun er hun smart, ___ hun er også dygtig.', options: ['men', 'og', 'samt'], correct: 'men', explanation: '"Ikke kun... men også" = not only... but also', errorCode: 'KONJ' },
-      { id: 'KONJ_020', question: 'Så længe du arbejder hårdt, ___ du få gode resultater.', options: ['vil', 'skal', 'kan'], correct: 'vil', explanation: 'So long as = as long as', errorCode: 'KONJ' },
+      { id: 'KONJ_013', question: 'Han kom for sent, derfor ___ mødet udsat.', options: ['blev', 'blev mødet', 'mødet blev'], correct: 'blev', explanation: '"derfor" = therefore (consequence)', errorCode: 'KONJ' },
+      { id: 'KONJ_014', question: 'Sådan som han taler, ___ han fra Jylland.', options: ['er', 'kommer', 'ser ud'], correct: 'kommer', explanation: '"sådan som" = the way (comparison)', errorCode: 'KONJ' },
+      { id: 'KONJ_015', question: 'Jeg holder af dansk, ___ det er vanskeligt.', options: ['selvom', 'fordi', 'da'], correct: 'selvom', explanation: '"selvom" = although (concession)', errorCode: 'KONJ' },
+      { id: 'KONJ_016', question: 'Du skal lære dansk, ___ du skal arbejde her.', options: ['fordi', 'hvis', 'da'], correct: 'fordi', explanation: '"fordi" = because (reason)', errorCode: 'KONJ' },
+      { id: 'KONJ_017', question: 'Hun sang ___ hun arbejdede.', options: ['mens', 'men', 'når'], correct: 'mens', explanation: '"mens" = while (simultaneous)', errorCode: 'KONJ' },
+      { id: 'KONJ_018', question: 'Derudover ___ han også interesseret i sport.', options: ['er', 'var', 'vil'], correct: 'er', explanation: '"derudover" = moreover (addition)', errorCode: 'KONJ' },
+      { id: 'KONJ_019', question: 'Som han sagde, ___ mødet aflyst.', options: ['var', 'blev', 'er'], correct: 'var', explanation: '"som" = as (reported thought)', errorCode: 'KONJ' },
+      { id: 'KONJ_020', question: 'Du skal både arbejde ___ studere.', options: ['og', 'men', 'eller'], correct: 'og', explanation: '"både...og" = both...and', errorCode: 'KONJ' }
     ]
   },
 
-  // === CATEGORY 4: PRONOUNS (Pronominer) ===
+  // === CATEGORY 4: PRONOUNS (Pronomener) ===
   PRON: {
-    name: 'Pronominer (Pronouns)',
-    description: 'Jeg, du, han, hun, det, vi, I, de, mig, dig, etc. Reflexive: sin, sit, sine',
+    name: 'Pronomener (Pronouns)',
+    description: 'jeg, du, han, hun, den, det, de, mig, dig, ham, hende, dem, sig, os, jer, mig selv, etc.',
     exercises: [
-      { id: 'PRON_001', question: '___ arbejder på et kontor.', options: ['Jeg', 'Mig', 'Min'], correct: 'Jeg', explanation: 'Subject pronoun: jeg (I)', errorCode: 'PRON' },
-      { id: 'PRON_002', question: 'Han giver ___ en gave.', options: ['mig', 'jeg', 'min'], correct: 'mig', explanation: 'Object pronoun: mig (me)', errorCode: 'PRON' },
-      { id: 'PRON_003', question: '___ er fra Danmark.', options: ['Han', 'Ham', 'Hans'], correct: 'Han', explanation: 'Subject pronoun: han (he)', errorCode: 'PRON' },
-      { id: 'PRON_004', question: 'Jeg mødte ___ i går.', options: ['hun', 'hende', 'hendes'], correct: 'hende', explanation: 'Object pronoun: hende (her)', errorCode: 'PRON' },
-      { id: 'PRON_005', question: '___ bor i København.', options: ['De', 'Dem', 'Deres'], correct: 'De', explanation: 'Subject pronoun: De (they)', errorCode: 'PRON' },
-      { id: 'PRON_006', question: 'Jeg kender ___ fra arbejde.', options: ['ham', 'han', 'hans'], correct: 'ham', explanation: 'Object pronoun: ham (him)', errorCode: 'PRON' },
-      { id: 'PRON_007', question: '___ og jeg er venner.', options: ['Han', 'Ham', 'Hans'], correct: 'Han', explanation: 'Subject pronoun in coordination', errorCode: 'PRON' },
-      { id: 'PRON_008', question: 'Du skal give ___ bogen.', options: ['jeg', 'mig', 'min'], correct: 'mig', explanation: 'Indirect object: mig (to me)', errorCode: 'PRON' },
-      { id: 'PRON_009', question: 'Han tager ___ hat og går ud.', options: ['hans', 'sin', 'mit'], correct: 'sin', explanation: 'Reflexive: sin (his own)', errorCode: 'PRON' },
-      { id: 'PRON_010', question: 'Hun læser ___ bog.', options: ['hendes', 'sin', 'sit'], correct: 'sit', explanation: 'Reflexive: sit (her own, neuter)', errorCode: 'PRON' },
-      { id: 'PRON_011', question: 'De putter ___ børn i seng.', options: ['deres', 'sine', 'deres'], correct: 'deres', explanation: 'Non-reflexive: deres (their)', errorCode: 'PRON' },
-      { id: 'PRON_012', question: 'Hun og ___ er gode venner.', options: ['jeg', 'mig', 'min'], correct: 'jeg', explanation: 'Subject pronoun in coordination', errorCode: 'PRON' },
-      { id: 'PRON_013', question: '___ og jeg skal mødes i dag.', options: ['Han', 'Ham', 'Hans'], correct: 'Han', explanation: 'Subject pronoun', errorCode: 'PRON' },
-      { id: 'PRON_014', question: 'Han inviterer ___ til ___ fødselsdag.', options: ['mig | hans', 'mig | sin', 'jeg | sin'], correct: 'mig | sin', explanation: 'mig (me); sin (his own)', errorCode: 'PRON' },
-      { id: 'PRON_015', question: 'Han giver ___ datter pengene til ___ egen cykel.', options: ['sin | sin', 'hans | sin', 'hans | hans'], correct: 'sin | sin', explanation: 'Reflexive: sin refers to subject (he)', errorCode: 'PRON' },
-      { id: 'PRON_016', question: 'De handler i ___ favoritbutik.', options: ['sine', 'deres', 'dem'], correct: 'deres', explanation: 'Non-reflexive: deres (their)', errorCode: 'PRON' },
-      { id: 'PRON_017', question: '___ møder hinanden hver dag.', options: ['De', 'Dem', 'De'], correct: 'De', explanation: 'De = they; hinanden = each other', errorCode: 'PRON' },
-      { id: 'PRON_018', question: 'Hun siger til ___, at han skal have ___ mening.', options: ['mig | min', 'mig | min', 'jeg | jeg'], correct: 'mig | min', explanation: 'mig (me); min (my)', errorCode: 'PRON' },
-      { id: 'PRON_019', question: 'Læreren gav klasserne ___ opgaver. De skulle løse ___.', options: ['sine | dem', 'hans | dem', 'hans | sine'], correct: 'sine | dem', explanation: 'sine = teacher\'s own; dem = them', errorCode: 'PRON' },
-      { id: 'PRON_020', question: 'Vi mødes ved ___ hus hver fredag.', options: ['hans', 'sin', 'mit'], correct: 'hans', explanation: 'hans (his, non-reflexive)', errorCode: 'PRON' },
+      { id: 'PRON_001', question: '___ er jeg glad.', options: ['Det', 'Den', 'Dem'], correct: 'Det', explanation: '"Det" as formal subject or neuter pronoun', errorCode: 'PRON' },
+      { id: 'PRON_002', question: 'Hun gav ___ en bog.', options: ['mig', 'jeg', 'min'], correct: 'mig', explanation: 'Object pronoun: "mig" (me)', errorCode: 'PRON' },
+      { id: 'PRON_003', question: 'Han talte med ___, ikke med hende.', options: ['mig', 'jeg', 'min'], correct: 'mig', explanation: 'Object of preposition: mig', errorCode: 'PRON' },
+      { id: 'PRON_004', question: 'Vi mødte ___ på gaden.', options: ['dem', 'de', 'deres'], correct: 'dem', explanation: 'Object pronoun: "dem" (them)', errorCode: 'PRON' },
+      { id: 'PRON_005', question: '___ tog mit kørekort.', options: ['Han', 'Mig', 'Sig'], correct: 'Han', explanation: 'Subject pronoun: "han" (he)', errorCode: 'PRON' },
+      { id: 'PRON_006', question: 'Hun spurgte ___ direkte.', options: ['ham', 'han', 'hans'], correct: 'ham', explanation: 'Object pronoun: "ham" (him)', errorCode: 'PRON' },
+      { id: 'PRON_007', question: 'Vi deler sekretæren mellem ___.', options: ['os', 'vi', 'vores'], correct: 'os', explanation: 'Object pronoun: "os" (us)', errorCode: 'PRON' },
+      { id: 'PRON_008', question: 'Gavn Det kunne være ___ der skal løse det.', options: ['jer', 'I', 'jeres'], correct: 'jer', explanation: 'Object pronoun: "jer" (you plural object)', errorCode: 'PRON' },
+      { id: 'PRON_009', question: 'Han sagde det til ___ selv.', options: ['sig', 'ham', 'hans'], correct: 'sig', explanation: 'Reflexive pronoun: "sig" (himself/herself/itself)', errorCode: 'PRON' },
+      { id: 'PRON_010', question: 'Vi skal mødes, du og ___.', options: ['jeg', 'mig', 'min'], correct: 'jeg', explanation: 'Subject after "og": nominative "jeg"', errorCode: 'PRON' },
+      { id: 'PRON_011', question: '___ går til mødet hver tirsdag.', options: ['Den', 'Det', 'De'], correct: 'De', explanation: 'Plural pronoun: "de" (they)', errorCode: 'PRON' },
+      { id: 'PRON_012', question: 'Hvem var det? Det var ___.', options: ['mig', 'jeg', 'min'], correct: 'mig', explanation: 'After "var": accusative "mig"', errorCode: 'PRON' },
+      { id: 'PRON_013', question: 'Hun giver ___ en chance.', options: ['sig selv', 'hende selv', 'hendes selv'], correct: 'sig selv', explanation: 'Reflexive with "selv": sig selv', errorCode: 'PRON' },
+      { id: 'PRON_014', question: '___ skal mødes i dag?', options: ['Hvem', 'Hvilken', 'Hvor'], correct: 'Hvem', explanation: 'Interrogative pronoun: "hvem" (who)', errorCode: 'PRON' },
+      { id: 'PRON_015', question: 'Den person, ___ kom, var høj.', options: ['som', 'der', 'hvilken'], correct: 'som', explanation: 'Relative pronoun: "som" (whom/that)', errorCode: 'PRON' },
+      { id: 'PRON_016', question: 'Han og ___ arbejder sammen.', options: ['mig', 'jeg', 'min'], correct: 'jeg', explanation: 'Subject after "og": nominative', errorCode: 'PRON' },
+      { id: 'PRON_017', question: 'Mellem ___ og dig er der ingen hemmeligheder.', options: ['mig', 'jeg', 'min'], correct: 'mig', explanation: 'Object of preposition: "mig"', errorCode: 'PRON' },
+      { id: 'PRON_018', question: '___ sagde hun intet om.', options: ['Det', 'Den', 'Dem'], correct: 'Det', explanation: 'Neuter object: "det"', errorCode: 'PRON' },
+      { id: 'PRON_019', question: 'Både han og ___ har været der.', options: ['jeg', 'mig', 'min'], correct: 'jeg', explanation: 'Subject after "både...og": nominative', errorCode: 'PRON' },
+      { id: 'PRON_020', question: '___ mennesker her er meget venlige.', options: ['Disse', 'Dette', 'Dem'], correct: 'Disse', explanation: 'Demonstrative plural: "disse" (these)', errorCode: 'PRON' }
     ]
   },
 
-  // === CATEGORY 5: POSSESSIVES (Possessive Pronouns) ===
+  // === CATEGORY 5: POSSESSIVES (Possessive adjectives/pronouns) ===
   POSS: {
-    name: 'Possessive Pronouns',
-    description: 'min, mit, hans, hendes, vores, deres, etc.',
+    name: 'Possessiver (Possessive Adjectives)',
+    description: 'min, din, hans, hendes, vores, jeres, deres, sin/sit/sine',
     exercises: [
-      { id: 'POSS_001', question: 'Det er ___ bog. Jeg ejer den.', options: ['min', 'mit', 'mig'], correct: 'min', explanation: 'min = my (common gender)', errorCode: 'POSS' },
-      { id: 'POSS_002', question: 'Det er ___ hus. Han ejer det.', options: ['hans', 'hans', 'hans'], correct: 'hans', explanation: 'hans = his', errorCode: 'POSS' },
-      { id: 'POSS_003', question: '___ taske er rød.', options: ['Min', 'Mit', 'Mig'], correct: 'Min', explanation: 'Min = my', errorCode: 'POSS' },
-      { id: 'POSS_004', question: '___ bil er sort.', options: ['Hendes', 'Hans', 'Sin'], correct: 'Hendes', explanation: 'Hendes = her', errorCode: 'POSS' },
-      { id: 'POSS_005', question: 'Det er ___ hus. De ejer det.', options: ['deres', 'sin', 'mit'], correct: 'deres', explanation: 'deres = their', errorCode: 'POSS' },
-      { id: 'POSS_006', question: '___ far er læge.', options: ['Vores', 'Vor', 'Os'], correct: 'Vores', explanation: 'Vores = our', errorCode: 'POSS' },
-      { id: 'POSS_007', question: 'Det er ___ projekt. Vi ejer det.', options: ['vores', 'vor', 'os'], correct: 'vores', explanation: 'vores = our', errorCode: 'POSS' },
-      { id: 'POSS_008', question: 'Hun finder ___ nøgler.', options: ['hendes', 'sit', 'sin'], correct: 'hendes', explanation: 'hendes = hers', errorCode: 'POSS' },
-      { id: 'POSS_009', question: 'Jeg tager ___ jacka og går ud.', options: ['min', 'sit', 'hans'], correct: 'min', explanation: 'min = my', errorCode: 'POSS' },
-      { id: 'POSS_010', question: 'Det er ___ blomster. Hun ejer dem.', options: ['hendes', 'sin', 'sit'], correct: 'hendes', explanation: 'hendes = hers', errorCode: 'POSS' },
-      { id: 'POSS_011', question: '___ søster hedder Maria.', options: ['Hans', 'Ham', 'Han'], correct: 'Hans', explanation: 'Hans = his', errorCode: 'POSS' },
-      { id: 'POSS_012', question: 'Det er ___ plan. De skal det gøre.', options: ['deres', 'sin', 'mit'], correct: 'deres', explanation: 'deres = their', errorCode: 'POSS' },
-      { id: 'POSS_013', question: '___ and elsker at lege.', options: ['Vores', 'Vor', 'Os'], correct: 'Vores', explanation: 'Vores = our', errorCode: 'POSS' },
-      { id: 'POSS_014', question: 'Han inviterer os til ___ fest.', options: ['hans', 'sin', 'hans'], correct: 'hans', explanation: 'hans = his', errorCode: 'POSS' },
-      { id: 'POSS_015', question: 'Det er ___ beslutning. Du skal det gøre.', options: ['din', 'dine', 'dig'], correct: 'din', explanation: 'din = your', errorCode: 'POSS' },
+      { id: 'POSS_001', question: '___ hus er stort.', options: ['Min', 'Mig', 'Mig selv'], correct: 'Min', explanation: 'Possessive adjective: "min" (my)', errorCode: 'POSS' },
+      { id: 'POSS_002', question: '___ bil er hvid.', options: ['Din', 'Dig', 'Dine'], correct: 'Din', explanation: 'Possessive adjective: "din" (your singular)', errorCode: 'POSS' },
+      { id: 'POSS_003', question: '___ navn er Hans.', options: ['Hans', 'Hans\'', 'Hanses'], correct: 'Hans', explanation: 'Possessive adjective: "hans" (his)', errorCode: 'POSS' },
+      { id: 'POSS_004', question: '___ forældre er fra Sverige.', options: ['Hendes', 'Hun', 'Hendes\''], correct: 'Hendes', explanation: 'Possessive adjective: "hendes" (her)', errorCode: 'POSS' },
+      { id: 'POSS_005', question: '___ møde er vigtig.', options: ['Vores', 'Vi', 'Vor'], correct: 'Vores', explanation: 'Possessive adjective: "vores" (our)', errorCode: 'POSS' },
+      { id: 'POSS_006', question: '___ projekt skal være færdigt i dag.', options: ['Jeres', 'I', 'Jer'], correct: 'Jeres', explanation: 'Possessive adjective: "jeres" (your plural)', errorCode: 'POSS' },
+      { id: 'POSS_007', question: '___ børn går i skole.', options: ['Deres', 'Dem', 'De'], correct: 'Deres', explanation: 'Possessive adjective: "deres" (their)', errorCode: 'POSS' },
+      { id: 'POSS_008', question: 'Han tog ___ bog med hjem.', options: ['sin', 'hans', 'sit'], correct: 'sin', explanation: 'Reflexive possessive: "sin" agrees with masculine noun', errorCode: 'POSS' },
+      { id: 'POSS_009', question: 'Hun tog ___ hus med hjem.', options: ['sit', 'hendes', 'sin'], correct: 'sit', explanation: 'Reflexive possessive: "sit" agrees with neuter noun', errorCode: 'POSS' },
+      { id: 'POSS_010', question: 'De tog ___ biler med hjem.', options: ['sine', 'deres', 'deres'], correct: 'sine', explanation: 'Reflexive possessive plural: "sine"', errorCode: 'POSS' },
+      { id: 'POSS_011', question: '___ søster er læge.', options: ['Min', 'Mit', 'Mig'], correct: 'Min', explanation: 'Possessive adjective agreeing with common noun', errorCode: 'POSS' },
+      { id: 'POSS_012', question: '___ øje er blåt.', options: ['Mit', 'Min', 'Mig'], correct: 'Mit', explanation: 'Possessive adjective agreeing with neuter noun', errorCode: 'POSS' },
+      { id: 'POSS_013', question: '___ hænder er kolde.', options: ['Mine', 'Mit', 'Min'], correct: 'Mine', explanation: 'Possessive plural: "mine" (my)', errorCode: 'POSS' },
+      { id: 'POSS_014', question: 'Hun sagde, at ___ drømme var vigtige.', options: ['sine', 'hendes', 'sine'], correct: 'sine', explanation: 'Reflexive: refers back to subject "hun"', errorCode: 'POSS' },
+      { id: 'POSS_015', question: '___ arbejde var ikke færdigt.', options: ['Sit', 'Hans', 'Sine'], correct: 'Hans', explanation: 'No reflexive needed (object pronoun)', errorCode: 'POSS' },
+      { id: 'POSS_016', question: 'Vi delte ___ tanker med hinanden.', options: ['vores', 'sine', 'vor'], correct: 'vores', explanation: 'Collective possessive: "vores" (our)', errorCode: 'POSS' },
+      { id: 'POSS_017', question: 'De sagde, at ___ børn skulle møde kl. 8.', options: ['deres', 'sine', 'de'], correct: 'deres', explanation: 'Non-reflexive: refers to someone else\'s children', errorCode: 'POSS' },
+      { id: 'POSS_018', question: '___ øjne var tørre.', options: ['Dine', 'Dit', 'Din'], correct: 'Dine', explanation: 'Possessive plural: "dine" (your)', errorCode: 'POSS' },
+      { id: 'POSS_019', question: 'Han gav ___ venner en invitation.', options: ['sine', 'hans', 'sit'], correct: 'sine', explanation: 'Reflexive plural: "sine" (his own)', errorCode: 'POSS' },
+      { id: 'POSS_020', question: '___ navn var glemte.', options: ['Deres', 'Deres\'', 'De'], correct: 'Deres', explanation: 'Possessive adjective: "deres" (their)', errorCode: 'POSS' }
     ]
   },
 
-  // === CATEGORY 6: ARTICLES & GENDER (Artikler og Køn) ===
+  // === CATEGORY 6: ARTICLES & QUANTIFIERS (Artikler & Kvantificering) ===
   ARTKV: {
-    name: 'Artikler & Køn (Articles & Gender)',
-    description: 'en (common), et (neuter), den, det, de, indefinite and definite articles',
+    name: 'Artikler & Kvantificering (Articles & Quantifiers)',
+    description: 'en, et, den, det, de, nogle, mange, få, hele, alt, ingen, intet',
     exercises: [
-      { id: 'ARTKV_001', question: '___ mand går i parken.', options: ['En', 'Et', 'Der'], correct: 'En', explanation: 'mand (man) is common gender → en', errorCode: 'ARTKV' },
-      { id: 'ARTKV_002', question: '___ barn leger i haven.', options: ['Et', 'En', 'Der'], correct: 'Et', explanation: 'barn (child) is neuter → et', errorCode: 'ARTKV' },
-      { id: 'ARTKV_003', question: '___ hus er blåt.', options: ['et', 'en', 'der'], correct: 'et', explanation: 'hus (house) is neuter', errorCode: 'ARTKV' },
-      { id: 'ARTKV_004', question: '___ pige hedder Anna.', options: ['En', 'Et', 'Der'], correct: 'En', explanation: 'pige (girl) is common gender', errorCode: 'ARTKV' },
-      { id: 'ARTKV_005', question: 'Jeg kender ___ elev. ___ elev bor tæt på mig.', options: ['en | den', 'et | det', 'en | den'], correct: 'en | den', explanation: 'elev = common; definite = den', errorCode: 'ARTKV' },
-      { id: 'ARTKV_006', question: '___ mand går i parken. ___ mand er høj.', options: ['En | en', 'Et | en', 'En | et'], correct: 'En | en', explanation: 'mand = common (en)', errorCode: 'ARTKV' },
-      { id: 'ARTKV_007', question: '___ barn leger. ___ barn er glad.', options: ['Et | et', 'En | en', 'Et | en'], correct: 'Et | et', explanation: 'barn = neuter (et)', errorCode: 'ARTKV' },
-      { id: 'ARTKV_008', question: '___ hus er blåt. Jeg elsker ___ hus.', options: ['et | det', 'en | det', 'et | den'], correct: 'et | det', explanation: 'hus = neuter; definite = det', errorCode: 'ARTKV' },
-      { id: 'ARTKV_009', question: '___ pige hedder Anna. ___ pige er smart.', options: ['En | en', 'Et | en', 'En | det'], correct: 'En | en', explanation: 'pige = common (en)', errorCode: 'ARTKV' },
-      { id: 'ARTKV_010', question: 'Det er ___ komplekst problem. ___ problem kræver løsning.', options: ['et | Det', 'en | Problemet', 'et | Problemet'], correct: 'et | Det', explanation: 'problem = neuter; neuter + complex adjective', errorCode: 'ARTKV' },
-      { id: 'ARTKV_011', question: 'Vi har ___ dog derhjemme. ___ dog er meget venlig.', options: ['en | den', 'et | det', 'en | det'], correct: 'en | den', explanation: 'dog (dog) = common; definite = den', errorCode: 'ARTKV' },
-      { id: 'ARTKV_012', question: 'Hun har ___ bil. ___ bil er rød.', options: ['en | den', 'et | det', 'en | det'], correct: 'en | den', explanation: 'bil (car) = common; definite = den', errorCode: 'ARTKV' },
-      { id: 'ARTKV_013', question: '___ lys er tændt. ___ lys er gult.', options: ['Et | et', 'En | en', 'Et | en'], correct: 'Et | et', explanation: 'lys (light) = neuter', errorCode: 'ARTKV' },
-      { id: 'ARTKV_014', question: 'Jeg læste ___ bog. ___ bog var interessant.', options: ['en | den', 'et | det', 'en | det'], correct: 'en | den', explanation: 'bog (book) = common; definite = den', errorCode: 'ARTKV' },
-      { id: 'ARTKV_015', question: '___ dyr går i skoven. ___ dyr er stort.', options: ['Et | et', 'En | en', 'Et | en'], correct: 'Et | et', explanation: 'dyr (animal) = neuter', errorCode: 'ARTKV' },
+      { id: 'ARTKV_001', question: '___ hund løb på gaden.', options: ['En', 'Et'], correct: 'En', explanation: 'Common gender noun: "en hund"', errorCode: 'ARTKV' },
+      { id: 'ARTKV_002', question: '___ hus var stort.', options: ['Et', 'En'], correct: 'Et', explanation: 'Neuter noun: "et hus"', errorCode: 'ARTKV' },
+      { id: 'ARTKV_003', question: '___ mennesker her er venlige.', options: ['De', 'Nogle', 'De nogle'], correct: 'De', explanation: 'Definite article plural: "de"', errorCode: 'ARTKV' },
+      { id: 'ARTKV_004', question: 'Der var ___ mennesker i mødet.', options: ['nogle', 'alle', 'de'], correct: 'nogle', explanation: 'Indefinite quantifier: "nogle" (some)', errorCode: 'ARTKV' },
+      { id: 'ARTKV_005', question: '___ mennesker kom ikke.', options: ['Ingen', 'Intet', 'Alt'], correct: 'Ingen', explanation: 'Negative quantifier: "ingen" (no/none)', errorCode: 'ARTKV' },
+      { id: 'ARTKV_006', question: '___ tid for at rejse.', options: ['Intet', 'Ingen', 'Alt'], correct: 'Intet', explanation: 'Neuter negative: "intet" (nothing)', errorCode: 'ARTKV' },
+      { id: 'ARTKV_007', question: '___ mennesker arbejdede der.', options: ['Mange', 'Hele', 'Alle'], correct: 'Mange', explanation: 'Quantifier: "mange" (many)', errorCode: 'ARTKV' },
+      { id: 'ARTKV_008', question: '___ dag var det varmt.', options: ['Hele', 'Alt', 'Alle'], correct: 'Hele', explanation: '"hele" = whole/entire day', errorCode: 'ARTKV' },
+      { id: 'ARTKV_009', question: '___ er muligt, hvis man prøver.', options: ['Alt', 'Hele', 'Alle'], correct: 'Alt', explanation: '"alt" = everything', errorCode: 'ARTKV' },
+      { id: 'ARTKV_010', question: '___ mennesker kom til mødet.', options: ['Alle', 'Hele', 'Alt'], correct: 'Alle', explanation: '"alle" = everyone (plural)', errorCode: 'ARTKV' },
+      { id: 'ARTKV_011', question: '___ bog var interessant.', options: ['Den', 'Det', 'De'], correct: 'Den', explanation: 'Definite article singular common: "den"', errorCode: 'ARTKV' },
+      { id: 'ARTKV_012', question: '___ hus var hvidt.', options: ['Det', 'Den', 'De'], correct: 'Det', explanation: 'Definite article singular neuter: "det"', errorCode: 'ARTKV' },
+      { id: 'ARTKV_013', question: '___ mennesker vi mødte var fra Danmark.', options: ['De', 'Den', 'Det'], correct: 'De', explanation: 'Definite article plural: "de"', errorCode: 'ARTKV' },
+      { id: 'ARTKV_014', question: '___ få mennesker kom til mødet.', options: ['Bare', 'Få', 'Nogle'], correct: 'Få', explanation: '"få" = few', errorCode: 'ARTKV' },
+      { id: 'ARTKV_015', question: 'Hun har ___ veninder fra universitetet.', options: ['flere', 'mange', 'nogen'], correct: 'flere', explanation: '"flere" = more/several', errorCode: 'ARTKV' },
+      { id: 'ARTKV_016', question: '___ person skal kunne løse denne opgave.', options: ['Enhver', 'Hele', 'Alt'], correct: 'Enhver', explanation: '"enhver" = every (person)', errorCode: 'ARTKV' },
+      { id: 'ARTKV_017', question: 'Der var ___ penge i kassen.', options: ['ingen', 'intet', 'alle'], correct: 'ingen', explanation: '"ingen" for countable plurals (penge=plural)', errorCode: 'ARTKV' },
+      { id: 'ARTKV_018', question: '___ det han sagde var sandt.', options: ['Ikke alt', 'Intet', 'Ingen'], correct: 'Ikke alt', explanation: '"ikke alt" = not everything', errorCode: 'ARTKV' },
+      { id: 'ARTKV_019', question: 'Hun havde ___ tid til at hjælpe.', options: ['ingen', 'intet', 'alt'], correct: 'ingen', explanation: '"ingen tid" = no time', errorCode: 'ARTKV' },
+      { id: 'ARTKV_020', question: '___ mennesker i verden kan tale dansk.', options: ['Få', 'Hele', 'Nogle'], correct: 'Få', explanation: '"få mennesker" = few people', errorCode: 'ARTKV' }
     ]
   },
 
-  // === CATEGORY 7: PREPOSITIONS (Præpositioner) ===
-  PREP: {
-    name: 'Præpositioner (Prepositions)',
-    description: 'i, på, til, fra, af, med, ved, uden, over, under, omkring, igennem, etc.',
-    exercises: [
-      { id: 'PREP_001', question: 'Jeg går ___ arbejde hver dag.', options: ['til', 'i', 'på'], correct: 'til', explanation: 'til = to (destination)', errorCode: 'PREP' },
-      { id: 'PREP_002', question: 'Han bor ___ København.', options: ['i', 'på', 'til'], correct: 'i', explanation: 'i = in (city)', errorCode: 'PREP' },
-      { id: 'PREP_003', question: 'Hun sidder ___ bordet.', options: ['på', 'ved', 'i'], correct: 'ved', explanation: 'ved = at/by (table)', errorCode: 'PREP' },
-      { id: 'PREP_004', question: 'Bogen ligger ___ bordet.', options: ['på', 'i', 'til'], correct: 'på', explanation: 'på = on (surface)', errorCode: 'PREP' },
-      { id: 'PREP_005', question: 'Jeg drikker kaffe ___ morgenen.', options: ['i', 'på', 'til'], correct: 'i', explanation: 'i = in (time period)', errorCode: 'PREP' },
-      { id: 'PREP_006', question: 'Han kommer ___ Aalborg til København.', options: ['fra', 'til', 'i'], correct: 'fra', explanation: 'fra = from', errorCode: 'PREP' },
-      { id: 'PREP_007', question: 'Tegningen er ___ børnene.', options: ['af', 'fra', 'på'], correct: 'af', explanation: 'af = by (creator)', errorCode: 'PREP' },
-      { id: 'PREP_008', question: 'Jeg gir ___ ham en gave.', options: ['til', 'fra', 'af'], correct: 'til', explanation: 'til = to (recipient)', errorCode: 'PREP' },
-      { id: 'PREP_009', question: 'Vi mødes ___ en uge.', options: ['om', 'i', 'på'], correct: 'om', explanation: 'om = in (future time)', errorCode: 'PREP' },
-      { id: 'PREP_010', question: 'Huset er bygget ___ 1980.', options: ['i', 'på', 'til'], correct: 'i', explanation: 'i = in (year)', errorCode: 'PREP' },
-      { id: 'PREP_011', question: 'Hun arbejder ___ en stor virksomhed ___ IT.', options: ['i | inden for', 'på | i', 'til | med'], correct: 'i | inden for', explanation: 'i = in; inden for = within (field)', errorCode: 'PREP' },
-      { id: 'PREP_012', question: 'Vi mødes ___ Starbucks ___ mandag morgen.', options: ['på | på', 'i | på', 'til | i'], correct: 'i | på', explanation: 'i = in (café); på = on (day)', errorCode: 'PREP' },
-      { id: 'PREP_013', question: 'Bogen handler ___ kærlighed.', options: ['om', 'af', 'fra'], correct: 'om', explanation: 'om = about (topic)', errorCode: 'PREP' },
-      { id: 'PREP_014', question: 'Han taler ___ telefonen ___ sin ven.', options: ['på | med', 'i | med', 'ved | til'], correct: 'på | med', explanation: 'på = on (phone); med = with', errorCode: 'PREP' },
-      { id: 'PREP_015', question: 'Hun laver tærte ___ kirsebær.', options: ['af', 'med', 'fra'], correct: 'med', explanation: 'med = with (ingredient)', errorCode: 'PREP' },
-      { id: 'PREP_016', question: 'Vi skal være tilbage ___ kl. 5.', options: ['til', 'i', 'ved'], correct: 'til', explanation: 'til = by (deadline)', errorCode: 'PREP' },
-      { id: 'PREP_017', question: 'Han kommer ___ Sverige.', options: ['fra', 'af', 'i'], correct: 'fra', explanation: 'fra = from (country)', errorCode: 'PREP' },
-      { id: 'PREP_018', question: 'Jeg står ___ bussen.', options: ['på', 'i', 'ved'], correct: 'på', explanation: 'på = on (bus)', errorCode: 'PREP' },
-      { id: 'PREP_019', question: 'Hun spiser ___ gaffel.', options: ['med', 'på', 'af'], correct: 'med', explanation: 'med = with (tool)', errorCode: 'PREP' },
-      { id: 'PREP_020', question: 'Huset er båret ___ hvidt farve.', options: ['af', 'i', 'på'], correct: 'i', explanation: 'i = in (color)', errorCode: 'PREP' },
-      { id: 'PREP_B1_001', question: 'Tro ___ ham er vigtig. Han har aldrig løjet.', options: ['på', 'i', 'til'], correct: 'på', explanation: 'tro på = believe in', errorCode: 'PREP' },
-      { id: 'PREP_B1_002', question: 'Han er kendt ___ sine idéer ___ design.', options: ['for | inden for', 'på | i', 'af | med'], correct: 'for | inden for', explanation: 'kendt for = known for; inden for = in', errorCode: 'PREP' },
-      { id: 'PREP_B1_003', question: 'Hun insisterer ___ at gøre det selv.', options: ['på', 'i', 'til'], correct: 'på', explanation: 'insistere på = insist on', errorCode: 'PREP' },
-      { id: 'PREP_B1_004', question: 'Han handler ___ flere lande.', options: ['med', 'i', 'fra'], correct: 'med', explanation: 'handle med = trade with', errorCode: 'PREP' },
-      { id: 'PREP_B1_005', question: 'Det er afhængigt ___ vejret.', options: ['af', 'på', 'fra'], correct: 'af', explanation: 'afhængigt af = dependent on', errorCode: 'PREP' },
-    ]
-  },
-
-  // === CATEGORY 8: PASSIVE VOICE (Passiv) ===
+  // === CATEGORY 7: PASSIVE VOICE (Passiv) ===
   PASS: {
     name: 'Passiv (Passive Voice)',
-    description: 'blive + past participle, -s ending for passive',
+    description: 'blive + past participle, s-verbs, passive constructions',
     exercises: [
-      { id: 'PASS_001', question: 'Huset ___ af ham. Han byggede det.', options: ['blev bygget', 'var bygget', 'bygges'], correct: 'blev bygget', explanation: 'Passive past: blev + participle', errorCode: 'PASS' },
-      { id: 'PASS_002', question: 'Bogen ___ af en berømt forfatter.', options: ['blev skrevet', 'var skrevet', 'skrevet'], correct: 'blev skrevet', explanation: 'Passive past tense', errorCode: 'PASS' },
-      { id: 'PASS_003', question: 'Maden ___ i køkkenet.', options: ['var lavet', 'var blive lavet', 'er lavet'], correct: 'er lavet', explanation: 'Passive present', errorCode: 'PASS' },
-      { id: 'PASS_004', question: 'Dørene ___ hver morgen.', options: ['lukkes', 'blir lukket', 'bliver lukket'], correct: 'lukses', explanation: 'Passive present: -es', errorCode: 'PASS' },
-      { id: 'PASS_005', question: 'Projektet ___ af teamet.', options: ['blev gennemført', 'blev gennemfør', 'blive gennemført'], correct: 'blev gennemført', explanation: 'Passive past participle', errorCode: 'PASS' },
-      { id: 'PASS_006', question: 'Kagen ___ til festen.', options: ['blev spist', 'blev spise', 'spises'], correct: 'blev spist', explanation: 'Passive past: blev spist', errorCode: 'PASS' },
-      { id: 'PASS_007', question: 'Der ___ mange mennesker i mødet.', options: ['blev inviteret', 'er inviteret', 'blev invite'], correct: 'er inviteret', explanation: 'Passive present', errorCode: 'PASS' },
-      { id: 'PASS_008', question: 'Breve ___ hver dag.', options: ['sendes', 'bliver sendt', 'bliver send'], correct: 'sendes', explanation: 'Passive present: -es', errorCode: 'PASS' },
-      { id: 'PASS_009', question: 'Maleri ___ på museum.', options: ['blev hengt', 'blev hængt', 'hænges'], correct: 'blev hængt', explanation: 'Passive past: blev hængt', errorCode: 'PASS' },
-      { id: 'PASS_010', question: 'Mødet ___ til næste uge.', options: ['blev udskudt', 'blev udskyde', 'udskydedes'], correct: 'blev udskudt', explanation: 'Passive past participle', errorCode: 'PASS' },
-      { id: 'PASS_011', question: 'Resultatet ___ ved midnat.', options: ['blev annonceret', 'blev annoncere', 'annonceres'], correct: 'blev annonceret', explanation: 'Passive past: blev annonceret', errorCode: 'PASS' },
-      { id: 'PASS_012', question: 'Ordrer ___ hurtigt.', options: ['bliver behandlet', 'blev behandlet', 'behandles'], correct: 'behandles', explanation: 'Passive present: -es', errorCode: 'PASS' },
-      { id: 'PASS_013', question: 'Dokumenterne ___ i går.', options: ['blev underskrevet', 'blev underskrive', 'underskrevnes'], correct: 'blev underskrevet', explanation: 'Passive past participle', errorCode: 'PASS' },
-      { id: 'PASS_014', question: 'Projektet ___ nu.', options: ['bliver gennemført', 'blev gennemført', 'gennemføres'], correct: 'bliver gennemført', explanation: 'Passive present progressive', errorCode: 'PASS' },
-      { id: 'PASS_015', question: 'Planen ___ af direktøren.', options: ['blev godkendt', 'blev godkende', 'godkendedes'], correct: 'blev godkendt', explanation: 'Passive past participle', errorCode: 'PASS' },
+      { id: 'PASS_001', question: 'Bogen ___ skrevet af forfatteren.', options: ['var', 'blev', 'var blevet'], correct: 'blev', explanation: '"blev skrevet" = was written (simple past passive)', errorCode: 'PASS' },
+      { id: 'PASS_002', question: 'Mødet ___ aflyst på grund af vejret.', options: ['var', 'blev', 'er'], correct: 'blev', explanation: '"blev aflyst" = was cancelled', errorCode: 'PASS' },
+      { id: 'PASS_003', question: 'Projektet ___ planlagt i detaljer.', options: ['blev', 'var', 'var blevet'], correct: 'blev', explanation: 'Past passive: "blev planlagt"', errorCode: 'PASS' },
+      { id: 'PASS_004', question: 'Maden ___ lavet af kokken.', options: ['var', 'blev', 'er lavet'], correct: 'blev', explanation: '"blev lavet" = was made', errorCode: 'PASS' },
+      { id: 'PASS_005', question: 'Det ___ sagt, at han kommer i dag.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev sagt" = was said', errorCode: 'PASS' },
+      { id: 'PASS_006', question: 'Hundene ___ fodret hver dag.', options: ['bliver', 'var', 'blev'], correct: 'bliver', explanation: 'Present passive: "bliver fodret" (are fed)', errorCode: 'PASS' },
+      { id: 'PASS_007', question: 'Huset ___ solgt for en høj pris.', options: ['var', 'blev', 'er'], correct: 'blev', explanation: '"blev solgt" = was sold', errorCode: 'PASS' },
+      { id: 'PASS_008', question: 'Lektionen ___ forklaret klart.', options: ['blev', 'var', 'var blevet'], correct: 'blev', explanation: '"blev forklaret" = was explained', errorCode: 'PASS' },
+      { id: 'PASS_009', question: 'Opgaven ___ løst af alle eleverne.', options: ['var', 'blev', 'er'], correct: 'blev', explanation: '"blev løst" = was solved', errorCode: 'PASS' },
+      { id: 'PASS_010', question: 'Systemet ___ installeret af IT-specialisten.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev installeret" = was installed', errorCode: 'PASS' },
+      { id: 'PASS_011', question: 'Rapporten ___ skrevet på dansk.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev skrevet" = was written', errorCode: 'PASS' },
+      { id: 'PASS_012', question: 'Det nya kontor ___ bygget i området.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev bygget" = was built', errorCode: 'PASS' },
+      { id: 'PASS_013', question: 'Alle dokumenter ___ arkiveret ordentligt.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev arkiveret" = were archived', errorCode: 'PASS' },
+      { id: 'PASS_014', question: 'Goderne ___ leveret til tiden.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev leveret" = were delivered', errorCode: 'PASS' },
+      { id: 'PASS_015', question: 'Møtet ___ arrangeret af direktøren.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev arrangeret" = was arranged', errorCode: 'PASS' },
+      { id: 'PASS_016', question: 'Vejledningen ___ givet til de nye medarbeidere.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev givet" = was given', errorCode: 'PASS' },
+      { id: 'PASS_017', question: 'Han ___ ønsket tillykke på hans fødselsdag.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev ønsket" = was wished/congratulated', errorCode: 'PASS' },
+      { id: 'PASS_018', question: 'Budgettet ___ godkendt af bestyrelsen.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev godkendt" = was approved', errorCode: 'PASS' },
+      { id: 'PASS_019', question: 'Webside ___ opdateret i dag.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev opdateret" = was updated', errorCode: 'PASS' },
+      { id: 'PASS_020', question: 'Musikken ___ spillet hele aftenen.', options: ['blev', 'var', 'er'], correct: 'blev', explanation: '"blev spillet" = was played', errorCode: 'PASS' }
     ]
   },
 
-  // === CATEGORY 9: MODAL VERBS (Modale Verber) ===
+  // === CATEGORY 8: S-VERBS (S-verber, reflexive verbs) ===
+  SVERB: {
+    name: 'S-verber (S-verbs & Reflexives)',
+    description: 'sig, mig, dig, os, jer, ses, hørtes, troede sig, føler sig',
+    exercises: [
+      { id: 'SVERB_001', question: 'Han ___ sig selv i spejlet.', options: ['så', 'ser', 'set'], correct: 'ser', explanation: '"ser sig" = sees himself (reflexive)', errorCode: 'SVERB' },
+      { id: 'SVERB_002', question: 'Vi ___ os godt sammen.', options: ['forstår', 'forstår os', 'forstå sig'], correct: 'forstår', explanation: 'Reflexive: "forstår os" = understand each other', errorCode: 'SVERB' },
+      { id: 'SVERB_003', question: 'De ___ sig meget om.', options: ['elskede', 'elsker sig', 'elsker'], correct: 'elsker', explanation: 'Reflexive: "elsker sig" = love each other', errorCode: 'SVERB' },
+      { id: 'SVERB_004', question: 'Hun ___ sig tilfredsst med resultatet.', options: ['følte', 'følte sig', 'føler'], correct: 'følte sig', explanation: '"følte sig tilfredsst" = felt satisfied', errorCode: 'SVERB' },
+      { id: 'SVERB_005', question: 'De ___ sig på festen.', options: ['morede', 'morede sig', 'morere'], correct: 'morede sig', explanation: '"morede sig" = enjoyed themselves/had fun', errorCode: 'SVERB' },
+      { id: 'SVERB_006', question: 'Han ___ sig dårlig sammen med kollegerne.', options: ['afsnittet', 'afsnittet sig', 'afsnittes'], correct: 'afsnittet sig', explanation: '"afsnittet sig" = kept distance/felt apart', errorCode: 'SVERB' },
+      { id: 'SVERB_007', question: 'Møtet ___ afgørelsen på mødet (de møtes)', options: ['saw', 'saw sig', 'sies'], correct: 'sies', explanation: 's-verb (passive meaning): "sies" = it is said', errorCode: 'SVERB' },
+      { id: 'SVERB_008', question: 'Vi ___ os i morgen igen.', options: ['ser', 'ses', 'sies'], correct: 'ses', explanation: '"ses" = see each other (reciprocal)', errorCode: 'SVERB' },
+      { id: 'SVERB_009', question: 'Hans stemme ___ godt gennem vinduet.', options: ['høres', 'høres sig', 'hørte'], correct: 'høres', explanation: '"høres" = is heard (s-verb)', errorCode: 'SVERB' },
+      { id: 'SVERB_010', question: 'Han ___ sig som en leder.', options: ['opfører', 'opfører sig', 'opføres'], correct: 'opfører sig', explanation: '"opfører sig" = behaves (reflexive)', errorCode: 'SVERB' },
+      { id: 'SVERB_011', question: 'Hun ___ sig i det nye job.', options: ['tilpassede', 'tilpassede sig', 'tilpassedes'], correct: 'tilpassede sig', explanation: '"tilpassede sig" = adjusted herself', errorCode: 'SVERB' },
+      { id: 'SVERB_012', question: 'De ___ sig efter kl. 10.', options: ['mødes', 'mødes sig', 'mødte'], correct: 'mødes', explanation: '"mødes" = meet each other (reciprocal)', errorCode: 'SVERB' },
+      { id: 'SVERB_013', question: 'Han ___ sig skyldig for sin fejl.', options: ['følte', 'følte sig', 'føler'], correct: 'følte sig', explanation: '"følte sig skyldig" = felt guilty', errorCode: 'SVERB' },
+      { id: 'SVERB_014', question: 'Hun ___ sig meget glad over nyheden.', options: ['gjorde', 'gjorde sig', 'viste sig'], correct: 'gjorde sig', explanation: '"gjorde sig glad" = became/made herself happy', errorCode: 'SVERB' },
+      { id: 'SVERB_015', question: 'Det ___ som en god idé.', options: ['virker', 'virkes', 'virker sig'], correct: 'virker', explanation: '"virker" = seems/appears (s-verb property)', errorCode: 'SVERB' },
+      { id: 'SVERB_016', question: 'Vi ___ os efter hinanden.', options: ['søgte', 'søgte os', 'søger'], correct: 'søgte', explanation: 'Reflexive: "søgte os" = sought/searched for each other', errorCode: 'SVERB' },
+      { id: 'SVERB_017', question: 'Hun ___ sig meget udmattet efter marathonen.', options: ['følte', 'følte sig', 'føler'], correct: 'følte sig', explanation: '"følte sig udmattet" = felt exhausted', errorCode: 'SVERB' },
+      { id: 'SVERB_018', question: 'De ___ sig fra hverdagen i weekenden.', options: ['slappede', 'slappede af sig', 'slappes af'], correct: 'slappede af sig', explanation: '"slappede af sig" = relaxed', errorCode: 'SVERB' },
+      { id: 'SVERB_019', question: 'Han ___ sig på sin bedre side.', options: ['viste', 'viste sig', 'vises'], correct: 'viste sig', explanation: '"viste sig" = showed himself (reflexive)', errorCode: 'SVERB' },
+      { id: 'SVERB_020', question: 'Vi ___ os alle rundt om bordet.', options: ['satte', 'satte os', 'sidder'], correct: 'satte os', explanation: '"satte os" = sat down (reflexive)', errorCode: 'SVERB' }
+    ]
+  },
+
+  // === CATEGORY 9: MODAL VERBS (Modale verber) ===
   MOD: {
-    name: 'Modale Verber (Modal Verbs)',
-    description: 'skal, vil, kan, må, burde, kunne, ville - obligation, possibility, permission',
+    name: 'Modale verber (Modal Verbs)',
+    description: 'kan, skal, vil, må, bør, kunne, skulle, ville, måtte, burde',
     exercises: [
-      { id: 'MOD_001', question: 'Jeg ___ ikke til mødet. Jeg er syg.', options: ['skal', 'kan', 'må'], correct: 'kan', explanation: 'kan = can (ability)', errorCode: 'MOD' },
-      { id: 'MOD_002', question: 'Du ___ være her kl. 9.', options: ['skal', 'vil', 'kan'], correct: 'skal', explanation: 'skal = shall (obligation)', errorCode: 'MOD' },
-      { id: 'MOD_003', question: 'Han ___ i dag. Han skal arbejde.', options: ['vil', 'kan', 'må'], correct: 'vil', explanation: 'vil = will (future)', errorCode: 'MOD' },
-      { id: 'MOD_004', question: 'Du ___ røre ved møblerne.', options: ['må', 'kan', 'skal'], correct: 'må', explanation: 'må = may (permission)', errorCode: 'MOD' },
-      { id: 'MOD_005', question: 'Han ___ løbe meget hurtig da han var ung.', options: ['kunne', 'kan', 'skal'], correct: 'kunne', explanation: 'kunne = could (past)', errorCode: 'MOD' },
-      { id: 'MOD_006', question: 'Du burde tale ___ ham.', options: ['med', 'til', 'om'], correct: 'med', explanation: 'burde = should (advice)', errorCode: 'MOD' },
-      { id: 'MOD_007', question: 'Han ___ gøre det selv.', options: ['kan', 'skal', 'vil'], correct: 'kan', explanation: 'kan = can (ability)', errorCode: 'MOD' },
-      { id: 'MOD_008', question: 'Du ___ være der til tiden.', options: ['skal', 'kan', 'vil'], correct: 'skal', explanation: 'skal = must (requirement)', errorCode: 'MOD' },
-      { id: 'MOD_009', question: 'Han ___ ikke høre hende.', options: ['kunne', 'kan', 'skal'], correct: 'kunne', explanation: 'kunne = could (conditional)', errorCode: 'MOD' },
-      { id: 'MOD_010', question: 'Vi ___ se hinanden igen snart.', options: ['vil', 'skal', 'kan'], correct: 'vil', explanation: 'vil = will (future)', errorCode: 'MOD' },
-      { id: 'MOD_011', question: 'Han ___ arbejde i dag. Det er hans valg.', options: ['vil', 'kan', 'må'], correct: 'vil', explanation: 'vil = want to', errorCode: 'MOD' },
-      { id: 'MOD_012', question: 'Du ___ ikke komme senere end 18.', options: ['skal', 'kan', 'vil'], correct: 'skal', explanation: 'skal = must (obligation)', errorCode: 'MOD' },
-      { id: 'MOD_013', question: 'Han ___ tale dansk meget godt.', options: ['kan', 'skal', 'vil'], correct: 'kan', explanation: 'kan = can (ability)', errorCode: 'MOD' },
-      { id: 'MOD_014', question: 'Vi ___ gå på tur efter maden.', options: ['vil', 'skal', 'kan'], correct: 'vil', explanation: 'vil = will (future intention)', errorCode: 'MOD' },
-      { id: 'MOD_015', question: 'Du ___ åbne vinduestet hvis du synes det er varmt.', options: ['må', 'kan', 'skal'], correct: 'må', explanation: 'må = may (permission)', errorCode: 'MOD' },
+      { id: 'MOD_001', question: 'Jeg ___ komme til møtet i dag.', options: ['kan', 'skal', 'vil'], correct: 'kan', explanation: '"kan" = can/is able to', errorCode: 'MOD' },
+      { id: 'MOD_002', question: 'Du ___ møde til tiden.', options: ['kan', 'skal', 'vil'], correct: 'skal', explanation: '"skal" = must/should (obligation)', errorCode: 'MOD' },
+      { id: 'MOD_003', question: 'Han ___ ikke arbejde i dag pga. sygdom.', options: ['kan', 'skal', 'vil'], correct: 'kan', explanation: '"kan ikke" = cannot', errorCode: 'MOD' },
+      { id: 'MOD_004', question: 'Vi ___ mødes i morgen.', options: ['kan', 'skal', 'vil'], correct: 'vil', explanation: '"vil" = will (future intention)', errorCode: 'MOD' },
+      { id: 'MOD_005', question: 'Hun ___ møde hvis hun har tid.', options: ['kan', 'må', 'vil'], correct: 'kan', explanation: '"kan" = is able to (ability)', errorCode: 'MOD' },
+      { id: 'MOD_006', question: 'Du ___ ikke spise her.', options: ['kan', 'må', 'skal'], correct: 'må', explanation: '"må ikke" = must not (permission/prohibition)', errorCode: 'MOD' },
+      { id: 'MOD_007', question: 'I ___ være hjemme kl. 10.', options: ['skal', 'kan', 'vil'], correct: 'skal', explanation: '"skal" = must be (obligation)', errorCode: 'MOD' },
+      { id: 'MOD_008', question: 'Han ___ komme, eller ___ han blive?', options: ['vil | skal', 'skal | kan', 'kan | må'], correct: 'vil | skal', explanation: '"vil" = will + "skal" = will/is to', errorCode: 'MOD' },
+      { id: 'MOD_009', question: 'Du ___ lære dansk bedre.', options: ['bør', 'skal', 'kan'], correct: 'bør', explanation: '"bør" = should (advice/recommendation)', errorCode: 'MOD' },
+      { id: 'MOD_010', question: 'Han ___ være der allerede.', options: ['kunne', 'skulle', 'ville'], correct: 'skulle', explanation: '"skulle" = was supposed to', errorCode: 'MOD' },
+      { id: 'MOD_011', question: 'Det ___ regne i morgen.', options: ['kan', 'ville', 'skal'], correct: 'kan', explanation: '"kan" = might/could (possibility)', errorCode: 'MOD' },
+      { id: 'MOD_012', question: 'Jeg ___ ikke hans navn.', options: ['kan huske', 'må', 'skal'], correct: 'kan huske', explanation: '"kan huske" = can remember', errorCode: 'MOD' },
+      { id: 'MOD_013', question: 'Han ___ kommet hvis han havde vidst det.', options: ['ville', 'kunne', 'måtte'], correct: 'ville', explanation: 'Conditional past: "ville have kommet"', errorCode: 'MOD' },
+      { id: 'MOD_014', question: 'Du ___ gøre det, hvis du ønsker.', options: ['kan', 'må', 'skal'], correct: 'kan', explanation: '"kan" = may/are able to', errorCode: 'MOD' },
+      { id: 'MOD_015', question: 'Det ___ være hans hus.', options: ['kan', 'må', 'vil'], correct: 'kan', explanation: '"kan" = might/could be', errorCode: 'MOD' },
+      { id: 'MOD_016', question: 'Jeg ___ gøre mine lektier nu.', options: ['skal', 'kan', 'vil'], correct: 'skal', explanation: '"skal" = have to (obligation)', errorCode: 'MOD' },
+      { id: 'MOD_017', question: 'Han ___ arbejde mere intensivt.', options: ['bør', 'kan', 'vil'], correct: 'bør', explanation: '"bør" = should/ought to', errorCode: 'MOD' },
+      { id: 'MOD_018', question: 'Hun ___ ikke møde på grund af sygdom.', options: ['kunne', 'kunnt', 'kan'], correct: 'kunne', explanation: 'Past tense: "kunne ikke" = could not', errorCode: 'MOD' },
+      { id: 'MOD_019', question: 'Du ___ ikke glemme dine nøgler.', options: ['må', 'skal', 'kan'], correct: 'må', explanation: '"må ikke" = must not (negated permission)', errorCode: 'MOD' },
+      { id: 'MOD_020', question: 'Vi ___ mødes hver uge.', options: ['skal', 'kan', 'vil'], correct: 'skal', explanation: '"skal" = are to meet (arrangement)', errorCode: 'MOD' }
     ]
   },
 
-  // === CATEGORY 10: COMPARATIVE & SUPERLATIVE (Komparativ & Superlativ) [repeated]
-  // (Already covered above)
-
-  // === CATEGORY 11: REFLEXIVE VERBS (Refleksive Verber) ===
-  REFL: {
-    name: 'Refleksive Verber (Reflexive Verbs)',
-    description: 'sig selv, hinanden - actions directed at oneself or each other',
-    exercises: [
-      { id: 'REFL_001', question: 'Han vasker ___. Han er i badeværelset.', options: ['sig', 'ham', 'hans'], correct: 'sig', explanation: 'sig = himself (reflexive)', errorCode: 'REFL' },
-      { id: 'REFL_002', question: 'Hun kæmper ___ før hun går ud.', options: ['sitt', 'sig selv', 'hendes'], correct: 'sig selv', explanation: 'sig selv = herself', errorCode: 'REFL' },
-      { id: 'REFL_003', question: 'De elsker ___ meget.', options: ['hinanden', 'sig', 'dem'], correct: 'hinanden', explanation: 'hinanden = each other', errorCode: 'REFL' },
-      { id: 'REFL_004', question: 'Jeg handler mig ___ noget nyt.', options: ['selv', 'ham', 'sin'], correct: 'selv', explanation: 'myself = myself (reflexive)', errorCode: 'REFL' },
-      { id: 'REFL_005', question: 'Du skal ikke blive bange ___.', options: ['af dig selv', 'af ham', 'af sin'], correct: 'af dig selv', explanation: 'af dig selv = of yourself', errorCode: 'REFL' },
-      { id: 'REFL_006', question: 'Vi mødes og omfavner ___.', options: ['hinanden', 'os selv', 'vores'], correct: 'hinanden', explanation: 'hinanden = each other', errorCode: 'REFL' },
-      { id: 'REFL_007', question: 'Han lærer ___ at danse.', options: ['sig selv', 'ham', 'hans'], correct: 'sig selv', explanation: 'sig selv = himself (reflexive)', errorCode: 'REFL' },
-      { id: 'REFL_008', question: 'Hun tror ___ - hun kan klare det.', options: ['på sig selv', 'på ham', 'på sin'], correct: 'på sig selv', explanation: 'på sig selv = in herself', errorCode: 'REFL' },
-      { id: 'REFL_009', question: 'De tvister ___ hele tiden.', options: ['med hinanden', 'med sig', 'med dem'], correct: 'med hinanden', explanation: 'med hinanden = with each other', errorCode: 'REFL' },
-      { id: 'REFL_010', question: 'Jeg skalder ___ i spejlet.', options: ['mig selv', 'ham', 'sin'], correct: 'mig selv', explanation: 'mig selv = myself', errorCode: 'REFL' },
-    ]
-  },
-
-  // === CATEGORY 12: NEGATION (Negation) ===
-  NEG: {
-    name: 'Negation (Negation & Negative Words)',
-    description: 'ikke, aldrig, ingenting, ingen, intet, ikke... heller, etc.',
-    exercises: [
-      { id: 'NEG_001', question: 'Jeg ___ til mødet i dag.', options: ['går ikke', 'gå ikke', 'ikke går'], correct: 'går ikke', explanation: 'V2: går ikke (I don\'t go)', errorCode: 'NEG' },
-      { id: 'NEG_002', question: 'Han kommer ___. Han er forkølet.', options: ['ikke', 'ikke kommer', 'ikke til'], correct: 'ikke', explanation: 'Negation: kommer ikke', errorCode: 'NEG' },
-      { id: 'NEG_003', question: 'Du har ___ tid. Du er meget optaget.', options: ['ikke', 'ingen', 'intet'], correct: 'ingen', explanation: 'ingen = no (with countable noun)', errorCode: 'NEG' },
-      { id: 'NEG_004', question: 'Hun har ___ råd til det. Hun er fattig.', options: ['ikke', 'ingen', 'intet'], correct: 'intet', explanation: 'intet = nothing (neuter)', errorCode: 'NEG' },
-      { id: 'NEG_005', question: 'Der er ___ mennesker i rummet.', options: ['ingen', 'ikke', 'intet'], correct: 'ingen', explanation: 'ingen = no (people)', errorCode: 'NEG' },
-      { id: 'NEG_006', question: 'Jeg har ___ set sådan noget før.', options: ['aldrig', 'ikke', 'ingen'], correct: 'aldrig', explanation: 'aldrig = never', errorCode: 'NEG' },
-      { id: 'NEG_007', question: 'Han får ___ hvad han ønsker sig.', options: ['aldrig', 'ikke', 'ingen'], correct: 'aldrig', explanation: 'aldrig = never', errorCode: 'NEG' },
-      { id: 'NEG_008', question: 'Jeg ved ___ hvad jeg skal sige.', options: ['ikke', 'intet', 'aldrig'], correct: 'ikke', explanation: 'ikke = not', errorCode: 'NEG' },
-      { id: 'NEG_009', question: 'Der er ___ i køleskabet. Det er tomt.', options: ['intet', 'ikke', 'ingen'], correct: 'intet', explanation: 'intet = nothing', errorCode: 'NEG' },
-      { id: 'NEG_010', question: 'Han arbejder ___ længere her. Han er pensioneret.', options: ['ikke', 'aldrig', 'ingen'], correct: 'ikke', explanation: 'ikke længere = not anymore', errorCode: 'NEG' },
-    ]
-  },
-
-  // === CATEGORY 13: RELATIVE CLAUSES (Relative Clauses) ===
+  // === CATEGORY 10: RELATIVE CLAUSES (Relative clauses & pronouns) ===
   REL: {
-    name: 'Relative Clauses',
-    description: 'som, der, hvilken, hvor - subordinate clauses describing nouns',
+    name: 'Relative clauses (Ledsætninger)',
+    description: 'som, der, hvis, hvor, hvad, med som/der/hvis etc.',
     exercises: [
-      { id: 'REL_001', question: 'Manden ___ går i parken er højt.', options: ['som', 'der', 'hvilken'], correct: 'som', explanation: 'som = who/that (subject)', errorCode: 'REL' },
-      { id: 'REL_002', question: 'Bogen ___ jeg læser er interessant.', options: ['som', 'der', 'hvilken'], correct: 'som', explanation: 'som = which/that (object)', errorCode: 'REL' },
-      { id: 'REL_003', question: 'Huset ___ vi bor i er stort.', options: ['som', 'hvor', 'der'], correct: 'hvor', explanation: 'hvor = where', errorCode: 'REL' },
-      { id: 'REL_004', question: 'Kvinden ___ ejer butikken er venlig.', options: ['som', 'der', 'hvilken'], correct: 'som', explanation: 'som = who (subject)', errorCode: 'REL' },
-      { id: 'REL_005', question: 'Mødet ___ i morgen er vigtigt.', options: ['der er', 'som er', 'hvilken er'], correct: 'der er', explanation: 'der er = that is (formal)', errorCode: 'REL' },
-      { id: 'REL_006', question: 'Projektet ___ han arbejder på er stressfyldt.', options: ['som', 'der', 'hvor'], correct: 'som', explanation: 'som = which/that (object)', errorCode: 'REL' },
-      { id: 'REL_007', question: 'Rummet ___ vi mødes i er koldt.', options: ['som', 'hvor', 'der'], correct: 'hvor', explanation: 'hvor = where', errorCode: 'REL' },
-      { id: 'REL_008', question: 'De mennesker ___ bor her er meget venlige.', options: ['som', 'der', 'hvilken'], correct: 'som', explanation: 'som = who/that', errorCode: 'REL' },
-      { id: 'REL_009', question: 'Tiden ___ vi havde var ikke nok.', options: ['som', 'der', 'hvilken'], correct: 'som', explanation: 'som = which/that', errorCode: 'REL' },
-      { id: 'REL_010', question: 'Året ___ vi mødte var svært.', options: ['som', 'da', 'når'], correct: 'som', explanation: 'som = that (object)', errorCode: 'REL' },
+      { id: 'REL_001', question: 'Manden, ___ kom her, var min chef.', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" = who/whom (object relative pronoun)', errorCode: 'REL' },
+      { id: 'REL_002', question: 'Det hus, ___ ligger ved siden af, er stort.', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" relative pronoun for house', errorCode: 'REL' },
+      { id: 'REL_003', question: 'Ville du kende det dyr, ___ jeg så?', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" as object: the animal that I saw', errorCode: 'REL' },
+      { id: 'REL_004', question: 'Den dag, ___ han kom, var speciel.', options: ['som', 'der', 'da'], correct: 'som', explanation: '"som" or temporal "da": the day when', errorCode: 'REL' },
+      { id: 'REL_005', question: 'Det hus, ___ står på hjørnet, er gammelt.', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" = which (stands on corner)', errorCode: 'REL' },
+      { id: 'REL_006', question: 'Han købt bogen, ___ jeg anbefalede.', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" = that (which I recommended)', errorCode: 'REL' },
+      { id: 'REL_007', question: 'Det er det man, ___ jeg arbejder med.', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" = that (whom I work with)', errorCode: 'REL' },
+      { id: 'REL_008', question: 'Det sted, ___ vi mødes, er stille.', options: ['hvor', 'som', 'der'], correct: 'hvor', explanation: '"hvor" = where (locative relative)', errorCode: 'REL' },
+      { id: 'REL_009', question: 'Det år, ___ han blev født, var 1990.', options: ['hvor', 'da', 'som'], correct: 'da', explanation: '"da" or "hvor" = when (temporal)', errorCode: 'REL' },
+      { id: 'REL_010', question: 'Det, ___ han sagde, var sandt.', options: ['som', 'hvad', 'der'], correct: 'hvad', explanation: '"hvad" = what (nominal relative)', errorCode: 'REL' },
+      { id: 'REL_011', question: 'Den person, ___ jeg mødte, var høj.', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" = whom (object)', errorCode: 'REL' },
+      { id: 'REL_012', question: 'Gaven, ___ han gav mig, var fin.', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" = that (which he gave me)', errorCode: 'REL' },
+      { id: 'REL_013', question: 'Det bog, ___ er på bordet, er min.', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" = that (is on the table)', errorCode: 'REL' },
+      { id: 'REL_014', question: 'Han arbejder på stedet, ___ ligger nær København.', options: ['hvor', 'som', 'der'], correct: 'hvor', explanation: '"hvor" = where (locative)', errorCode: 'REL' },
+      { id: 'REL_015', question: 'Ville du gøre det, ___ jeg beder?', options: ['som', 'hvad', 'hvis'], correct: 'som', explanation: '"som" = that (which I ask)', errorCode: 'REL' },
+      { id: 'REL_016', question: 'Alle mennesker, ___ kom, var venlige.', options: ['som', 'der', 'hvis'], correct: 'som', explanation: '"som" = who/that (came)', errorCode: 'REL' },
+      { id: 'REL_017', question: 'Det hus, ___ lys brenner, må være hjem.', options: ['hvor', 'som', 'hvis'], correct: 'hvor', explanation: '"hvor" = where (lights burn)', errorCode: 'REL' },
+      { id: 'REL_018', question: 'Hvad er det, ___ du vil?', options: ['som', 'hvad', 'der'], correct: 'som', explanation: '"som" = that (what you want)', errorCode: 'REL' },
+      { id: 'REL_019', question: 'Den gang, ___ vi mødes, var sjovt.', options: ['da', 'hvor', 'som'], correct: 'da', explanation: '"da" = when (temporal relative)', errorCode: 'REL' },
+      { id: 'REL_020', question: 'Det firma, ___ han arbejder, er stort.', options: ['hvor', 'som', 'hvad'], correct: 'hvor', explanation: '"hvor" = where (at which company)', errorCode: 'REL' }
     ]
   },
 
-  // === CATEGORY 14: INFINITIVES & GERUNDS (Infinitives/Gerunds) ===
+  // === CATEGORY 11: INFINITIVE vs GERUND ===
   INFGER: {
-    name: 'Infinitiver & Gerundier',
-    description: 'at + infinitive, gerunds, infinitive vs. -ing forms',
+    name: 'Infinitiv vs Gerundium',
+    description: 'at + infinitive, -ing forms, verbal nouns',
     exercises: [
-      { id: 'INFGER_001', question: 'Jeg kan lide ___ (danse).', options: ['at danse', 'danse', 'danser'], correct: 'at danse', explanation: 'at + infinitive after kan lide', errorCode: 'INFGER' },
-      { id: 'INFGER_002', question: 'Han ønsker ___ (blive læge).', options: ['at blive', 'blive', 'bliver'], correct: 'at blive', explanation: 'at + infinitive after ønsker', errorCode: 'INFGER' },
-      { id: 'INFGER_003', question: 'Hun har lyst til ___ (rejse til Grækenland).', options: ['at rejse', 'rejse', 'rejser'], correct: 'at rejse', explanation: 'at + infinitive after til', errorCode: 'INFGER' },
-      { id: 'INFGER_004', question: 'Jeg prøver ___ (lære dansk).', options: ['at lære', 'lære', 'lærer'], correct: 'at lære', explanation: 'at + infinitive after prøver', errorCode: 'INFGER' },
-      { id: 'INFGER_005', question: 'Vi holder af ___ (høre musik).', options: ['at høre', 'høre', 'hører'], correct: 'at høre', explanation: 'at + infinitive after holder af', errorCode: 'INFGER' },
-      { id: 'INFGER_006', question: 'Han begynder ___ (arbejde på projektet).', options: ['at arbejde', 'arbejde', 'arbejder'], correct: 'at arbejde', explanation: 'at + infinitive after begynder', errorCode: 'INFGER' },
-      { id: 'INFGER_007', question: 'Uden ___ (tale), forlod han rummet.', options: ['at tale', 'tale', 'at talende'], correct: 'at tale', explanation: 'at + infinitive after uden', errorCode: 'INFGER' },
-      { id: 'INFGER_008', question: 'Jeg glæder mig til ___ (se dig igen).', options: ['at se', 'se', 'ser'], correct: 'at se', explanation: 'at + infinitive after til', errorCode: 'INFGER' },
-      { id: 'INFGER_009', question: 'For ___ (blive god til dansk), skal du øve dig meget.', options: ['at blive', 'blive', 'at at blive'], correct: 'at blive', explanation: 'at + infinitive after for', errorCode: 'INFGER' },
-      { id: 'INFGER_010', question: 'Han kan ikke holde op med ___ (røge).', options: ['at røge', 'røge', 'ryger'], correct: 'at røge', explanation: 'at + infinitive after med', errorCode: 'INFGER' },
+      { id: 'INFGER_001', question: 'Han begyndte ___ arbejde.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"at arbejde" = to work (infinitive)', errorCode: 'INFGER' },
+      { id: 'INFGER_002', question: 'Han drømte om ___ læge.', options: ['at blive', 'blive', 'bliven'], correct: 'at blive', explanation: '"om at blive" = about becoming', errorCode: 'INFGER' },
+      { id: 'INFGER_003', question: 'Det er svært ___ lære dansk.', options: ['at', 'for at', 'the'], correct: 'at', explanation: '"at lære" = to learn (infinitive)', errorCode: 'INFGER' },
+      { id: 'INFGER_004', question: 'Hun kan ikke ___ arbejde.', options: ['til at', 'at', 'for at'], correct: 'at', explanation: '"kan ikke arbejde" (no "at" with modals)', errorCode: 'INFGER' },
+      { id: 'INFGER_005', question: 'Jeg kommer ___ mødet.', options: ['til at', 'at', 'for'], correct: 'til at', explanation: '"til at møde" = to meet/come to meet', errorCode: 'INFGER' },
+      { id: 'INFGER_006', question: 'Han løb ___ hjælpe.', options: ['for at', 'at', 'til at'], correct: 'for at', explanation: '"for at hjælpe" = in order to help (purpose)', errorCode: 'INFGER' },
+      { id: 'INFGER_007', question: 'Det handler om ___ være præcis.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"om at være" = about being', errorCode: 'INFGER' },
+      { id: 'INFGER_008', question: 'Hun nægter ___ svare.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"nægter at svare" = refuses to answer', errorCode: 'INFGER' },
+      { id: 'INFGER_009', question: 'Det vigtigste er ___ prøve.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"er at prøve" = is to try', errorCode: 'INFGER' },
+      { id: 'INFGER_010', question: 'Han ønsker ___ møde dig.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"ønsker at møde" = wishes to meet', errorCode: 'INFGER' },
+      { id: 'INFGER_011', question: 'Vi må ___ komme til tiden.', options: ['at', 'intet (ingenting)', 'for at'], correct: 'intet (ingenting)', explanation: 'Modal verbs do not use "at"', errorCode: 'INFGER' },
+      { id: 'INFGER_012', question: 'Det er vigtigt ___ have tid til resten.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"at have" = to have (infinitive)', errorCode: 'INFGER' },
+      { id: 'INFGER_013', question: 'Hun bad mig ___ hjælpe.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"bad mig at hjælpe" = asked me to help', errorCode: 'INFGER' },
+      { id: 'INFGER_014', question: 'Han forglemte ___ købe med.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"forglemte at købe" = forgot to buy', errorCode: 'INFGER' },
+      { id: 'INFGER_015', question: 'Det hjælper ___ tale dansk hver dag.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"hjælper at tale" = helps to speak', errorCode: 'INFGER' },
+      { id: 'INFGER_016', question: 'Hun erklærede sig skyldig i ___ stjæle.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"i at stjæle" = in stealing (but often used as gerund-like)', errorCode: 'INFGER' },
+      { id: 'INFGER_017', question: 'Han bad om lov ___ gå hjem.', options: ['at', 'for at', 'til'], correct: 'at', explanation: '"lov at gå" = permission to go', errorCode: 'INFGER' },
+      { id: 'INFGER_018', question: 'Det lykkedes ham ___ vinde løbet.', options: ['at', 'for at', '-ing'], correct: 'at', explanation: '"lykkedes at vinde" = managed to win', errorCode: 'INFGER' },
+      { id: 'INFGER_019', question: 'Han fortsætter ___ arbejde.', options: ['med at', 'at', 'for at'], correct: 'med at', explanation: '"med at arbejde" = with working/to continue working', errorCode: 'INFGER' },
+      { id: 'INFGER_020', question: 'Hun er glad ___ møde dig igen.', options: ['at', 'for at', 'over'], correct: 'at', explanation: '"glad at møde" = happy to meet', errorCode: 'INFGER' }
+    ]
+  },
+
+  // === CATEGORY 12: NEGATION (Nægtelse) ===
+  NEG: {
+    name: 'Nægtelse (Negation)',
+    description: 'ikke, aldrig, ingen, intet, ingenting, heller ikke',
+    exercises: [
+      { id: 'NEG_001', question: 'Jeg går ___ til mødet.', options: ['ikke', 'aldrig', 'ingen'], correct: 'ikke', explanation: '"ikke" = not (general negation)', errorCode: 'NEG' },
+      { id: 'NEG_002', question: 'Han ___ kommer til møterne.', options: ['ikke', 'aldrig', 'ingen'], correct: 'aldrig', explanation: '"aldrig" = never (absolute negation)', errorCode: 'NEG' },
+      { id: 'NEG_003', question: '___ mennesker kom til møtet.', options: ['Ingen', 'Ikke', 'Aldrig'], correct: 'Ingen', explanation: '"ingen" = no/none (people)', errorCode: 'NEG' },
+      { id: 'NEG_004', question: 'Der var ___ tid til det.', options: ['intet', 'ikke', 'aldrig'], correct: 'intet', explanation: '"intet" = nothing (neuter)', errorCode: 'NEG' },
+      { id: 'NEG_005', question: 'Jeg ___ ønsker at gå.', options: ['ikke', 'aldrig', 'ingen'], correct: 'ikke', explanation: '"ikke" = not (simple negation)', errorCode: 'NEG' },
+      { id: 'NEG_006', question: 'Han har ___ været der.', options: ['ikke', 'aldrig', 'ingen'], correct: 'aldrig', explanation: '"aldrig" = never (has never been)', errorCode: 'NEG' },
+      { id: 'NEG_007', question: 'Der er ___ luft i rummet.', options: ['ingen', 'ikke', 'intet'], correct: 'ingen', explanation: '"ingen luft" = no air', errorCode: 'NEG' },
+      { id: 'NEG_008', question: 'Det er ___. Han kommer ___.', options: ['ikke noget | ikke', 'intet | aldrig', 'ingenting | ikke'], correct: 'ikke noget | ikke', explanation: '"ikke noget" = nothing special; "ikke" = will not come', errorCode: 'NEG' },
+      { id: 'NEG_009', question: 'Jeg ønsker ___ at være alene.', options: ['ikke', 'aldrig', 'ingen'], correct: 'ikke', explanation: '"ikke at være" = not to be', errorCode: 'NEG' },
+      { id: 'NEG_010', question: 'Han siger ___ til nogen.', options: ['intet', 'ikke', 'aldrig'], correct: 'intet', explanation: '"intet" = nothing (to anyone)', errorCode: 'NEG' },
+      { id: 'NEG_011', question: 'Vi har ___ penge til det.', options: ['ingen', 'ikke', 'intet'], correct: 'ingen', explanation: '"ingen penge" = no money', errorCode: 'NEG' },
+      { id: 'NEG_012', question: 'Jeg ___ kan lide det.', options: ['ikke', 'aldrig', 'ingen'], correct: 'ikke', explanation: '"ikke kan lide" = do not like', errorCode: 'NEG' },
+      { id: 'NEG_013', question: 'Han er ___ interesseret i sport.', options: ['ikke', 'aldrig', 'ingen'], correct: 'ikke', explanation: '"ikke interesseret" = not interested', errorCode: 'NEG' },
+      { id: 'NEG_014', question: 'Det hændt ___.', options: ['ingenting', 'intet', 'aldrig'], correct: 'ingenting', explanation: '"ingenting" = nothing/nothing happened', errorCode: 'NEG' },
+      { id: 'NEG_015', question: 'Jeg spiste ___ i dag.', options: ['intet', 'ikke', 'aldrig'], correct: 'intet', explanation: '"intet" = nothing (ate nothing)', errorCode: 'NEG' },
+      { id: 'NEG_016', question: 'Hun ___ ville tale med ham.', options: ['ikke', 'aldrig', 'ingen'], correct: 'ikke', explanation: '"ikke ville" = would not', errorCode: 'NEG' },
+      { id: 'NEG_017', question: '___ kan gøre det bedre end han.', options: ['Ingen', 'Intet', 'Ikke'], correct: 'Ingen', explanation: '"ingen kan" = no one can', errorCode: 'NEG' },
+      { id: 'NEG_018', question: 'Det var ___ hans skyld.', options: ['ikke', 'aldrig', 'ingen'], correct: 'ikke', explanation: '"ikke hans skyld" = not his fault', errorCode: 'NEG' },
+      { id: 'NEG_019', question: 'Jeg ___ tror på det.', options: ['ikke', 'aldrig', 'ingen'], correct: 'ikke', explanation: '"ikke tror" = do not believe', errorCode: 'NEG' },
+      { id: 'NEG_020', question: 'Vi har ___ hørt fra ham.', options: ['ikke', 'aldrig', 'intet'], correct: 'aldrig', explanation: '"aldrig hørt" = never heard', errorCode: 'NEG' }
+    ]
+  },
+
+  // === CATEGORY 13: PREPOSITIONS (Præpositioner) ===
+  PREP: {
+    name: 'Præpositioner (Prepositions)',
+    description: 'i, på, til, fra, med, uden, af, for, over, under, mellem, omkring',
+    exercises: [
+      { id: 'PREP_001', question: 'Jeg bor ___ København.', options: ['i', 'på'], correct: 'i', explanation: '"i København" = in Copenhagen', errorCode: 'PREP' },
+      { id: 'PREP_002', question: 'Han arbejder ___ kontoret.', options: ['i', 'på'], correct: 'på', explanation: '"på kontoret" = at the office', errorCode: 'PREP' },
+      { id: 'PREP_003', question: 'Vi mødes ___ mandag.', options: ['i', 'på'], correct: 'på', explanation: '"på mandag" = on Monday', errorCode: 'PREP' },
+      { id: 'PREP_004', question: 'Hun kom ___ Sverige.', options: ['fra', 'til'], correct: 'fra', explanation: '"fra Sverige" = from Sweden', errorCode: 'PREP' },
+      { id: 'PREP_005', question: 'Vi går ___ mødet nu.', options: ['til', 'i'], correct: 'til', explanation: '"til mødet" = to the meeting', errorCode: 'PREP' },
+      { id: 'PREP_006', question: 'Han talte ___ hende meget venligt.', options: ['med', 'til'], correct: 'med', explanation: '"med hende" = with her', errorCode: 'PREP' },
+      { id: 'PREP_007', question: 'Jeg kan ikke gøre det ___ hjælp.', options: ['uden', 'med'], correct: 'uden', explanation: '"uden hjælp" = without help', errorCode: 'PREP' },
+      { id: 'PREP_008', question: 'Det er lavet ___ ham.', options: ['af', 'til'], correct: 'af', explanation: '"af ham" = by him (agent)', errorCode: 'PREP' },
+      { id: 'PREP_009', question: 'Det er ___ mig.', options: ['for', 'til'], correct: 'for', explanation: '"for mig" = for me', errorCode: 'PREP' },
+      { id: 'PREP_010', question: 'Bogen ligger ___ bordet.', options: ['under', 'på'], correct: 'under', explanation: '"under bordet" = under the table', errorCode: 'PREP' },
+      { id: 'PREP_011', question: 'Huset ligger ___ to søer.', options: ['mellem', 'blandt'], correct: 'mellem', explanation: '"mellem to søer" = between two lakes', errorCode: 'PREP' },
+      { id: 'PREP_012', question: 'Mennesker ___ huset var glade.', options: ['omkring', 'ved'], correct: 'omkring', explanation: '"omkring huset" = around the house', errorCode: 'PREP' },
+      { id: 'PREP_013', question: 'Han står ___ døren.', options: ['ved', 'på'], correct: 'ved', explanation: '"ved døren" = by/at the door', errorCode: 'PREP' },
+      { id: 'PREP_014', question: 'Vi talker ___ dansk.', options: ['i', 'på'], correct: 'på', explanation: '"på dansk" = in Danish (language)', errorCode: 'PREP' },
+      { id: 'PREP_015', question: 'Møtet er ___ 10 til 12.', options: ['fra | til', 'i | til', 'på | til'], correct: 'fra | til', explanation: '"fra 10 til 12" = from 10 to 12', errorCode: 'PREP' },
+      { id: 'PREP_016', question: 'Hun tror ___ Gud.', options: ['på', 'i'], correct: 'på', explanation: '"tror på" = believes in', errorCode: 'PREP' },
+      { id: 'PREP_017', question: 'Katten ligger ___ sengen.', options: ['på', 'i'], correct: 'på', explanation: '"på sengen" = on the bed', errorCode: 'PREP' },
+      { id: 'PREP_018', question: 'Han er gift ___ sin college.', options: ['med', 'til'], correct: 'med', explanation: '"gift med" = married to', errorCode: 'PREP' },
+      { id: 'PREP_019', question: 'Vi arbejder ___ det hele dag.', options: ['med', 'på'], correct: 'med', explanation: '"arbejder med" = works with', errorCode: 'PREP' },
+      { id: 'PREP_020', question: 'Det hus ligger ___ skogen.', options: ['ved', 'i'], correct: 'ved', explanation: '"ved skoven" = by the forest', errorCode: 'PREP' }
+    ]
+  },
+
+  // === CATEGORY 14: REFLEXIVE VERBS (Reflexive constructions) ===
+  REFL: {
+    name: 'Refleksive verber (Reflexive Verbs)',
+    description: 'sig, mig selv, dig selv, os selv, jer selv, hinanden, gensidigt',
+    exercises: [
+      { id: 'REFL_001', question: 'Han skyllede ___ af.', options: ['sig', 'ham', 'sig selv'], correct: 'sig', explanation: '"skyllede sig" = washed himself', errorCode: 'REFL' },
+      { id: 'REFL_002', question: 'Hun ___ sig om sin søster.', options: ['bringer', 'bekymrer', 'tager'], correct: 'bekymrer', explanation: '"bekymrer sig" = worries/cares', errorCode: 'REFL' },
+      { id: 'REFL_003', question: 'De klagte ___ deres arbejdsforhold.', options: ['over sig', 'over', 'sig over'], correct: 'over', explanation: '"klagede over" = complained about', errorCode: 'REFL' },
+      { id: 'REFL_004', question: 'Han skamder ___ af sin opførsel.', options: ['sig', 'ham', 'mig'], correct: 'sig', explanation: '"skammer sig" = is ashamed', errorCode: 'REFL' },
+      { id: 'REFL_005', question: 'Vi møder ___ hver dag.', options: ['os', 'hinanden', 'osself'], correct: 'os', explanation: '"møder os" = meet ourselves/each other', errorCode: 'REFL' },
+      { id: 'REFL_006', question: 'De kigger ___ i øjnene.', options: ['hinanden i', 'sig i', 'os i'], correct: 'hinanden i', explanation: '"kigger hinanden i øjnene" = look each other in the eyes', errorCode: 'REFL' },
+      { id: 'REFL_007', question: 'Han ___ sig selv i spejlet.', options: ['ser', 'kikket', 'sår'], correct: 'ser', explanation: '"ser sig selv" = sees himself', errorCode: 'REFL' },
+      { id: 'REFL_008', question: 'Hun gav ___ selv øksebilsvar.', options: ['sig', 'ham', 'mig'], correct: 'sig', explanation: '"gav sig selv" = gave herself', errorCode: 'REFL' },
+      { id: 'REFL_009', question: 'De holder ___ hånden.', options: ['hinanden i', 'sig i', 'os i'], correct: 'hinanden i', explanation: '"holder hinanden i hånden" = hold each other\'s hands', errorCode: 'REFL' },
+      { id: 'REFL_010', question: 'Han forsvarer ___ selv.', options: ['sig', 'ham', 'mig'], correct: 'sig', explanation: '"forsvarer sig selv" = defends himself', errorCode: 'REFL' },
+      { id: 'REFL_011', question: 'Vi elsker ___ til døden.', options: ['hinanden', 'os', 'sig'], correct: 'hinanden', explanation: '"elsker hinanden" = love each other', errorCode: 'REFL' },
+      { id: 'REFL_012', question: 'Hun påklavede __  hende nye kjole.', options: ['sig', 'ham', 'mig'], correct: 'sig', explanation: '"påklædte sig" = dressed herself', errorCode: 'REFL' },
+      { id: 'REFL_013', question: 'De slår ___ på ryggen.', options: ['hinanden', 'sig', 'os'], correct: 'hinanden', explanation: '"slår hinanden på ryggen" = pat each other on the back', errorCode: 'REFL' },
+      { id: 'REFL_014', question: 'Han slog ___ selv.', options: ['sig', 'ham', 'mig'], correct: 'sig', explanation: '"slog sig selv" = hit himself', errorCode: 'REFL' },
+      { id: 'REFL_015', question: 'Vi skændes ___ hele tiden.', options: ['med os', 'med hinanden', 'os'], correct: 'med hinanden', explanation: '"skændes med hinanden" = argue with each other', errorCode: 'REFL' },
+      { id: 'REFL_016', question: 'Hun fandt ___ selv.', options: ['sig', 'ham', 'mig'], correct: 'sig', explanation: '"fandt sig selv" = found herself', errorCode: 'REFL' },
+      { id: 'REFL_017', question: 'De omfavner ___ lykkelig.', options: ['hinanden', 'sig', 'os'], correct: 'hinanden', explanation: '"omfavner hinanden" = embrace each other', errorCode: 'REFL' },
+      { id: 'REFL_018', question: 'Han skylder ___ selv.', options: ['sig', 'ham', 'mig'], correct: 'sig', explanation: '"skylder sig selv" = owes himself', errorCode: 'REFL' },
+      { id: 'REFL_019', question: 'Vi hilser ___ venligt.', options: ['hinanden', 'os', 'sig'], correct: 'hinanden', explanation: '"hilser hinanden" = greet each other', errorCode: 'REFL' },
+      { id: 'REFL_020', question: 'Hun talte til ___ selv.', options: ['sig', 'ham', 'mig'], correct: 'sig', explanation: '"talte til sig selv" = talked to herself', errorCode: 'REFL' }
     ]
   },
 
@@ -346,29 +404,50 @@ export const completeGrammarExercises = {
     name: 'Idiomer & Ordvalg (Idioms & Phrases)',
     description: 'Danish idioms, phrases, expressions, word combinations',
     exercises: [
-      { id: 'IDI_001', question: 'Det er ___ værk at lære dansk.', options: ['et stort', 'et godt', 'et svært'], correct: 'et stort', explanation: '"et stort værk" = a great undertaking', errorCode: 'IDI' },
-      { id: 'IDI_002', question: 'Hun arbejder ___ sjæl og hjerte.', options: ['med', 'for', 'hele'], correct: 'hele', explanation: '"hele sjæl og hjerte" = with all her heart', errorCode: 'IDI' },
+      { id: 'IDI_001', question: 'Det er ___ værk at lære dansk.', options: ['et stort', 'et godt', 'et svært'], correct: 'et stort', explanation: '"et stort værk" = a great work/undertaking', errorCode: 'IDI' },
+      { id: 'IDI_002', question: 'Han arbejder ___ sjæl og hjerte.', options: ['med', 'for', 'hele'], correct: 'hele', explanation: '"hele sjæl og hjerte" = with all his heart and soul', errorCode: 'IDI' },
       { id: 'IDI_003', question: 'Det er ikke ___ dag at have møde.', options: ['en god', 'en dårlig', 'en slette'], correct: 'en god', explanation: '"det er ikke en god dag" = it\'s not a good day', errorCode: 'IDI' },
       { id: 'IDI_004', question: 'Hun løb så ___ som en hjort.', options: ['hurtigt', 'stærkt', 'vildt'], correct: 'hurtigt', explanation: '"hurtigt som en hjort" = quick as a deer', errorCode: 'IDI' },
-      { id: 'IDI_005', question: 'Vi skal ___ hånd i hånd i dag.', options: ['holde', 'give', 'tage'], correct: 'holde', explanation: '"holde hånd i hånd" = hold hands', errorCode: 'IDI' },
-      { id: 'IDI_006', question: 'Det var helt ___ bolden.', options: ['ved siden af', 'ved siden', 'uden for'], correct: 'ved siden af', explanation: '"helt ved siden af" = completely wrong', errorCode: 'IDI' },
-      { id: 'IDI_007', question: 'Han sagde det direkte ___ hende.', options: ['i øjet på', 'i hendes ansigt', 'til hendes øje'], correct: 'i øjet på', explanation: '"i øjet på hende" = to her face', errorCode: 'IDI' },
-      { id: 'IDI_008', question: 'Det ligger mig _____.', options: ['til hjerte', 'på hjertet', 'til sinds'], correct: 'til hjerte', explanation: '"ligger til hjerte" = I care about it', errorCode: 'IDI' },
-      { id: 'IDI_009', question: 'Hun er fra ___ til ___.', options: ['hovedet | foden', 'håret | benene', 'øjet | tåen'], correct: 'hovedet | foden', explanation: '"fra hovedet til foden" = from head to toe', errorCode: 'IDI' },
-      { id: 'IDI_010', question: 'Det er bare en ___ i havet.', options: ['dråbe', 'dråbe', 'draabe'], correct: 'dråbe', explanation: '"en dråbe i havet" = a drop in the ocean', errorCode: 'IDI' },
+      { id: 'IDI_005', question: 'Vi skal ___ hånd ___ hånd i dag.', options: ['holde | i', 'give | i', 'tage | af'], correct: 'holde | i', explanation: '"holde hånd i hånd" = hold hands', errorCode: 'IDI' },
+      { id: 'IDI_006', question: 'Det var ___ i bolden.', options: ['helt ved siden af', 'helt ved siden', 'uden for'], correct: 'helt ved siden af', explanation: '"helt ved siden af" = completely beside the point', errorCode: 'IDI' },
+      { id: 'IDI_007', question: 'Han sagde det direkte _____.', options: ['i øjet på hende', 'i hendes ansigt', 'til hendes øje'], correct: 'i øjet på hende', explanation: '"i øjet på hende" = to her face/directly', errorCode: 'IDI' },
+      { id: 'IDI_008', question: 'Det ligger mig ikke ___.', options: ['til hjerte', 'på hjertet', 'til sinds'], correct: 'til hjerte', explanation: '"ligger mig til hjerte" = I care about it', errorCode: 'IDI' },
+      { id: 'IDI_009', question: 'Hun er fra toppen af ___ til tåserne.', options: ['hovedet | foden', 'håret | benene', 'øjet | tåen'], correct: 'hovedet | foden', explanation: '"fra hovedet til foden" = from head to toe', errorCode: 'IDI' },
+      { id: 'IDI_010', question: 'Det er bare en _____ under vandet.', options: ['dråbe | i havet', 'dråbe | i vandet', 'draabe | i havet'], correct: 'dråbe | i havet', explanation: '"bare en dråbe i havet" = just a drop in the ocean', errorCode: 'IDI' },
       { id: 'IDI_011', question: 'Han tabte ___ over han.', options: ['sit sind', 'sin Sans', 'sit hoved'], correct: 'sit sind', explanation: '"tabte sit sind" = lost his mind', errorCode: 'IDI' },
       { id: 'IDI_012', question: 'Vi må ___ på samme side.', options: ['stå sammen', 'være enig', 'tage sammen'], correct: 'stå sammen', explanation: '"stå sammen" = stand together', errorCode: 'IDI' },
       { id: 'IDI_013', question: 'Hun giver aldrig ___.', options: ['op', 'efter', 'tilbage'], correct: 'op', explanation: '"giver aldrig op" = never gives up', errorCode: 'IDI' },
       { id: 'IDI_014', question: 'Det ligger langt _____.', options: ['bagved', 'derfra', 'fra'], correct: 'bagved', explanation: '"ligger langt bagved" = falls far behind', errorCode: 'IDI' },
       { id: 'IDI_015', question: 'Han tager det med _____.', options: ['ophøjet sind', 'højt sind', 'godt mod'], correct: 'ophøjet sind', explanation: '"med ophøjet sind" = with dignity', errorCode: 'IDI' },
-      { id: 'IDI_016', question: 'Vi skal ikke _____ ned til det niveau.', options: ['gå', 'falde', 'sjudre'], correct: 'gå', explanation: '"gå ned til niveauet" = stoop to that level', errorCode: 'IDI' },
+      { id: 'IDI_016', question: 'Vi skal ikke _____ ned til niveauet.', options: ['gå', 'falde', 'sjudre'], correct: 'gå', explanation: '"gå ned til niveauet" = stoop to that level', errorCode: 'IDI' },
       { id: 'IDI_017', question: 'Hun er glad _____.', options: ['op til øjne', 'til øjne', 'op til det hele'], correct: 'op til øjne', explanation: '"glad op til øjne" = beaming with joy', errorCode: 'IDI' },
       { id: 'IDI_018', question: 'Det ligger helt uden for _____.', options: ['min evne', 'mig', 'min kraft'], correct: 'min evne', explanation: '"uden for min evne" = beyond my ability', errorCode: 'IDI' },
-      { id: 'IDI_019', question: 'Han drømmer højtud med _____.', options: ['åbne øjne', 'åbent øje', 'åben øje'], correct: 'åbne øjne', explanation: '"med åbne øjne" = with open eyes', errorCode: 'IDI' },
-      { id: 'IDI_020', question: 'Det ligger helt uden for _____.', options: ['min forståelse', 'min sans', 'min evne'], correct: 'min forståelse', explanation: '"uden for min forståelse" = beyond my comprehension', errorCode: 'IDI' },
+      { id: 'IDI_019', question: 'Han drømmer højtud med _____.', options: ['åbne øjne', 'åbent øje', 'åben øje'], correct: 'åbne øjne', explanation: '"med åbne øjne" = with open eyes/knowingly', errorCode: 'IDI' },
+      { id: 'IDI_020', question: 'Det ligger helt uden for _____.', options: ['min forståelse', 'min sans', 'min evne'], correct: 'min forståelse', explanation: '"uden for min forståelse" = beyond my comprehension', errorCode: 'IDI' }
     ]
   }
 };
+
+// ---------------------------------------------------------------------------
+// PHASE 4 MERGE (additive, runtime)
+// Phase 4 exercises live in their own file and are appended into the matching
+// category here. This is deliberately additive: nothing in the 300 baseline
+// above is rewritten or removed. Unknown categories and duplicate ids are
+// skipped rather than silently overwriting anything.
+// ---------------------------------------------------------------------------
+for (const [category, incoming] of Object.entries(phase4NewExercises)) {
+  const target = completeGrammarExercises[category];
+  if (!target) {
+    console.warn(`[phase4] unknown category "${category}" — skipped`);
+    continue;
+  }
+  const seen = new Set(target.exercises.map((ex) => ex.id));
+  for (const ex of incoming) {
+    if (seen.has(ex.id)) continue;
+    seen.add(ex.id);
+    target.exercises.push(ex);
+  }
+}
 
 // Export all categories and helper functions
 export function getAllCategories() {
@@ -391,13 +470,4 @@ export function getRandomExercise(category) {
 
 export function getTotalExercises() {
   return Object.values(completeGrammarExercises).reduce((sum, cat) => sum + cat.exercises.length, 0);
-}
-
-export function getExercisesByDifficulty(difficulty) {
-  const exercises = [];
-  Object.values(completeGrammarExercises).forEach(category => {
-    const filtered = category.exercises.filter(ex => ex.id.includes(difficulty) || !difficulty);
-    exercises.push(...filtered);
-  });
-  return exercises;
 }
