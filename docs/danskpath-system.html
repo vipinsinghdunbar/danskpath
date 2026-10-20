@@ -1,0 +1,628 @@
+<title>DanskPath Signalvej</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap">
+
+<style>
+/* Layout: a schematic signal bus — router at top, spine beside it, seven taps below.
+   Then three panels that run the app's real logic rather than describing it. */
+:root{
+  --ground:#EDEEF0; --surface:#FFFFFF; --sunk:#E3E6EA;
+  --line:#C3C8CF; --line-soft:#D8DCE1;
+  --ink:#16191D; --ink-dim:#5C646E; --ink-faint:#8A929B;
+  --live:#C8102E; --dead:#A8AFB7;
+  --font-ui:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --font-da:"IBM Plex Serif",Georgia,serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#14171B; --surface:#1D2227; --sunk:#101316;
+    --line:#333A42; --line-soft:#272D33;
+    --ink:#E6E9EC; --ink-dim:#959DA6; --ink-faint:#6B737C;
+    --live:#FF5A6E; --dead:#4A525A;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14171B; --surface:#1D2227; --sunk:#101316;
+  --line:#333A42; --line-soft:#272D33;
+  --ink:#E6E9EC; --ink-dim:#959DA6; --ink-faint:#6B737C;
+  --live:#FF5A6E; --dead:#4A525A;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:var(--font-ui); font-size:15px; line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0;
+}
+.wrap{max-width:900px; margin:0 auto}
+
+/* ---- masthead ---- */
+.mast{padding-block:44px 30px; border-bottom:1px solid var(--line)}
+.kicker{
+  font-family:var(--font-mono); font-size:11px; font-weight:500;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--ink-faint);
+  margin-bottom:14px;
+}
+h1{
+  font-size:clamp(28px,5.2vw,42px); line-height:1.08; margin:0 0 16px;
+  font-weight:600; letter-spacing:-.022em; text-wrap:balance;
+}
+.standfirst{
+  font-family:var(--font-da); font-size:clamp(16px,2.1vw,18.5px);
+  line-height:1.6; color:var(--ink-dim); max-width:62ch; margin:0;
+}
+.standfirst b{color:var(--ink); font-weight:600}
+
+/* ---- sections ---- */
+section{padding-block:40px; border-bottom:1px solid var(--line-soft)}
+section:last-of-type{border-bottom:0}
+h2{
+  font-size:21px; font-weight:600; letter-spacing:-.014em;
+  margin:0 0 6px; display:flex; align-items:baseline; gap:11px; flex-wrap:wrap;
+}
+h2 .num{
+  font-family:var(--font-mono); font-size:11px; font-weight:600;
+  color:var(--live); letter-spacing:.06em; flex:none;
+}
+.lede{color:var(--ink-dim); max-width:66ch; margin:0 0 22px; font-size:14.5px}
+p{max-width:66ch}
+code{
+  font-family:var(--font-mono); font-size:.88em;
+  background:var(--sunk); padding:.1em .34em; border-radius:3px;
+  border:1px solid var(--line-soft);
+}
+
+/* ---- segmented control ---- */
+.seg{
+  display:inline-flex; border:1px solid var(--line); border-radius:7px;
+  overflow:hidden; background:var(--surface); margin-bottom:20px;
+}
+.seg button{
+  font-family:var(--font-ui); font-size:13px; font-weight:500;
+  padding:8px 17px; border:0; background:transparent; color:var(--ink-dim);
+  cursor:pointer; transition:background .14s,color .14s;
+}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button[aria-selected="true"]{background:var(--ink); color:var(--ground)}
+.seg button:focus-visible{outline:2px solid var(--live); outline-offset:-2px}
+
+/* ---- diagram ---- */
+.diagram-scroll{overflow-x:auto; margin-bottom:16px; padding-bottom:4px}
+svg.schematic{display:block; min-width:680px; width:100%; height:auto}
+.node rect{fill:var(--surface); stroke:var(--line); stroke-width:1.2}
+.node text{font-family:var(--font-mono); font-size:11px; fill:var(--ink)}
+.node .sub{font-size:9.5px; fill:var(--ink-faint)}
+.spine rect{stroke:var(--live); stroke-width:1.6}
+.wire{stroke:var(--live); stroke-width:1.4; fill:none}
+.bus{stroke:var(--live); stroke-width:2; fill:none}
+.ghost rect{stroke-dasharray:3 3; stroke:var(--dead); fill:none}
+.ghost text{fill:var(--dead)}
+.orphan rect{stroke:var(--dead); fill:var(--surface)}
+.orphan text{fill:var(--dead)}
+.orphan .sub{fill:var(--dead)}
+.badge{font-family:var(--font-mono); font-size:9px; fill:var(--live); font-weight:600}
+.badge-dead{fill:var(--dead)}
+[data-state="before"] .wire,[data-state="before"] .bus,[data-state="before"] .badge-live{opacity:0}
+[data-state="before"] .badge-dead{opacity:1}
+[data-state="after"] .badge-dead{opacity:0}
+.wire,.bus,.badge,.node rect,.node text{transition:opacity .3s ease}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.caption{
+  font-size:13px; color:var(--ink-dim); max-width:66ch;
+  padding-left:13px; border-left:2px solid var(--live);
+}
+
+/* ---- panels ---- */
+.panel{
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:9px; padding:20px; margin-top:4px;
+}
+.panel-grid{display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:26px}
+@media(max-width:700px){.panel-grid{grid-template-columns:minmax(0,1fr); gap:20px}}
+.ctrl{margin-bottom:15px}
+.ctrl:last-child{margin-bottom:0}
+.ctrl label{
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-size:12.5px; margin-bottom:5px; gap:10px;
+}
+.ctrl .name{color:var(--ink-dim)}
+.ctrl .val{font-family:var(--font-mono); font-size:12px; font-variant-numeric:tabular-nums; color:var(--ink)}
+input[type=range]{width:100%; accent-color:var(--live); margin:0}
+input[type=range]:focus-visible{outline:2px solid var(--live); outline-offset:3px}
+
+.panel-head{
+  font-family:var(--font-mono); font-size:10.5px; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink-faint); margin-bottom:13px;
+}
+
+/* step list */
+ol.steps{list-style:none; margin:0; padding:0; counter-reset:s}
+ol.steps li{
+  counter-increment:s; display:flex; gap:12px; align-items:flex-start;
+  padding:10px 0; border-bottom:1px solid var(--line-soft);
+}
+ol.steps li:last-child{border-bottom:0}
+ol.steps li::before{
+  content:counter(s); font-family:var(--font-mono); font-size:10px;
+  color:var(--ink-faint); width:15px; flex:none; padding-top:3px;
+  font-variant-numeric:tabular-nums;
+}
+.step-main{flex:1; min-width:0}
+.step-top{display:flex; align-items:baseline; gap:8px; flex-wrap:wrap}
+.step-name{font-weight:600; font-size:14px}
+.chip{
+  font-family:var(--font-mono); font-size:9.5px; font-weight:600;
+  padding:2px 5px; border-radius:3px; background:var(--sunk);
+  color:var(--ink-dim); border:1px solid var(--line-soft);
+  letter-spacing:.03em;
+}
+.step-why{font-size:12.5px; color:var(--ink-dim); margin-top:2px; line-height:1.45}
+.mins{font-family:var(--font-mono); font-size:11px; color:var(--ink-faint); flex:none; padding-top:3px; font-variant-numeric:tabular-nums}
+.total{
+  margin-top:13px; padding-top:12px; border-top:1px solid var(--line);
+  font-family:var(--font-mono); font-size:11.5px; color:var(--ink-dim);
+  font-variant-numeric:tabular-nums;
+}
+
+/* verdict rows */
+.verdict{display:grid; gap:11px}
+.vrow{
+  display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:center;
+  padding:13px 15px; border-radius:7px; border:1px solid var(--line-soft); background:var(--sunk);
+}
+.vrow.broken{border-color:var(--dead)}
+.vrow.fixed{border-color:var(--live)}
+.vlabel{font-size:12.5px; color:var(--ink-dim); min-width:0}
+.vlabel strong{display:block; color:var(--ink); font-size:13.5px; font-weight:600; margin-bottom:1px}
+.vscore{font-family:var(--font-mono); font-size:12px; font-variant-numeric:tabular-nums; color:var(--ink-dim); margin-top:3px}
+.arrow{
+  font-family:var(--font-mono); font-size:13px; font-weight:600; text-align:right;
+  white-space:nowrap; font-variant-numeric:tabular-nums; flex:none;
+}
+.up{color:var(--live)} .flat{color:var(--ink-faint)} .down{color:var(--ink-dim)}
+
+/* next steps */
+.next{display:grid; gap:11px; margin-top:4px}
+.item{
+  display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px;
+  padding:16px; border:1px solid var(--line); border-radius:9px; background:var(--surface);
+}
+.item.lead{border-color:var(--live); border-width:1.5px}
+.rank{
+  font-family:var(--font-mono); font-size:10px; font-weight:600; color:var(--ink-faint);
+  padding-top:2px; letter-spacing:.04em;
+}
+.item.lead .rank{color:var(--live)}
+.item h3{margin:0 0 4px; font-size:15px; font-weight:600; letter-spacing:-.008em}
+.item p{margin:0; font-size:13.5px; color:var(--ink-dim); max-width:60ch}
+.meta{font-family:var(--font-mono); font-size:10.5px; color:var(--ink-faint); margin-top:7px; letter-spacing:.02em}
+
+footer{padding-block:28px 40px; border-top:1px solid var(--line)}
+footer p{font-size:12.5px; color:var(--ink-faint); margin:0}
+.da{font-family:var(--font-da)}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="kicker">DanskPath · 20. oktober 2026</div>
+  <h1>Syv færdigheder, ingen ledninger</h1>
+  <p class="standfirst">Appen manglede aldrig indhold. Den havde <b>435 grammatikøvelser, 1.052 ord, 40 læsetekster, 26 lytteklip, 18 samtaler og 12 ugers udtale</b> — og syv færdighedsvisninger som intet i appen linkede til. Denne side viser hvad der var i stykker, hvad der blev koblet sammen, og hvad der er tilbage.</p>
+</header>
+
+<section>
+  <h2><span class="num">01</span> Problemet, og koblingen</h2>
+  <p class="lede">Hver kasse nedenfor er en fil der allerede fandtes og virkede. Skift mellem de to tilstande: forskellen er ikke kode der blev skrevet, men ledninger der manglede.</p>
+
+  <div class="seg" role="tablist" aria-label="Diagramtilstand">
+    <button role="tab" id="tab-before" aria-selected="false" aria-controls="schema">Før</button>
+    <button role="tab" id="tab-after" aria-selected="true" aria-controls="schema">Nu</button>
+  </div>
+
+  <div class="diagram-scroll">
+    <svg class="schematic" id="schema" data-state="after" viewBox="0 0 860 400" role="img"
+         aria-label="Signaldiagram: App.jsx øverst, DailySession og sessionEngine som rygrad, syv færdighedsvisninger koblet på en fælles bus nedenunder.">
+
+      <!-- router -->
+      <g class="node">
+        <rect x="355" y="16" width="150" height="38" rx="4"/>
+        <text x="430" y="33" text-anchor="middle">App.jsx</text>
+        <text x="430" y="46" text-anchor="middle" class="sub">router</text>
+      </g>
+
+      <!-- spine -->
+      <g class="node spine" id="g-session">
+        <rect x="335" y="88" width="190" height="42" rx="4"/>
+        <text x="430" y="106" text-anchor="middle">DailySession.jsx</text>
+        <text x="430" y="119" text-anchor="middle" class="sub">dagens plan, i rækkefølge</text>
+      </g>
+      <g class="node spine" id="g-engine">
+        <rect x="28" y="88" width="188" height="42" rx="4"/>
+        <text x="122" y="106" text-anchor="middle">sessionEngine.js</text>
+        <text x="122" y="119" text-anchor="middle" class="sub">vælger trinnene</text>
+      </g>
+
+      <!-- data sources -->
+      <g class="node">
+        <rect x="28" y="156" width="188" height="34" rx="4"/>
+        <text x="122" y="172" text-anchor="middle">levelEngine.js</text>
+        <text x="122" y="184" text-anchor="middle" class="sub">modulkrav pr. færdighed</text>
+      </g>
+      <g class="node">
+        <rect x="28" y="204" width="188" height="34" rx="4"/>
+        <text x="122" y="220" text-anchor="middle">adaptiveDifficulty.js</text>
+        <text x="122" y="232" text-anchor="middle" class="sub">niveaustigen</text>
+      </g>
+
+      <!-- wires: sources up into engine -->
+      <path class="wire" d="M122 156 L122 130"/>
+      <path class="wire" d="M100 204 L100 196 L82 196 L82 134 L82 130"/>
+      <!-- router down into DailySession -->
+      <path class="wire" d="M430 54 L430 88"/>
+      <!-- engine right into DailySession -->
+      <path class="wire" d="M216 109 L335 109"/>
+      <!-- DailySession down to bus -->
+      <path class="wire" d="M430 130 L430 266"/>
+      <!-- the bus -->
+      <path class="bus" d="M95 266 L761 266"/>
+
+      <!-- taps -->
+      <path class="wire" d="M95 266 L95 300"/>
+      <path class="wire" d="M206 266 L206 300"/>
+      <path class="wire" d="M317 266 L317 300"/>
+      <path class="wire" d="M428 266 L428 300"/>
+      <path class="wire" d="M539 266 L539 300"/>
+      <path class="wire" d="M650 266 L650 300"/>
+
+      <!-- six wired views -->
+      <g class="node"><rect x="47" y="300" width="96" height="44" rx="4"/>
+        <text x="95" y="318" text-anchor="middle" font-size="10">Listening</text>
+        <text x="95" y="332" text-anchor="middle" class="sub">26 klip</text></g>
+      <g class="node"><rect x="158" y="300" width="96" height="44" rx="4"/>
+        <text x="206" y="318" text-anchor="middle" font-size="10">Reading</text>
+        <text x="206" y="332" text-anchor="middle" class="sub">40 tekster</text></g>
+      <g class="node"><rect x="269" y="300" width="96" height="44" rx="4"/>
+        <text x="317" y="318" text-anchor="middle" font-size="10">Writing</text>
+        <text x="317" y="332" text-anchor="middle" class="sub">8 opgaver</text></g>
+      <g class="node"><rect x="380" y="300" width="96" height="44" rx="4"/>
+        <text x="428" y="318" text-anchor="middle" font-size="10">Speaking</text>
+        <text x="428" y="332" text-anchor="middle" class="sub">mikrofon</text></g>
+      <g class="node"><rect x="491" y="300" width="96" height="44" rx="4"/>
+        <text x="539" y="318" text-anchor="middle" font-size="10">Pronunciation</text>
+        <text x="539" y="332" text-anchor="middle" class="sub">12 uger</text></g>
+      <g class="node"><rect x="602" y="300" width="96" height="44" rx="4"/>
+        <text x="650" y="318" text-anchor="middle" font-size="10">Conversation</text>
+        <text x="650" y="332" text-anchor="middle" class="sub">18 scenarier</text></g>
+
+      <!-- the one still unwired -->
+      <g class="node orphan"><rect x="713" y="300" width="96" height="44" rx="4"/>
+        <text x="761" y="318" text-anchor="middle" font-size="10">Vocab</text>
+        <text x="761" y="332" text-anchor="middle" class="sub">1.052 ord</text></g>
+      <text x="761" y="360" text-anchor="middle" class="badge badge-dead" style="opacity:1">0 referencer</text>
+
+      <!-- before-state orphan labels -->
+      <text x="95" y="360" text-anchor="middle" class="badge badge-dead">0 referencer</text>
+      <text x="206" y="360" text-anchor="middle" class="badge badge-dead">0 referencer</text>
+      <text x="317" y="360" text-anchor="middle" class="badge badge-dead">0 referencer</text>
+      <text x="428" y="360" text-anchor="middle" class="badge badge-dead">bygger ikke</text>
+      <text x="539" y="360" text-anchor="middle" class="badge badge-dead">0 referencer</text>
+      <text x="650" y="360" text-anchor="middle" class="badge badge-dead">0 referencer</text>
+    </svg>
+  </div>
+
+  <p class="caption" id="dia-caption"></p>
+</section>
+
+<section>
+  <h2><span class="num">02</span> Hvordan dagens plan vælges</h2>
+  <p class="lede">Rygraden læser hvor langt du er fra hvert modulkrav og fylder en sidning på cirka 50 minutter. Grammatik er den daglige konstant; resten vælges efter største hul, men sættes ned hvis færdigheden kørte de sidste to dage. Træk i skyderne — det er appens egen logik, ikke en illustration af den.</p>
+
+  <div class="panel">
+    <div class="panel-grid">
+      <div>
+        <div class="panel-head">Modulfremdrift</div>
+        <div class="ctrl"><label><span class="name">Lytning</span><span class="val" id="v-listening">0%</span></label>
+          <input type="range" id="s-listening" min="0" max="100" step="5" value="0"></div>
+        <div class="ctrl"><label><span class="name">Læsning</span><span class="val" id="v-reading">0%</span></label>
+          <input type="range" id="s-reading" min="0" max="100" step="5" value="0"></div>
+        <div class="ctrl"><label><span class="name">Skrivning</span><span class="val" id="v-writing">0%</span></label>
+          <input type="range" id="s-writing" min="0" max="100" step="5" value="0"></div>
+        <div class="ctrl"><label><span class="name">Tale</span><span class="val" id="v-speaking">0%</span></label>
+          <input type="range" id="s-speaking" min="0" max="100" step="5" value="0"></div>
+        <div class="ctrl"><label><span class="name">Kørte i går</span><span class="val" id="v-recent">ingen</span></label>
+          <input type="range" id="s-recent" min="0" max="4" step="1" value="0"></div>
+      </div>
+      <div>
+        <div class="panel-head">Dagens session</div>
+        <ol class="steps" id="steps"></ol>
+        <div class="total" id="total"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">03</span> Stigen der kun kunne gå nedad</h2>
+  <p class="lede">Den eksisterende scorefunktion vægtede hastighed 30% mod et mål på 10 sekunder pr. spørgsmål og regnede en selvvurdering med som sessionen aldrig indsamler. Tilsammen lagde det tærsklen for at stige uden for rækkevidde. Sæt nøjagtigheden højt og tempoet realistisk, og se de to beregninger ved siden af hinanden.</p>
+
+  <div class="panel">
+    <div class="panel-grid">
+      <div>
+        <div class="panel-head">Din sidning</div>
+        <div class="ctrl"><label><span class="name">Rigtige svar</span><span class="val" id="v-acc">93%</span></label>
+          <input type="range" id="s-acc" min="0" max="100" step="1" value="93"></div>
+        <div class="ctrl"><label><span class="name">Tid pr. spørgsmål</span><span class="val" id="v-pace">12,0 s</span></label>
+          <input type="range" id="s-pace" min="2" max="30" step="1" value="12"></div>
+        <p style="font-size:12.5px;color:var(--ink-dim);margin:16px 0 0">
+          En B1-læser skal læse en dansk sætning og vælge mellem tre svar. Under otte sekunder sker ikke.
+        </p>
+      </div>
+      <div>
+        <div class="panel-head">Udfald ved niveau 5,0</div>
+        <div class="verdict">
+          <div class="vrow broken">
+            <div class="vlabel"><strong>Før</strong>hastighed 30%, selvvurdering 10%
+              <div class="vscore" id="old-score"></div></div>
+            <div class="arrow" id="old-arrow"></div>
+          </div>
+          <div class="vrow fixed">
+            <div class="vlabel"><strong>Nu</strong>nøjagtighed 85%, tempo som bonus
+              <div class="vscore" id="new-score"></div></div>
+            <div class="arrow" id="new-arrow"></div>
+          </div>
+        </div>
+        <p style="font-size:12.5px;color:var(--ink-dim);margin:15px 0 0" id="ladder-note"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span> Næste skridt</h2>
+  <p class="lede">I rækkefølge efter hvad der faktisk ændrer din læring, ikke efter hvad der er hurtigst at bygge.</p>
+
+  <div class="next">
+    <div class="item lead">
+      <div class="rank">01</div>
+      <div>
+        <h3>Brug den i en uge, før der bygges mere</h3>
+        <p>Rygraden er ny og uprøvet af en rigtig bruger. Syv sidninger fortæller mere om hvad der mangler end endnu en planlægningsrunde — og det var netop planlægning uden afprøvning der førte til tre filer som intet importerede.</p>
+        <div class="meta">0 timer · starter i aften</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="rank">02</div>
+      <div>
+        <h3>Kobl VocabView på</h3>
+        <p>1.052 ord ligger stadig uden for appen — den sidste forældreløse visning. Den mangler i <code>ROTATING_SKILLS</code> og i <code>VIEWS</code>, så rygraden kan ikke planlægge den. To små tilføjelser.</p>
+        <div class="meta">~1 time · største indhold pr. indsats</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="rank">03</div>
+      <div>
+        <h3>Flere skriveopgaver</h3>
+        <p>Otte opgaver er det tyndeste sted i hele appen, og skrivning er præcis den færdighed du selv står svagest i. Det er det ene indholdshul der er værd at udfylde.</p>
+        <div class="meta">~3 timer · 8 opgaver → 30</div>
+      </div>
+    </div>
+    <div class="item">
+      <div class="rank">04</div>
+      <div>
+        <h3>Læs lytte- og læsescoren automatisk</h3>
+        <p>De to visninger beregner allerede en score internt, men sessionen spørger dig i stedet. Selvvurdering er ærlig for skrivning og tale, hvor intet program kan bedømme dig — her er den unødvendig.</p>
+        <div class="meta">~2 timer · fjerner et unødigt klik</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Verificeret mod koden og kørt i en browser: commit <span style="font-family:var(--font-mono)">1b10471</span> gendannede 55 slettede øvelser og SVERB-kategorien, <span style="font-family:var(--font-mono)">b2d7da0</span> tilføjede rygraden. Tallene på denne side er tællinger fra repoet, ikke overslag.</p>
+</footer>
+
+</div>
+
+<script>
+// ---- 01 diagram toggle ----
+const schema = document.getElementById('schema');
+const tabBefore = document.getElementById('tab-before');
+const tabAfter = document.getElementById('tab-after');
+const diaCaption = document.getElementById('dia-caption');
+
+const CAPTIONS = {
+  before: 'Alle syv visninger havde nul referencer nogen steder i src/. De var bygget, de virkede, og intet i den kørende app pegede på dem — derfor føltes appen som grammatikøvelser alene. SpeakingView kunne ikke engang bygge: den importerede lucide-react, som ikke er en afhængighed. Byggeriet blev grønt alligevel, fordi ubrugte filer altid kompilerer.',
+  after:  'sessionEngine vælger trinnene ud fra modulkravene i levelEngine, DailySession monterer de rigtige visninger i rækkefølge, og resultatet føres tilbage i niveaustigen. Seks visninger er koblet på. VocabView er stadig ikke — de 1.052 ord er fortsat uden for appen.'
+};
+
+function setState(state){
+  schema.dataset.state = state;
+  tabBefore.setAttribute('aria-selected', String(state === 'before'));
+  tabAfter.setAttribute('aria-selected', String(state === 'after'));
+  diaCaption.textContent = CAPTIONS[state];
+}
+tabBefore.addEventListener('click', () => setState('before'));
+tabAfter.addEventListener('click', () => setState('after'));
+setState('after');
+
+// ---- 02 session builder: the engine's real selection logic ----
+const STEP_COST = { grammar:12, listening:10, reading:10, writing:12, speaking:10, pronunciation:6, conversation:12 };
+const TARGET_MINUTES = 50;
+const RECENCY_PENALTY = 40;
+
+// Mirrors ROTATING_SKILLS in sessionEngine.js. Pronunciation has no percentage
+// field there, so it is treated as a neutral 50.
+const SKILLS = [
+  { kind:'listening',     label:'Lytning',  slider:'listening' },
+  { kind:'reading',       label:'Læsning',  slider:'reading' },
+  { kind:'writing',       label:'Skrivning',slider:'writing' },
+  { kind:'speaking',      label:'Tale',     slider:'speaking' },
+  { kind:'conversation',  label:'Samtale',  slider:'speaking' },
+  { kind:'pronunciation', label:'Udtale',   slider:null }
+];
+
+// How many of the highest-gap skills to mark as "ran yesterday", mirroring the
+// two-day recency window the engine applies.
+const RECENT_ORDER = ['listening','reading','writing','speaking'];
+const RECENT_LABEL = ['ingen','lytning','+ læsning','+ skrivning','+ tale'];
+
+const els = {
+  listening: document.getElementById('s-listening'),
+  reading:   document.getElementById('s-reading'),
+  writing:   document.getElementById('s-writing'),
+  speaking:  document.getElementById('s-speaking'),
+  recent:    document.getElementById('s-recent')
+};
+
+function buildSession(){
+  const pct = {
+    listening: +els.listening.value,
+    reading:   +els.reading.value,
+    writing:   +els.writing.value,
+    speaking:  +els.speaking.value
+  };
+  const recentCount = +els.recent.value;
+  const recent = RECENT_ORDER.slice(0, recentCount);
+
+  for (const k of ['listening','reading','writing','speaking']){
+    document.getElementById('v-' + k).textContent = pct[k] + '%';
+  }
+  document.getElementById('v-recent').textContent = RECENT_LABEL[recentCount];
+
+  const steps = [{
+    label:'Grammatik',
+    mins:STEP_COST.grammar,
+    chip:'dagligt',
+    why:'Grammatik er 35% af modulkravet og det sted hvor svage emner viser sig først.'
+  }];
+  let mins = STEP_COST.grammar;
+
+  const scored = SKILLS.map(s => {
+    const p = s.slider ? pct[s.slider] : 50;
+    const gap = Math.max(0, 100 - p);
+    const penalised = recent.includes(s.kind);
+    return { ...s, pct:p, gap, score: gap - (penalised ? RECENCY_PENALTY : 0), penalised };
+  }).sort((a,b) => b.score - a.score);
+
+  for (const s of scored){
+    const cost = STEP_COST[s.kind];
+    if (mins + cost > TARGET_MINUTES) continue;
+    steps.push({
+      label:s.label,
+      mins:cost,
+      chip: s.penalised ? 'nedsat' : (s.gap >= 100 ? 'største hul' : 'hul ' + s.gap),
+      why: !s.slider
+        ? 'Udtale holdes i gang hver uge — korte sessioner virker bedst.'
+        : s.penalised
+          ? 'Kørte i går, så sat ned med ' + RECENCY_PENALTY + ' point for at holde ugen varieret.'
+          : s.pct >= 100
+            ? 'Kravet er opfyldt — dette er vedligeholdelse.'
+            : s.pct + '% af kravet klaret i dette modul.'
+    });
+    mins += cost;
+  }
+
+  const list = document.getElementById('steps');
+  list.innerHTML = '';
+  for (const st of steps){
+    const li = document.createElement('li');
+    const main = document.createElement('div');
+    main.className = 'step-main';
+    const top = document.createElement('div');
+    top.className = 'step-top';
+    const name = document.createElement('span');
+    name.className = 'step-name';
+    name.textContent = st.label;
+    const chip = document.createElement('span');
+    chip.className = 'chip';
+    chip.textContent = st.chip;
+    top.append(name, chip);
+    const why = document.createElement('div');
+    why.className = 'step-why';
+    why.textContent = st.why;
+    main.append(top, why);
+    const m = document.createElement('div');
+    m.className = 'mins';
+    m.textContent = st.mins + ' min';
+    li.append(main, m);
+    list.append(li);
+  }
+
+  const skipped = SKILLS.length + 1 - steps.length;
+  document.getElementById('total').textContent =
+    steps.length + ' trin · ' + mins + ' af ' + TARGET_MINUTES + ' min' +
+    (skipped > 0 ? ' · ' + skipped + ' udeladt, passede ikke i sidningen' : '');
+}
+
+// ---- 03 ladder comparison ----
+function oldScore(acc, ms){
+  const speed = Math.max(0, 1 - (ms / 10000) * 0.5);
+  const confidence = 3 / 5;              // never collected, so always the default
+  return Math.min(1, acc * 0.6 + speed * 0.3 + confidence * 0.1);
+}
+function newScore(acc, ms){
+  const pace = Math.max(0, Math.min(1, (30000 - ms) / 20000));
+  return Math.min(1, acc * 0.85 + pace * 0.15);
+}
+// calculateNextDifficulty, unchanged
+function nextDifficulty(current, score){
+  if (score >= 0.85) return Math.min(10, current + 1.5);
+  if (score >= 0.65) return current;
+  if (score >= 0.40) return Math.max(0, current - 1);
+  return Math.max(0, current - 2);
+}
+
+const sAcc = document.getElementById('s-acc');
+const sPace = document.getElementById('s-pace');
+
+function renderLadder(){
+  const acc = +sAcc.value / 100;
+  const secs = +sPace.value;
+  const ms = secs * 1000;
+
+  document.getElementById('v-acc').textContent = sAcc.value + '%';
+  document.getElementById('v-pace').textContent = secs.toFixed(1).replace('.', ',') + ' s';
+
+  const pairs = [
+    { score:oldScore(acc, ms), scoreEl:'old-score', arrowEl:'old-arrow' },
+    { score:newScore(acc, ms), scoreEl:'new-score', arrowEl:'new-arrow' }
+  ];
+
+  for (const p of pairs){
+    const next = nextDifficulty(5, p.score);
+    const dir = next > 5 ? 'up' : next === 5 ? 'flat' : 'down';
+    const word = dir === 'up' ? 'op' : dir === 'flat' ? 'uændret' : 'ned';
+    document.getElementById(p.scoreEl).textContent =
+      'score ' + p.score.toFixed(3).replace('.', ',') + ' · tærskel 0,850';
+    const a = document.getElementById(p.arrowEl);
+    a.className = 'arrow ' + dir;
+    a.textContent = '5,0 → ' + next.toFixed(1).replace('.', ',') + '  ' + word;
+  }
+
+  const o = nextDifficulty(5, oldScore(acc, ms));
+  const n = nextDifficulty(5, newScore(acc, ms));
+  const note = document.getElementById('ladder-note');
+  if (o <= 5 && n > 5){
+    note.textContent = 'Her er fejlen: samme sidning, og den gamle beregning lader dig ikke stige. Det er tilstanden for næsten alle realistiske tempi.';
+  } else if (o > 5 && n > 5){
+    note.textContent = 'Begge stiger. Det kræver et tempo under cirka fem sekunder pr. spørgsmål — hurtigere end man kan læse sætningen.';
+  } else if (n <= 5 && acc >= 0.85){
+    note.textContent = 'Høj nøjagtighed, men tempoet trækker den nye score under tærsklen. Bonussen kan løfte et stærkt resultat, ikke redde et langsomt.';
+  } else {
+    note.textContent = 'Under 87% rigtige holder niveauet, og under 60% falder det. Stigen virker i begge retninger nu.';
+  }
+}
+
+for (const el of Object.values(els)) el.addEventListener('input', buildSession);
+sAcc.addEventListener('input', renderLadder);
+sPace.addEventListener('input', renderLadder);
+
+buildSession();
+renderLadder();
+</script>
