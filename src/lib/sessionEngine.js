@@ -73,7 +73,7 @@ export function scoreSession({ correct, total, avgResponseMs = 12000 }) {
 
 const SESSION_KEY = 'dansk_sessions';
 const DIFFICULTY_KEY = 'dansk_skill_difficulty';
-const TARGET_MINUTES = 50;
+const TARGET_MINUTES = 40;
 
 // Minutes each step kind costs. Used to fill a sitting without overrunning it.
 const STEP_COST = {
@@ -251,12 +251,37 @@ export function getWeakTopics(limit = 3) {
  * Pick the rotating skills for today: biggest requirement gap first, but
  * demoted if the same skill ran in the last two days so the week stays varied.
  */
-function chooseRotatingSkills(progress, slots, { dateKey } = {}) {
+/**
+ * Percent-complete for a skill against the module requirement.
+ *
+ * levelEngine.getModuleProgress returns a `*Pct` for grammar, vocab, listening,
+ * reading and writing — but for speaking it returns only `speakingDone` and no
+ * percentage. Reading the missing field gave undefined, which fell back to 0,
+ * which pinned speaking *and* conversation at a permanent 100% gap: they won
+ * the rotation every day however much they were practised. So speaking is
+ * derived here from the raw count instead of trusting a field that is not there.
+ */
+function pctFor(skill, progress, mod) {
+  if (!skill.pctField) return 50; // pronunciation: no requirement to measure against
+
+  const reported = progress?.[skill.pctField];
+  if (typeof reported === 'number') return reported;
+
+  if (skill.pctField === 'speakingPct') {
+    const done = progress?.speakingDone ?? 0;
+    const needed = mod?.requires?.speakingCount ?? 0;
+    return needed ? Math.min(100, Math.round((done / needed) * 100)) : 0;
+  }
+
+  return 0;
+}
+
+function chooseRotatingSkills(progress, slots, { dateKey, mod } = {}) {
   const before = dateKey ? new Date(`${dateKey}T12:00:00Z`) : new Date();
   const recent = recentSkills(2);
 
   const scored = ROTATING_SKILLS.map((skill) => {
-    const pct = skill.pctField ? (progress?.[skill.pctField] ?? 0) : 50;
+    const pct = pctFor(skill, progress, mod);
     const gap = Math.max(0, 100 - pct);
 
     // Staleness, not just gap.
@@ -278,11 +303,11 @@ function chooseRotatingSkills(progress, slots, { dateKey } = {}) {
   return scored.slice(0, slots);
 }
 
-function reasonFor(skill, progress) {
+function reasonFor(skill, progress, mod) {
   if (!skill.pctField) {
     return 'Udtale holdes i gang hver uge — korte sessioner virker bedst.';
   }
-  const pct = progress?.[skill.pctField] ?? 0;
+  const pct = pctFor(skill, progress, mod);
   const done = progress?.[`${skill.kind}Done`];
   const needed = progress?.[`${skill.kind}Needed`];
 
@@ -338,7 +363,7 @@ export async function buildTodaySession({ moduleId, dateKey = todayKey(), force 
   // only a provisional slot size; the real cost comes from the content, and a
   // reading block that turns out to be four minutes rather than ten should free
   // that time for another skill instead of just making the session shorter.
-  const candidates = chooseRotatingSkills(progress, ROTATING_SKILLS.length, { dateKey }).map(
+  const candidates = chooseRotatingSkills(progress, ROTATING_SKILLS.length, { dateKey, mod }).map(
     (skill) => {
       const difficulty = getSkillDifficulty(skill.kind);
       return {
@@ -349,7 +374,7 @@ export async function buildTodaySession({ moduleId, dateKey = todayKey(), force 
         difficulty,
         cefr: difficultyToCEFR(difficulty),
         estimatedMinutes: STEP_COST[skill.kind] ?? 10,
-        reason: reasonFor(skill, progress),
+        reason: reasonFor(skill, progress, mod),
         done: false,
       };
     },
@@ -365,10 +390,10 @@ export async function buildTodaySession({ moduleId, dateKey = todayKey(), force 
     const cost = Number.isFinite(step.estimatedMinutes) ? step.estimatedMinutes : 10;
     step.estimatedMinutes = cost;
     if (minutes + cost > TARGET_MINUTES) continue;
-    // Six steps is already a lot of context-switching for one sitting; honest
-    // (shorter) estimates free up budget, and that budget is better spent on
-    // depth within a skill than on a seventh and eighth switch.
-    if (steps.length >= 6) break;
+    // Five steps is already a lot of context-switching for a 40 minute sitting;
+    // honest (shorter) estimates free up budget, and that budget is better
+    // spent on depth within a skill than on a sixth and seventh switch.
+    if (steps.length >= 5) break;
     steps.push(step);
     minutes += cost;
   }

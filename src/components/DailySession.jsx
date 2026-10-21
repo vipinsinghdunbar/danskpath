@@ -174,10 +174,7 @@ export default function DailySession({ onBack }) {
             scroll container, where `sticky bottom-0` did not pin and the
             control ended up below the fold — so the way to finish a step was
             invisible until you scrolled past the whole exercise. */}
-        <footer
-          className="border-t border-[#E8E2D9] bg-white fixed bottom-0 left-0 right-0 z-30"
-          style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
-        >
+        <footer className="border-t border-[#E8E2D9] bg-white fixed bottom-0 left-0 right-0 z-30">
           <div className="max-w-5xl mx-auto px-5 py-4">
             {isGrammar ? (
               <button

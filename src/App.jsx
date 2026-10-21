@@ -1,6 +1,7 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
 import EphemeralBanner from './components/EphemeralBanner';
+import PWAInstallBanner from './components/PWAInstallBanner';
 import WebAppShell from './components/WebAppShell';
 import WebDashboard from './components/WebDashboard';
 import HomePage from './components/HomePage';
@@ -217,6 +218,9 @@ export default function App() {
     <ErrorBoundary>
       <div className="min-h-screen flex flex-col bg-white text-gray-900">
         <EphemeralBanner />
+        {/* Was built but never rendered, so the install prompt never appeared —
+            the app shipped a service worker and manifest with no way in. */}
+        <PWAInstallBanner />
         <div className="flex-1 overflow-auto">
           {page === 'home' && (
             <HomePage onStartAssessment={handleStartAssessment} />

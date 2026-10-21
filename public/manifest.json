@@ -8,7 +8,6 @@
   "display_override": ["standalone", "minimal-ui"],
   "background_color": "#F2F2F7",
   "theme_color": "#121417",
-  "orientation": "portrait-primary",
   "categories": ["education", "productivity"],
   "lang": "da",
   "dir": "ltr",
@@ -52,10 +51,11 @@
   ],
   "screenshots": [
     {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x800",
       "type": "image/png",
-      "form_factor": "narrow"
+      "form_factor": "wide",
+      "label": "Dagens session — dagens plan med fem trin"
     }
   ],
   "shortcuts": [
