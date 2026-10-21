@@ -3,7 +3,12 @@ import { vocabulary, vocabThemes } from '../data/vocabulary';
 import { useTTS } from '../hooks/useTTS';
 import { getDueItems, updateSRS, getBox } from '../lib/srs';
 
-export default function VocabView() {
+// `level` is the CEFR band the daily session is running this skill at. Vocab is
+// studied in batches rather than one word at a time, so the session constrains
+// the pool by level instead of naming a single word: as the difficulty ladder
+// climbs, the words on offer get harder on their own.
+export default function VocabView({ level: sessionLevel = null }) {
+  const [levelFilter, setLevelFilter] = useState(sessionLevel ?? 'Alle');
   const [theme, setTheme] = useState('Alle');
   const [mode, setMode] = useState('list');
   const [search, setSearch] = useState('');
@@ -13,13 +18,14 @@ export default function VocabView() {
 
   const filtered = useMemo(()=>{
     let list = vocabulary;
+    if(levelFilter!=='Alle') list = list.filter(v=>v.level===levelFilter);
     if(theme!=='Alle') list = list.filter(v=>v.theme===theme);
     if(search){
       const s = search.toLowerCase();
       list = list.filter(v=>v.da.toLowerCase().includes(s) || v.en.toLowerCase().includes(s) || v.collocation.toLowerCase().includes(s));
     }
     return list;
-  },[theme, search]);
+  },[levelFilter, theme, search]);
 
   const due = useMemo(()=> getDueItems(filtered, 20), [filtered]);
   const currentFlash = due[flashIndex % due.length];
@@ -53,6 +59,10 @@ export default function VocabView() {
         </div>
 
         <div className="mt-4 flex gap-1.5 flex-wrap">
+          {['Alle','A1','A2','B1','B2'].map(l=>(
+            <button key={l} onClick={()=>setLevelFilter(l)} className={`px-3.5 py-2 rounded-full text-[12px] font-[600] border transition ${levelFilter===l?'bg-black text-white border-black':'bg-white border-black/5 text-[#8E8E93] hover:text-black'}`}>{l}</button>
+          ))}
+          <span className="w-px self-stretch bg-black/10 mx-1" />
           <button onClick={()=>setTheme('Alle')} className={`px-3.5 py-2 rounded-full text-[12px] font-[600] border transition ${theme==='Alle'?'bg-black text-white border-black':'bg-white border-black/5 text-[#8E8E93] hover:text-black'}`}>Alle ({vocabulary.length})</button>
           {vocabThemes.map(t=>(
             <button key={t} onClick={()=>setTheme(t)} className={`px-3.5 py-2 rounded-full text-[12px] font-[600] border transition ${theme===t?'bg-black text-white border-black':'bg-white border-black/5 text-[#8E8E93] hover:text-black'}`}>{t}</button>

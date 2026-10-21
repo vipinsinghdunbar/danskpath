@@ -84,6 +84,7 @@ const STEP_COST = {
   speaking: 10,
   pronunciation: 6,
   conversation: 12,
+  vocab: 8,
 };
 
 // Which skills the spine can schedule, and the progress fields that reveal
@@ -95,6 +96,7 @@ const ROTATING_SKILLS = [
   { kind: 'writing', pctField: 'writingPct', view: 'writing' },
   { kind: 'speaking', pctField: 'speakingPct', view: 'speaking' },
   { kind: 'conversation', pctField: 'speakingPct', view: 'conversation' },
+  { kind: 'vocab', pctField: 'vocabPct', view: 'vocab' },
   { kind: 'pronunciation', pctField: null, view: 'pronunciation' },
 ];
 
@@ -202,6 +204,22 @@ function recentSkills(days = 3) {
   return seen;
 }
 
+/**
+ * Days since a skill last appeared in a session, counting back up to `horizon`
+ * days. Returns `horizon` for a skill that has not run at all, so untouched
+ * skills sort as maximally overdue.
+ */
+function daysSinceSkill(kind, { horizon = 10, before = new Date() } = {}) {
+  const history = getSessionHistory();
+  const cursor = new Date(before);
+  for (let i = 0; i < horizon; i += 1) {
+    const session = history[todayKey(cursor)];
+    if (session?.steps?.some((s) => s.kind === kind)) return i;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return horizon;
+}
+
 // ---------------------------------------------------------------------------
 // Weak-spot detection (grammar topics the learner keeps missing)
 // ---------------------------------------------------------------------------
@@ -233,14 +251,27 @@ export function getWeakTopics(limit = 3) {
  * Pick the rotating skills for today: biggest requirement gap first, but
  * demoted if the same skill ran in the last two days so the week stays varied.
  */
-function chooseRotatingSkills(progress, slots) {
+function chooseRotatingSkills(progress, slots, { dateKey } = {}) {
+  const before = dateKey ? new Date(`${dateKey}T12:00:00Z`) : new Date();
   const recent = recentSkills(2);
 
   const scored = ROTATING_SKILLS.map((skill) => {
     const pct = skill.pctField ? (progress?.[skill.pctField] ?? 0) : 50;
     const gap = Math.max(0, 100 - pct);
-    const recencyPenalty = recent.includes(skill.kind) ? 40 : 0;
-    return { ...skill, pct, gap, score: gap - recencyPenalty };
+
+    // Staleness, not just gap.
+    //
+    // Gap alone starves skills. Completing a reading text raises readingPct,
+    // which shrinks reading's gap, while a skill whose counter moves slowly
+    // keeps a gap near 100 and wins every day — in simulation the plan
+    // collapsed to the same four skills from day three onwards and reading
+    // never came back. Weighting days-since-last-run guarantees everything
+    // cycles within about a week however the percentages move.
+    const stale = daysSinceSkill(skill.kind, { before });
+    const recencyPenalty = recent.includes(skill.kind) ? 45 : 0;
+    const score = gap * 0.55 + stale * 11 - recencyPenalty;
+
+    return { ...skill, pct, gap, stale, score };
   });
 
   scored.sort((a, b) => b.score - a.score);
@@ -268,7 +299,7 @@ function reasonFor(skill, progress) {
  * Sessions are sticky: once today's session exists it is returned unchanged, so
  * the plan does not reshuffle underneath you mid-sitting. Pass force to rebuild.
  */
-export function buildTodaySession({ moduleId, dateKey = todayKey(), force = false } = {}) {
+export async function buildTodaySession({ moduleId, dateKey = todayKey(), force = false } = {}) {
   const history = getSessionHistory();
   if (!force && history[dateKey]) return history[dateKey];
 
@@ -302,7 +333,7 @@ export function buildTodaySession({ moduleId, dateKey = todayKey(), force = fals
   minutes += STEP_COST.grammar;
 
   // 2. Fill the rest of the sitting with the skills furthest behind.
-  const candidates = chooseRotatingSkills(progress, ROTATING_SKILLS.length);
+  const candidates = chooseRotatingSkills(progress, ROTATING_SKILLS.length, { dateKey });
   for (const skill of candidates) {
     const cost = STEP_COST[skill.kind] ?? 10;
     if (minutes + cost > TARGET_MINUTES) continue;
@@ -322,6 +353,10 @@ export function buildTodaySession({ moduleId, dateKey = todayKey(), force = fals
     minutes += cost;
   }
 
+  // Pick the concrete item each step opens on, before the plan is persisted,
+  // so what is shown and what is opened cannot drift apart.
+  await attachItems(steps);
+
   const session = {
     dateKey,
     moduleId: resolvedModule,
@@ -337,6 +372,75 @@ export function buildTodaySession({ moduleId, dateKey = todayKey(), force = fals
   history[dateKey] = session;
   writeJSON(SESSION_KEY, history);
   return session;
+}
+
+/**
+ * Choose the concrete item a step will open on.
+ *
+ * Done at build time so the plan can name it ("Læsning · Opslag i opgangen"),
+ * and so the choice is stable for the whole sitting. Imported lazily because
+ * contentSelector imports difficultyToCEFR from this module, and a top-level
+ * import either way would be circular.
+ */
+async function attachItems(steps) {
+  const [
+    { selectItem, selectPronunciationWeek },
+    { readingTexts },
+    { listeningPieces },
+    { conversationScenarios },
+    { pronunciationWeeks },
+    { vocabulary },
+  ] = await Promise.all([
+    import('./contentSelector.js'),
+    import('../data/reading.js'),
+    import('../data/listening.js'),
+    import('../data/conversations.js'),
+    import('../data/pronunciation.js'),
+    import('../data/vocabulary.js'),
+  ]);
+
+  const pools = {
+    reading: readingTexts,
+    listening: listeningPieces,
+    conversation: conversationScenarios,
+    vocab: vocabulary,
+  };
+
+  for (const step of steps) {
+    try {
+      if (step.kind === 'pronunciation') {
+        const week = selectPronunciationWeek(pronunciationWeeks);
+        if (week) {
+          step.itemId = week.week;
+          step.itemTitle = `Uge ${week.week} · ${week.title}`;
+        }
+        continue;
+      }
+
+      const pool = pools[step.kind];
+      if (!pool) continue;
+
+      // Vocab is studied in batches, so the step names the band rather than a
+      // single word; the view filters to that level itself.
+      if (step.kind === 'vocab') {
+        const sample = selectItem({ kind: 'vocab', items: pool, difficulty: step.difficulty });
+        if (sample) {
+          step.itemId = sample.id;
+          step.itemTitle = `${step.cefr}-ord · tema ${sample.theme}`;
+        }
+        continue;
+      }
+
+      const item = selectItem({ kind: step.kind, items: pool, difficulty: step.difficulty });
+      if (item) {
+        step.itemId = item.id;
+        step.itemTitle = item.title ?? String(item.id);
+      }
+    } catch (err) {
+      console.warn('[sessionEngine] could not pick an item for', step.kind, err);
+    }
+  }
+  return steps;
 }
 
 function labelFor(kind) {
@@ -410,7 +514,47 @@ export function recordStep(stepId, result = {}, dateKey = todayKey()) {
   }
 
   writeJSON(SESSION_KEY, history);
+
+  // Retire the item so tomorrow's plan picks something new. Fire-and-forget:
+  // the step is already recorded, and a failure here only costs variety.
+  markStepItemUsed(step);
+  recordModuleProgress(step);
+
   return session;
+}
+
+/**
+ * Credit a completed step against the module requirements.
+ *
+ * levelEngine.getModuleProgress counts writing and speaking from their own
+ * attempt arrays, which nothing in the session flow was writing — so those two
+ * skills sat at 0% forever while reading and listening climbed. That made their
+ * requirement gap permanently maximal and skewed every plan towards them.
+ * Recording an attempt here keeps all six counters moving on the same basis.
+ */
+function recordModuleProgress(step) {
+  const KEYS = {
+    writing: 'dansk_writing_attempts',
+    speaking: 'dansk_speaking_attempts',
+    conversation: 'dansk_speaking_attempts', // conversation is spoken practice
+  };
+  const key = KEYS[step.kind];
+  if (!key) return; // reading/listening/vocab are credited via their used-lists
+
+  try {
+    const attempts = readJSON(key, []);
+    if (!Array.isArray(attempts)) return;
+    attempts.push({
+      at: new Date().toISOString(),
+      source: 'session',
+      kind: step.kind,
+      itemId: step.itemId ?? null,
+      accuracy: step.accuracy ?? null,
+    });
+    writeJSON(key, attempts);
+  } catch (err) {
+    console.warn('[sessionEngine] could not credit module progress', err);
+  }
 }
 
 export function getSessionSummary(dateKey = todayKey()) {
@@ -438,4 +582,20 @@ export function getSessionSummary(dateKey = todayKey()) {
 /** Rebuild today from scratch — used by a "giv mig en anden session" control. */
 export function regenerateToday(moduleId) {
   return buildTodaySession({ moduleId, force: true });
+}
+
+/**
+ * Mark the item a step used, so tomorrow's selection skips it.
+ *
+ * Called on step completion rather than on open, so abandoning a step halfway
+ * does not burn the text.
+ */
+export async function markStepItemUsed(step) {
+  if (!step?.itemId || !step?.kind) return;
+  try {
+    const { markContentUsed } = await import('./contentSelector.js');
+    markContentUsed(step.kind, step.itemId);
+  } catch (err) {
+    console.warn('[sessionEngine] could not mark item used', err);
+  }
 }

@@ -26,6 +26,7 @@ const WritingView = lazy(() => import('./WritingView'));
 const SpeakingView = lazy(() => import('./SpeakingView'));
 const PronunciationView = lazy(() => import('./PronunciationView'));
 const ConversationView = lazy(() => import('./ConversationView'));
+const VocabView = lazy(() => import('./VocabView'));
 const PracticeSession = lazy(() => import('./PracticeSession'));
 
 const VIEWS = {
@@ -35,6 +36,7 @@ const VIEWS = {
   speaking: SpeakingView,
   pronunciation: PronunciationView,
   conversation: ConversationView,
+  vocab: VocabView,
   grammar: PracticeSession,
 };
 
@@ -64,14 +66,21 @@ export default function DailySession({ onBack }) {
   const stepStartedAt = useRef(null);
 
   useEffect(() => {
-    const built = buildTodaySession();
-    setSession(built);
-    setDifficulties(getAllSkillDifficulties());
-    setStreak(getStreak());
+    let cancelled = false;
+    buildTodaySession().then((built) => {
+      if (cancelled) return;
+      setSession(built);
+      setDifficulties(getAllSkillDifficulties());
+      setStreak(getStreak());
+    });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const refresh = () => {
-    setSession(getSessionSummary() ? buildTodaySession() : buildTodaySession());
+  const refresh = async () => {
+    const built = await buildTodaySession();
+    setSession(built);
     setDifficulties(getAllSkillDifficulties());
     setStreak(getStreak());
   };
@@ -121,7 +130,10 @@ export default function DailySession({ onBack }) {
               ← Dagens plan
             </button>
             <div className="flex-1 min-w-0">
-              <div className="font-display font-bold text-[15px] truncate">{activeStep.label}</div>
+              <div className="font-display font-bold text-[15px] truncate">
+                {activeStep.label}
+                {activeStep.itemTitle ? ` · ${activeStep.itemTitle}` : ''}
+              </div>
               <div className="text-[11px] text-[#6B6358]">
                 Niveau {activeStep.cefr} · ca. {activeStep.estimatedMinutes} min
               </div>
@@ -138,6 +150,8 @@ export default function DailySession({ onBack }) {
               <View
                 topic={activeStep.topics?.[0]}
                 difficulty={activeStep.difficulty}
+                level={activeStep.cefr}
+                preselectId={activeStep.itemId}
                 onComplete={(res) => finishStep(activeStep.id, res ?? {})}
               />
             ) : (
@@ -285,6 +299,10 @@ export default function DailySession({ onBack }) {
                         </span>
                       </div>
 
+                      {step.itemTitle && (
+                        <p className="text-[12.5px] mt-1 truncate">{step.itemTitle}</p>
+                      )}
+
                       <p className="text-[12.5px] text-[#6B6358] leading-snug mt-1">
                         {step.reason}
                       </p>
@@ -330,8 +348,8 @@ export default function DailySession({ onBack }) {
           </div>
 
           <button
-            onClick={() => {
-              regenerateToday();
+            onClick={async () => {
+              await regenerateToday();
               refresh();
             }}
             className="mt-6 text-[12.5px] text-[#6B6358] underline underline-offset-2 hover:text-[#121212] transition-colors"

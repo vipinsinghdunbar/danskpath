@@ -3,9 +3,14 @@ import { listeningPieces, reductionDict } from '../data/listening';
 import { useTTS } from '../hooks/useTTS';
 import { getUsed, markUsed, getUnused } from '../lib/tracking';
 
-export default function ListeningView() {
+// `preselectId` is the clip the daily session picked — unseen, at the learner's
+// current level — so the session does not reopen the same piece each day.
+export default function ListeningView({ preselectId = null }) {
   const [level, setLevel] = useState('Alle');
-  const [active, setActive] = useState(listeningPieces[0]);
+  const [active, setActive] = useState(
+    () =>
+      listeningPieces.find((p) => String(p.id) === String(preselectId)) ?? listeningPieces[0],
+  );
   const [showTranscript, setShowTranscript] = useState(false);
   const [answers, setAnswers] = useState({});
   const { speak, speaking } = useTTS();

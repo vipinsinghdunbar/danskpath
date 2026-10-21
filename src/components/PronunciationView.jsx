@@ -3,8 +3,14 @@ import { pronunciationWeeks } from '../data/pronunciation';
 import { reductionDict } from '../data/listening';
 import { useTTS } from '../hooks/useTTS';
 
-export default function PronunciationView() {
-  const [activeWeek, setActiveWeek] = useState(1);
+// `preselectId` is the week the daily session picked. Pronunciation is a
+// 12-week sequence rather than a levelled pool, so the session advances
+// through it in order instead of reopening week 1 every day.
+export default function PronunciationView({ preselectId = null }) {
+  const [activeWeek, setActiveWeek] = useState(() => {
+    const week = Number(preselectId);
+    return Number.isFinite(week) && week > 0 ? week : 1;
+  });
   const week = pronunciationWeeks.find(w=>w.week===activeWeek);
   const { speak } = useTTS();
   const [recording, setRecording] = useState(false);

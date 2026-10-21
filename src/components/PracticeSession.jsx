@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { getWeakSpots } from '../lib/recommendationEngine';
-import { getRandomExercise } from '../lib/completeGrammarExercises';
+import { getExercisesByCategory, getAllCategories } from '../lib/completeGrammarExercises';
+import { selectItems, inferExerciseLevel } from '../lib/contentSelector';
+import { getSkillDifficulty } from '../lib/sessionEngine';
 
-export default function PracticeSession({ onBack }) {
+export default function PracticeSession({ onBack, difficulty = null }) {
   const [stage, setStage] = useState('setup'); // setup, practicing, results
   const [duration, setDuration] = useState(15); // minutes
   const [focusType, setFocusType] = useState('weak'); // weak, all, category
@@ -15,40 +17,59 @@ export default function PracticeSession({ onBack }) {
   const [startTime] = useState(Date.now());
   const [results, setResults] = useState(null);
 
-  // Generate exercises based on settings
+  // Generate exercises based on settings.
+  //
+  // This previously called getRandomExercise once per slot, which draws *with*
+  // replacement — so the same exercise could appear two or three times in one
+  // sitting — and ignored level entirely, so the drill never got harder as the
+  // learner improved. Selection now goes through contentSelector, which filters
+  // to the band implied by the current difficulty and draws without replacement.
   const handleStartSession = () => {
     const exerciseCount = Math.round((duration * 60) / 90); // ~90 seconds per exercise
-    const newExercises = [];
 
+    // When the daily session opens this view it passes the grammar difficulty;
+    // opened on its own, fall back to the stored value.
+    const level = difficulty ?? getSkillDifficulty('grammar');
+
+    let categories;
     if (focusType === 'weak') {
-      const weakSpots = getWeakSpots('vipin', 3);
-      for (let i = 0; i < exerciseCount && newExercises.length < exerciseCount; i++) {
-        const category = weakSpots[i % weakSpots.length].category;
-        const exercise = getRandomExercise(category);
-        if (exercise) {
-          newExercises.push({ ...exercise, category });
-        }
-      }
+      categories = getWeakSpots('vipin', 3).map((w) => w.category);
     } else if (focusType === 'category') {
-      for (let i = 0; i < exerciseCount; i++) {
-        const exercise = getRandomExercise(selectedCategory);
-        if (exercise) {
-          newExercises.push({ ...exercise, category: selectedCategory });
-        }
-      }
+      categories = [selectedCategory];
     } else {
-      // Random from all categories
-      const categories = ['ORD', 'KOMP', 'KONJ', 'PRON', 'POSS', 'ARTKV', 'PASS', 'SVERB', 'MOD', 'REL', 'INFGER', 'NEG', 'PREP', 'REFL', 'IDI'];
-      for (let i = 0; i < exerciseCount; i++) {
-        const cat = categories[Math.floor(Math.random() * categories.length)];
-        const exercise = getRandomExercise(cat);
-        if (exercise) {
-          newExercises.push({ ...exercise, category: cat });
-        }
+      categories = getAllCategories().map((c) => c.code);
+    }
+    if (!categories.length) categories = ['ORD'];
+
+    // Spread the requested count across the chosen categories, then take each
+    // category's share from the level-appropriate, unseen pool.
+    const perCategory = Math.ceil(exerciseCount / categories.length);
+    const newExercises = [];
+    const seenIds = new Set();
+
+    for (const category of categories) {
+      const pool = getExercisesByCategory(category);
+      if (!pool.length) continue;
+
+      const picked = selectItems({
+        kind: `grammar_${category}`,
+        items: pool,
+        difficulty: level,
+        count: perCategory,
+        levelOf: (ex) => inferExerciseLevel(ex.id),
+      });
+
+      for (const ex of picked) {
+        if (seenIds.has(ex.id)) continue;
+        seenIds.add(ex.id);
+        newExercises.push({ ...ex, category });
       }
     }
 
-    setExercises(newExercises);
+    // Interleave categories instead of running them in blocks, and trim to the
+    // requested length.
+    newExercises.sort(() => Math.random() - 0.5);
+    setExercises(newExercises.slice(0, exerciseCount));
     setStage('practicing');
     setCurrentIndex(0);
   };

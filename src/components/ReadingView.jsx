@@ -2,10 +2,15 @@ import { useState } from 'react';
 import { readingTexts } from '../data/reading';
 import { useTTS } from '../hooks/useTTS';
 
-export default function ReadingView() {
+// `preselectId` is the text the daily session picked: unseen, at the learner's
+// current level. Without it this view opened readingTexts[4] every time, so a
+// sequenced session served the same text every day from day two.
+export default function ReadingView({ preselectId = null }) {
   const [level, setLevel] = useState('Alle');
   const [typeFilter, setTypeFilter] = useState('Alle');
-  const [active, setActive] = useState(readingTexts[4]);
+  const [active, setActive] = useState(
+    () => readingTexts.find((t) => String(t.id) === String(preselectId)) ?? readingTexts[4],
+  );
   const [answers, setAnswers] = useState({});
   const [showGlossary, setShowGlossary] = useState(false);
   const { speak } = useTTS();

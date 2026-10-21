@@ -5,8 +5,14 @@ import { callLLM, getConversationReply } from '../lib/llm';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
 import { useTTS } from '../hooks/useTTS';
 
-export default function ConversationView() {
-  const [activeId, setActiveId] = useState(conversationScenarios[0].id);
+// `preselectId` is the scenario the daily session picked, so a sequenced
+// session does not reopen scenario [0] every day.
+export default function ConversationView({ preselectId = null }) {
+  const [activeId, setActiveId] = useState(
+    () =>
+      conversationScenarios.find((c) => String(c.id) === String(preselectId))?.id ??
+      conversationScenarios[0].id,
+  );
   const active = conversationScenarios.find(c=>c.id===activeId);
   const [messages, setMessages] = useState([{ role: 'assistant', content: active.starter }]);
   const [input, setInput] = useState('');
