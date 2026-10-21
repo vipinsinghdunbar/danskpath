@@ -59,11 +59,12 @@ function Spinner() {
   );
 }
 
-export default function DailySession({ onBack }) {
+export default function DailySession({ onBack, onOpenSettings, onOpenLegal }) {
   const [session, setSession] = useState(null);
   const [activeStepId, setActiveStepId] = useState(null);
   const [difficulties, setDifficulties] = useState({});
   const [streak, setStreak] = useState(0);
+  const [sheetBusy, setSheetBusy] = useState(false);
   const stepStartedAt = useRef(null);
 
   useEffect(() => {
@@ -84,6 +85,20 @@ export default function DailySession({ onBack }) {
     setSession(built);
     setDifficulties(getAllSkillDifficulties());
     setStreak(getStreak());
+  };
+
+  // Imported on demand: the worksheet pulls in the whole grammar-topic file,
+  // which the session itself never needs.
+  const handleDownloadWorksheet = async () => {
+    setSheetBusy(true);
+    try {
+      const { buildDailyWorksheet, openWorksheet } = await import('../lib/dailyWorksheet');
+      openWorksheet(buildDailyWorksheet({ count: 30 }));
+    } catch (err) {
+      console.error('[DailySession] worksheet failed', err);
+    } finally {
+      setSheetBusy(false);
+    }
   };
 
   const openStep = (stepId) => {
@@ -235,6 +250,14 @@ export default function DailySession({ onBack }) {
               {streak} dag{streak === 1 ? '' : 'e'} i træk
             </div>
           )}
+          {onOpenSettings && (
+            <button
+              onClick={onOpenSettings}
+              className="text-[12px] text-[#8e8e93] hover:text-[#121417] transition-colors"
+            >
+              Indstillinger
+            </button>
+          )}
         </div>
       </header>
 
@@ -366,6 +389,34 @@ export default function DailySession({ onBack }) {
           >
             Giv mig en anden session
           </button>
+
+          {/* Paper route: the same material as a printable sheet with a Facit,
+              so the day can be done away from the screen. Writing an answer by
+              hand is a different act from picking the least-wrong of three
+              buttons, and closer to what PD3 asks for. */}
+          <div className="mt-7 pt-6 border-t border-[#e5e5ea]">
+            <div className="text-[12px] uppercase tracking-wide text-[#8e8e93] mb-2">
+              På papir
+            </div>
+            <p className="text-[12.5px] text-[#8e8e93] leading-snug mb-3 max-w-[46ch]">
+              30 opgaver fra dine svageste kategorier på dit niveau, med en kort
+              gennemgang af emnet først og facit til sidst.
+            </p>
+            <button
+              onClick={handleDownloadWorksheet}
+              disabled={sheetBusy}
+              className="px-4 py-2.5 rounded-xl bg-[#121417] text-white text-[13px] font-medium hover:bg-black disabled:opacity-50 transition-colors"
+            >
+              {sheetBusy ? 'Henter …' : 'Hent dagens opgaver (PDF)'}
+            </button>
+          </div>
+
+          {onOpenLegal && (
+            <div className="mt-8 flex gap-4 text-[11.5px] text-[#8e8e93]">
+              <button onClick={() => onOpenLegal('privacy')} className="hover:text-[#121417] transition-colors">Privatliv</button>
+              <button onClick={() => onOpenLegal('terms')} className="hover:text-[#121417] transition-colors">Betingelser</button>
+            </div>
+          )}
         </div>
       </main>
     </div>

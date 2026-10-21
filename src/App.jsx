@@ -18,6 +18,11 @@ import SurpriseTest from './components/SurpriseTest';
 import './styles/web-design-system.css';
 
 const DailySession = lazy(()=>import('./components/DailySession'));
+// Built but never routed: the LLM key could not be entered anywhere, and the
+// legal pages were unreachable.
+const SettingsModal = lazy(()=>import('./components/SettingsModal'));
+const PrivacyView = lazy(()=>import('./components/PrivacyView'));
+const TermsView = lazy(()=>import('./components/TermsView'));
 const DiagnosticView = lazy(()=>import('./components/DiagnosticView'));
 const PostAssessmentDashboard = lazy(()=>import('./components/PostAssessmentDashboard'));
 const LearningRoadmapView = lazy(()=>import('./components/LearningRoadmapView'));
@@ -38,6 +43,7 @@ export default function App() {
     return diagnostic ? 'dashboard' : 'assessment';
   });
 
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const [resumeSection, setResumeSection] = useState(null);
   const [currentLessonId, setCurrentLessonId] = useState(null);
   const [showAdmin, setShowAdmin] = useState(false);
@@ -313,11 +319,29 @@ export default function App() {
             />
           )}
           {page === 'session' && (
-            <Suspense fallback={<div className="min-h-screen bg-[#FCFBF7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>}>
-              <DailySession onBack={() => setPage('dashboard')} />
+            <Suspense fallback={<div className="min-h-screen bg-[#f2f2f7] grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-black/10 border-t-black animate-spin" /></div>}>
+              <DailySession
+                onBack={() => setPage('dashboard')}
+                onOpenSettings={() => setSettingsOpen(true)}
+                onOpenLegal={(which) => setPage(which)}
+              />
+            </Suspense>
+          )}
+          {(page === 'privacy' || page === 'terms') && (
+            <Suspense fallback={null}>
+              <div className="min-h-screen bg-[#f2f2f7]">
+                <div className="max-w-3xl mx-auto px-5 py-5">
+                  <button onClick={() => setPage('session')} className="text-[13px] text-[#8e8e93] hover:text-[#121417]">← Tilbage</button>
+                </div>
+                {page === 'privacy' ? <PrivacyView setActive={() => setPage('session')} /> : <TermsView setActive={() => setPage('session')} />}
+              </div>
             </Suspense>
           )}
         </div>
+
+        <Suspense fallback={null}>
+          <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+        </Suspense>
       </div>
     </ErrorBoundary>
   );
