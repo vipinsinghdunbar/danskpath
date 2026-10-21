@@ -4,9 +4,19 @@ import { getExercisesByCategory, getAllCategories } from '../lib/completeGrammar
 import { selectItems, inferExerciseLevel } from '../lib/contentSelector';
 import { getSkillDifficulty } from '../lib/sessionEngine';
 
-export default function PracticeSession({ onBack, difficulty = null }) {
-  const [stage, setStage] = useState('setup'); // setup, practicing, results
-  const [duration, setDuration] = useState(15); // minutes
+// `autoStart` is set when the daily session opens this view. The plan has
+// already chosen the duration and the focus, so asking again is a second
+// configuration screen in front of a step the learner already committed to —
+// which defeats the point of having a plan. With it set, the drill begins
+// immediately on the plan's terms; opened on its own, the setup screen stays.
+export default function PracticeSession({
+  onBack,
+  difficulty = null,
+  autoStart = false,
+  minutes = null,
+}) {
+  const [stage, setStage] = useState(autoStart ? 'practicing' : 'setup');
+  const [duration, setDuration] = useState(minutes ?? 15); // minutes
   const [focusType, setFocusType] = useState('weak'); // weak, all, category
   const [selectedCategory, setSelectedCategory] = useState('ORD');
 
@@ -73,6 +83,13 @@ export default function PracticeSession({ onBack, difficulty = null }) {
     setStage('practicing');
     setCurrentIndex(0);
   };
+
+  // Opened from the daily plan: generate the drill on mount so the learner
+  // lands on the first question rather than a setup screen.
+  useEffect(() => {
+    if (autoStart && exercises.length === 0) handleStartSession();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoStart]);
 
   // Handle answer
   const handleAnswerSelect = (answer) => {
@@ -166,7 +183,7 @@ export default function PracticeSession({ onBack, difficulty = null }) {
                   ))}
                 </div>
                 <p className="text-xs text-gray-500 mt-2">
-                  ~{Math.round((duration * 60) / 90)} exercises ({Math.round((duration * 60) / 90) * 90 || 90}s each)
+                  ~{Math.round((duration * 60) / 90)} øvelser · ca. 90 sek. hver
                 </p>
               </div>
 

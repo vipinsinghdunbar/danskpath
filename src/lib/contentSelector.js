@@ -166,6 +166,78 @@ function shuffle(list) {
   return out;
 }
 
+/**
+ * Estimate how long an item actually takes, in minutes.
+ *
+ * Step times used to be a hardcoded constant per skill: reading was always
+ * "10 min". Measured against the real content that is fiction — reading texts
+ * average 100 words and 1.1 questions, which is about 1.6 minutes, so a
+ * "50 minute" session contained roughly 33 minutes of work. An estimate the
+ * learner can feel is wrong erodes trust in the whole plan, so it is derived
+ * from the item instead.
+ *
+ * Reading is figured at 100 words per minute, which is deliberately slow —
+ * that is a B1 learner reading a second language carefully, not a native
+ * skimming. Listening counts the clip's own duration where it has one, plus
+ * replays, since nobody understands a natural-pace clip in one pass. Both add
+ * 30 seconds per comprehension question.
+ */
+export function estimateItemMinutes(item, kind) {
+  if (!item) return 0;
+  const questions = (item.questions?.length ?? 0) * 0.5;
+
+  if (kind === 'listening') {
+    // `duration` is an "m:ss" display string, not a number — dividing it gave
+    // NaN, which propagated into the session total.
+    const clipMinutes = parseDuration(item.duration);
+    const fallback = item.transcript ? item.transcript.split(/\s+/).length / 130 : 1;
+    const base = clipMinutes || fallback;
+    // Two passes, because nobody follows a natural-pace clip first time, plus
+    // 30s to read the transcript afterwards.
+    return base * 2 + questions + 0.5;
+  }
+
+  const words = item.words ?? (item.text ? item.text.split(/\s+/).length : 0);
+  const estimate = words / 100 + questions;
+  return Number.isFinite(estimate) ? estimate : 0;
+}
+
+/** "1:42" -> 1.7 minutes. Tolerates a plain number of seconds, or nothing. */
+function parseDuration(value) {
+  if (typeof value === 'number' && Number.isFinite(value)) return value / 60;
+  if (typeof value !== 'string') return 0;
+  const parts = value.split(':').map(Number);
+  if (parts.some((n) => !Number.isFinite(n))) return 0;
+  if (parts.length === 2) return parts[0] + parts[1] / 60;
+  if (parts.length === 1) return parts[0] / 60;
+  return 0;
+}
+
+/**
+ * Pick enough items to genuinely fill `targetMinutes`.
+ *
+ * A single 62-word text does not fill a ten-minute slot, so a step stacks
+ * several items and reports what they really add up to. Capped so a step never
+ * becomes an endless queue.
+ */
+export function selectBlock({ kind, items, difficulty, targetMinutes, maxItems = 5 }) {
+  const chosen = [];
+  let minutes = 0;
+
+  const pool = selectItems({ kind, items, difficulty, count: maxItems });
+  for (const item of pool) {
+    const cost = estimateItemMinutes(item, kind);
+    // Always take the first, so a step is never empty; then stop once adding
+    // another would overshoot the slot.
+    if (chosen.length && minutes + cost > targetMinutes) break;
+    chosen.push(item);
+    minutes += cost;
+    if (minutes >= targetMinutes) break;
+  }
+
+  return { items: chosen, minutes: Math.max(1, Math.round(minutes)) };
+}
+
 /** How much unseen material remains per band — drives the runway warning. */
 export function getRemaining(kind, items, levelOf = (i) => i.level ?? null) {
   const used = getUsed(kind);

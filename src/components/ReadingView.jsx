@@ -5,12 +5,29 @@ import { useTTS } from '../hooks/useTTS';
 // `preselectId` is the text the daily session picked: unseen, at the learner's
 // current level. Without it this view opened readingTexts[4] every time, so a
 // sequenced session served the same text every day from day two.
-export default function ReadingView({ preselectId = null }) {
+export default function ReadingView({
+  preselectId = null,
+  preselectIds = null,
+  sessionMode = false,
+}) {
   const [level, setLevel] = useState('Alle');
   const [typeFilter, setTypeFilter] = useState('Alle');
-  const [active, setActive] = useState(
-    () => readingTexts.find((t) => String(t.id) === String(preselectId)) ?? readingTexts[4],
-  );
+  // A session step stacks several short texts so the slot is genuinely filled;
+  // the queue is those texts, walked in order.
+  const queue = (preselectIds ?? (preselectId != null ? [preselectId] : []))
+    .map((id) => readingTexts.find((t) => String(t.id) === String(id)))
+    .filter(Boolean);
+
+  const [queueIndex, setQueueIndex] = useState(0);
+  const [active, setActive] = useState(() => queue[0] ?? readingTexts[4]);
+
+  const goToQueueItem = (index) => {
+    const next = queue[index];
+    if (!next) return;
+    setQueueIndex(index);
+    setActive(next);
+    setAnswers({});
+  };
   const [answers, setAnswers] = useState({});
   const [showGlossary, setShowGlossary] = useState(false);
   const { speak } = useTTS();
@@ -25,7 +42,9 @@ export default function ReadingView({ preselectId = null }) {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <div className="w-[360px] border-r border-[#E8E2D9] bg-[#FCFBF7] overflow-y-auto">
+      {/* In session mode the plan has already chosen the text, so the browser
+          of 39 others and its 18 filter chips is an invitation off the rails. */}
+      <div className={`${sessionMode ? 'hidden' : ''} w-[360px] border-r border-[#E8E2D9] bg-[#FCFBF7] overflow-y-auto`}>
         <div className="p-4 sticky top-0 bg-[#FCFBF7] border-b border-[#E8E2D9]">
           <h2 className="font-display font-bold text-[18px]">Læsning • {readingTexts.length}</h2>
           <div className="flex gap-1.5 mt-3 flex-wrap">
@@ -52,6 +71,30 @@ export default function ReadingView({ preselectId = null }) {
 
       <div className="flex-1 overflow-y-auto p-8 bg-white">
         <div className="max-w-[720px] mx-auto">
+          {queue.length > 1 && (
+            <div className="mb-5 flex items-center justify-between gap-4 pb-4 border-b border-[#E8E2D9]">
+              <span className="text-[12px] text-[#6B7280] tabular-nums">
+                Tekst {queueIndex + 1} af {queue.length}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => goToQueueItem(queueIndex - 1)}
+                  disabled={queueIndex === 0}
+                  className="btn-ghost text-[13px] disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  ← Forrige
+                </button>
+                <button
+                  onClick={() => goToQueueItem(queueIndex + 1)}
+                  disabled={queueIndex >= queue.length - 1}
+                  className="btn-ghost text-[13px] disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  Næste tekst →
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="flex items-center gap-2 mb-2">
             <span className="text-[11px] px-2 py-1 rounded-full bg-[#121212] text-white">{active.level}</span>
             <span className="text-[11px] uppercase tracking-widest text-[#6B7280]">{active.type} • {active.words} ord</span>

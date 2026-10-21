@@ -332,30 +332,46 @@ export async function buildTodaySession({ moduleId, dateKey = todayKey(), force 
   });
   minutes += STEP_COST.grammar;
 
-  // 2. Fill the rest of the sitting with the skills furthest behind.
-  const candidates = chooseRotatingSkills(progress, ROTATING_SKILLS.length, { dateKey });
-  for (const skill of candidates) {
-    const cost = STEP_COST[skill.kind] ?? 10;
-    if (minutes + cost > TARGET_MINUTES) continue;
+  // 2. Build a candidate step for every rotating skill, in priority order.
+  //
+  // The budget is applied *after* items are attached, not before. STEP_COST is
+  // only a provisional slot size; the real cost comes from the content, and a
+  // reading block that turns out to be four minutes rather than ten should free
+  // that time for another skill instead of just making the session shorter.
+  const candidates = chooseRotatingSkills(progress, ROTATING_SKILLS.length, { dateKey }).map(
+    (skill) => {
+      const difficulty = getSkillDifficulty(skill.kind);
+      return {
+        id: `${dateKey}-${skill.kind}`,
+        kind: skill.kind,
+        view: skill.view,
+        label: labelFor(skill.kind),
+        difficulty,
+        cefr: difficultyToCEFR(difficulty),
+        estimatedMinutes: STEP_COST[skill.kind] ?? 10,
+        reason: reasonFor(skill, progress),
+        done: false,
+      };
+    },
+  );
 
-    const difficulty = getSkillDifficulty(skill.kind);
-    steps.push({
-      id: `${dateKey}-${skill.kind}`,
-      kind: skill.kind,
-      view: skill.view,
-      label: labelFor(skill.kind),
-      difficulty,
-      cefr: difficultyToCEFR(difficulty),
-      estimatedMinutes: cost,
-      reason: reasonFor(skill, progress),
-      done: false,
-    });
+  // Pick the concrete items each step opens on, before the plan is persisted,
+  // so what is shown and what is opened cannot drift apart. This also replaces
+  // the provisional slot size with what the content actually costs.
+  await attachItems([...steps, ...candidates]);
+
+  // 3. Now take candidates in priority order until the sitting is full.
+  for (const step of candidates) {
+    const cost = Number.isFinite(step.estimatedMinutes) ? step.estimatedMinutes : 10;
+    step.estimatedMinutes = cost;
+    if (minutes + cost > TARGET_MINUTES) continue;
+    // Six steps is already a lot of context-switching for one sitting; honest
+    // (shorter) estimates free up budget, and that budget is better spent on
+    // depth within a skill than on a seventh and eighth switch.
+    if (steps.length >= 6) break;
+    steps.push(step);
     minutes += cost;
   }
-
-  // Pick the concrete item each step opens on, before the plan is persisted,
-  // so what is shown and what is opened cannot drift apart.
-  await attachItems(steps);
 
   const session = {
     dateKey,
@@ -384,7 +400,7 @@ export async function buildTodaySession({ moduleId, dateKey = todayKey(), force 
  */
 async function attachItems(steps) {
   const [
-    { selectItem, selectPronunciationWeek },
+    { selectItem, selectPronunciationWeek, selectBlock },
     { readingTexts },
     { listeningPieces },
     { conversationScenarios },
@@ -457,6 +473,30 @@ async function attachItems(steps) {
         continue;
       }
 
+      // Only reading and listening stack. Their items are short — a 62-word
+      // text is under two minutes — so one of them cannot honestly fill a slot.
+      // A conversation is a single open-ended dialogue and is not a queue, so
+      // it keeps one item and its provisional slot size.
+      if (step.kind === 'reading' || step.kind === 'listening') {
+        const block = selectBlock({
+          kind: step.kind,
+          items: pool,
+          difficulty: step.difficulty,
+          targetMinutes: step.estimatedMinutes,
+        });
+
+        if (block.items.length) {
+          step.itemIds = block.items.map((i) => i.id);
+          step.itemId = block.items[0].id;
+          step.itemTitle =
+            block.items.length > 1
+              ? `${block.items[0].title} + ${block.items.length - 1} mere`
+              : block.items[0].title;
+          step.estimatedMinutes = block.minutes;
+        }
+        continue;
+      }
+
       const item = selectItem({ kind: step.kind, items: pool, difficulty: step.difficulty });
       if (item) {
         step.itemId = item.id;
@@ -469,7 +509,7 @@ async function attachItems(steps) {
   return steps;
 }
 
-function labelFor(kind) {
+export function labelFor(kind) {
   const labels = {
     grammar: 'Grammatik',
     listening: 'Lytning',
@@ -478,6 +518,7 @@ function labelFor(kind) {
     speaking: 'Tale',
     pronunciation: 'Udtale',
     conversation: 'Samtale',
+    vocab: 'Ordforråd',
   };
   return labels[kind] ?? kind;
 }

@@ -5,12 +5,20 @@ import { getUsed, markUsed, getUnused } from '../lib/tracking';
 
 // `preselectId` is the clip the daily session picked — unseen, at the learner's
 // current level — so the session does not reopen the same piece each day.
-export default function ListeningView({ preselectId = null }) {
+export default function ListeningView({
+  preselectId = null,
+  preselectIds = null,
+  sessionMode = false,
+}) {
   const [level, setLevel] = useState('Alle');
-  const [active, setActive] = useState(
-    () =>
-      listeningPieces.find((p) => String(p.id) === String(preselectId)) ?? listeningPieces[0],
-  );
+
+  // A session step stacks several short clips so the slot is genuinely filled.
+  const queue = (preselectIds ?? (preselectId != null ? [preselectId] : []))
+    .map((id) => listeningPieces.find((p) => String(p.id) === String(id)))
+    .filter(Boolean);
+
+  const [queueIndex, setQueueIndex] = useState(0);
+  const [active, setActive] = useState(() => queue[0] ?? listeningPieces[0]);
   const [showTranscript, setShowTranscript] = useState(false);
   const [answers, setAnswers] = useState({});
   const { speak, speaking } = useTTS();
@@ -31,7 +39,8 @@ export default function ListeningView({ preselectId = null }) {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <div className="w-[360px] border-r border-[#E8E2D9] bg-[#FCFBF7] overflow-y-auto">
+      {/* Hidden in session mode: the plan already chose the clip. */}
+      <div className={`${sessionMode ? 'hidden' : ''} w-[360px] border-r border-[#E8E2D9] bg-[#FCFBF7] overflow-y-auto`}>
         <div className="p-4 sticky top-0 bg-[#FCFBF7] border-b border-[#E8E2D9]">
           <h2 className="font-display font-bold text-[18px]">Lytning · Nok til PD3</h2>
           <div className="flex gap-1.5 mt-3">
@@ -62,6 +71,30 @@ export default function ListeningView({ preselectId = null }) {
 
       <div className="flex-1 overflow-y-auto p-8 bg-white">
         <div className="max-w-[700px] mx-auto">
+          {queue.length > 1 && (
+            <div className="mb-5 flex items-center justify-between gap-4 pb-4 border-b border-[#E8E2D9]">
+              <span className="text-[12px] text-[#6B7280] tabular-nums">
+                Klip {queueIndex + 1} af {queue.length}
+              </span>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => { const n = queue[queueIndex-1]; if(!n) return; setQueueIndex(queueIndex-1); setActive(n); setAnswers({}); setShowTranscript(false); }}
+                  disabled={queueIndex === 0}
+                  className="btn-ghost text-[13px] disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  ← Forrige
+                </button>
+                <button
+                  onClick={() => { const n = queue[queueIndex+1]; if(!n) return; setQueueIndex(queueIndex+1); setActive(n); setAnswers({}); setShowTranscript(false); }}
+                  disabled={queueIndex >= queue.length - 1}
+                  className="btn-ghost text-[13px] disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  Næste klip →
+                </button>
+              </div>
+            </div>
+          )}
+
           <div className="flex items-center gap-2 mb-2">
             <span className="text-[11px] px-2 py-1 rounded-full bg-[#121212] text-white">{active.level}</span>
             <span className="text-[11px] uppercase tracking-widest text-[#6B7280]">{active.type} • {active.duration}</span>

@@ -8,6 +8,7 @@ import {
   getAllSkillDifficulties,
   difficultyToCEFR,
   regenerateToday,
+  labelFor,
 } from '../lib/sessionEngine';
 
 /**
@@ -144,7 +145,8 @@ export default function DailySession({ onBack }) {
           </div>
         </header>
 
-        <div className="flex-1">
+        {/* Padded to clear the fixed completion bar below. */}
+        <div className="flex-1 pb-[150px]">
           <Suspense fallback={<Spinner />}>
             {View ? (
               <View
@@ -152,6 +154,10 @@ export default function DailySession({ onBack }) {
                 difficulty={activeStep.difficulty}
                 level={activeStep.cefr}
                 preselectId={activeStep.itemId}
+                preselectIds={activeStep.itemIds}
+                sessionMode
+                autoStart
+                minutes={activeStep.estimatedMinutes}
                 onComplete={(res) => finishStep(activeStep.id, res ?? {})}
               />
             ) : (
@@ -164,7 +170,14 @@ export default function DailySession({ onBack }) {
 
         {/* Grammar reports its own accuracy; the skill views cannot be
             auto-marked, so they close on a self-report instead. */}
-        <footer className="border-t border-[#E8E2D9] bg-white sticky bottom-0 z-20">
+        {/* Fixed rather than sticky: this sits inside the app shell's own
+            scroll container, where `sticky bottom-0` did not pin and the
+            control ended up below the fold — so the way to finish a step was
+            invisible until you scrolled past the whole exercise. */}
+        <footer
+          className="border-t border-[#E8E2D9] bg-white fixed bottom-0 left-0 right-0 z-30"
+          style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+        >
           <div className="max-w-5xl mx-auto px-5 py-4">
             {isGrammar ? (
               <button
@@ -341,7 +354,7 @@ export default function DailySession({ onBack }) {
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             {Object.entries(difficulties).map(([skill, value]) => (
               <div key={skill} className="text-[12.5px]">
-                <span className="text-[#6B6358] capitalize">{skill}</span>{' '}
+                <span className="text-[#6B6358]">{labelFor(skill)}</span>{' '}
                 <span className="font-medium tabular-nums">{difficultyToCEFR(value)}</span>
               </div>
             ))}
