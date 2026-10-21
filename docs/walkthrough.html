@@ -1,0 +1,280 @@
+<title>Ana's First Two Days</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&display=swap">
+
+<style>
+/* Layout: a documented walk, one step per block — number, prose, the real
+   screen, then what happened underneath. Single reading column; screenshots
+   break slightly wider so the UI stays legible. */
+:root{
+  --ground:#F2F3F0; --card:#FFFFFF; --rule:#DADDD6; --rule-soft:#E6E8E3;
+  --ink:#1F2320; --ink-soft:#5B635C; --ink-faint:#8B938B;
+  --moss:#3F6B4E; --shadow:0 1px 2px rgba(31,35,32,.06),0 8px 28px rgba(31,35,32,.07);
+  --font-text:"Literata",Georgia,serif;
+  --font-ui:"Archivo",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#151715; --card:#1D211E; --rule:#2E332F; --rule-soft:#242825;
+    --ink:#E9ECE8; --ink-soft:#9BA39B; --ink-faint:#6C746D;
+    --moss:#7FB592; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 28px rgba(0,0,0,.35);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#151715; --card:#1D211E; --rule:#2E332F; --rule-soft:#242825;
+  --ink:#E9ECE8; --ink-soft:#9BA39B; --ink-faint:#6C746D;
+  --moss:#7FB592; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 28px rgba(0,0,0,.35);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:var(--font-text); font-size:17px; line-height:1.66;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:0;
+}
+.wrap{max-width:980px;margin:0 auto}
+.col{max-width:680px}
+
+.eyebrow{font-family:var(--font-ui); font-size:11.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--moss)}
+
+header.mast{padding-block:60px 40px}
+h1{font-family:var(--font-text); font-size:clamp(34px,6vw,52px); line-height:1.06; font-weight:600; letter-spacing:-.02em; margin:14px 0 22px; text-wrap:balance}
+.standfirst{font-size:19.5px; line-height:1.6; color:var(--ink-soft); margin:0 0 26px}
+
+/* persona card */
+.persona{
+  background:var(--card); border:1px solid var(--rule); border-radius:4px;
+  padding:22px 24px; max-width:680px; box-shadow:var(--shadow);
+}
+.persona h2{font-family:var(--font-ui); font-size:15px; font-weight:600; margin:0 0 10px; letter-spacing:-.005em}
+.persona p{font-size:15.5px; color:var(--ink-soft); margin:0}
+.persona dl{display:grid; grid-template-columns:auto 1fr; gap:4px 16px; margin:14px 0 0; font-family:var(--font-ui); font-size:13.5px}
+.persona dt{color:var(--ink-faint)}
+.persona dd{margin:0; color:var(--ink)}
+
+/* steps */
+.step{padding-block:46px; border-top:1px solid var(--rule-soft)}
+.step:first-of-type{border-top:2px solid var(--ink)}
+.num{font-family:var(--font-ui); font-size:12px; font-weight:600; color:var(--moss); letter-spacing:.1em}
+h3{font-size:clamp(23px,3.4vw,29px); font-weight:600; letter-spacing:-.016em; margin:8px 0 14px; line-height:1.2; text-wrap:balance}
+p{margin:0 0 16px}
+p:last-child{margin-bottom:0}
+.step p{color:var(--ink-soft)}
+.step p strong{color:var(--ink); font-weight:600}
+em.da{font-style:normal; font-family:var(--font-ui); font-size:.93em; background:var(--rule-soft); padding:.08em .34em; border-radius:2px}
+
+figure{margin:26px 0 0}
+figure img{display:block; width:100%; height:auto; border:1px solid var(--rule); border-radius:4px; box-shadow:var(--shadow); background:var(--card)}
+figcaption{font-family:var(--font-ui); font-size:13px; color:var(--ink-faint); margin-top:11px; max-width:680px; line-height:1.5}
+
+/* under-the-hood aside */
+.hood{
+  margin-top:26px; max-width:680px; border-left:2px solid var(--moss);
+  padding:3px 0 3px 17px;
+}
+.hood .h{font-family:var(--font-ui); font-size:11.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--moss); display:block; margin-bottom:5px}
+.hood p{font-size:15px; color:var(--ink-soft); margin:0}
+
+/* closing */
+.weeks{display:grid; gap:1px; background:var(--rule); border:1px solid var(--rule); margin-top:24px; max-width:680px}
+.weeks div{background:var(--ground); padding:15px 17px; display:grid; grid-template-columns:76px minmax(0,1fr); gap:16px; align-items:baseline}
+.weeks dt{font-family:var(--font-ui); font-size:12.5px; color:var(--moss); font-weight:600}
+.weeks dd{margin:0; font-size:15.5px; color:var(--ink-soft)}
+
+.caveats{margin-top:22px; max-width:680px}
+.caveats div{padding:13px 0; border-top:1px solid var(--rule-soft); font-size:15.5px; color:var(--ink-soft)}
+.caveats b{color:var(--ink); font-weight:600}
+
+footer{padding-block:34px 60px; border-top:1px solid var(--rule); margin-top:40px}
+footer p{font-size:14px; color:var(--ink-faint); max-width:660px}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="col">
+    <div class="eyebrow">DanskPath · walkthrough</div>
+    <h1>Ana's first two days</h1>
+    <p class="standfirst">Every screen below is the real application, captured end to end in one unbroken run — signing up, being placed, and finishing two sessions. Nothing is mocked up.</p>
+  </div>
+
+  <div class="persona">
+    <h2>Who is walking through</h2>
+    <p>Ana moved to Copenhagen eight months ago and attends Danskuddannelse 3 two evenings a week. She can follow most of what her colleagues say and freezes when she has to answer. She has twenty-five minutes after dinner and no appetite for deciding what to study.</p>
+    <dl>
+      <dt>Class</dt><dd>UCplus, Modul 3</dd>
+      <dt>Goal</dt><dd>Prøve i Dansk 3</dd>
+      <dt>Time</dt><dd>One session a day, around 40 minutes</dd>
+    </dl>
+  </div>
+</header>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 01</div>
+    <h3>She makes an account</h3>
+    <p>No email confirmation, no onboarding carousel. The account exists only in her browser — there is no server, and her record never leaves the machine she is sitting at.</p>
+  </div>
+  <figure>
+    <img src="img/02-signup.png" alt="The sign-up form with a display name, email and password filled in for Ana Reis.">
+    <figcaption>Three fields. The trade-off of a local-only account is that it does not follow her to another computer.</figcaption>
+  </figure>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 02</div>
+    <h3>She takes a placement test</h3>
+    <p>Before anything else, seventeen items spread across reading, grammar, listening and speaking. It is the only time the app asks her a long series of questions in a row.</p>
+  </div>
+  <figure>
+    <img src="img/04-placement-question.png" alt="A placement test question with multiple choice answers.">
+    <figcaption>Placement items are deliberately mixed, so no single weak area decides the whole result.</figcaption>
+  </figure>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 03</div>
+    <h3>She gets four levels, not one</h3>
+    <p>This is the moment the product exists for. Ana scores <strong>100% on listening</strong> and <strong>40% on grammar</strong>. She is not "an A1 learner" or "a B1 learner" — she is a strong listener who cannot yet produce, which is exactly what half a year of evening classes tends to produce.</p>
+    <p>A single-number app would average this into something true of nobody and then teach to that average.</p>
+  </div>
+  <figure>
+    <img src="img/05-placement-result.png" alt="The placement result screen showing Reading 50% A1, Grammar 40% A1, Listening 100% B1 and Speaking 40% A1.">
+    <figcaption>Four skills measured separately, and kept separate from here on.</figcaption>
+  </figure>
+  <div class="hood">
+    <span class="h">Under the hood</span>
+    <p>These four scores seed seven independent difficulty ladders. Writing starts a notch below grammar, because production trails recognition for nearly every learner; vocabulary follows reading; pronunciation follows speaking.</p>
+  </div>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 04</div>
+    <h3>Day one is already planned</h3>
+    <p>She opens the app and there is no menu, no streak to protect, no choice to make. Four steps, thirty-nine minutes, and each one says why it was chosen — <em class="da">0 af 18 klaret i dette modul — største hul lige nu</em>.</p>
+    <p>Look at the second step. <strong>Listening is set at B2 on her very first day</strong>, while her reading and grammar sit at A2. The placement test is not a formality she passed through; it decided what she is about to hear.</p>
+  </div>
+  <figure>
+    <img src="img/06-plan-day1.png" alt="Day one plan: Grammatik A2 12 minutes, Lytning B2 10 minutes, Læsning A2 7 minutes, Tale A2 10 minutes.">
+    <figcaption>The plan names the actual material — <em class="da">Borgermøde: Lokalplan</em>, <em class="da">Boligjagt + 4 mere</em> — so she knows what she is walking into.</figcaption>
+  </figure>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 05</div>
+    <h3>Grammar starts immediately</h3>
+    <p>Tapping the first step puts her on question one. It does not ask how long she wants to practise or what she would like to focus on; the plan settled that, and asking twice is how a tired Tuesday turns into no practice at all.</p>
+    <p>Fifteen items, drawn from her weakest error categories at her current level, with nothing repeated inside the sitting.</p>
+  </div>
+  <figure>
+    <img src="img/07-grammar-question.png" alt="A grammar question: Dog ___ hun kommet til tiden, with three options.">
+    <figcaption>Each item carries an error code — this one is ORD, word order — which is how the app learns what she keeps missing.</figcaption>
+  </figure>
+  <figure>
+    <img src="img/08-grammar-feedback.png" alt="The same grammar question after an answer has been selected, showing feedback.">
+    <figcaption>Answer, see why, move on.</figcaption>
+  </figure>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 06</div>
+    <h3>The first step closes and the level moves</h3>
+    <p>Back on the plan, grammar is ticked and the progress bar has advanced. Her result has already been folded into tomorrow's starting level for that skill.</p>
+  </div>
+  <figure>
+    <img src="img/09-plan-progress.png" alt="The day one plan with the grammar step ticked and the progress bar advanced.">
+    <figcaption>Progress is per step, not per app-wide streak. Missing a day costs nothing but the day.</figcaption>
+  </figure>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 07</div>
+    <h3>Listening, at her level rather than the app's</h3>
+    <p>Ana hears <em class="da">Borgermøde: Lokalplan</em> — a council meeting about a local planning decision. That is a B2 clip, and she gets it on day one because she earned it in the placement test forty minutes earlier.</p>
+    <p>The library of other clips is hidden while she is in a session. The plan already chose; showing her twenty-five alternatives would only invite her off the rails.</p>
+  </div>
+  <figure>
+    <img src="img/10-listening-step.png" alt="The listening step in session mode, with no sidebar, showing the clip and its comprehension question.">
+    <figcaption>Clips are spoken by the browser, so there are no audio files to download and it works offline.</figcaption>
+  </figure>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 08</div>
+    <h3>She says how it felt</h3>
+    <p>Grammar scores itself. Listening, reading, writing and speaking cannot be marked honestly by any app, so each closes with three buttons: <em class="da">For let</em>, <em class="da">Passende</em>, <em class="da">For svært</em>.</p>
+    <p>That one tap is not decoration. It moves the ladder for that skill, which changes what she is given tomorrow.</p>
+  </div>
+  <figure>
+    <img src="img/11-self-report.png" alt="The three self-report buttons at the bottom of a step: For let, Passende, For svært.">
+    <figcaption>Self-assessment is weaker than a measurement, and more honest than pretending to measure.</figcaption>
+  </figure>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 09</div>
+    <h3>Thirty-nine minutes later, she is done</h3>
+    <p>Four steps, four ticks. Her levels are listed at the bottom: listening has held at B2, everything else is still A2. One day in a row.</p>
+  </div>
+  <figure>
+    <img src="img/12-day-complete.png" alt="The completed session: four ticked steps, a full progress bar, and the level readout showing Lytning B2 and everything else A2.">
+    <figcaption>No confetti, no points. The session is over because the work is done.</figcaption>
+  </figure>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">STEP 10</div>
+    <h3>Day two is a different day</h3>
+    <p>She comes back and gets <strong>writing, vocabulary and pronunciation</strong> — none of which she did yesterday. Nothing she has already read or heard will be served to her again.</p>
+    <p>This is the rotation working: skills are chosen by how far they sit from her Modul 3 requirement <em>and</em> by how long since she last touched them, so nothing goes stale for more than about a week and no single skill can monopolise her evenings.</p>
+  </div>
+  <figure>
+    <img src="img/13-plan-day2.png" alt="Day two plan: Grammatik, Skrivning, Ordforråd and Udtale — a different set of skills from day one.">
+    <figcaption>Grammar is the only daily constant. Everything else rotates.</figcaption>
+  </figure>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">AFTER THAT</div>
+    <h3>What the next weeks look like</h3>
+    <div class="weeks">
+      <div><dt>Week 1</dt><dd>The ladders separate. Listening pulls ahead, writing lags, and the gap between them stops being invisible.</dd></div>
+      <div><dt>Week 2–3</dt><dd>Grammar climbs fastest because it runs daily. Her weakest error codes start recurring in surprise tests.</dd></div>
+      <div><dt>Week 4+</dt><dd>Content she has seen begins to recycle, by design for grammar and vocabulary — that is spaced repetition — and as a genuine limit for reading and listening.</dd></div>
+    </div>
+  </div>
+</section>
+
+<section class="step">
+  <div class="col">
+    <div class="num">HONESTLY</div>
+    <h3>What Ana would hit</h3>
+    <p>Four things she would run into, stated because a walkthrough that only shows the happy path is an advertisement.</p>
+    <div class="caveats">
+      <div><b>Reading texts are short.</b> About 100 words with roughly one comprehension question. At B1 and above that is thin, which is why the reading step stacks several texts rather than serving one.</div>
+      <div><b>The ladder has a ceiling.</b> There are no B2-tagged grammar exercises, so at the top it draws from the general pool rather than genuinely harder material.</div>
+      <div><b>The grammar drill looks like a different app.</b> Different palette, English interface strings. It works, and it has not been reconciled with the rest.</div>
+      <div><b>Nobody has used it for a full week.</b> Everything on this page is a real capture of real software, verified screen by screen. None of it is yet verified by a learner who finished seven sessions in a row.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Captured in a single automated run against a production build on 21 October 2026: sign-up through to the day-two plan, thirteen screens, no crashes. Ana is a stand-in; the placement scores, the chosen material and the levels shown are whatever the application actually produced.</p>
+</footer>
+
+</div>

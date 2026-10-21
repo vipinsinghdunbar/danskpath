@@ -211,7 +211,15 @@ export default function DiagnosticView({ onComplete }) {
   };
 
   const determineLevelFromScores = () => {
-    const avgScore = (scores.reading || 0 + scores.grammar || 0 + scores.listening || 0 + scores.speaking || 0) / 4;
+    // This was `(scores.reading || 0 + scores.grammar || 0 + ...) / 4`, which
+    // does not average anything: `||` binds looser than `+`, so the expression
+    // returns the first truthy score and divides that by four. A learner
+    // scoring 50 on reading was placed on 12.5, and anyone scoring 0 on reading
+    // was placed on their grammar score alone — every result collapsed to A1.
+    const parts = [scores.reading, scores.grammar, scores.listening, scores.speaking]
+      .map((s) => (typeof s === 'number' ? s : 0));
+    const avgScore = parts.reduce((sum, s) => sum + s, 0) / parts.length;
+
     if (avgScore >= 80) return 'B1';
     if (avgScore >= 65) return 'A2';
     return 'A1';

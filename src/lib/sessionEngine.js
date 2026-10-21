@@ -140,6 +140,64 @@ export function setSkillDifficulty(skill, value) {
   return all[skill];
 }
 
+/**
+ * Seed each skill's starting level from the placement test.
+ *
+ * The diagnostic measures reading, grammar, listening and speaking separately
+ * and shows the learner four different levels — and then every skill started at
+ * 3 (A2) anyway, because nothing carried those results into the ladder. A
+ * learner placed at B1 listening and A1 grammar got identical A2 content for
+ * both, which contradicts the result screen they were just shown.
+ *
+ * Writing, conversation, vocabulary and pronunciation are not tested directly,
+ * so they are derived from the closest measured skill. Only ever seeds skills
+ * that have no stored level yet, so it cannot overwrite earned progress.
+ */
+export function seedDifficultiesFromDiagnostic() {
+  const stored = readJSON('dansk_diagnostic', null);
+  const scores = stored?.scores;
+  if (!scores) return null;
+
+  // Percentage correct -> position on the 0-10 ladder, at the midpoint of the
+  // band so the first session can move either way.
+  const toDifficulty = (pct) => {
+    if (typeof pct !== 'number') return null;
+    if (pct < 40) return 1.5; // A1
+    if (pct < 65) return 3.5; // A2
+    if (pct < 85) return 6.0; // B1
+    return 8.5; // B2
+  };
+
+  const r = toDifficulty(scores.reading);
+  const g = toDifficulty(scores.grammar);
+  const l = toDifficulty(scores.listening);
+  const s = toDifficulty(scores.speaking);
+
+  const seeded = {
+    reading: r,
+    grammar: g,
+    listening: l,
+    speaking: s,
+    // Untested skills, derived from their nearest measured neighbour. Writing
+    // trails grammar because production lags recognition for most learners.
+    writing: g == null ? null : Math.max(0, g - 1),
+    conversation: s,
+    vocab: r,
+    pronunciation: s,
+  };
+
+  const existing = readJSON(DIFFICULTY_KEY, {});
+  let changed = false;
+  for (const [skill, value] of Object.entries(seeded)) {
+    if (value == null) continue;
+    if (typeof existing[skill] === 'number') continue; // never overwrite earned progress
+    existing[skill] = value;
+    changed = true;
+  }
+  if (changed) writeJSON(DIFFICULTY_KEY, existing);
+  return existing;
+}
+
 export function getAllSkillDifficulties() {
   const out = {};
   for (const { kind } of ROTATING_SKILLS) out[kind] = getSkillDifficulty(kind);
@@ -327,6 +385,9 @@ function reasonFor(skill, progress, mod) {
 export async function buildTodaySession({ moduleId, dateKey = todayKey(), force = false } = {}) {
   const history = getSessionHistory();
   if (!force && history[dateKey]) return history[dateKey];
+
+  // Carry the placement test into the ladders before the first plan is built.
+  seedDifficultiesFromDiagnostic();
 
   const resolvedModule =
     moduleId || localStorage.getItem('dansk_module') || 'm3';

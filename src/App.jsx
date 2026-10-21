@@ -82,7 +82,20 @@ export default function App() {
   },[]);
 
   const handleAuthSuccess = () => {
-    // Auth succeeded, will be picked up by useEffect auth listener
+    // This used to only set authChecked and rely on "the useEffect auth
+    // listener" to pick the new user up — but that effect has an empty
+    // dependency array and runs once on mount, so there is no listener. The
+    // account was created in localStorage and the screen stayed on the signup
+    // form: a new user had to guess that reloading would let them in. So read
+    // the session straight back here.
+    const userId = localStorage.getItem('dansk_user_id');
+    const userEmail = localStorage.getItem('dansk_user_email');
+
+    if (userId && userEmail) {
+      setUser({ id: userId, email: userEmail });
+      setUserProfile({ id: userId, email: userEmail });
+      setPage(localStorage.getItem('dansk_diagnostic') ? 'session' : 'assessment');
+    }
     setAuthChecked(true);
   };
 
