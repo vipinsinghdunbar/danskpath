@@ -296,7 +296,7 @@ export default function AdminDashboardView({ setActive }) {
         </div>
 
         <div className="mt-6 text-[11px] text-[#8E8E93] text-center">
-          Shareable link for anyone: <b>{window.location.origin}/?page=assessment</b> → Test → Assessment + Path → Quick account → Start assessed path • Admin: Vipin / vipin123 • Users: {users.length} • Build 855KB
+          Shareable link for anyone: <b>{window.location.origin}/?page=assessment</b> → Test → Assessment + Path → Quick account → Start assessed path • Admin: the admin account • Users: {users.length} • Build 855KB
         </div>
         </>
         )}

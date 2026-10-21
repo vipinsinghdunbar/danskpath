@@ -8,7 +8,7 @@ export default function TermsView({ setActive }) {
           <p className="text-[13px] text-black/50 mt-2">Effective Sep 27, 2026</p>
           <div className="mt-6 text-[14px] leading-[1.7] space-y-4">
             <p><strong>Service:</strong> DanskPath M1→PD3 Danish education, 7-min assessment, personal path, SRS, 15min/day.</p>
-            <p><strong>Accounts:</strong> Trial without account via trialId, or create account name+password (email optional). Change default admin vipin123 after first login. One account per person.</p>
+            <p><strong>Accounts:</strong> Trial without account via trialId, or create account name+password (email optional). One account per person.</p>
             <p><strong>Content:</strong> You own writing/speaking attempts, grant license for service. No illegal/hateful.</p>
             <p><strong>Acceptable:</strong> No scraping question bank, no brute force (rate limited 10/15min), no admin access without role.</p>
             <p><strong>IP:</strong> Curriculum, question bank, engines © DanskPath. No copy/redistribute.</p>

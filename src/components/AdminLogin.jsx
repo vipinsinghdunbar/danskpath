@@ -104,7 +104,7 @@ export default function AdminLogin({ onLoginSuccess, setActive }) {
           <p className="text-center text-xs text-gray-500 mb-3">Demo Credentials:</p>
           <div className="bg-gray-50 rounded p-3 text-xs space-y-1 font-mono">
             <p><span className="text-gray-600">Username:</span> <span className="text-gray-900 font-semibold">admin</span></p>
-            <p><span className="text-gray-600">Password:</span> <span className="text-gray-900 font-semibold">vipin123</span></p>
+            <p><span className="text-gray-600">Password:</span> <span className="text-gray-900 font-semibold">[set via ADMIN_PASSWORD]</span></p>
           </div>
         </div>
 
