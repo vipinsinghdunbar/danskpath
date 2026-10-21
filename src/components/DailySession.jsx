@@ -148,7 +148,7 @@ export default function DailySession({ onBack }) {
           <Suspense fallback={<Spinner />}>
             {View ? (
               <View
-                topic={activeStep.topics?.[0]}
+                topic={activeStep.topic}
                 difficulty={activeStep.difficulty}
                 level={activeStep.cefr}
                 preselectId={activeStep.itemId}

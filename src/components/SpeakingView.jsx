@@ -65,7 +65,21 @@ const Trash2 = (p) => (
   </svg>
 );
 
-export default function SpeakingView({ topic, onComplete }) {
+// `topic` must be an object with a title and prompts. It used to be required,
+// so mounting this view without one threw on `topic.title` and the error
+// boundary swallowed the whole screen. The default keeps the view usable on
+// its own, and the daily session passes a real topic.
+const DEFAULT_TOPIC = {
+  title: 'Fortæl om din dag',
+  prompts: [
+    'Hvad lavede du i morges?',
+    'Hvad var det bedste ved dagen?',
+    'Hvad skal du i morgen?',
+  ],
+  targetLength: '2-3 minutter',
+};
+
+export default function SpeakingView({ topic = DEFAULT_TOPIC, onComplete }) {
   const [recording, setRecording] = useState(false);
   const [audioURL, setAudioURL] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);

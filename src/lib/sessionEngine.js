@@ -417,6 +417,32 @@ async function attachItems(steps) {
         continue;
       }
 
+      // There is no dedicated speaking content pool, so speaking prompts are
+      // derived from the conversation scenarios, which already carry a title, a
+      // goal and useful phrases per level. A separate used-key keeps speaking
+      // and conversation from consuming each other's material.
+      if (step.kind === 'speaking') {
+        const scenario = selectItem({
+          kind: 'speaking',
+          items: conversationScenarios,
+          difficulty: step.difficulty,
+        });
+        if (scenario) {
+          step.itemId = scenario.id;
+          step.itemTitle = scenario.title;
+          step.topic = {
+            title: scenario.title,
+            prompts: [
+              scenario.goal,
+              scenario.description,
+              ...(scenario.phrases ?? []).slice(0, 2),
+            ].filter(Boolean),
+            targetLength: '2-3 minutter',
+          };
+        }
+        continue;
+      }
+
       const pool = pools[step.kind];
       if (!pool) continue;
 
