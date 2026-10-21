@@ -88,7 +88,7 @@ const FOCUS_AREAS = {
   grammar: {
     label: 'Grammar',
     color: '#3B82F6', // blue
-    bgColor: '#EFF6FF',
+    bgColor: '#e5f1ff',
     topics: ['V2 inversion', 'Ledsætning', 'Sin/sit/sine', 'Modal particles', 'Verb conjugation', 'Word order', 'Prepositions']
   },
   vocab: {
@@ -262,8 +262,8 @@ export default function LearningRoadmapView({ onRetake, onStartLessons }) {
               )}
             </div>
           </div>
-          <div className="bg-[#FFFBEB] rounded-[12px] p-4 border border-[#D97706]/20">
-            <div className="text-[11px] font-[700] uppercase text-[#D97706] mb-2">Focus Areas</div>
+          <div className="bg-[#FFFBEB] rounded-[12px] p-4 border border-[#ff9500]/20">
+            <div className="text-[11px] font-[700] uppercase text-[#ff9500] mb-2">Focus Areas</div>
             <div className="space-y-1">
               {focusAreas.length ? (
                 focusAreas.map((a, i) => (

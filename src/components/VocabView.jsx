@@ -76,7 +76,7 @@ export default function VocabView({ level: sessionLevel = null }) {
               <div className="bg-white rounded-[32px] p-8 shadow-sm border border-black/5 text-center min-h-[360px] flex flex-col justify-center animate-ios-in">
                 <div className="text-[11px] font-[700] tracking-widest uppercase text-[#8E8E93]">{currentFlash.theme} • {currentFlash.level} • Box {getBox(currentFlash.id)}</div>
                 <div className="mt-4 text-[32px] font-[700] tracking-tight">{currentFlash.da}</div>
-                {currentFlash.collocation && <div className="mt-3 text-[14px] bg-[#FFD84D]/40 inline-block px-4 py-2 rounded-full border border-[#FFD84D] font-[500]">{currentFlash.collocation}</div>}
+                {currentFlash.collocation && <div className="mt-3 text-[14px] bg-[#ffcc00]/40 inline-block px-4 py-2 rounded-full border border-[#ffcc00] font-[500]">{currentFlash.collocation}</div>}
                 <div className="mt-3 text-[14px] text-[#8E8E93] italic">{currentFlash.example}</div>
                 {!showBack ? (
                   <button onClick={()=>setShowBack(true)} className="mt-8 bg-black text-white px-8 py-4 rounded-full text-[15px] font-[600] mx-auto tap-haptic">Show translation</button>

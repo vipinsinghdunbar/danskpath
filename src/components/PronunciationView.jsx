@@ -38,14 +38,14 @@ export default function PronunciationView({ preselectId = null }) {
 
   return (
     <div className="flex h-screen overflow-hidden">
-      <div className="w-[280px] border-r border-[#E8E2D9] bg-[#FCFBF7] overflow-y-auto">
-        <div className="p-4 border-b border-[#E8E2D9] sticky top-0 bg-[#FCFBF7]">
+      <div className="w-[280px] border-r border-[#e5e5ea] bg-[#ffffff] overflow-y-auto">
+        <div className="p-4 border-b border-[#e5e5ea] sticky top-0 bg-[#ffffff]">
           <h2 className="font-display font-bold text-[18px]">Udtale • 12 uger</h2>
           <div className="text-[11px] text-[#6B7280] mt-1">Blødt d, stød, r, reduktioner</div>
         </div>
         <div className="p-2 space-y-1">
           {pronunciationWeeks.map(w=>(
-            <button key={w.week} onClick={()=>setActiveWeek(w.week)} className={`w-full text-left px-3 py-3 rounded-xl border ${activeWeek===w.week?'bg-white border-[#121212] shadow-sm':'border-transparent hover:bg-white'}`}>
+            <button key={w.week} onClick={()=>setActiveWeek(w.week)} className={`w-full text-left px-3 py-3 rounded-xl border ${activeWeek===w.week?'bg-white border-[#121417] shadow-sm':'border-transparent hover:bg-white'}`}>
               <div className="text-[11px] uppercase tracking-widest text-[#6B7280]">Uge {w.week}</div>
               <div className="text-[13px] font-medium">{w.title}</div>
               <div className="text-[11px] text-[#6B7280] mt-1 line-clamp-2">{w.focus}</div>
@@ -58,7 +58,7 @@ export default function PronunciationView({ preselectId = null }) {
         <div className="max-w-[760px] mx-auto">
           <div className="text-[11px] uppercase tracking-widest text-[#6B7280]">Uge {week.week}</div>
           <h1 className="display text-[32px] font-bold mt-1">{week.title} — {week.focus}</h1>
-          <div className="mt-4 card p-6 bg-[#FCFBF7]">
+          <div className="mt-4 card p-6 bg-[#ffffff]">
             <div className="text-[12px] uppercase tracking-widest text-[#6B7280] mb-2">Regel</div>
             <p className="text-[15px] leading-relaxed">{week.rule}</p>
           </div>
@@ -73,7 +73,7 @@ export default function PronunciationView({ preselectId = null }) {
                     {ex.spoken && <div className="text-[12px] text-[#6B7280]">→ {ex.spoken}</div>}
                     {ex.en && <div className="text-[11px] text-[#6B7280]">{ex.en}</div>}
                   </div>
-                  <button onClick={()=>speak(ex.da)} className="w-8 h-8 rounded-full border border-[#E8E2D9] grid place-items-center text-[10px]">▶</button>
+                  <button onClick={()=>speak(ex.da)} className="w-8 h-8 rounded-full border border-[#e5e5ea] grid place-items-center text-[10px]">▶</button>
                 </div>
               ))}
             </div>
@@ -84,13 +84,13 @@ export default function PronunciationView({ preselectId = null }) {
               <h3 className="font-display font-semibold text-[16px] mb-2">Minimalpar</h3>
               <div className="flex flex-wrap gap-2">
                 {week.minimal.map((pair,i)=>(
-                  <div key={i} className="px-3 py-2 rounded-full bg-white border border-[#E8E2D9] text-[13px]">{pair.join(' vs ')}</div>
+                  <div key={i} className="px-3 py-2 rounded-full bg-white border border-[#e5e5ea] text-[13px]">{pair.join(' vs ')}</div>
                 ))}
               </div>
             </div>
           )}
 
-          <div className="mt-6 card p-4 bg-[#FFD84D]/20 border-[#FFD84D]">
+          <div className="mt-6 card p-4 bg-[#ffcc00]/20 border-[#ffcc00]">
             <div className="text-[12px] uppercase tracking-widest text-[#6B7280] mb-1">Drill</div>
             <div className="text-[14px]">{week.drill}</div>
             <button onClick={()=>speak(week.drill)} className="mt-3 btn-ghost text-[12px]">▶ Lyt til drill</button>
@@ -100,7 +100,7 @@ export default function PronunciationView({ preselectId = null }) {
             <h3 className="font-display font-semibold text-[18px]">Optag dig selv</h3>
             <p className="text-[13px] text-[#6B7280] mt-1">Sammenlign med modellen. Browser optager lokalt - sendes ikke nogen steder.</p>
             <div className="mt-4 flex gap-3 items-center">
-              <button onClick={recording?stopRec:startRec} className={`px-4 py-2 rounded-full text-[13px] border ${recording?'bg-red-600 text-white border-red-600 animate-pulse':'bg-white border-[#E8E2D9]'}`}>{recording?'⏹ Stop (5s max)':'● Optag 5 sek'}</button>
+              <button onClick={recording?stopRec:startRec} className={`px-4 py-2 rounded-full text-[13px] border ${recording?'bg-red-600 text-white border-red-600 animate-pulse':'bg-white border-[#e5e5ea]'}`}>{recording?'⏹ Stop (5s max)':'● Optag 5 sek'}</button>
               {audioUrl && <audio controls src={audioUrl} className="h-8" />}
             </div>
           </div>

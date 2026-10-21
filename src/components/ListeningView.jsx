@@ -40,12 +40,12 @@ export default function ListeningView({
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Hidden in session mode: the plan already chose the clip. */}
-      <div className={`${sessionMode ? 'hidden' : ''} w-[360px] border-r border-[#E8E2D9] bg-[#FCFBF7] overflow-y-auto`}>
-        <div className="p-4 sticky top-0 bg-[#FCFBF7] border-b border-[#E8E2D9]">
+      <div className={`${sessionMode ? 'hidden' : ''} w-[360px] border-r border-[#e5e5ea] bg-[#ffffff] overflow-y-auto`}>
+        <div className="p-4 sticky top-0 bg-[#ffffff] border-b border-[#e5e5ea]">
           <h2 className="font-display font-bold text-[18px]">Lytning · Nok til PD3</h2>
           <div className="flex gap-1.5 mt-3">
             {['Alle','A2','B1','B2'].map(l=>(
-              <button key={l} onClick={()=>setLevel(l)} className={`px-3 py-1 rounded-full text-[12px] border ${level===l?'bg-[#121212] text-white border-[#121212]':'bg-white border-[#E8E2D9]'}`}>{l}</button>
+              <button key={l} onClick={()=>setLevel(l)} className={`px-3 py-1 rounded-full text-[12px] border ${level===l?'bg-[#121417] text-white border-[#121417]':'bg-white border-[#e5e5ea]'}`}>{l}</button>
             ))}
           </div>
           <div className="mt-3 text-[11px] text-[#6B7280]">Typer: monolog, telefon, nyhed, radio, multi-speaker, annonce, instruktion — uden transskript først</div>
@@ -54,16 +54,16 @@ export default function ListeningView({
         <div className="p-2 space-y-1">
           {filtered.map(p=>(
             <button key={p.id} onClick={()=>{setActive(p); setShowTranscript(false);}} className={`w-full text-left px-3 py-3 rounded-xl border ${active.id===p.id?'bg-white border-[#121417] shadow-sm':'border-transparent hover:bg-white'} ${p.done?'opacity-60':''}`}>
-              <div className="flex justify-between"><span className="text-[13px] font-medium leading-tight">{p.done?'✓ ':''}{p.title}</span><span className="text-[10px] px-2 py-0.5 rounded-full bg-white border border-[#E8E2D9]">{p.level}</span></div>
+              <div className="flex justify-between"><span className="text-[13px] font-medium leading-tight">{p.done?'✓ ':''}{p.title}</span><span className="text-[10px] px-2 py-0.5 rounded-full bg-white border border-[#e5e5ea]">{p.level}</span></div>
               <div className="text-[11px] text-[#6B7280] mt-1">{p.type} • {p.duration} {p.done?'• klaret':''}</div>
             </button>
           ))}
         </div>
-        <div className="p-4 border-t border-[#E8E2D9]">
+        <div className="p-4 border-t border-[#e5e5ea]">
           <h3 className="font-semibold text-[13px]">Reduktionsordbog • {reductionDict.length}</h3>
           <div className="mt-2 space-y-1 max-h-[300px] overflow-y-auto">
             {reductionDict.map((r,i)=>(
-              <div key={i} className="text-[11px] flex justify-between gap-2 py-1 border-b border-[#E8E2D9]/60"><span>{r.written} → <b>{r.spoken}</b></span><button onClick={()=>speak(r.written)} className="text-[10px]">▶</button></div>
+              <div key={i} className="text-[11px] flex justify-between gap-2 py-1 border-b border-[#e5e5ea]/60"><span>{r.written} → <b>{r.spoken}</b></span><button onClick={()=>speak(r.written)} className="text-[10px]">▶</button></div>
             ))}
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function ListeningView({
       <div className="flex-1 overflow-y-auto p-8 bg-white">
         <div className="max-w-[700px] mx-auto">
           {queue.length > 1 && (
-            <div className="mb-5 flex items-center justify-between gap-4 pb-4 border-b border-[#E8E2D9]">
+            <div className="mb-5 flex items-center justify-between gap-4 pb-4 border-b border-[#e5e5ea]">
               <span className="text-[12px] text-[#6B7280] tabular-nums">
                 Klip {queueIndex + 1} af {queue.length}
               </span>
@@ -96,7 +96,7 @@ export default function ListeningView({
           )}
 
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-[11px] px-2 py-1 rounded-full bg-[#121212] text-white">{active.level}</span>
+            <span className="text-[11px] px-2 py-1 rounded-full bg-[#121417] text-white">{active.level}</span>
             <span className="text-[11px] uppercase tracking-widest text-[#6B7280]">{active.type} • {active.duration}</span>
           </div>
           <h1 className="display text-[30px] font-bold">{active.title}</h1>
@@ -107,7 +107,7 @@ export default function ListeningView({
           </div>
 
           {showTranscript && (
-            <div className="mt-6 card p-6 bg-[#FCFBF7]">
+            <div className="mt-6 card p-6 bg-[#ffffff]">
               <div className="text-[12px] uppercase tracking-widest text-[#6B7280] mb-3">Transskript</div>
               <p className="text-[15px] leading-relaxed whitespace-pre-wrap">{active.transcript}</p>
             </div>
@@ -127,7 +127,7 @@ export default function ListeningView({
                         const correct = active.questions.filter((qq,jj)=> newAns[`${active.id}-${jj}`]===qq.a).length;
                         const total = Object.keys(newAns).filter(k=>k.startsWith(`${active.id}-`)).length;
                         if(total===active.questions.length) saveScore(correct, total, active.id);
-                      }} className={`w-full text-left px-3 py-2 rounded-xl border text-[13px] ${answers[`${active.id}-${qi}`]===oi ? (oi===q.a?'bg-emerald-50 border-emerald-300':'bg-red-50 border-red-300') : 'bg-white border-[#E8E2D9] hover:bg-[#F8F6F1]'}`}>
+                      }} className={`w-full text-left px-3 py-2 rounded-xl border text-[13px] ${answers[`${active.id}-${qi}`]===oi ? (oi===q.a?'bg-emerald-50 border-emerald-300':'bg-red-50 border-red-300') : 'bg-white border-[#e5e5ea] hover:bg-[#F8F6F1]'}`}>
                         {opt} {answers[`${active.id}-${qi}`]===oi && (oi===q.a?'✓':'✗')}
                       </button>
                     ))}

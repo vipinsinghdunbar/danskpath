@@ -1,7 +1,17 @@
-/* Web-first Design System for Lad os Snakker Dansk
-   Built for desktop experience, scales down gracefully to mobile
-   Inspired by: Danish design minimalism + language learning + conversational interface
-*/
+/* Design system for Lad os Snakker Dansk — desktop web.
+ *
+ * SINGLE SOURCE OF TRUTH for colour. The project had drifted to four separate
+ * palettes: an iOS system palette (the most widely used), a warm-paper palette
+ * in the session and reading views, a Tailwind blue in the grammar drill, and
+ * the amber/charcoal set defined in this file which no component ever used.
+ *
+ * The iOS system palette won, on the grounds that it was already in the
+ * majority of components and is a tested, accessible set. The amber accent is
+ * retired; the --accent* tokens below now resolve to the system orange so any
+ * stylesheet still referencing them stays coherent.
+ *
+ * Add a colour here before using it in a component.
+ */
 
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
@@ -9,33 +19,34 @@
   /* Primary Brand Palette — Danish minimalism */
   /* Inspired by Copenhagen architecture: clean, functional, warm */
 
-  --primary: #1F2937;          /* Deep charcoal (Vega marble) */
-  --primary-light: #F3F4F6;    /* Nearly white, slight warmth */
-  --primary-lighter: #F9FAFB; /* True white background */
+  --primary: #121417;          /* Near-black — primary text and fills */
+  --primary-light: #F2F2F7;    /* Nearly white, slight warmth */
+  --primary-lighter: #FFFFFF; /* True white background */
 
   /* Danish accent: warm but not hot */
-  --accent: #D97706;           /* Amber/burnt orange (Nordic warmth) */
-  --accent-dark: #B45309;      /* Pressed state */
-  --accent-light: #FEF3C7;     /* Soft background */
-  --accent-lighter: #FFFBEB;  /* Very light tint */
+  --accent: #007AFF;           /* System blue — primary action */
+  --accent-dark: #0051D5;      /* Pressed state */
+  --accent-light: #E5F1FF;     /* Soft background */
+  --accent-lighter: #F2F7FF;  /* Very light tint */
 
   /* Supporting palette */
-  --success: #059669;          /* Emerald (Danish forests) */
-  --success-light: #D1FAE5;
-  --warning: #EA580C;          /* Orange-red */
+  --success: #34C759;          /* Emerald (Danish forests) */
+  --success-light: #E8F8EC;
+  --warning: #FF9500;          /* Orange-red */
   --warning-light: #FCDFE8;
-  --danger: #DC2626;           /* Red */
+  --danger: #FF3B30;           /* Red */
   --danger-light: #FEE2E2;
 
   /* Neutrals for hierarchy */
-  --text-primary: #1F2937;     /* Main text */
-  --text-secondary: #6B7280;   /* Supporting text */
-  --text-tertiary: #9CA3AF;    /* Subtle/meta text */
+  --text-primary: #121417;     /* Main text */
+  --text-secondary: #8E8E93;   /* Supporting text */
+  --text-tertiary: #C7C7CC;    /* Subtle/meta text */
   --text-inverse: #FFFFFF;
 
   /* Backgrounds */
-  --bg-base: #F9FAFB;
+  --bg-base: #F2F2F7;
   --bg-elevated: #FFFFFF;
+  --separator: #E5E5EA;      /* iOS separator — borders and rules */
   --bg-overlay: rgba(0, 0, 0, 0.5);
 
   /* Borders and dividers */

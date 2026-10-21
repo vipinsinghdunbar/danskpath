@@ -121,12 +121,12 @@ export default function DailySession({ onBack }) {
     const isGrammar = activeStep.kind === 'grammar';
 
     return (
-      <div className="min-h-screen bg-[#FCFBF7] flex flex-col">
-        <header className="border-b border-[#E8E2D9] bg-white/80 backdrop-blur sticky top-0 z-20">
+      <div className="min-h-screen bg-[#f2f2f7] flex flex-col">
+        <header className="border-b border-[#e5e5ea] bg-white/80 backdrop-blur sticky top-0 z-20">
           <div className="max-w-5xl mx-auto px-5 py-3 flex items-center gap-4">
             <button
               onClick={() => setActiveStepId(null)}
-              className="text-[13px] text-[#6B6358] hover:text-[#121212] transition-colors"
+              className="text-[13px] text-[#8e8e93] hover:text-[#121417] transition-colors"
             >
               ← Dagens plan
             </button>
@@ -135,11 +135,11 @@ export default function DailySession({ onBack }) {
                 {activeStep.label}
                 {activeStep.itemTitle ? ` · ${activeStep.itemTitle}` : ''}
               </div>
-              <div className="text-[11px] text-[#6B6358]">
+              <div className="text-[11px] text-[#8e8e93]">
                 Niveau {activeStep.cefr} · ca. {activeStep.estimatedMinutes} min
               </div>
             </div>
-            <div className="text-[11px] text-[#6B6358] tabular-nums">
+            <div className="text-[11px] text-[#8e8e93] tabular-nums">
               Trin {session.steps.indexOf(activeStep) + 1}/{session.steps.length}
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function DailySession({ onBack }) {
                 onComplete={(res) => finishStep(activeStep.id, res ?? {})}
               />
             ) : (
-              <div className="max-w-xl mx-auto p-8 text-[14px] text-[#6B6358]">
+              <div className="max-w-xl mx-auto p-8 text-[14px] text-[#8e8e93]">
                 Denne øvelsestype er endnu ikke tilgængelig.
               </div>
             )}
@@ -174,18 +174,18 @@ export default function DailySession({ onBack }) {
             scroll container, where `sticky bottom-0` did not pin and the
             control ended up below the fold — so the way to finish a step was
             invisible until you scrolled past the whole exercise. */}
-        <footer className="border-t border-[#E8E2D9] bg-white fixed bottom-0 left-0 right-0 z-30">
+        <footer className="border-t border-[#e5e5ea] bg-white fixed bottom-0 left-0 right-0 z-30">
           <div className="max-w-5xl mx-auto px-5 py-4">
             {isGrammar ? (
               <button
                 onClick={() => finishStep(activeStep.id, {})}
-                className="w-full py-3 rounded-xl bg-[#121212] text-white text-[14px] font-medium hover:bg-black transition-colors"
+                className="w-full py-3 rounded-xl bg-[#121417] text-white text-[14px] font-medium hover:bg-black transition-colors"
               >
                 Marker som færdig
               </button>
             ) : (
               <>
-                <div className="text-[12px] text-[#6B6358] mb-2.5">
+                <div className="text-[12px] text-[#8e8e93] mb-2.5">
                   Hvordan føltes det? Dit svar justerer niveauet i morgen.
                 </div>
                 <div className="grid grid-cols-3 gap-2">
@@ -199,10 +199,10 @@ export default function DailySession({ onBack }) {
                           selfReport: option.key,
                         })
                       }
-                      className="px-3 py-2.5 rounded-xl border border-[#E8E2D9] bg-[#FCFBF7] hover:border-[#121212] hover:bg-white transition-colors text-left"
+                      className="px-3 py-2.5 rounded-xl border border-[#e5e5ea] bg-[#ffffff] hover:border-[#121417] hover:bg-white transition-colors text-left"
                     >
                       <div className="text-[13px] font-medium">{option.label}</div>
-                      <div className="text-[11px] text-[#6B6358] leading-tight mt-0.5">
+                      <div className="text-[11px] text-[#8e8e93] leading-tight mt-0.5">
                         {option.detail}
                       </div>
                     </button>
@@ -218,20 +218,20 @@ export default function DailySession({ onBack }) {
 
   // ---- Plan overview ----
   return (
-    <div className="min-h-screen bg-[#FCFBF7]">
-      <header className="border-b border-[#E8E2D9] bg-white/80 backdrop-blur sticky top-0 z-10">
+    <div className="min-h-screen bg-[#f2f2f7]">
+      <header className="border-b border-[#e5e5ea] bg-white/80 backdrop-blur sticky top-0 z-10">
         <div className="max-w-2xl mx-auto px-5 py-3 flex items-center gap-4">
           {onBack && (
             <button
               onClick={onBack}
-              className="text-[13px] text-[#6B6358] hover:text-[#121212] transition-colors"
+              className="text-[13px] text-[#8e8e93] hover:text-[#121417] transition-colors"
             >
               ← Tilbage
             </button>
           )}
           <div className="flex-1" />
           {streak > 0 && (
-            <div className="text-[12px] text-[#6B6358] tabular-nums">
+            <div className="text-[12px] text-[#8e8e93] tabular-nums">
               {streak} dag{streak === 1 ? '' : 'e'} i træk
             </div>
           )}
@@ -240,14 +240,14 @@ export default function DailySession({ onBack }) {
 
       <main className="max-w-2xl mx-auto px-5 py-8">
         <div className="mb-8">
-          <div className="text-[12px] uppercase tracking-wide text-[#6B6358] mb-1.5">
+          <div className="text-[12px] uppercase tracking-wide text-[#8e8e93] mb-1.5">
             {session.moduleTitle}
             {session.moduleCefr ? ` · ${session.moduleCefr}` : ''}
           </div>
           <h1 className="font-display font-bold text-[30px] leading-tight mb-2">
             {allDone ? 'Dagens session er klaret' : 'Dagens session'}
           </h1>
-          <p className="text-[14px] text-[#6B6358] leading-relaxed">
+          <p className="text-[14px] text-[#8e8e93] leading-relaxed">
             {allDone
               ? 'Alle trin er gennemført. Niveauerne er justeret til i morgen.'
               : `${session.steps.length} trin, ca. ${session.estimatedMinutes} minutter. Rækkefølgen er valgt ud fra hvor du står i ${session.moduleTitle}.`}
@@ -255,13 +255,13 @@ export default function DailySession({ onBack }) {
         </div>
 
         <div className="mb-6 flex items-center gap-3">
-          <div className="flex-1 h-1.5 rounded-full bg-[#E8E2D9] overflow-hidden">
+          <div className="flex-1 h-1.5 rounded-full bg-[#e5e5ea] overflow-hidden">
             <div
-              className="h-full bg-[#121212] transition-all duration-500"
+              className="h-full bg-[#121417] transition-all duration-500"
               style={{ width: `${(doneCount / session.steps.length) * 100}%` }}
             />
           </div>
-          <div className="text-[12px] text-[#6B6358] tabular-nums">
+          <div className="text-[12px] text-[#8e8e93] tabular-nums">
             {doneCount}/{session.steps.length}
           </div>
         </div>
@@ -275,18 +275,18 @@ export default function DailySession({ onBack }) {
                   onClick={() => openStep(step.id)}
                   className={`w-full text-left p-4 rounded-2xl border transition-colors ${
                     step.done
-                      ? 'border-[#E8E2D9] bg-white/50'
+                      ? 'border-[#e5e5ea] bg-white/50'
                       : isNext
-                        ? 'border-[#121212] bg-white'
-                        : 'border-[#E8E2D9] bg-white hover:border-[#C9C0B2]'
+                        ? 'border-[#121417] bg-white'
+                        : 'border-[#e5e5ea] bg-white hover:border-[#c7c7cc]'
                   }`}
                 >
                   <div className="flex items-start gap-3.5">
                     <div
                       className={`mt-0.5 w-6 h-6 shrink-0 rounded-full grid place-items-center text-[11px] font-medium tabular-nums ${
                         step.done
-                          ? 'bg-[#121212] text-white'
-                          : 'border border-[#C9C0B2] text-[#6B6358]'
+                          ? 'bg-[#121417] text-white'
+                          : 'border border-[#c7c7cc] text-[#8e8e93]'
                       }`}
                     >
                       {step.done ? '✓' : index + 1}
@@ -296,15 +296,15 @@ export default function DailySession({ onBack }) {
                       <div className="flex items-baseline gap-2 flex-wrap">
                         <span
                           className={`font-display font-bold text-[16px] ${
-                            step.done ? 'text-[#6B6358]' : ''
+                            step.done ? 'text-[#8e8e93]' : ''
                           }`}
                         >
                           {step.label}
                         </span>
-                        <span className="text-[11px] px-1.5 py-0.5 rounded bg-[#F2EFE8] text-[#6B6358]">
+                        <span className="text-[11px] px-1.5 py-0.5 rounded bg-[#f2f2f7] text-[#8e8e93]">
                           {step.cefr}
                         </span>
-                        <span className="text-[11px] text-[#6B6358]">
+                        <span className="text-[11px] text-[#8e8e93]">
                           ca. {step.estimatedMinutes} min
                         </span>
                       </div>
@@ -313,12 +313,12 @@ export default function DailySession({ onBack }) {
                         <p className="text-[12.5px] mt-1 truncate">{step.itemTitle}</p>
                       )}
 
-                      <p className="text-[12.5px] text-[#6B6358] leading-snug mt-1">
+                      <p className="text-[12.5px] text-[#8e8e93] leading-snug mt-1">
                         {step.reason}
                       </p>
 
                       {step.done && typeof step.accuracy === 'number' && (
-                        <p className="text-[11.5px] text-[#6B6358] mt-1.5 tabular-nums">
+                        <p className="text-[11.5px] text-[#8e8e93] mt-1.5 tabular-nums">
                           {step.accuracy}%
                           {typeof step.difficultyAfter === 'number' &&
                             step.difficultyAfter !== step.difficulty && (
@@ -333,7 +333,7 @@ export default function DailySession({ onBack }) {
                     </div>
 
                     {!step.done && (
-                      <span className="text-[13px] text-[#6B6358] shrink-0 mt-0.5">
+                      <span className="text-[13px] text-[#8e8e93] shrink-0 mt-0.5">
                         {isNext ? 'Start' : 'Åbn'}
                       </span>
                     )}
@@ -344,14 +344,14 @@ export default function DailySession({ onBack }) {
           })}
         </ol>
 
-        <div className="mt-8 pt-6 border-t border-[#E8E2D9]">
-          <div className="text-[12px] uppercase tracking-wide text-[#6B6358] mb-3">
+        <div className="mt-8 pt-6 border-t border-[#e5e5ea]">
+          <div className="text-[12px] uppercase tracking-wide text-[#8e8e93] mb-3">
             Dine niveauer
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             {Object.entries(difficulties).map(([skill, value]) => (
               <div key={skill} className="text-[12.5px]">
-                <span className="text-[#6B6358]">{labelFor(skill)}</span>{' '}
+                <span className="text-[#8e8e93]">{labelFor(skill)}</span>{' '}
                 <span className="font-medium tabular-nums">{difficultyToCEFR(value)}</span>
               </div>
             ))}
@@ -362,7 +362,7 @@ export default function DailySession({ onBack }) {
               await regenerateToday();
               refresh();
             }}
-            className="mt-6 text-[12.5px] text-[#6B6358] underline underline-offset-2 hover:text-[#121212] transition-colors"
+            className="mt-6 text-[12.5px] text-[#8e8e93] underline underline-offset-2 hover:text-[#121417] transition-colors"
           >
             Giv mig en anden session
           </button>

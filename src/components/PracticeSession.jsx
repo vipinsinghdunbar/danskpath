@@ -10,7 +10,7 @@ import { getSkillDifficulty } from '../lib/sessionEngine';
 // which defeats the point of having a plan. With it set, the drill begins
 // immediately on the plan's terms; opened on its own, the setup screen stays.
 export default function PracticeSession({
-  onBack,
+  onTilbage,
   difficulty = null,
   autoStart = false,
   minutes = null,
@@ -155,17 +155,17 @@ export default function PracticeSession({
   // Setup Screen
   if (stage === 'setup') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 p-6">
+      <div className="min-h-screen bg-[#f2f2f7] p-6">
         <div className="max-w-2xl mx-auto">
           <div className="bg-white p-8 rounded-lg shadow">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">⚡ Quick Practice</h1>
-            <p className="text-gray-600 mb-8">Rapid-fire exercises to sharpen your skills</p>
+            <h1 className="text-4xl font-bold text-[#121417] mb-2">Grammatikdrill</h1>
+            <p className="text-[#8e8e93] mb-8">Hurtige øvelser på dit niveau</p>
 
             <div className="space-y-8">
               {/* Duration */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
-                  ⏱️ Session Duration
+                <label className="block text-sm font-semibold text-[#121417] mb-3">
+                  Varighed
                 </label>
                 <div className="flex gap-3">
                   {[10, 15, 20, 30].map(min => (
@@ -174,28 +174,28 @@ export default function PracticeSession({
                       onClick={() => setDuration(min)}
                       className={`px-6 py-3 rounded-lg font-semibold transition ${
                         duration === min
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          ? 'bg-[#007aff] text-white'
+                          : 'bg-[#f2f2f7] text-[#121417] hover:bg-[#e5e5ea]'
                       }`}
                     >
                       {min}m
                     </button>
                   ))}
                 </div>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs text-[#8e8e93] mt-2">
                   ~{Math.round((duration * 60) / 90)} øvelser · ca. 90 sek. hver
                 </p>
               </div>
 
               {/* Focus Type */}
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-3">
-                  📚 What to Practice
+                <label className="block text-sm font-semibold text-[#121417] mb-3">
+                  Hvad vil du træne
                 </label>
                 <div className="space-y-2">
                   <label className="flex items-center gap-3 p-3 border-2 rounded-lg cursor-pointer" style={{
-                    borderColor: focusType === 'weak' ? '#2563eb' : '#e5e7eb',
-                    backgroundColor: focusType === 'weak' ? '#eff6ff' : 'white'
+                    borderColor: focusType === 'weak' ? '#007aff' : '#e5e7eb',
+                    backgroundColor: focusType === 'weak' ? '#e5f1ff' : 'white'
                   }}>
                     <input
                       type="radio"
@@ -205,14 +205,14 @@ export default function PracticeSession({
                       className="w-4 h-4"
                     />
                     <span>
-                      <p className="font-semibold text-gray-900">🔴 Weak Spots</p>
-                      <p className="text-sm text-gray-600">Exercises from your weakest categories</p>
+                      <p className="font-semibold text-[#121417]">🔴 Svage punkter</p>
+                      <p className="text-sm text-[#8e8e93]">Øvelser fra dine svageste kategorier</p>
                     </span>
                   </label>
 
                   <label className="flex items-center gap-3 p-3 border-2 rounded-lg cursor-pointer" style={{
-                    borderColor: focusType === 'all' ? '#2563eb' : '#e5e7eb',
-                    backgroundColor: focusType === 'all' ? '#eff6ff' : 'white'
+                    borderColor: focusType === 'all' ? '#007aff' : '#e5e7eb',
+                    backgroundColor: focusType === 'all' ? '#e5f1ff' : 'white'
                   }}>
                     <input
                       type="radio"
@@ -222,14 +222,14 @@ export default function PracticeSession({
                       className="w-4 h-4"
                     />
                     <span>
-                      <p className="font-semibold text-gray-900">🎲 Random Mix</p>
-                      <p className="text-sm text-gray-600">Exercises from all categories</p>
+                      <p className="font-semibold text-[#121417]">Blandet</p>
+                      <p className="text-sm text-[#8e8e93]">Øvelser fra alle kategorier</p>
                     </span>
                   </label>
 
                   <label className="flex items-center gap-3 p-3 border-2 rounded-lg cursor-pointer" style={{
-                    borderColor: focusType === 'category' ? '#2563eb' : '#e5e7eb',
-                    backgroundColor: focusType === 'category' ? '#eff6ff' : 'white'
+                    borderColor: focusType === 'category' ? '#007aff' : '#e5e7eb',
+                    backgroundColor: focusType === 'category' ? '#e5f1ff' : 'white'
                   }}>
                     <input
                       type="radio"
@@ -239,8 +239,8 @@ export default function PracticeSession({
                       className="w-4 h-4"
                     />
                     <span>
-                      <p className="font-semibold text-gray-900">📂 Specific Category</p>
-                      <p className="text-sm text-gray-600">Deep dive into one topic</p>
+                      <p className="font-semibold text-[#121417]">Én kategori</p>
+                      <p className="text-sm text-[#8e8e93]">Gå i dybden med ét emne</p>
                     </span>
                   </label>
                 </div>
@@ -249,13 +249,13 @@ export default function PracticeSession({
               {/* Category Selector */}
               {focusType === 'category' && (
                 <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
+                  <label className="block text-sm font-semibold text-[#121417] mb-3">
                     Choose Category
                   </label>
                   <select
                     value={selectedCategory}
                     onChange={e => setSelectedCategory(e.target.value)}
-                    className="w-full p-3 border-2 border-gray-300 rounded-lg focus:border-blue-600 focus:outline-none"
+                    className="w-full p-3 border-2 border-[#e5e5ea] rounded-lg focus:border-[#007aff] focus:outline-none"
                   >
                     {['ORD', 'KOMP', 'KONJ', 'PRON', 'POSS', 'ARTKV', 'PASS', 'SVERB', 'MOD', 'REL', 'INFGER', 'NEG', 'PREP', 'REFL', 'IDI'].map(cat => (
                       <option key={cat} value={cat}>{cat}</option>
@@ -265,25 +265,25 @@ export default function PracticeSession({
               )}
 
               {/* Info */}
-              <div className="p-4 bg-purple-50 rounded-lg">
-                <p className="text-sm text-purple-900">
-                  ⚡ <strong>Rapid Fire Mode:</strong> Minimal feedback, maximum speed. Answer and move on!
+              <div className="p-4 bg-[#f2f7ff] rounded-lg">
+                <p className="text-sm text-[#121417]">
+                  <strong>Hurtig tilstand:</strong> Minimal feedback, maksimal fart. Svar og videre.
                 </p>
               </div>
 
               {/* Actions */}
               <div className="flex gap-4">
                 <button
-                  onClick={onBack}
+                  onClick={onTilbage}
                   className="flex-1 bg-gray-600 text-white py-3 rounded-lg font-semibold hover:bg-gray-700"
                 >
-                  ← Back
+                  ← Tilbage
                 </button>
                 <button
                   onClick={handleStartSession}
-                  className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700"
+                  className="flex-1 bg-[#007aff] text-white py-3 rounded-lg font-semibold hover:bg-[#0051d5]"
                 >
-                  🚀 Start Session
+                  Start
                 </button>
               </div>
             </div>
@@ -300,17 +300,17 @@ export default function PracticeSession({
     const progress = Math.round((answered / exercises.length) * 100);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 p-6">
+      <div className="min-h-screen bg-[#f2f2f7] p-6">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="bg-white p-4 rounded-lg shadow mb-4">
             <div className="flex justify-between items-center mb-3">
-              <p className="text-lg font-bold text-gray-900">⚡ {answered + 1}/{exercises.length}</p>
-              <p className="text-lg font-bold text-red-600">🔥 {streak}</p>
+              <p className="text-lg font-bold text-[#121417]">{answered + 1}/{exercises.length}</p>
+              <p className="text-lg font-bold text-[#ff3b30]">{streak}</p>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
+            <div className="w-full bg-[#e5e5ea] rounded-full h-2">
               <div
-                className="bg-blue-600 h-2 rounded-full transition-all"
+                className="bg-[#007aff] h-2 rounded-full transition-all"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
@@ -318,13 +318,13 @@ export default function PracticeSession({
 
           {/* Exercise */}
           <div className="bg-white p-6 rounded-lg shadow">
-            <p className="text-sm text-gray-600 mb-3">
-              <span className="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-semibold">
+            <p className="text-sm text-[#8e8e93] mb-3">
+              <span className="px-2 py-1 bg-[#e5f1ff] text-[#0051d5] rounded-full text-xs font-semibold">
                 {exercise.category}
               </span>
             </p>
 
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">{exercise.question}</h2>
+            <h2 className="text-2xl font-bold text-[#121417] mb-6">{exercise.question}</h2>
 
             {/* Quick Options */}
             <div className="grid grid-cols-2 gap-3">
@@ -332,18 +332,18 @@ export default function PracticeSession({
                 <button
                   key={idx}
                   onClick={() => handleAnswerSelect(option)}
-                  className="p-4 bg-gradient-to-r from-gray-100 to-gray-50 border-2 border-gray-300 rounded-lg font-semibold text-gray-900 hover:from-blue-100 hover:to-blue-50 hover:border-blue-600 transition"
+                  className="p-4 bg-white border-2 border-[#e5e5ea] rounded-lg font-semibold text-[#121417] hover:bg-[#e5f1ff] hover:border-[#007aff] transition"
                 >
                   {option}
                 </button>
               ))}
             </div>
 
-            <p className="text-sm text-gray-500 mt-4 text-center">
+            <p className="text-sm text-[#8e8e93] mt-4 text-center">
               {answers[currentIndex] ? (
-                answers[currentIndex].isCorrect ? '✅ Correct!' : '❌ Not quite'
+                answers[currentIndex].isCorrect ? 'Correct!' : '❌ Not quite'
               ) : (
-                'Select an answer'
+                'Vælg et svar'
               )}
             </p>
           </div>
@@ -355,45 +355,45 @@ export default function PracticeSession({
   // Results Screen
   if (stage === 'results' && results) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 p-6">
+      <div className="min-h-screen bg-[#f2f2f7] p-6">
         <div className="max-w-2xl mx-auto">
           <div className="bg-white p-8 rounded-lg shadow text-center">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">📊 Session Complete!</h2>
+            <h2 className="text-4xl font-bold text-[#121417] mb-4">📊 Session Complete!</h2>
 
             <div className="mb-8">
-              <p className="text-6xl font-bold text-blue-600 mb-2">{results.accuracy}%</p>
-              <p className="text-gray-600">Accuracy</p>
+              <p className="text-6xl font-bold text-[#007aff] mb-2">{results.accuracy}%</p>
+              <p className="text-[#8e8e93]">Accuracy</p>
             </div>
 
             <div className="grid grid-cols-3 gap-4 mb-8">
-              <div className="p-4 bg-purple-50 rounded-lg">
-                <p className="text-sm text-gray-600">Completed</p>
-                <p className="text-3xl font-bold text-purple-600">{results.exercisesCompleted}</p>
+              <div className="p-4 bg-[#f2f7ff] rounded-lg">
+                <p className="text-sm text-[#8e8e93]">Completed</p>
+                <p className="text-3xl font-bold text-[#007aff]">{results.exercisesCompleted}</p>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
-                <p className="text-sm text-gray-600">Correct</p>
-                <p className="text-3xl font-bold text-green-600">{results.correctAnswers}</p>
+              <div className="p-4 bg-[#e8f8ec] rounded-lg">
+                <p className="text-sm text-[#8e8e93]">Correct</p>
+                <p className="text-3xl font-bold text-[#34c759]">{results.correctAnswers}</p>
               </div>
-              <div className="p-4 bg-orange-50 rounded-lg">
-                <p className="text-sm text-gray-600">Max Streak</p>
-                <p className="text-3xl font-bold text-orange-600">🔥 {results.maxStreak}</p>
+              <div className="p-4 bg-[#fff4e5] rounded-lg">
+                <p className="text-sm text-[#8e8e93]">Max Streak</p>
+                <p className="text-3xl font-bold text-[#ff9500]">{results.maxStreak}</p>
               </div>
             </div>
 
-            <p className="text-gray-600 mb-8">
+            <p className="text-[#8e8e93] mb-8">
               Completed in {Math.round(results.duration / 60)} min {results.duration % 60} sec
             </p>
 
             <div className="flex gap-4">
               <button
-                onClick={onBack}
+                onClick={onTilbage}
                 className="flex-1 bg-gray-600 text-white py-3 rounded-lg font-semibold hover:bg-gray-700"
               >
-                ← Back
+                ← Tilbage
               </button>
               <button
                 onClick={() => setStage('setup')}
-                className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700"
+                className="flex-1 bg-[#007aff] text-white py-3 rounded-lg font-semibold hover:bg-[#0051d5]"
               >
                 Try Again
               </button>
