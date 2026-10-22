@@ -30,7 +30,7 @@ export default function GrammarView() {
               <button key={t.id} onClick={()=>setActiveId(t.id)} className={`w-full text-left px-3 py-3 rounded-xl border transition ${activeId===t.id?'bg-white border-[#121417] shadow-sm':'bg-transparent border-transparent hover:bg-white'}`}>
                 <div className="flex justify-between items-start gap-2">
                   <div className="text-[13px] font-medium leading-tight">{done?'✓ ':''}{t.title}</div>
-                  <span className={`text-[10px] px-2 py-0.5 rounded-full border ${t.level==='A1'?'bg-emerald-50 border-emerald-200': t.level==='A2'?'bg-blue-50 border-blue-200': t.level==='B1'?'bg-amber-50 border-amber-200':'bg-red-50 border-red-200'}`}>{t.level}</span>
+                  <span className={`text-[10px] px-2 py-0.5 rounded-full border ${t.level==='A1'?'bg-emerald-50 border-emerald-200': t.level==='A2'?'bg-blue-50 border-blue-200': t.level==='B1'?'bg-[#f2f2f7] border-[#e5e5ea]':'bg-red-50 border-red-200'}`}>{t.level}</span>
                 </div>
                 <div className="text-[11px] text-[#6B7280] mt-1 line-clamp-2">{t.summary}</div>
               </button>

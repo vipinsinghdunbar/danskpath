@@ -228,7 +228,7 @@ export default function LessonView({ onBackToDashboard, userId }) {
         {/* Weak Spot Alert */}
         {weakSpot && (
           <div className="fixed top-14 left-1/2 transform -translate-x-1/2 z-50 animate-in">
-            <div className="px-4 py-2 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 text-sm font-medium">
+            <div className="px-4 py-2 rounded-lg bg-[#e5e5ea] border border-[#e5e5ea] text-[#121417] text-sm font-medium">
               ⚠️ Svagt punkt opdaget: {weakSpot.errorType} ({Math.round(weakSpot.frequency * 100)}%)
             </div>
           </div>
@@ -357,8 +357,8 @@ export default function LessonView({ onBackToDashboard, userId }) {
                   </button>
 
                   {!lesson.unlocked && (
-                    <div className="mt-2 px-4 py-2 bg-amber-50 rounded-[8px] border border-amber-200">
-                      <p className="text-[12px] text-amber-900">
+                    <div className="mt-2 px-4 py-2 bg-[#f2f2f7] rounded-[8px] border border-[#e5e5ea]">
+                      <p className="text-[12px] text-[#121417]">
                         <strong>Locked:</strong> {lesson.lockedReason}
                       </p>
                     </div>

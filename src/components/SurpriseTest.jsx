@@ -73,7 +73,7 @@ export default function SurpriseTest({ onBack }) {
   // Confirm Screen
   if (testState === 'confirm') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-100 p-6">
+      <div className="min-h-screen bg-[#f2f2f7] p-6">
         <div className="max-w-2xl mx-auto">
           <div className="bg-white p-8 rounded-lg shadow">
             <div className="text-center mb-8">
@@ -85,7 +85,7 @@ export default function SurpriseTest({ onBack }) {
             </div>
 
             <div className="space-y-6 mb-8">
-              <div className="p-6 bg-yellow-50 rounded-lg">
+              <div className="p-6 bg-[#f2f2f7] rounded-lg">
                 <h3 className="font-semibold text-gray-900 mb-3">What's Included:</h3>
                 <ul className="space-y-2 text-gray-700">
                   <li>✅ 10 random questions</li>
@@ -96,7 +96,7 @@ export default function SurpriseTest({ onBack }) {
                 </ul>
               </div>
 
-              <div className="p-6 bg-orange-50 rounded-lg">
+              <div className="p-6 bg-[#f2f2f7] rounded-lg">
                 <p className="font-semibold text-gray-900 mb-2">💪 Difficulty Level</p>
                 <p className="text-gray-700">
                   This test pulls from the categories where you made the most mistakes. Good luck! 🎯
@@ -113,7 +113,7 @@ export default function SurpriseTest({ onBack }) {
               </button>
               <button
                 onClick={handleStartTest}
-                className="flex-1 bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700"
+                className="flex-1 bg-[#007aff] text-white py-3 rounded-lg font-semibold hover:bg-[#007aff]"
               >
                 Let's Go! 🚀
               </button>
@@ -130,7 +130,7 @@ export default function SurpriseTest({ onBack }) {
     const progress = Math.round(((currentIndex + 1) / exercises.length) * 100);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-100 p-6">
+      <div className="min-h-screen bg-[#f2f2f7] p-6">
         <div className="max-w-2xl mx-auto">
           {/* Header */}
           <div className="bg-white p-4 rounded-lg shadow mb-4">
@@ -142,7 +142,7 @@ export default function SurpriseTest({ onBack }) {
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
-                className="bg-orange-600 h-2 rounded-full transition-all"
+                className="bg-[#007aff] h-2 rounded-full transition-all"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
@@ -151,7 +151,7 @@ export default function SurpriseTest({ onBack }) {
           {/* Question */}
           <div className="bg-white p-6 rounded-lg shadow mb-4">
             <p className="text-sm text-gray-600 mb-3">
-              <span className="px-2 py-1 bg-orange-100 text-orange-800 rounded-full text-xs font-semibold">
+              <span className="px-2 py-1 bg-[#e5e5ea] text-[#121417] rounded-full text-xs font-semibold">
                 {exercise.category}
               </span>
             </p>
@@ -165,7 +165,7 @@ export default function SurpriseTest({ onBack }) {
                   key={idx}
                   className={`block p-4 border-2 rounded-lg cursor-pointer transition ${
                     answers[currentIndex] === option
-                      ? 'border-orange-600 bg-orange-50'
+                      ? 'border-[#007aff] bg-[#f2f2f7]'
                       : 'border-gray-300 bg-white hover:border-gray-400'
                   }`}
                 >
@@ -186,14 +186,14 @@ export default function SurpriseTest({ onBack }) {
             <button
               onClick={handleNext}
               disabled={!answers[currentIndex]}
-              className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#007aff] text-white py-3 rounded-lg font-semibold hover:bg-[#007aff] disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {currentIndex === exercises.length - 1 ? '✓ Submit Test' : 'Next →'}
             </button>
           </div>
 
           {/* No Explanations Yet */}
-          <div className="p-4 bg-yellow-50 rounded-lg text-sm text-gray-600 text-center">
+          <div className="p-4 bg-[#f2f2f7] rounded-lg text-sm text-gray-600 text-center">
             💡 No hints during the test - full results after you're done!
           </div>
         </div>
@@ -204,12 +204,12 @@ export default function SurpriseTest({ onBack }) {
   // Results Screen
   if (testState === 'results' && results) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-100 p-6">
+      <div className="min-h-screen bg-[#f2f2f7] p-6">
         <div className="max-w-2xl mx-auto">
           <div className={`p-8 rounded-lg shadow text-center ${
             results.passed
               ? 'bg-green-50 border-2 border-green-500'
-              : 'bg-orange-50 border-2 border-orange-500'
+              : 'bg-[#f2f2f7] border-2 border-[#007aff]'
           }`}>
             <p className="text-6xl mb-4">
               {results.passed ? '🎉' : '💪'}
@@ -225,7 +225,7 @@ export default function SurpriseTest({ onBack }) {
 
             {/* Score */}
             <div className="mb-8">
-              <p className="text-6xl font-bold text-orange-600">{results.accuracy}%</p>
+              <p className="text-6xl font-bold text-[#007aff]">{results.accuracy}%</p>
               <p className="text-gray-600 mt-2">
                 {results.passed ? 'You passed!' : 'Come back and try again!'}
               </p>
@@ -265,7 +265,7 @@ export default function SurpriseTest({ onBack }) {
               </button>
               <button
                 onClick={() => setTestState('confirm')}
-                className="flex-1 bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700"
+                className="flex-1 bg-[#007aff] text-white py-3 rounded-lg font-semibold hover:bg-[#007aff]"
               >
                 Try Another
               </button>

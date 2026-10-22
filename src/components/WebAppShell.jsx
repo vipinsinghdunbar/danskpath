@@ -36,7 +36,7 @@ export default function WebAppShell({
     <div className="web-app-shell min-h-screen bg-slate-50">
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="page">
           <div className="flex items-center justify-between h-16">
             {/* Logo + Title */}
             <div className="flex items-center gap-4">
@@ -51,7 +51,7 @@ export default function WebAppShell({
               </button>
 
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-amber-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                <div className="w-8 h-8 bg-[#007aff] rounded-lg flex items-center justify-center text-white font-bold text-sm">
                   Ø
                 </div>
                 <h1 className="hidden sm:block text-lg font-bold text-slate-900">Lad os Snakker Dansk</h1>
@@ -137,7 +137,7 @@ export default function WebAppShell({
 
         {/* Main Content */}
         <main className={`flex-1 ${showSidebar ? 'lg:ml-0' : ''}`}>
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="page py-8">
             {children}
           </div>
         </main>
@@ -178,7 +178,7 @@ function NavItem({ href, label, icon = 'circle', active = false }) {
       href={href}
       className={`flex items-center gap-3 px-3 py-2 rounded-lg font-medium text-sm transition-colors ${
         active
-          ? 'bg-amber-50 text-amber-700'
+          ? 'bg-[#f2f2f7] text-[#007aff]'
           : 'text-slate-600 hover:bg-slate-100'
       }`}
     >
@@ -198,27 +198,27 @@ function ProgressWidget() {
   const percentage = (progressData.completed / progressData.total) * 100;
 
   return (
-    <div className="px-3 py-4 bg-gradient-to-br from-amber-50 to-orange-50 rounded-lg border border-amber-200">
+    <div className="px-3 py-4 bg-[#f2f2f7] rounded-lg border border-[#e5e5ea]">
       <div className="flex justify-between items-start mb-3">
         <div>
-          <p className="text-xs text-amber-700 font-medium">Progress</p>
-          <p className="text-2xl font-bold text-amber-900">{progressData.completed}/{progressData.total}</p>
+          <p className="text-xs text-[#007aff] font-medium">Progress</p>
+          <p className="text-2xl font-bold text-[#121417]">{progressData.completed}/{progressData.total}</p>
         </div>
-        <p className="text-xs text-amber-600 font-medium">{Math.round(percentage)}%</p>
+        <p className="text-xs text-[#007aff] font-medium">{Math.round(percentage)}%</p>
       </div>
 
       {/* Progress bar */}
-      <div className="w-full h-2 bg-amber-200 rounded-full overflow-hidden">
+      <div className="w-full h-2 bg-[#e5e5ea] rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-amber-600 to-orange-500 transition-all duration-500"
+          className="h-full bg-[#f2f2f7] transition-all duration-500"
           style={{ width: `${percentage}%` }}
         />
       </div>
 
       {/* Stats */}
-      <div className="mt-3 pt-3 border-t border-amber-200 text-xs text-amber-700 space-y-1">
+      <div className="mt-3 pt-3 border-t border-[#e5e5ea] text-xs text-[#007aff] space-y-1">
         <p>Avg. Score: <span className="font-bold">{progressData.average}%</span></p>
-        <p className="text-amber-600">{9 - progressData.completed} lessons remaining</p>
+        <p className="text-[#007aff]">{9 - progressData.completed} lessons remaining</p>
       </div>
     </div>
   );

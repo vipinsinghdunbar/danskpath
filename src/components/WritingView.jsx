@@ -163,7 +163,7 @@ export default function WritingView() {
           <div className="mt-6">
             <div className="flex justify-between items-center mb-2">
               <label className="text-[11px] uppercase tracking-widest font-[600]">Din tekst</label>
-              <span className={`text-[11px] px-2 py-1 border ${wordCount < (active.minWords||30) ? 'bg-[#FFF1F1] border-red-200 text-red-700' : wordCount > (active.maxWords||200) ? 'bg-amber-50 border-amber-200 text-amber-700' : 'bg-[#EEF2FB] border-[#D6E0F5] text-[#007aff]'}`}>{wordCount} ord / {active.minWords||active.words}</span>
+              <span className={`text-[11px] px-2 py-1 border ${wordCount < (active.minWords||30) ? 'bg-[#FFF1F1] border-red-200 text-red-700' : wordCount > (active.maxWords||200) ? 'bg-[#f2f2f7] border-[#e5e5ea] text-[#007aff]' : 'bg-[#EEF2FB] border-[#D6E0F5] text-[#007aff]'}`}>{wordCount} ord / {active.minWords||active.words}</span>
             </div>
             <textarea value={text} onChange={e=>setText(e.target.value)} placeholder="Skriv på dansk her..." className="w-full min-h-[240px] p-4 border border-[#121417] bg-[#FFFCF7] text-[15px] leading-[1.6] font-serif outline-none focus:bg-white" />
           </div>

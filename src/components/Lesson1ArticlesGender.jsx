@@ -33,7 +33,7 @@ const LESSON_SECTIONS = [
               </div>
             </div>
             <div className="flex gap-4">
-              <div className="font-mono font-bold text-orange-600 w-12">✗</div>
+              <div className="font-mono font-bold text-[#007aff] w-12">✗</div>
               <div>
                 <div className="font-semibold text-gray-900">Pen (no article)</div>
                 <div className="text-sm text-gray-600">Not common - we usually need an article</div>
@@ -55,13 +55,13 @@ const LESSON_SECTIONS = [
     type: 'explanation',
     content: (
       <div className="space-y-6">
-        <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-lg">
-          <h4 className="font-bold text-amber-900 mb-3">The Danish Article System (en/et)</h4>
-          <p className="text-amber-800 mb-4">Danish has <strong>gender</strong> — every noun is either <strong>common (en)</strong> or <strong>neuter (et)</strong>. This changes the article!</p>
+        <div className="bg-[#f2f2f7] border-l-4 border-[#007aff] p-6 rounded-lg">
+          <h4 className="font-bold text-[#121417] mb-3">The Danish Article System (en/et)</h4>
+          <p className="text-[#121417] mb-4">Danish has <strong>gender</strong> — every noun is either <strong>common (en)</strong> or <strong>neuter (et)</strong>. This changes the article!</p>
 
           <div className="space-y-4 bg-white p-4 rounded mt-3">
             <div className="border-b pb-4">
-              <div className="font-bold text-amber-900 mb-2 flex items-center gap-2">
+              <div className="font-bold text-[#121417] mb-2 flex items-center gap-2">
                 <span className="text-xl">🔴</span> Common Gender (en)
               </div>
               <div className="text-gray-700">
@@ -89,7 +89,7 @@ const LESSON_SECTIONS = [
             </div>
           </div>
 
-          <p className="text-amber-800 mt-4 text-sm bg-amber-100 p-3 rounded">
+          <p className="text-[#121417] mt-4 text-sm bg-[#e5e5ea] p-3 rounded">
             <strong>⚠️ Important:</strong> When you learn a new Danish noun, you MUST learn its gender (en or et). This will become automatic with practice.
           </p>
         </div>
@@ -216,8 +216,8 @@ const LESSON_SECTIONS = [
     type: 'summary',
     content: (
       <div className="space-y-4">
-        <div className="bg-gradient-to-br from-amber-50 to-orange-50 p-6 rounded-lg border-2 border-amber-200">
-          <h4 className="font-bold text-amber-900 mb-4 flex items-center gap-2">
+        <div className="bg-[#f2f2f7] p-6 rounded-lg border-2 border-[#e5e5ea]">
+          <h4 className="font-bold text-[#121417] mb-4 flex items-center gap-2">
             <span className="text-xl">🎯</span> What You've Learned
           </h4>
 
@@ -291,7 +291,7 @@ export default function Lesson1ArticlesGender({ onComplete, onNext }) {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
-      <div className="bg-white rounded-xl shadow-sm p-6 border-b-4 border-amber-600">
+      <div className="bg-white rounded-xl shadow-sm p-6 border-b-4 border-[#007aff]">
         <div className="flex items-start justify-between mb-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-900">
@@ -301,14 +301,14 @@ export default function Lesson1ArticlesGender({ onComplete, onNext }) {
           </div>
           <div className="text-right">
             <div className="text-sm text-gray-600">SECTION {currentSection + 1} / {LESSON_SECTIONS.length}</div>
-            <div className="text-2xl font-bold text-amber-600">{Math.round(progressPercent)}%</div>
+            <div className="text-2xl font-bold text-[#007aff]">{Math.round(progressPercent)}%</div>
           </div>
         </div>
 
         {/* Progress bar */}
         <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
           <div
-            className="bg-gradient-to-r from-amber-600 to-orange-600 h-full transition-all"
+            className="bg-[#f2f2f7] h-full transition-all"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -349,7 +349,7 @@ export default function Lesson1ArticlesGender({ onComplete, onNext }) {
               onClick={() => setCurrentSection(idx)}
               className={`w-8 h-8 rounded-full font-bold text-sm transition-colors ${
                 idx === currentSection
-                  ? 'bg-amber-600 text-white'
+                  ? 'bg-[#007aff] text-white'
                   : completedSections.has(idx)
                   ? 'bg-green-500 text-white'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
@@ -362,7 +362,7 @@ export default function Lesson1ArticlesGender({ onComplete, onNext }) {
 
         <button
           onClick={moveToNextSection}
-          className="px-6 py-3 rounded-lg bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
+          className="px-6 py-3 rounded-lg bg-[#f2f2f7] text-white font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
         >
           {currentSection === LESSON_SECTIONS.length - 1 ? 'Complete Lesson →' : 'Next Section →'}
         </button>
@@ -383,7 +383,7 @@ function ExerciseSection() {
   return (
     <div className="space-y-4">
       {exercises.map((ex) => (
-        <div key={ex.id} className="p-4 border-2 border-gray-200 rounded-lg hover:border-amber-300 transition-colors">
+        <div key={ex.id} className="p-4 border-2 border-gray-200 rounded-lg hover:border-[#e5e5ea] transition-colors">
           <p className="font-semibold text-gray-900 mb-3">{ex.question}</p>
           <div className="flex gap-2">
             {ex.options.map((opt) => (

@@ -140,7 +140,7 @@ export default function ListeningView({
             </div>
           </div>
 
-          <div className="mt-8 p-4 bg-amber-50 border border-amber-200 rounded-xl text-[13px] leading-relaxed">
+          <div className="mt-8 p-4 bg-[#f2f2f7] border border-[#e5e5ea] rounded-xl text-[13px] leading-relaxed">
             <b>Real-speaker tip:</b> TTS er kun træning. For at forstå rigtig dansk, hør DR Radio og markér reduktioner. Denne app har 30 entries — prøv at finde flere selv og tilføj dem til din egen liste.
           </div>
         </div>

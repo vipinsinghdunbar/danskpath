@@ -250,7 +250,7 @@ export default function App() {
             </Suspense>
           )}
           {page === 'dashboard' && (
-            <Suspense fallback={<div className="min-h-screen bg-slate-50 grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-slate-300 border-t-amber-600 animate-spin" /></div>}>
+            <Suspense fallback={<div className="min-h-screen bg-slate-50 grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-slate-300 border-[#007aff] animate-spin" /></div>}>
               <WebAppShell variant="dashboard" showSidebar={false}>
                 <PostAssessmentDashboard onStartLesson={handleStartLessons} onLogout={handleLogout} />
               </WebAppShell>
@@ -262,7 +262,7 @@ export default function App() {
             </Suspense>
           )}
           {page === 'lessons' && (
-            <Suspense fallback={<div className="min-h-screen bg-slate-50 grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-slate-300 border-t-amber-600 animate-spin" /></div>}>
+            <Suspense fallback={<div className="min-h-screen bg-slate-50 grid place-items-center"><div className="w-10 h-10 rounded-full border-2 border-slate-300 border-[#007aff] animate-spin" /></div>}>
               <WebAppShell variant="lesson" showSidebar={true}>
                 <LessonView onBackToDashboard={handleBackToDashboard} resumeFromSection={resumeSection} userId={user?.uid} />
               </WebAppShell>

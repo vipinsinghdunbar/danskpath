@@ -35,7 +35,7 @@ export default function RecommendedLessons({ onStartLesson }) {
         {recommendations.slice(0, 8).map((rec, idx) => (
           <div
             key={rec.lessonId}
-            className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border-l-4 border-blue-500"
+            className="p-4 bg-[#e5f1ff] rounded-lg border-l-4 border-blue-500"
           >
             <div className="flex justify-between items-start mb-2">
               <div>
@@ -170,7 +170,7 @@ export default function RecommendedLessons({ onStartLesson }) {
     return (
       <div className="space-y-6">
         {/* Current Level */}
-        <div className="p-6 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg">
+        <div className="p-6 bg-[#e5f1ff] text-white rounded-lg">
           <p className="text-sm opacity-90 mb-2">Current Level</p>
           <div className="text-4xl font-bold mb-4">{learningPath.currentLevel}</div>
           <div className="grid grid-cols-2 gap-4 text-sm">
@@ -240,7 +240,7 @@ export default function RecommendedLessons({ onStartLesson }) {
     <div className="space-y-6">
       {/* Achievements */}
       {achievements.length > 0 && (
-        <div className="p-6 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border border-yellow-200">
+        <div className="p-6 bg-[#f2f2f7] rounded-lg border border-[#e5e5ea]">
           <h3 className="font-semibold text-gray-900 mb-4">🏆 Your Achievements</h3>
           <div className="flex flex-wrap gap-3">
             {achievements.map(ach => (

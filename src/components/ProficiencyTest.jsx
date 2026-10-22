@@ -151,7 +151,7 @@ export default function ProficiencyTest({ onTestComplete, onBack }) {
   // Start screen
   if (testState === 'start') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+      <div className="min-h-screen bg-[#e5f1ff] p-6">
         <div className="max-w-2xl mx-auto">
           <div className="bg-white p-8 rounded-lg shadow">
             <div className="text-center mb-8">
@@ -219,7 +219,7 @@ export default function ProficiencyTest({ onTestComplete, onBack }) {
     const progress = Math.round(((currentIndex + 1) / questions.length) * 100);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+      <div className="min-h-screen bg-[#e5f1ff] p-6">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="bg-white p-6 rounded-lg shadow mb-6">
@@ -305,15 +305,15 @@ export default function ProficiencyTest({ onTestComplete, onBack }) {
   if (testState === 'results' && results) {
     const levelColors = {
       'A1': 'bg-red-100 text-red-800',
-      'A2': 'bg-orange-100 text-orange-800',
-      'B1': 'bg-yellow-100 text-yellow-800',
+      'A2': 'bg-[#e5e5ea] text-[#121417]',
+      'B1': 'bg-[#e5e5ea] text-[#121417]',
       'B2': 'bg-blue-100 text-blue-800',
       'C1': 'bg-purple-100 text-purple-800',
       'C2': 'bg-green-100 text-green-800'
     };
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+      <div className="min-h-screen bg-[#e5f1ff] p-6">
         <div className="max-w-3xl mx-auto">
           {/* Results Header */}
           <div className="bg-white p-8 rounded-lg shadow mb-6">
@@ -336,7 +336,7 @@ export default function ProficiencyTest({ onTestComplete, onBack }) {
               </div>
               <div className="text-center">
                 <p className="text-sm text-gray-600">Time</p>
-                <p className="text-3xl font-bold text-orange-600">{Math.round(results.duration / 60)}m</p>
+                <p className="text-3xl font-bold text-[#007aff]">{Math.round(results.duration / 60)}m</p>
               </div>
             </div>
           </div>
@@ -379,14 +379,14 @@ export default function ProficiencyTest({ onTestComplete, onBack }) {
 
             {/* Weak Categories */}
             {Object.entries(results.categoryScores).some(([_, scores]) => scores.percentage < 70) && (
-              <div className="p-4 bg-orange-50 rounded-lg">
-                <p className="font-semibold text-orange-900 mb-2">📍 Focus Areas:</p>
+              <div className="p-4 bg-[#f2f2f7] rounded-lg">
+                <p className="font-semibold text-[#121417] mb-2">📍 Focus Areas:</p>
                 <ul className="space-y-1">
                   {Object.entries(results.categoryScores)
                     .filter(([_, scores]) => scores.percentage < 70)
                     .slice(0, 3)
                     .map(([category, scores]) => (
-                      <li key={category} className="text-sm text-orange-900">
+                      <li key={category} className="text-sm text-[#121417]">
                         • {category}: {scores.percentage}% (Practice more)
                       </li>
                     ))}

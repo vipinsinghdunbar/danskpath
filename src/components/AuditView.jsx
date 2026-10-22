@@ -12,7 +12,7 @@ function Meter({ label, value, done }) {
   return (
     <div className="flex items-center gap-3">
       <div className="flex-1">
-        <div className="flex justify-between text-[12px] mb-1"><span className="font-medium">{label}</span><span className={value<40?'text-red-600': value<70?'text-amber-600':'text-emerald-700'}>{value}%</span></div>
+        <div className="flex justify-between text-[12px] mb-1"><span className="font-medium">{label}</span><span className={value<40?'text-red-600': value<70?'text-[#007aff]':'text-emerald-700'}>{value}%</span></div>
         <div className="h-2 bg-[#F3EFE8] rounded-full overflow-hidden"><div className="h-full bg-[#121212] rounded-full" style={{ width: `${value}%` }} /></div>
       </div>
       {done && <span className="text-[10px] px-2 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">{done}</span>}
@@ -74,7 +74,7 @@ export default function AuditView() {
         <div className="mt-6 grid grid-cols-3 gap-4 text-[13px]">
           <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3"><b>✓ Grammatik A2–B1</b><br/>{counts.grammar} emner, 1300+ eksempler. Stærkeste del.</div>
           <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-3"><b>✓ Udtale</b><br/>{counts.pronunciation}-ugers forløb + {counts.reductions} reduktioner. Sjældent i gratis apps.</div>
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-3"><b>△ Ordforråd</b><br/>{counts.vocab} ord med kollokationer + SRS. Mål: 2000 for B2.</div>
+          <div className="bg-[#f2f2f7] border border-[#e5e5ea] rounded-xl p-3"><b>△ Ordforråd</b><br/>{counts.vocab} ord med kollokationer + SRS. Mål: 2000 for B2.</div>
         </div>
       </div>
 

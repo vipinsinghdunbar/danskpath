@@ -57,7 +57,7 @@ export default function SettingsModal({ open, onClose }) {
             <div className="text-[11px] text-[#6B7280] mt-1">OpenAI: gpt-4o-mini (billig), gpt-4o. Anthropic: claude-3-5-haiku-20241022, claude-3-5-sonnet-20241022</div>
           </div>
 
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-[12px] leading-relaxed">
+          <div className="bg-[#f2f2f7] border border-[#e5e5ea] rounded-xl p-3 text-[12px] leading-relaxed">
             <b>Privatliv:</b> Nøglen gemmes kun i localStorage på din enhed. Den sendes direkte til OpenAI/Anthropic, aldrig til vores server (der er ingen server). Du kan slette den når som helst.
           </div>
 

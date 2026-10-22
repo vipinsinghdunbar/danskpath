@@ -404,3 +404,35 @@ a:focus-visible {
     color: black;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   LAYOUT — one page width for the whole app.
+   Measured before this existed: content came out 448, 576, 768, 672 and
+   1024px wide on the same 1600px screen, so every screen had a different
+   amount of empty space at the sides and none of them looked related. A
+   consistent theme is width and rhythm, not only colour.
+
+   .page   the page container. One width everywhere.
+   .prose  a reading column inside it, capped for line length rather than
+           stretched — long lines of Danish are harder to read, so passages
+           and explanations stay narrow while lists, grids and controls use
+           the full width.
+--------------------------------------------------------------------------- */
+:root {
+  --page-max: 1280px;
+  --prose-max: 68ch;
+  --page-gutter: 24px;
+}
+
+.page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: max(var(--page-gutter), env(safe-area-inset-left, 0px));
+}
+
+.prose-col { max-width: var(--prose-max); }
+
+@media (max-width: 720px) {
+  :root { --page-gutter: 16px; }
+}

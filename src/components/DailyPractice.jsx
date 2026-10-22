@@ -21,7 +21,7 @@ export default function DailyPractice({ onStartPractice, onBack }) {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="p-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg">
+      <div className="p-6 bg-[#e5f1ff] text-white rounded-lg">
         <h2 className="text-3xl font-bold mb-4">📅 Daily Practice</h2>
         <p className="text-blue-100">
           Optimize your learning with spaced repetition. Review exercises at the perfect time to maximize retention.
@@ -37,7 +37,7 @@ export default function DailyPractice({ onStartPractice, onBack }) {
         </div>
         <div className="p-4 bg-white rounded-lg shadow">
           <p className="text-sm text-gray-600">Overdue</p>
-          <p className="text-3xl font-bold text-orange-600">{stats.overdue}</p>
+          <p className="text-3xl font-bold text-[#007aff]">{stats.overdue}</p>
           <p className="text-xs text-gray-500 mt-2">Catch up soon</p>
         </div>
         <div className="p-4 bg-white rounded-lg shadow">
@@ -78,11 +78,11 @@ export default function DailyPractice({ onStartPractice, onBack }) {
           <div>
             <div className="flex justify-between mb-2">
               <span className="font-semibold text-gray-900">Currently Learning</span>
-              <span className="text-lg font-bold text-yellow-600">{learningStats.learningItems}</span>
+              <span className="text-lg font-bold text-[#007aff]">{learningStats.learningItems}</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-3">
               <div
-                className="bg-yellow-600 h-3 rounded-full"
+                className="bg-[#007aff] h-3 rounded-full"
                 style={{
                   width: `${learningStats.totalExercises > 0 ? (learningStats.learningItems / learningStats.totalExercises) * 100 : 0}%`
                 }}
@@ -141,14 +141,14 @@ export default function DailyPractice({ onStartPractice, onBack }) {
         </div>
 
         {/* Normal Items */}
-        <div className="p-6 bg-yellow-50 rounded-lg border-l-4 border-yellow-500">
+        <div className="p-6 bg-[#f2f2f7] rounded-lg border-l-4 border-[#007aff]">
           <h4 className="text-lg font-bold text-gray-900 mb-2">🟡 Regular Review</h4>
           <p className="text-sm text-gray-600 mb-4">
             {byPriority.normal.length} exercises due for review
           </p>
           <button
             onClick={() => onStartPractice?.('normal')}
-            className="w-full bg-yellow-600 text-white py-2 rounded-lg font-semibold hover:bg-yellow-700"
+            className="w-full bg-[#007aff] text-white py-2 rounded-lg font-semibold hover:bg-[#007aff]"
           >
             Daily Review
           </button>

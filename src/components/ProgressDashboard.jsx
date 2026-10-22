@@ -246,8 +246,8 @@ export default function ProgressDashboard({ onRetake, onViewRoadmap, onBackFromL
               </div>
             </div>
 
-            <div className="bg-amber-50 rounded-[12px] p-4 border border-amber-200">
-              <div className="text-[11px] font-[700] uppercase text-amber-700 mb-2">Focus Areas</div>
+            <div className="bg-[#f2f2f7] rounded-[12px] p-4 border border-[#e5e5ea]">
+              <div className="text-[11px] font-[700] uppercase text-[#007aff] mb-2">Focus Areas</div>
               <div className="space-y-1">
                 {displayAssessment.verdict.weaknesses.length ? (
                   displayAssessment.verdict.weaknesses.map((w, i) => (

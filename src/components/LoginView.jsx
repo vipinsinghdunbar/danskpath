@@ -66,8 +66,8 @@ export default function LoginView({ onAuthSuccess }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-white to-orange-50 flex items-center justify-center px-4 py-8">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-[#f2f2f7] flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-[420px]">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">DanskPath</h1>
@@ -86,7 +86,7 @@ export default function LoginView({ onAuthSuccess }) {
               }}
               className={`flex-1 py-2 rounded-lg font-semibold transition-all ${
                 !isSignUp
-                  ? 'bg-amber-600 text-white shadow-md'
+                  ? 'bg-[#007aff] text-white shadow-md'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -99,7 +99,7 @@ export default function LoginView({ onAuthSuccess }) {
               }}
               className={`flex-1 py-2 rounded-lg font-semibold transition-all ${
                 isSignUp
-                  ? 'bg-amber-600 text-white shadow-md'
+                  ? 'bg-[#007aff] text-white shadow-md'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -127,7 +127,7 @@ export default function LoginView({ onAuthSuccess }) {
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   placeholder="Vipin"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent text-gray-900"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:border-transparent text-gray-900"
                 />
               </div>
             )}
@@ -143,7 +143,7 @@ export default function LoginView({ onAuthSuccess }) {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent text-gray-900"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:border-transparent text-gray-900"
               />
             </div>
 
@@ -159,7 +159,7 @@ export default function LoginView({ onAuthSuccess }) {
                 placeholder="••••••••"
                 required
                 minLength={6}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-transparent text-gray-900"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#007aff] focus:border-transparent text-gray-900"
               />
             </div>
 
@@ -167,7 +167,7 @@ export default function LoginView({ onAuthSuccess }) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 mt-6 bg-gradient-to-r from-amber-600 to-orange-600 text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 mt-6 bg-[#f2f2f7] text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="inline-flex items-center gap-2">

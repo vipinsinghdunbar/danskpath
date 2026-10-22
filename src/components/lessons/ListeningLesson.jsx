@@ -525,10 +525,10 @@ export default function ListeningLesson({ lesson, onComplete, onBack, onAttemptR
               </div>
             </div>
 
-            <div className="bg-amber-50 rounded-[12px] p-6 border border-amber-200 mb-6">
-              <h2 className="text-[16px] font-[700] mb-4 text-amber-900">Strategy 2: Listen for Question Words</h2>
-              <p className="text-[14px] text-amber-900 mb-4">Common Danish question words:</p>
-              <div className="text-[13px] text-amber-900 space-y-1">
+            <div className="bg-[#f2f2f7] rounded-[12px] p-6 border border-[#e5e5ea] mb-6">
+              <h2 className="text-[16px] font-[700] mb-4 text-[#121417]">Strategy 2: Listen for Question Words</h2>
+              <p className="text-[14px] text-[#121417] mb-4">Common Danish question words:</p>
+              <div className="text-[13px] text-[#121417] space-y-1">
                 <div>• <strong>Hvad?</strong> = What?</div>
                 <div>• <strong>Hvor?</strong> = Where?</div>
                 <div>• <strong>Hvornår?</strong> = When?</div>
@@ -536,7 +536,7 @@ export default function ListeningLesson({ lesson, onComplete, onBack, onAttemptR
                 <div>• <strong>Hvorfor?</strong> = Why?</div>
                 <div>• <strong>Hvordan?</strong> = How?</div>
               </div>
-              <p className="text-[13px] text-amber-900 mt-3">When you hear a question word, you know what type of information to listen for.</p>
+              <p className="text-[13px] text-[#121417] mt-3">When you hear a question word, you know what type of information to listen for.</p>
             </div>
 
             <div className="bg-green-50 rounded-[12px] p-6 border border-green-200 mb-6">
@@ -578,9 +578,9 @@ export default function ListeningLesson({ lesson, onComplete, onBack, onAttemptR
               const ex = exercises[exerciseIndex];
               return (
                 <div>
-                  <div className="bg-amber-50 rounded-[12px] p-4 border border-amber-200 mb-4">
-                    <p className="text-[13px] font-[600] text-amber-900 mb-2">AUDIO:</p>
-                    <p className="text-[14px] text-amber-900 italic">{ex.audio}</p>
+                  <div className="bg-[#f2f2f7] rounded-[12px] p-4 border border-[#e5e5ea] mb-4">
+                    <p className="text-[13px] font-[600] text-[#121417] mb-2">AUDIO:</p>
+                    <p className="text-[14px] text-[#121417] italic">{ex.audio}</p>
                   </div>
 
                   <h2 className="text-[18px] font-[700] mb-4">{ex.question || ex.instruction}</h2>

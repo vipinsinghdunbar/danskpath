@@ -135,11 +135,11 @@ export default function LessonTaker({ lessonId, onComplete, onBack }) {
   // Results View
   if (submitted && results) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+      <div className="min-h-screen bg-[#e5f1ff] p-6">
         <div className="max-w-4xl mx-auto">
           {/* Results Header */}
           <div className={`p-8 rounded-lg shadow mb-6 ${
-            results.passed ? 'bg-green-50 border-2 border-green-500' : 'bg-orange-50 border-2 border-orange-500'
+            results.passed ? 'bg-green-50 border-2 border-green-500' : 'bg-[#f2f2f7] border-2 border-[#007aff]'
           }`}>
             <div className="text-center">
               <p className="text-6xl mb-4">{results.passed ? '🎉' : '📊'}</p>
@@ -256,7 +256,7 @@ export default function LessonTaker({ lessonId, onComplete, onBack }) {
 
   // Lesson Taking View
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen bg-[#e5f1ff] p-6">
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <div className="bg-white p-6 rounded-lg shadow mb-6">

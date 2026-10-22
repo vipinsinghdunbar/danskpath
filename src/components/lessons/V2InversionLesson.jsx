@@ -464,16 +464,16 @@ export default function V2InversionLesson({ lesson, onComplete, onBack, onAttemp
               </p>
             </div>
 
-            <div className="bg-amber-50 rounded-[12px] p-6 border border-amber-200 mb-6">
-              <h2 className="text-[16px] font-[700] mb-4 text-amber-900">Here's where Danish is different</h2>
-              <p className="text-[14px] text-amber-900 leading-[1.8] mb-4">
+            <div className="bg-[#f2f2f7] rounded-[12px] p-6 border border-[#e5e5ea] mb-6">
+              <h2 className="text-[16px] font-[700] mb-4 text-[#121417]">Here's where Danish is different</h2>
+              <p className="text-[14px] text-[#121417] leading-[1.8] mb-4">
                 In Danish, **every sentence does this**. The verb must always come in position 2, no matter what comes first.
               </p>
               <div className="bg-white rounded-[8px] p-4 mb-4">
                 <p className="text-[14px] font-[600] mb-2">Normal word order:</p>
                 <p className="text-[14px] font-[600] mb-4">Jeg arbejder i dag hjemme.</p>
                 <p className="text-[14px] font-[600] mb-2">Fronted adverbial:</p>
-                <p className="text-[14px] font-[600] text-amber-700">I dag arbejder jeg hjemme.</p>
+                <p className="text-[14px] font-[600] text-[#007aff]">I dag arbejder jeg hjemme.</p>
                 <p className="text-[12px] text-gray-600 mt-2">
                   Position 1: I dag (fronted) | Position 2: arbejder (verb) | Position 3: jeg (subject)
                 </p>

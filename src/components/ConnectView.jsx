@@ -128,7 +128,7 @@ export default function ConnectView() {
             <button onClick={importData} className="mt-2 btn-ghost text-[12px]">Importer og genindlæs</button>
           </div>
         </div>
-        <div className="mt-4 text-[11px] text-[#6B7280] bg-amber-50 border border-amber-200 rounded-xl p-3">
+        <div className="mt-4 text-[11px] text-[#6B7280] bg-[#f2f2f7] border border-[#e5e5ea] rounded-xl p-3">
           <b>Phase 5 (næste):</b> Supabase backend → rigtig login, progress følger dig på tværs af enheder, lærer-dashboard. Indtil da: brug export/import eller samme enhed. Original `sync.js` spejler allerede til Claude artifact private doc når siden kører som artifact.
         </div>
       </div>

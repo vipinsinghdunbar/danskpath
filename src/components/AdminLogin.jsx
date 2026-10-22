@@ -42,7 +42,7 @@ export default function AdminLogin({ onLoginSuccess, setActive }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#e5f1ff] flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-full bg-black text-white grid place-items-center text-2xl font-bold mx-auto mb-4">

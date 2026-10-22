@@ -254,7 +254,7 @@ export default function DiagnosticView({ onComplete }) {
   const Shell = ({ children, footer }) => (
     <div className="min-h-screen bg-[#f2f2f7]">
       <header className="bg-white border-b border-[#e5e5ea] sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-5 py-3 flex items-center gap-4">
+        <div className="page py-3 flex items-center gap-4">
           <div className="flex-1 min-w-0">
             <div className="font-bold text-[15px]">{section?.label ?? 'Niveautest'}</div>
             <div className="text-[11px] text-[#8e8e93]">
@@ -269,10 +269,10 @@ export default function DiagnosticView({ onComplete }) {
           </div>
         </div>
       </header>
-      <main className="max-w-3xl mx-auto px-5 py-8 pb-32">{children}</main>
+      <main className="page py-9 pb-32"><div className="prose-col">{children}</div></main>
       {footer && (
         <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-[#e5e5ea] z-20">
-          <div className="max-w-3xl mx-auto px-5 py-4">{footer}</div>
+          <div className="page py-4">{footer}</div>
         </div>
       )}
     </div>
@@ -302,8 +302,7 @@ export default function DiagnosticView({ onComplete }) {
   // ---- start -------------------------------------------------------------
   if (stage === 'start') {
     return (
-      <div className="min-h-screen bg-[#f2f2f7] grid place-items-center px-5 py-10">
-        <div className="max-w-xl w-full bg-white rounded-2xl border border-[#e5e5ea] p-8">
+      <div className="min-h-screen bg-[#f2f2f7] py-12"><div className="page"><div className="max-w-[680px] bg-white rounded-2xl border border-[#e5e5ea] p-8">
           <h1 className="text-[27px] font-bold leading-tight mb-2">Find dit niveau</h1>
           <p className="text-[15px] text-[#8e8e93] mb-6 leading-relaxed">
             Fem dele, cirka 15 minutter. Hver færdighed måles for sig — de fleste
@@ -329,7 +328,7 @@ export default function DiagnosticView({ onComplete }) {
             className="w-full py-3.5 rounded-xl bg-[#007aff] text-white text-[15px] font-semibold hover:bg-[#0051d5] transition-colors">
             Start testen
           </button>
-        </div>
+        </div></div>
       </div>
     );
   }
@@ -345,8 +344,7 @@ export default function DiagnosticView({ onComplete }) {
     ];
     const band = (p) => (p >= 80 ? 'B2' : p >= 62 ? 'B1' : p >= 42 ? 'A2' : 'A1');
     return (
-      <div className="min-h-screen bg-[#f2f2f7] px-5 py-10">
-        <div className="max-w-xl mx-auto bg-white rounded-2xl border border-[#e5e5ea] p-8">
+      <div className="min-h-screen bg-[#f2f2f7] py-12"><div className="page"><div className="max-w-[680px] bg-white rounded-2xl border border-[#e5e5ea] p-8">
           <div className="text-[12px] uppercase tracking-wide text-[#8e8e93] mb-1.5">Dit resultat</div>
           <h1 className="text-[27px] font-bold mb-2">Samlet: {result.overallLevel}</h1>
           <p className="text-[15px] text-[#8e8e93] mb-7 leading-relaxed">
@@ -377,7 +375,7 @@ export default function DiagnosticView({ onComplete }) {
             className="w-full py-3.5 rounded-xl bg-[#007aff] text-white text-[15px] font-semibold hover:bg-[#0051d5] transition-colors">
             Videre til dagens session
           </button>
-        </div>
+        </div></div>
       </div>
     );
   }

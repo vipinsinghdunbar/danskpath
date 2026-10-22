@@ -473,9 +473,9 @@ export default function PrepositionsLesson({ lesson, onComplete, onBack, onAttem
               </div>
             </div>
 
-            <div className="bg-amber-50 rounded-[12px] p-6 border border-amber-200 mb-6">
-              <h2 className="text-[16px] font-[700] mb-4 text-amber-900">Danish prepositions work similarly, but with differences</h2>
-              <p className="text-[14px] text-amber-900 leading-[1.8] mb-4">
+            <div className="bg-[#f2f2f7] rounded-[12px] p-6 border border-[#e5e5ea] mb-6">
+              <h2 className="text-[16px] font-[700] mb-4 text-[#121417]">Danish prepositions work similarly, but with differences</h2>
+              <p className="text-[14px] text-[#121417] leading-[1.8] mb-4">
                 Danish has its own logic for prepositions. The same word might translate differently depending on context:
               </p>
               <div className="bg-white rounded-[8px] p-4 mb-4">

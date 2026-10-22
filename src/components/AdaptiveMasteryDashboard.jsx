@@ -141,7 +141,7 @@ export default function AdaptiveMasteryDashboard({ userId, currentDifficulty, ma
                   </div>
                   <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                     <div
-                      className="h-full bg-gradient-to-r from-blue-500 to-blue-600 rounded-full transition-all duration-500"
+                      className="h-full bg-[#e5f1ff] rounded-full transition-all duration-500"
                       style={{ width: `${topic.accuracy}%` }}
                     />
                   </div>
@@ -153,17 +153,17 @@ export default function AdaptiveMasteryDashboard({ userId, currentDifficulty, ma
 
         {/* Weak Spots */}
         {weakSpots && (weakSpots.errorTypes.length > 0 || weakSpots.topics.length > 0) && (
-          <div className="bg-white rounded-[16px] border border-amber-200 bg-amber-50 p-6">
-            <h2 className="text-[16px] font-[700] text-amber-900 mb-4">⚠️ Svage punkter</h2>
+          <div className="bg-white rounded-[16px] border border-[#e5e5ea] bg-[#f2f2f7] p-6">
+            <h2 className="text-[16px] font-[700] text-[#121417] mb-4">⚠️ Svage punkter</h2>
 
             {weakSpots.errorTypes.length > 0 && (
               <div className="mb-4">
-                <div className="text-[12px] font-semibold text-amber-900 mb-3 uppercase">Fejltyper</div>
+                <div className="text-[12px] font-semibold text-[#121417] mb-3 uppercase">Fejltyper</div>
                 <div className="space-y-2">
                   {weakSpots.errorTypes.map(error => (
-                    <div key={error.errorType} className="flex items-center justify-between p-2 bg-white rounded-lg border border-amber-200">
-                      <span className="text-[13px] font-medium text-amber-900">{error.errorType}</span>
-                      <span className="text-[11px] text-amber-700">{error.frequency}% af fejlene</span>
+                    <div key={error.errorType} className="flex items-center justify-between p-2 bg-white rounded-lg border border-[#e5e5ea]">
+                      <span className="text-[13px] font-medium text-[#121417]">{error.errorType}</span>
+                      <span className="text-[11px] text-[#007aff]">{error.frequency}% af fejlene</span>
                     </div>
                   ))}
                 </div>
@@ -172,20 +172,20 @@ export default function AdaptiveMasteryDashboard({ userId, currentDifficulty, ma
 
             {weakSpots.topics.length > 0 && (
               <div>
-                <div className="text-[12px] font-semibold text-amber-900 mb-3 uppercase">Emner med fokus</div>
+                <div className="text-[12px] font-semibold text-[#121417] mb-3 uppercase">Emner med fokus</div>
                 <div className="space-y-2">
                   {weakSpots.topics.map(topic => (
-                    <div key={topic.topic} className="flex items-center justify-between p-2 bg-white rounded-lg border border-amber-200">
-                      <span className="text-[13px] font-medium text-amber-900">{topic.topic}</span>
-                      <span className="text-[11px] text-amber-700">{topic.errors} fejl</span>
+                    <div key={topic.topic} className="flex items-center justify-between p-2 bg-white rounded-lg border border-[#e5e5ea]">
+                      <span className="text-[13px] font-medium text-[#121417]">{topic.topic}</span>
+                      <span className="text-[11px] text-[#007aff]">{topic.errors} fejl</span>
                     </div>
                   ))}
                 </div>
               </div>
             )}
 
-            <div className="mt-4 p-3 bg-white rounded-lg border border-amber-200">
-              <p className="text-[12px] text-amber-900">
+            <div className="mt-4 p-3 bg-white rounded-lg border border-[#e5e5ea]">
+              <p className="text-[12px] text-[#121417]">
                 💡 <strong>Tip:</strong> Vi øger andelen af øvelser fra disse områder for at hjælpe dig med at blive stærk.
               </p>
             </div>
@@ -198,7 +198,7 @@ export default function AdaptiveMasteryDashboard({ userId, currentDifficulty, ma
             <h2 className="text-[16px] font-[700] text-gray-900 mb-4">🏆 Præstationer</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {achievements.map(achievement => (
-                <div key={achievement.id} className="text-center p-4 bg-gradient-to-br from-yellow-50 to-amber-50 rounded-lg border border-yellow-200">
+                <div key={achievement.id} className="text-center p-4 bg-[#f2f2f7] rounded-lg border border-[#e5e5ea]">
                   <div className="text-[24px] mb-2">{achievement.icon}</div>
                   <div className="text-[12px] font-semibold text-gray-900">{achievement.label}</div>
                 </div>

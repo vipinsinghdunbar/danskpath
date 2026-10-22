@@ -29,7 +29,7 @@ export default function SecurityView({ setActive }) {
               <h3 className="text-[14px] font-[700]">Audit Result — {audit.ok ? '✅ PASS (no high issues)' : '⚠️ Issues Found'}</h3>
               <div className="mt-3 space-y-2">
                 {audit.issues?.map((iss,i)=>(
-                  <div key={i} className={`p-3 rounded-xl text-[12px] ${iss.level==='high' ? 'bg-red-50 border border-red-200 text-red-800' : 'bg-yellow-50 border border-yellow-200 text-yellow-800'}`}>
+                  <div key={i} className={`p-3 rounded-xl text-[12px] ${iss.level==='high' ? 'bg-red-50 border border-red-200 text-red-800' : 'bg-[#f2f2f7] border border-[#e5e5ea] text-[#121417]'}`}>
                     <strong>{iss.level.toUpperCase()}:</strong> {iss.msg} {iss.fix && <span className="block mt-1 font-[600]">Fix: {iss.fix}</span>}
                   </div>
                 ))}

@@ -2,20 +2,20 @@ import React from 'react';
 
 export default function HomePage({ onStartAssessment }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-slate-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-600 to-orange-600 rounded-lg flex items-center justify-center text-white text-xl font-bold">
+            <div className="w-10 h-10 bg-[#f2f2f7] rounded-lg flex items-center justify-center text-white text-xl font-bold">
               Ø
             </div>
             <span className="text-xl font-bold text-slate-900">DanskPath</span>
           </div>
           <nav className="hidden md:flex items-center gap-8">
-            <a href="#about" className="text-slate-600 hover:text-amber-600 font-medium transition">About</a>
-            <a href="#features" className="text-slate-600 hover:text-amber-600 font-medium transition">Features</a>
-            <a href="#how" className="text-slate-600 hover:text-amber-600 font-medium transition">How it Works</a>
+            <a href="#about" className="text-slate-600 hover:text-[#007aff] font-medium transition">About</a>
+            <a href="#features" className="text-slate-600 hover:text-[#007aff] font-medium transition">Features</a>
+            <a href="#how" className="text-slate-600 hover:text-[#007aff] font-medium transition">How it Works</a>
           </nav>
         </div>
       </header>
@@ -32,7 +32,7 @@ export default function HomePage({ onStartAssessment }) {
             </p>
             <button
               onClick={onStartAssessment}
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-200 transform hover:scale-105"
+              className="inline-flex items-center gap-3 bg-[#f2f2f7] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:shadow-lg hover: hover: transition-all duration-200 transform hover:scale-105"
             >
               <span>Start Your Assessment</span>
               <span>→</span>
@@ -45,10 +45,10 @@ export default function HomePage({ onStartAssessment }) {
           {/* Visual */}
           <div className="hidden md:block">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-200 to-orange-200 rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
+              <div className="absolute inset-0 bg-[#f2f2f7] rounded-3xl blur-2xl opacity-30 animate-pulse"></div>
               <div className="relative bg-white rounded-3xl shadow-2xl p-8 border border-slate-100">
                 <div className="space-y-4">
-                  <div className="flex items-center gap-3 p-4 bg-amber-50 rounded-lg">
+                  <div className="flex items-center gap-3 p-4 bg-[#f2f2f7] rounded-lg">
                     <span className="text-2xl">📚</span>
                     <div>
                       <div className="font-semibold text-slate-900">9 Comprehensive Lessons</div>
@@ -82,7 +82,7 @@ export default function HomePage({ onStartAssessment }) {
           <h2 className="text-4xl font-bold text-slate-900 mb-8 text-center">What is DanskPath?</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div>
-              <h3 className="text-xl font-semibold text-amber-600 mb-4">Your Danish Learning Companion</h3>
+              <h3 className="text-xl font-semibold text-[#007aff] mb-4">Your Danish Learning Companion</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
                 DanskPath is a modern, interactive platform designed to help non-native speakers master Danish from beginner (A1) to upper-intermediate (B2) level. Whether you're new to Danish or looking to refine your skills, DanskPath guides you through a structured, engaging curriculum.
               </p>
@@ -91,7 +91,7 @@ export default function HomePage({ onStartAssessment }) {
               </p>
             </div>
             <div>
-              <h3 className="text-xl font-semibold text-amber-600 mb-4">Built for Adults, By Language Learners</h3>
+              <h3 className="text-xl font-semibold text-[#007aff] mb-4">Built for Adults, By Language Learners</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
                 DanskPath understands that adult learners have busy lives. Each lesson is concise, focused, and actionable. Progress is saved automatically, and you can learn at your own pace—no subscriptions, no pressure, just learning that works for you.
               </p>
@@ -161,7 +161,7 @@ export default function HomePage({ onStartAssessment }) {
           <div className="space-y-8">
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-amber-600 text-white font-bold text-lg">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#007aff] text-white font-bold text-lg">
                   1
                 </div>
               </div>
@@ -174,7 +174,7 @@ export default function HomePage({ onStartAssessment }) {
             </div>
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-amber-600 text-white font-bold text-lg">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#007aff] text-white font-bold text-lg">
                   2
                 </div>
               </div>
@@ -187,7 +187,7 @@ export default function HomePage({ onStartAssessment }) {
             </div>
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-amber-600 text-white font-bold text-lg">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#007aff] text-white font-bold text-lg">
                   3
                 </div>
               </div>
@@ -200,7 +200,7 @@ export default function HomePage({ onStartAssessment }) {
             </div>
             <div className="flex gap-6">
               <div className="flex-shrink-0">
-                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-amber-600 text-white font-bold text-lg">
+                <div className="flex items-center justify-center w-12 h-12 rounded-full bg-[#007aff] text-white font-bold text-lg">
                   4
                 </div>
               </div>
@@ -216,15 +216,15 @@ export default function HomePage({ onStartAssessment }) {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-amber-600 to-orange-600 py-20">
+      <section className="bg-[#f2f2f7] py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">Ready to Master Danish?</h2>
-          <p className="text-xl text-amber-50 mb-8">
+          <p className="text-xl text-[#8e8e93] mb-8">
             Take the diagnostic assessment now. It's free, takes 12-15 minutes, and shows your exact Danish level.
           </p>
           <button
             onClick={onStartAssessment}
-            className="inline-flex items-center gap-3 bg-white text-amber-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-amber-50 transition-all duration-200 transform hover:scale-105 shadow-lg"
+            className="inline-flex items-center gap-3 bg-white text-[#007aff] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#f2f2f7] transition-all duration-200 transform hover:scale-105 shadow-lg"
           >
             <span>Start Assessment Now</span>
             <span>→</span>

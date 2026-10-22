@@ -147,7 +147,7 @@ export default function ReadingView({
                 </div>
               ))}
               {active.gaps && (
-                <div className="card p-4 bg-amber-50 border-amber-200">
+                <div className="card p-4 bg-[#f2f2f7] border-[#e5e5ea]">
                   <div className="text-[13px] font-medium">PD3 Gapped text - træk sætninger</div>
                   <div className="mt-2 text-[13px] text-[#6B7280]">Gaps: {active.gaps.join(' | ')}</div>
                 </div>

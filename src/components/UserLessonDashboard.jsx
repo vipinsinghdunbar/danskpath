@@ -42,7 +42,7 @@ export default function UserLessonDashboard({
   const categories = [...new Set(lessons.map(l => l.category))];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen bg-[#e5f1ff] p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8 flex justify-between items-start">
@@ -64,7 +64,7 @@ export default function UserLessonDashboard({
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <button
             onClick={onTakeProficiencyTest}
-            className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition"
+            className="p-4 bg-[#e5f1ff] text-white rounded-lg hover:from-blue-600 hover:to-blue-700 transition"
           >
             <p className="text-2xl mb-2">🧪</p>
             <p className="font-semibold">Proficiency Test</p>
@@ -73,7 +73,7 @@ export default function UserLessonDashboard({
 
           <button
             onClick={onViewRecommendations}
-            className="p-4 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-lg hover:from-purple-600 hover:to-purple-700 transition"
+            className="p-4 bg-[#f2f2f7] text-white rounded-lg hover:from-purple-600 hover:to-purple-700 transition"
           >
             <p className="text-2xl mb-2">⭐</p>
             <p className="font-semibold">Recommended</p>
@@ -82,7 +82,7 @@ export default function UserLessonDashboard({
 
           <button
             onClick={onViewDailyPractice}
-            className="p-4 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-lg hover:from-green-600 hover:to-green-700 transition"
+            className="p-4 bg-[#f2f2f7] text-white rounded-lg hover:from-green-600 hover:to-green-700 transition"
           >
             <p className="text-2xl mb-2">📅</p>
             <p className="font-semibold">Daily Practice</p>
@@ -91,7 +91,7 @@ export default function UserLessonDashboard({
 
           <button
             onClick={onTakeSurpriseTest}
-            className="p-4 bg-gradient-to-br from-orange-500 to-orange-600 text-white rounded-lg hover:from-orange-600 hover:to-orange-700 transition"
+            className="p-4 bg-[#f2f2f7] text-white rounded-lg hover: hover: transition"
           >
             <p className="text-2xl mb-2">🎲</p>
             <p className="font-semibold">Surprise Test</p>
@@ -123,7 +123,7 @@ export default function UserLessonDashboard({
           </div>
           <div className="bg-white p-4 rounded-lg shadow">
             <p className="text-sm text-gray-600">Total Time</p>
-            <p className="text-3xl font-bold text-orange-600">
+            <p className="text-3xl font-bold text-[#007aff]">
               {Math.round(
                 lessons.reduce((sum, l) => sum + (getProgressStats(l.id).timeSpent || 0), 0) / 60
               )}m

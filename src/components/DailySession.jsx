@@ -138,7 +138,7 @@ export default function DailySession({ onBack, onOpenSettings, onOpenLegal }) {
     return (
       <div className="min-h-screen bg-[#f2f2f7] flex flex-col">
         <header className="border-b border-[#e5e5ea] bg-white/80 backdrop-blur sticky top-0 z-20">
-          <div className="max-w-5xl mx-auto px-5 py-3 flex items-center gap-4">
+          <div className="page py-3 flex items-center gap-4">
             <button
               onClick={() => setActiveStepId(null)}
               className="text-[13px] text-[#8e8e93] hover:text-[#121417] transition-colors"
@@ -190,7 +190,7 @@ export default function DailySession({ onBack, onOpenSettings, onOpenLegal }) {
             control ended up below the fold — so the way to finish a step was
             invisible until you scrolled past the whole exercise. */}
         <footer className="border-t border-[#e5e5ea] bg-white fixed bottom-0 left-0 right-0 z-30">
-          <div className="max-w-5xl mx-auto px-5 py-4">
+          <div className="page py-4">
             {isGrammar ? (
               <button
                 onClick={() => finishStep(activeStep.id, {})}
@@ -235,7 +235,7 @@ export default function DailySession({ onBack, onOpenSettings, onOpenLegal }) {
   return (
     <div className="min-h-screen bg-[#f2f2f7]">
       <header className="border-b border-[#e5e5ea] bg-white/80 backdrop-blur sticky top-0 z-10">
-        <div className="max-w-2xl mx-auto px-5 py-3 flex items-center gap-4">
+        <div className="page py-3 flex items-center gap-4">
           {onBack && (
             <button
               onClick={onBack}
@@ -261,7 +261,11 @@ export default function DailySession({ onBack, onOpenSettings, onOpenLegal }) {
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-5 py-8">
+      {/* Two columns on a wide screen. The page width is shared with every
+          other screen; what changes is that the plan uses it rather than
+          stretching one narrow list across it. */}
+      <main className="page py-9 grid gap-x-12 gap-y-10 lg:grid-cols-[minmax(0,1fr)_320px] items-start">
+        <div className="min-w-0">
         <div className="mb-8">
           <div className="text-[12px] uppercase tracking-wide text-[#8e8e93] mb-1.5">
             {session.moduleTitle}
@@ -367,7 +371,10 @@ export default function DailySession({ onBack, onOpenSettings, onOpenLegal }) {
           })}
         </ol>
 
-        <div className="mt-8 pt-6 border-t border-[#e5e5ea]">
+        </div>
+
+        <aside className="min-w-0 lg:sticky lg:top-24">
+        <div className="pt-0 lg:pt-1">
           <div className="text-[12px] uppercase tracking-wide text-[#8e8e93] mb-3">
             Dine niveauer
           </div>
@@ -418,6 +425,7 @@ export default function DailySession({ onBack, onOpenSettings, onOpenLegal }) {
             </div>
           )}
         </div>
+        </aside>
       </main>
     </div>
   );

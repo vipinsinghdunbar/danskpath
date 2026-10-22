@@ -31,22 +31,22 @@ export default function WebDashboard({ lessons = [], progress = {} }) {
   return (
     <div className="space-y-8">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl p-8 sm:p-12 text-white shadow-lg">
+      <section className="bg-[#f2f2f7] rounded-2xl p-8 sm:p-12 text-white shadow-lg">
         <div className="max-w-2xl">
-          <p className="text-amber-100 font-medium text-sm mb-2">Welcome back!</p>
+          <p className="text-[#8e8e93] font-medium text-sm mb-2">Welcome back!</p>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
             Your Danish Journey Continues
           </h1>
-          <p className="text-lg text-amber-50 mb-8 max-w-xl">
+          <p className="text-lg text-[#8e8e93] mb-8 max-w-xl">
             You're building momentum. Let's unlock the next lesson and keep learning.
           </p>
 
           {nextLesson ? (
-            <button className="bg-white text-amber-700 px-8 py-3 rounded-lg font-semibold hover:bg-amber-50 transition-colors shadow-md">
+            <button className="bg-white text-[#007aff] px-8 py-3 rounded-lg font-semibold hover:bg-[#f2f2f7] transition-colors shadow-md">
               Continue with {nextLesson.title}
             </button>
           ) : (
-            <button disabled className="bg-amber-700 text-white px-8 py-3 rounded-lg font-semibold opacity-75 cursor-not-allowed">
+            <button disabled className="bg-[#007aff] text-white px-8 py-3 rounded-lg font-semibold opacity-75 cursor-not-allowed">
               All lessons completed! 🎉
             </button>
           )}
@@ -86,7 +86,7 @@ export default function WebDashboard({ lessons = [], progress = {} }) {
             {/* Next Lesson Card */}
             {nextLesson && (
               <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-sm hover:shadow-md transition-shadow">
-                <p className="text-sm font-semibold text-amber-600 mb-2">NEXT LESSON</p>
+                <p className="text-sm font-semibold text-[#007aff] mb-2">NEXT LESSON</p>
                 <h2 className="text-3xl font-bold text-slate-900 mb-3">{nextLesson.title}</h2>
                 <p className="text-slate-600 mb-6 text-lg">{nextLesson.description}</p>
 
@@ -114,7 +114,7 @@ export default function WebDashboard({ lessons = [], progress = {} }) {
                   </div>
                 </div>
 
-                <button className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 rounded-lg transition-colors">
+                <button className="w-full bg-[#007aff] hover:bg-[#007aff] text-white font-semibold py-3 rounded-lg transition-colors">
                   Start Lesson →
                 </button>
               </div>
@@ -131,7 +131,7 @@ export default function WebDashboard({ lessons = [], progress = {} }) {
                       progress[lesson.id]?.completed
                         ? 'bg-emerald-100 text-emerald-700'
                         : idx === 0
-                        ? 'bg-amber-100 text-amber-700'
+                        ? 'bg-[#e5e5ea] text-[#007aff]'
                         : 'bg-slate-100 text-slate-400'
                     }`}>
                       {progress[lesson.id]?.completed ? '✓' : idx + 1}
@@ -149,7 +149,7 @@ export default function WebDashboard({ lessons = [], progress = {} }) {
                 ))}
               </div>
 
-              <button className="w-full mt-6 px-4 py-2 text-amber-600 font-semibold hover:bg-amber-50 rounded-lg transition-colors">
+              <button className="w-full mt-6 px-4 py-2 text-[#007aff] font-semibold hover:bg-[#f2f2f7] rounded-lg transition-colors">
                 View All Lessons →
               </button>
             </div>
@@ -171,7 +171,7 @@ export default function WebDashboard({ lessons = [], progress = {} }) {
                       <span className="text-xs text-slate-500">
                         {lesson.completedAt ? new Date(lesson.completedAt).toLocaleDateString() : 'Recently'}
                       </span>
-                      <span className="font-bold text-amber-600">{lesson.score}%</span>
+                      <span className="font-bold text-[#007aff]">{lesson.score}%</span>
                     </div>
                   </div>
                 ))}
@@ -182,7 +182,7 @@ export default function WebDashboard({ lessons = [], progress = {} }) {
           </div>
 
           {/* Quick Tips */}
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl border border-blue-200 p-6 shadow-sm">
+          <div className="bg-[#e5f1ff] rounded-2xl border border-blue-200 p-6 shadow-sm">
             <p className="text-sm font-semibold text-blue-900 mb-3">💡 Pro Tips</p>
             <ul className="space-y-2 text-sm text-blue-800">
               <li>• Practice 20 min daily for best results</li>
@@ -204,7 +204,7 @@ export default function WebDashboard({ lessons = [], progress = {} }) {
                 </div>
                 <div className="w-full h-3 bg-slate-200 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-500"
+                    className="h-full bg-[#f2f2f7] transition-all duration-500"
                     style={{ width: `${(stats.completed / 6) * 100}%` }}
                   />
                 </div>
@@ -234,14 +234,14 @@ export default function WebDashboard({ lessons = [], progress = {} }) {
 
 function StatCard({ label, value, total, benchmark, icon, color = 'slate' }) {
   const colorMap = {
-    amber: 'from-amber-50 to-orange-50 border-amber-200',
-    emerald: 'from-emerald-50 to-teal-50 border-emerald-200',
-    blue: 'from-blue-50 to-indigo-50 border-blue-200',
-    slate: 'from-slate-50 to-slate-100 border-slate-200',
+    amber: 'bg-[#e5f1ff] border-[#b8dcff]',
+    emerald: 'bg-[#e6f7ed] border-[#b8e6c9]',
+    blue: 'bg-[#e5f1ff] border-[#b8dcff]',
+    slate: 'bg-[#f2f2f7] border-[#e5e5ea]',
   };
 
   return (
-    <div className={`bg-gradient-to-br ${colorMap[color]} border rounded-2xl p-6 shadow-sm`}>
+    <div className={`${colorMap[color]} border rounded-2xl p-6 shadow-sm`}>
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium text-slate-600 mb-1">{label}</p>

@@ -56,13 +56,13 @@ export default function PostAssessmentDashboard({ onStartLesson }) {
   return (
     <div className="space-y-8 max-w-6xl mx-auto">
       {/* Welcome Section */}
-      <section className="bg-gradient-to-br from-amber-600 to-orange-600 rounded-2xl p-8 sm:p-12 text-white shadow-lg">
+      <section className="bg-[#f2f2f7] rounded-2xl p-8 sm:p-12 text-white shadow-lg">
         <div>
-          <p className="text-amber-100 font-medium text-sm mb-2 uppercase tracking-wide">Assessment Complete</p>
+          <p className="text-[#8e8e93] font-medium text-sm mb-2 uppercase tracking-wide">Assessment Complete</p>
           <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
             Welcome to Your Learning Path
           </h1>
-          <p className="text-lg text-amber-50 mb-6 max-w-2xl">
+          <p className="text-lg text-[#8e8e93] mb-6 max-w-2xl">
             Based on your assessment, we've personalized a learning path tailored to strengthen your weaker areas and build on your strengths.
           </p>
 
@@ -87,7 +87,7 @@ export default function PostAssessmentDashboard({ onStartLesson }) {
               <div className={`text-4xl font-bold mb-2 ${
                 lowestSkill[0] === skill
                   ? 'text-red-600'
-                  : 'text-amber-600'
+                  : 'text-[#007aff]'
               }`}>
                 {scores[skill]}%
               </div>
@@ -108,7 +108,7 @@ export default function PostAssessmentDashboard({ onStartLesson }) {
                   className={`h-full transition-all ${
                     lowestSkill[0] === skill
                       ? 'bg-red-500'
-                      : 'bg-gradient-to-r from-amber-600 to-orange-600'
+                      : 'bg-[#f2f2f7]'
                   }`}
                   style={{ width: `${scores[skill]}%` }}
                 />
@@ -118,12 +118,12 @@ export default function PostAssessmentDashboard({ onStartLesson }) {
         </div>
 
         {/* Recommendation Box */}
-        <div className="bg-amber-50 border-l-4 border-amber-500 p-6 rounded-lg">
-          <h3 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
+        <div className="bg-[#f2f2f7] border-l-4 border-[#007aff] p-6 rounded-lg">
+          <h3 className="font-semibold text-[#121417] mb-2 flex items-center gap-2">
             <span className="text-xl">💡</span>
             Personalized Recommendation
           </h3>
-          <p className="text-amber-800 leading-relaxed">
+          <p className="text-[#121417] leading-relaxed">
             {getRecommendationText()}
           </p>
         </div>
@@ -162,7 +162,7 @@ export default function PostAssessmentDashboard({ onStartLesson }) {
               onClick={() => onStartLesson?.(lesson.id)}
               className={`w-full text-left p-6 rounded-xl border-2 transition-all ${
                 lesson.recommended
-                  ? 'bg-amber-50 border-amber-300 hover:shadow-md hover:border-amber-500'
+                  ? 'bg-[#f2f2f7] border-[#e5e5ea] hover:shadow-md hover:border-[#007aff]'
                   : 'bg-white border-slate-200 hover:bg-slate-50 hover:border-slate-300'
               }`}
             >
@@ -171,7 +171,7 @@ export default function PostAssessmentDashboard({ onStartLesson }) {
                   {/* Lesson Number */}
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0 ${
                     lesson.recommended
-                      ? 'bg-amber-600 text-white'
+                      ? 'bg-[#007aff] text-white'
                       : 'bg-slate-200 text-slate-700'
                   }`}>
                     {idx + 1}
@@ -184,7 +184,7 @@ export default function PostAssessmentDashboard({ onStartLesson }) {
                         {lesson.title}
                       </h3>
                       {lesson.recommended && (
-                        <span className="inline-flex items-center gap-1 bg-amber-600 text-white text-xs px-2 py-1 rounded-full">
+                        <span className="inline-flex items-center gap-1 bg-[#007aff] text-white text-xs px-2 py-1 rounded-full">
                           <span>⭐</span> For You
                         </span>
                       )}
@@ -217,14 +217,14 @@ export default function PostAssessmentDashboard({ onStartLesson }) {
       </section>
 
       {/* Getting Started CTA */}
-      <section className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 sm:p-12 text-white text-center">
+      <section className="bg-[#f2f2f7] rounded-2xl p-8 sm:p-12 text-white text-center">
         <h3 className="text-2xl font-bold mb-4">Ready to Get Started?</h3>
         <p className="text-slate-300 mb-8 max-w-xl mx-auto">
           Your personalized learning path is ready. Start with Lesson 1 and build your Danish skills week by week.
         </p>
         <button
           onClick={() => onStartLesson?.('articles')}
-          className="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
+          className="bg-[#f2f2f7] text-white px-8 py-4 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all"
         >
           Start Lesson 1: Articles & Gender →
         </button>
@@ -237,7 +237,7 @@ function StatCard({ label, value, subtitle, icon }) {
   return (
     <div className="bg-white rounded-xl shadow-sm p-6 border border-slate-200">
       <div className="text-3xl mb-3">{icon}</div>
-      <div className="text-4xl font-bold text-amber-600 mb-2">
+      <div className="text-4xl font-bold text-[#007aff] mb-2">
         {value}
       </div>
       <div className="font-semibold text-slate-900 mb-1">

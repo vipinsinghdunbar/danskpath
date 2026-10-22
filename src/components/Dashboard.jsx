@@ -86,7 +86,7 @@ export default function Dashboard({ setActive }) {
             <div className="flex justify-between p-2 rounded-xl bg-white border border-[#E8E2D9]"><span>Delprøve 2B: Gapped</span><span className="text-emerald-700 font-medium">✓ 2 tekster</span></div>
             <div className="flex justify-between p-2 rounded-xl bg-white border border-[#E8E2D9]"><span>Delprøve 3: Cloze</span><span className="text-emerald-700 font-medium">✓ 3 tekster</span></div>
             <div className="flex justify-between p-2 rounded-xl bg-white border border-[#E8E2D9]"><span>Delprøve 4: Skrivning</span><span className="text-emerald-700 font-medium">✓ 8 opgaver + AI</span></div>
-            <div className="flex justify-between p-2 rounded-xl bg-white border border-[#E8E2D9]"><span>Mundtlig</span><span className="text-amber-700 font-medium">△ 15 scenarier + voice</span></div>
+            <div className="flex justify-between p-2 rounded-xl bg-white border border-[#E8E2D9]"><span>Mundtlig</span><span className="text-[#007aff] font-medium">△ 15 scenarier + voice</span></div>
           </div>
           <button onClick={()=>setActive('exam')} className="mt-4 w-full py-2 rounded-full bg-[#121212] text-white text-[13px]">Gå til eksamen →</button>
         </div>

@@ -745,7 +745,7 @@ export default function VocabularyCultureLesson({ lesson, onComplete, onBack, on
   if (currentSection.type === "complete") {
     const score = calculateScore();
     return (
-      <div className="min-h-screen bg-gradient-to-b from-green-50 to-white flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#f2f2f7] flex items-center justify-center px-4">
         <div className="max-w-[500px] text-center">
           <div className="text-[72px] mb-4">🎉</div>
           <h1 className="text-[28px] font-[700] text-gray-900 mb-3">{currentSection.title}</h1>

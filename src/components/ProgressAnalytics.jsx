@@ -63,7 +63,7 @@ export default function ProgressAnalytics() {
     : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+    <div className="min-h-screen bg-[#e5f1ff] p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -99,7 +99,7 @@ export default function ProgressAnalytics() {
 
           <div className="bg-white p-6 rounded-lg shadow">
             <p className="text-sm text-gray-600 mb-2">Errors Tracked</p>
-            <p className="text-3xl font-bold text-orange-600">{totalErrors}</p>
+            <p className="text-3xl font-bold text-[#007aff]">{totalErrors}</p>
             <p className="text-xs text-gray-500 mt-2">Across all lessons</p>
           </div>
         </div>
@@ -123,11 +123,11 @@ export default function ProgressAnalytics() {
                           <p className="font-semibold text-gray-900">{errorDescriptions[code] || code}</p>
                           <p className="text-sm text-gray-600">{code}</p>
                         </div>
-                        <p className="text-lg font-bold text-orange-600">{count}</p>
+                        <p className="text-lg font-bold text-[#007aff]">{count}</p>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-3">
                         <div
-                          className="bg-orange-600 h-3 rounded-full transition-all"
+                          className="bg-[#007aff] h-3 rounded-full transition-all"
                           style={{ width: `${percentage}%` }}
                         ></div>
                       </div>
@@ -194,7 +194,7 @@ export default function ProgressAnalytics() {
                     <tr key={idx} className="hover:bg-gray-50">
                       <td className="px-6 py-3 text-sm text-gray-900">{entry.lessonTitle}</td>
                       <td className="px-6 py-3 text-sm">
-                        <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full font-semibold">
+                        <span className="px-3 py-1 bg-[#e5e5ea] text-[#121417] rounded-full font-semibold">
                           {entry.errorCode}
                         </span>
                       </td>

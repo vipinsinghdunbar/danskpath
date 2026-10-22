@@ -62,12 +62,12 @@ export function useExerciseSubmission(onAttemptRecorded, lessonId, questionId, t
 export function AttemptFeedback({ isCorrect, explanation, weakSpot, difficulty }) {
   if (!isCorrect && weakSpot) {
     return (
-      <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-        <div className="text-[12px] text-amber-900">
+      <div className="mt-3 p-3 bg-[#f2f2f7] border border-[#e5e5ea] rounded-lg">
+        <div className="text-[12px] text-[#121417]">
           <strong>⚠️ Svagt punkt:</strong> Du slår til med {weakSpot.errorType}. Vi fokuserer på dette område.
         </div>
         {explanation && (
-          <div className="mt-2 text-[12px] text-amber-800">
+          <div className="mt-2 text-[12px] text-[#121417]">
             <strong>Forklaring:</strong> {explanation}
           </div>
         )}
@@ -125,8 +125,8 @@ export function DifficultyIndicator({ difficulty }) {
   const getColor = (diff) => {
     if (diff < 2) return 'bg-blue-100 text-blue-800';
     if (diff < 4) return 'bg-green-100 text-green-800';
-    if (diff < 6) return 'bg-yellow-100 text-yellow-800';
-    if (diff < 8) return 'bg-orange-100 text-orange-800';
+    if (diff < 6) return 'bg-[#e5e5ea] text-[#121417]';
+    if (diff < 8) return 'bg-[#e5e5ea] text-[#121417]';
     return 'bg-red-100 text-red-800';
   };
 
