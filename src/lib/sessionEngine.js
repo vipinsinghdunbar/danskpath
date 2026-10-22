@@ -173,14 +173,18 @@ export function seedDifficultiesFromDiagnostic() {
   const l = toDifficulty(scores.listening);
   const s = toDifficulty(scores.speaking);
 
+  // Writing is measured directly now that the placement test includes a
+  // written task; it only falls back to trailing grammar for results saved by
+  // the older version of the test, which had no writing section at all.
+  const w = toDifficulty(scores.writing);
+
   const seeded = {
     reading: r,
     grammar: g,
     listening: l,
     speaking: s,
-    // Untested skills, derived from their nearest measured neighbour. Writing
-    // trails grammar because production lags recognition for most learners.
-    writing: g == null ? null : Math.max(0, g - 1),
+    writing: w ?? (g == null ? null : Math.max(0, g - 1)),
+    // Still derived, as the test does not measure these separately.
     conversation: s,
     vocab: r,
     pronunciation: s,
