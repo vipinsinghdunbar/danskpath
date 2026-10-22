@@ -1,0 +1,59 @@
+# CI only. Deployment is Vercel's job.
+#
+# This workflow used to try to publish to GitHub Pages on every push, and had
+# failed 129 consecutive times: peaceiris/actions-gh-pages needs `contents:
+# write`, and GITHUB_TOKEN has been read-only by default since 2023. It also
+# carried `cname: danskpath.app`, so had it ever succeeded it would have put
+# the app on a public domain — which is the wrong outcome while the login
+# accepts any email and password.
+#
+# Vercel builds from vercel.json on every push to main, so all this needs to do
+# is tell you when a commit does not build.
+
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build:prod
+
+      - name: Check the build shipped nothing it should not
+        run: |
+          set -e
+          echo "dist size: $(du -sh dist | cut -f1)"
+
+          # public/ is copied verbatim to the web root, so anything secret or
+          # internal placed there becomes a public URL. This is what shipped an
+          # admin credential at /FULL_SYSTEM_FLOW_MAP.html.
+          if grep -rilE 'vipin123|ADMIN_PASSWORD[[:space:]]*=' dist/ >/dev/null 2>&1; then
+            echo "::error::A credential appears in dist/. Check what is in public/."
+            grep -rilE 'vipin123|ADMIN_PASSWORD[[:space:]]*=' dist/
+            exit 1
+          fi
+
+          if ls dist/*FLOW_MAP* dist/*TESTING_GUIDE* dist/screenshots 2>/dev/null; then
+            echo "::error::Internal documents are in dist/. They belong in docs/, not public/."
+            exit 1
+          fi
+
+          echo "Build clean."
